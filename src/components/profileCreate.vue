@@ -1,103 +1,25 @@
 <template>
-  <div class="introduction">
+  <div>
     <div v-show="searched">
-      <h1>{{searchResult["Activity"]}}</h1>
-      <table class="results" width="100%">
-        <tr>
-          <td width="25%">
-            Risk Score:
-            <br />
-            <br />
-            <h1>{{searchResult["Overall Risk Scoring"]}}</h1>
-          </td>
-          <td width="75%">
-            <ul v-for="desc in riskDescription" >
-              <li>{{desc}}</li>
-            </ul>
-          </td>
-        </tr>
-      </table>
-    </div>
-<!-- if the user has not yet created a profile, give them the option to after searching -->
-    <div v-if="!profileCreated">
-          
-
-      <div v-show="searched">
-        <div class="accordion" id="personalizedReport">
-          <div class="card">
-            <div class="card-header" id="headingOne">
-              <h2 class="mb-0">
-                <button
-                  class="btn btn-link"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#collapseOne"
-                  aria-expanded="true"
-                  aria-controls="collapseOne"
-                >Share more info with us to get a personalized result.</button>
-              </h2>
-            </div>
-            <div
-              id="collapseOne"
-              class="collapse"
-              aria-labelledby="headingOne"
-              data-parent="#personalizedReport"
-            >
-              <profile-create :searched="searched" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- once a user profile has been created -->
-    <div v-else >
-      <h5>I am {{userAge}} years old, and I go {{searchedTerm.toLowerCase()}} at {{userLocation}} at {{userTime}} on {{userDay}}. </h5>
-      <div id="personalRecommendation">
-        <div class="accordion" id="accordionExample">
-          <div class="card">
-            <div class="card-header" id="headingOne">
-              <h2 class="mb-0">
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  You are going to {{searchedTerm}} at a <b>crowded</b> and <b>busy</b> time. (not interactive yet, need to figure out google crowding first)
-                </button>
-              </h2>
-            </div>
-            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-              <div class="card-body">
-                Learn More
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header" id="headingTwo">
-              <h2 class="mb-0">
-                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  Your age puts you at a {{ageGroups.message[ageIndex]}} for COVID-19 (interactive - need to get messaging around ages)
-                </button>
-              </h2>
-            </div>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-              <div class="card-body">
-                Learn More
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header" id="headingThree">
-              <h2 class="mb-0">
-                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                  Comorbididies will go here (static)
-                </button>
-              </h2>
-            </div>
-            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-              <div class="card-body">
-                More info
-              </div>
-            </div>
-          </div>
+      <div>
+        <div class="card-body">
+          Fill in the blanks:
+          <br />Age:
+          <select id="age" v-model="userAge">
+            <option v-for="age in ageGroups.groups">{{age}}</option>
+          </select>
+          <br />Location:
+          <input type="text" v-model="userLocation" />
+          <br />Day:
+          <select id="day" v-model="userDay">
+            <option v-for="day in days">{{day}}</option>
+          </select>
+          <br />Time:
+          <select id="time" v-model="userTime">
+            <option v-for="time in times">{{time}}</option>
+          </select>
+          <br>
+          <button @click="submit">Create Profile</button>
         </div>
       </div>
     </div>
@@ -105,20 +27,13 @@
 </template>
 
 <script>
-import profileCreate from "./profileCreate.vue"
-
 export default {
-  name: "searchResults",
+  name: "profileCreate",
   props: {
-    searchedTerm: String,
-    searchResult: Object,
     searched: {
       type: Boolean,
       default: false
-    },
-  },
-  components: {
-    profileCreate
+    }
   },
   data: function() {
     return {

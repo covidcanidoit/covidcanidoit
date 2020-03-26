@@ -1,6 +1,9 @@
 <template>
   <div class="home">
-    <Introduction />
+    <!-- <Introduction /> -->
+    <div class="banner" >
+      <h5 class="bannerText">Tell us what you <b>want to do</b>, and this tool will tell you if you <b>should</b> do it during the COVID-19 outbreak.</h5>
+    </div>
     <search-bar @searched="onSearch" />
     <search-results :searchedTerm="searchTerm" :searchResult="result" :searched="searched" />
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
@@ -61,3 +64,14 @@ export default {
   }
 };
 </script>
+
+<style>
+.banner {
+  /* background-color: steelblue; */
+}
+.bannerText {
+  text-align: center;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+</style>
