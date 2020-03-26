@@ -1,6 +1,6 @@
 <template>
   <div class="introduction" style="border: 1px solid black">
-    <input type="text" v-model="searchTerm" placeholder="Search..">
+    <input type="text" v-model="searchTerm" placeholder="I want to go...">
     <button @click="onSearch" >Search</button>
   </div>
 </template>
