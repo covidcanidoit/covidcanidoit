@@ -1,25 +1,97 @@
 <template>
   <div>
     <div v-show="searched">
-      <div>
+      <div style="margin-left:30%; margin-right:30%">
         <div class="card-body">
-          Fill in the blanks:
-          <br />Age:
-          <select id="age" v-model="userAge">
-            <option v-for="age in ageGroups.groups">{{age}}</option>
-          </select>
-          <br />Location:
-          <input type="text" v-model="userLocation" />
-          <br />Day:
-          <select id="day" v-model="userDay">
-            <option v-for="day in days">{{day}}</option>
-          </select>
-          <br />Time:
-          <select id="time" v-model="userTime">
-            <option v-for="time in times">{{time}}</option>
-          </select>
-          <br>
-          <button @click="submit">Create Profile</button>
+          <p align="center">Fill in the blanks:</p>
+          <div align="left">
+            <!-- age input -->
+            How old are you? 
+            <select id="age" v-model="userProfile.age">
+              <option v-for="age in ageGroups.groups">{{age}}</option>
+            </select>
+            <br />
+            <!-- gender input -->
+            What is your gender?
+            <br />
+            <input type="radio" id="male" value="male" v-model="userProfile.gender">
+            <label for="male">Male</label>
+            <br>
+            <input type="radio" id="female" value="female" v-model="userProfile.gender">
+            <label for="female">Female</label>
+            <br />
+            <!-- smoking input -->
+            Do you smoke/vape?
+            <br />
+            <input type="radio" id="yes" value="yes" v-model="userProfile.smoking">
+            <label for="yes">Yes, I smoke/vape</label>
+            <br>
+            <input type="radio" id="no" value="no" v-model="userProfile.smoking">
+            <label for="no">No, I do not smoke/vape</label>
+            <br />
+            <input type="radio" id="used" value="used" v-model="userProfile.smoking">
+            <label for="used">I used to smoke/vape</label>
+            <br />
+            <!-- chronic medical condition input -->
+            Do you have any of the following chronic medical conditions?
+            <br />
+            <input type="radio" id="yes" value="yes" v-model="userProfile.comorbidity">
+            <label for="yes">Yes</label>
+            <br />
+            <input type="radio" id="no" value="no" v-model="userProfile.comorbidity">
+            <label for="no">No</label>
+            <br />
+            List of Medical conditions
+            <ol>
+              <li>Chronic kidney disease</li>
+              <li>Organ or bone marrow transplant</li>
+              <li>Active hepatitis B infection or Chronic liver disease</li>
+              <li>Any cardiovascular/heart disease, including high blood pressure</li>
+              <li>Diabetes</li>
+              <li>Any chronic lung disease or condition, including asthma, COPD/chronic emphysema, or interstitial lung disease (such as pneumonitis or pulmonary fibrosis)</li>
+              <li>Blood disorders such as sickle cell anemia</li>
+              <li>Metabolic/mitochondrial disorders</li>
+              <li>Neurologic/neurodevelopmental conditions including stroke, intellectual disability, moderate to severe neurodevelopmental delay, and neuromuscular diseases</li>
+              <li>Any immunocompromising diseases or medications (diseases or medications that weaken your immune system)</li>
+            </ol>
+            <!-- pregnancy -->
+            Are you pregnant?
+            <br />
+            <input type="radio" id="yes" value="yes" v-model="userProfile.pregnant">
+            <label for="yes">Yes</label>
+            <br />
+            <input type="radio" id="no" value="no" v-model="userProfile.pregnant">
+            <label for="no">No</label>
+            <br />
+            <!-- feel sick -->
+            Do you feel sick?
+            <br />
+            <input type="radio" id="yes" value="yes" v-model="userProfile.feelSick">
+            <label for="yes">Yes</label>
+            <br />
+            <input type="radio" id="no" value="no" v-model="userProfile.feelSick">
+            <label for="no">No</label>
+            <br />
+            <!-- family sick -->
+            Do you have family members who are sick?
+            <br />
+            <input type="radio" id="yes" value="yes" v-model="userProfile.familySick">
+            <label for="yes">Yes</label>
+            <br />
+            <input type="radio" id="no" value="no" v-model="userProfile.familySick">
+            <label for="no">No</label>
+            <br />
+            <!-- test postive for COVID-19? -->
+            Has anyone in your household or apartment tested positive for COVID-19 (coronavirus)?
+            <br />
+            <input type="radio" id="yes" value="yes" v-model="userProfile.COVIDpositive">
+            <label for="yes">Yes</label>
+            <br />
+            <input type="radio" id="no" value="no" v-model="userProfile.COVIDpositive">
+            <label for="no">No</label>
+            <br />
+            <button @click="submit">Create Profile</button>
+          </div>
         </div>
       </div>
     </div>
@@ -79,56 +151,18 @@ export default {
         "50 to 69",
         "70+"
       ],
-      message: [
-        "at higher risk",
-        "at lower risk",
-        "at low risk",
-        "at lower risk",
-        "at slightly higher risk",
-        "at higher risk",
-        "at significantly higher risk",
-      ]
-      },
-      times: [
-        "1:00 AM",
-        "2:00 AM",
-        "3:00 AM",
-        "4:00 AM",
-        "5:00 AM",
-        "6:00 AM",
-        "7:00 AM",
-        "8:00 AM",
-        "9:00 AM",
-        "10:00 AM",
-        "11:00 AM",
-        "12:00 AM",
-        "1:00 PM",
-        "2:00 PM",
-        "3:00 PM",
-        "4:00 PM",
-        "5:00 PM",
-        "6:00 PM",
-        "7:00 PM",
-        "8:00 PM",
-        "9:00 PM",
-        "10:00 PM",
-        "11:00 PM",
-        "12:00 PM"
-      ],
-      days: [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday"
-      ],
-      userAge: 0,
-      userLocation: "",
-      userDay: "",
-      userTime: 0,
-      submitted: false
+    },
+      submitted: false,
+      userProfile: {
+        age:0,
+        gender: "male",
+        smoking: "no",
+        comorbidity: "no",
+        pregnant: "no",
+        feelSick: "no",
+        familySick: "no",
+        COVIDpositive: "no",
+      }
     };
   },
   computed: {
@@ -157,6 +191,8 @@ export default {
       console.log("submitted")
       // sends value to store letting user know they have created a profile
       this.$store.commit("createProfile", this.submitted);
+      //send user profile values
+      this.$store.commit("submitProfile", this.userProfile);
     }
   }
 };

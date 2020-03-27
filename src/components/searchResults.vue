@@ -11,7 +11,7 @@
             <h1>{{searchResult["Overall Risk Scoring"]}}</h1>
           </td>
           <td width="75%">
-            <ul v-for="desc in riskDescription" >
+            <ul v-for="desc in riskDescription" align="left" >
               <li>{{desc}}</li>
             </ul>
           </td>
@@ -20,8 +20,6 @@
     </div>
 <!-- if the user has not yet created a profile, give them the option to after searching -->
     <div v-if="!profileCreated">
-          
-
       <div v-show="searched">
         <div class="accordion" id="personalizedReport">
           <div class="card">
@@ -43,7 +41,35 @@
               aria-labelledby="headingOne"
               data-parent="#personalizedReport"
             >
-              <profile-create :searched="searched" />
+              <!-- <profile-create :searched="searched" /> -->
+              <div style="margin-left:30%; margin-right:30%" >
+                <p align="center">Fill in the blanks:</p>
+                <div align="center">
+                    How old are you? 
+                  <select id="age" v-model="userAge">
+                    <option v-for="age in ageGroups.groups">{{age}}</option>
+                  </select>
+                  <br />
+                  Location:
+                  <input type="text" v-model="userLocation" />
+                  <br />
+                  
+                  Day:
+                  <select id="day" v-model="userDay">
+                    <option v-for="day in days">{{day}}</option>
+                  </select>
+                  <br />
+                  
+                  Time:
+                  <select id="time" v-model="userTime">
+                    <option v-for="time in times">{{time}}</option>
+                  </select>
+                  <br>
+
+                  <button @click="submit">Submit</button>
+
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -51,51 +77,56 @@
     </div>
     <!-- once a user profile has been created -->
     <div v-else >
-      <h5>I am {{userAge}} years old, and I go {{searchedTerm.toLowerCase()}} at {{userLocation}} at {{userTime}} on {{userDay}}. </h5>
-      <div id="personalRecommendation">
-        <div class="accordion" id="accordionExample">
-          <div class="card">
-            <div class="card-header" id="headingOne">
-              <h2 class="mb-0">
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  You are going to {{searchedTerm}} at a <b>crowded</b> and <b>busy</b> time. (not interactive yet, need to figure out google crowding first)
-                </button>
-              </h2>
-            </div>
-            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-              <div class="card-body">
-                Learn More
+      <div v-if="searched">
+        <h5>I am {{profile.age}} years old, and I go {{searchedTerm.toLowerCase()}} at {{userLocation}} at {{userTime}} on {{userDay}}. </h5>
+        <div id="personalRecommendation">
+          <div class="accordion" id="accordionExample">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h2 class="mb-0">
+                  <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    You are going to {{searchedTerm}} at a <b>crowded</b> and <b>busy</b> time. (not interactive yet, need to figure out google crowding first)
+                  </button>
+                </h2>
+              </div>
+              <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                  Learn More. Bar Graph of popular times to go here.
+                </div>
               </div>
             </div>
-          </div>
 
-          <div class="card">
-            <div class="card-header" id="headingTwo">
-              <h2 class="mb-0">
-                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  Your age puts you at a {{ageGroups.message[ageIndex]}} for COVID-19 (interactive - need to get messaging around ages)
-                </button>
-              </h2>
-            </div>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-              <div class="card-body">
-                Learn More
+            <div class="card" v-if="userAge=='50 to 69' || userAge=='70+'">
+              <div class="card-header" id="headingTwo">
+                <h2 class="mb-0">
+                  <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    <!-- only show this for 50+ -->
+                    Your age puts you at a higher risk for COVID-19
+                  </button>
+                </h2>
+              </div>
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="card-body">
+                  Learn More
+                </div>
               </div>
             </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header" id="headingThree">
-              <h2 class="mb-0">
-                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                  Comorbididies will go here (static)
-                </button>
-              </h2>
-            </div>
-            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-              <div class="card-body">
-                More info
+            <div v-if="comorbidity=='yes'">
+              <div class="card">
+                <div class="card-header" id="headingThree">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                      Comorbididies will go here (static)
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                  <div class="card-body">
+                    More info
+                  </div>
+                </div>
               </div>
+              <!-- set up additional accordians here for smoking, pregnancy, etc -->
             </div>
           </div>
         </div>
@@ -115,6 +146,9 @@ export default {
     searched: {
       type: Boolean,
       default: false
+    },
+    profile: {
+      type: Object,
     },
   },
   components: {
@@ -163,18 +197,10 @@ export default {
         "30 to 49",
         "50 to 69",
         "70+"
-      ],
-      message: [
-        "at higher risk",
-        "at lower risk",
-        "at low risk",
-        "at lower risk",
-        "at slightly higher risk",
-        "at higher risk",
-        "at significantly higher risk",
       ]
       },
       times: [
+        "Right now",
         "1:00 AM",
         "2:00 AM",
         "3:00 AM",
@@ -209,7 +235,6 @@ export default {
         "Friday",
         "Saturday"
       ],
-      userAge: 0,
       userLocation: "",
       userDay: "",
       userTime: 0,
@@ -234,6 +259,10 @@ export default {
         if(group == this.userAge){index= id}
       })
       return index
+    },
+    comorbidity() {
+      let profile = this.$store.getters.submitProfile
+      return profile.comorbidity
     }
   },
   methods: {
@@ -242,7 +271,11 @@ export default {
       console.log("submitted")
       // sends value to store letting user know they have created a profile
       this.$store.commit("createProfile", this.submitted);
+      this.$store.commit("createAge", this.userAge);
     }
+  },
+  mounted() {
+    this.userAge = this.$store.getters.createAge
   }
 };
 </script>
