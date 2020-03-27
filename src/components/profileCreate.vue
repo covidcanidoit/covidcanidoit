@@ -1,9 +1,9 @@
 <template>
   <div>
     <div v-show="searched">
-      <div style="margin-left:30%; margin-right:30%">
+      <div >
         <div class="card-body">
-          <p align="center">Fill in the blanks:</p>
+          <p align="center">Please enter the following information about yourself:</p>
           <div align="left">
             <!-- age input -->
             <b>How old are you?</b> 
@@ -44,16 +44,16 @@
             <br />
             List of Medical conditions
             <ol>
-              <li>Chronic kidney disease</li>
-              <li>Organ or bone marrow transplant</li>
-              <li>Active hepatitis B infection or Chronic liver disease</li>
-              <li>Any cardiovascular/heart disease, including high blood pressure</li>
-              <li>Diabetes</li>
-              <li>Any chronic lung disease or condition, including asthma, COPD/chronic emphysema, or interstitial lung disease (such as pneumonitis or pulmonary fibrosis)</li>
-              <li>Blood disorders such as sickle cell anemia</li>
-              <li>Metabolic/mitochondrial disorders</li>
-              <li>Neurologic/neurodevelopmental conditions including stroke, intellectual disability, moderate to severe neurodevelopmental delay, and neuromuscular diseases</li>
-              <li>Any immunocompromising diseases or medications (diseases or medications that weaken your immune system)</li>
+              <li>• Chronic kidney disease</li><br>
+              <li>• Organ or bone marrow transplant</li><br>
+              <li>• Active hepatitis B infection or Chronic liver disease</li><br>
+              <li>• Any cardiovascular/heart disease, including high blood pressure</li><br>
+              <li>• Diabetes</li><br>
+              <li>• Any chronic lung disease or condition, including asthma, COPD/chronic emphysema, or interstitial lung disease (such as pneumonitis or pulmonary fibrosis)</li><br>
+              <li>• Blood disorders such as sickle cell anemia</li><br>
+              <li>• Metabolic/mitochondrial disorders</li><br>
+              <li>• Neurologic/neurodevelopmental conditions including stroke, intellectual disability, moderate to severe neurodevelopmental delay, and neuromuscular diseases</li><br>
+              <li>• Any immunocompromising diseases or medications (diseases or medications that weaken your immune system)</li>
             </ol>
             <!-- pregnancy -->
             <b>Are you pregnant?</b>
@@ -197,8 +197,11 @@ export default {
       this.$store.commit("createProfile", this.submitted);
       //send user profile values
       this.$store.commit("submitProfile", this.userProfile);
-      // after creating user profile, go to the profile page instead of staying on create profile page
-      this.$router.push('userProfile')
+      // if we are on the create profile page, move to the current profile page, otherwise stay where you are
+      if(this.$router.currentRoute.name == "createUserProfile"){this.$router.push('userProfile')}
+      //if we are on the home page, trigger the submit function in the results view
+      // console.log("rotername:", this.$router.currentRoute.name)
+      if(this.$router.currentRoute.name == "Home"){this.$store.commit('setSubmitted', this.submitted)}
     }
   }
 };

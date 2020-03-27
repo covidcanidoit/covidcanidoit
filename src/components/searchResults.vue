@@ -1,6 +1,7 @@
 <template>
   <div class="introduction">
-    <div v-show="searched">
+    <div v-show="searched" v-if="profile.COVIDpositive=='no'">
+      <!-- only show if they are not covid positive -->
       <h1>{{searchResult["Activity"]}}</h1>
       <table class="results" width="100%">
         <tr>
@@ -19,7 +20,7 @@
       </table>
     </div>
 <!-- if the user has not yet created a profile, give them the option to after searching -->
-    <div v-if="!submitted">
+    <div v-if="!checkSubmitted">
       <div v-show="searched">
         <div class="accordion" id="personalizedReport">
           <div class="card">
@@ -43,33 +44,31 @@
             >
               <!-- <profile-create :searched="searched" /> -->
               <div style="margin-left:30%; margin-right:30%" >
-                <p align="center">Fill in the blanks:</p>
                 <div align="center">
-                  <div v-if="getAge==0">
-                      How old are you? 
-                    <select id="age" v-model="userAge">
-                      <option v-for="age in ageGroups.groups">{{age}}</option>
-                    </select>
-                    <br />
+                  <div v-if="createProfile==false">
+                    <profile-create :searched="searched" />
                   </div>
-                  Location:
-                  <input type="text" v-model="userLocation" />
-                  <br />
-                  
-                  Day:
-                  <select id="day" v-model="userDay">
-                    <option v-for="day in days">{{day}}</option>
-                  </select>
-                  <br />
-                  
-                  Time:
-                  <select id="time" v-model="userTime">
-                    <option v-for="time in times">{{time}}</option>
-                  </select>
-                  <br>
-
-                  <button @click="submit">Submit</button>
-
+                  <div v-else>
+                    <div v-if="profile.COVIDpositive == 'no'">
+                      <p align="center">Please fill in the information below specific to {{searchResult["Activity"]}}:</p>
+                        Location:
+                      <input type="text" v-model="userLocation" />
+                      <br />
+                      
+                      Day:
+                      <select id="day" v-model="userDay">
+                        <option v-for="day in days">{{day}}</option>
+                      </select>
+                      <br />
+                      
+                      Time:
+                      <select id="time" v-model="userTime">
+                        <option v-for="time in times">{{time}}</option>
+                      </select>
+                      <br>
+                        <button @click="submit">Submit</button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -80,9 +79,18 @@
     <!-- once a user profile has been created -->
     <div v-else >
       <div v-if="searched">
-        <h5>I am {{profile.age}} years old, and I go {{searchedTerm.toLowerCase()}} at {{userLocation}} at {{userTime}} on {{userDay}}. </h5>
+        <div v-if="profile.COVIDpositive=='no'">
+          <!-- only display this message if the user doesnt have covid19 -->
+          <h5>I am {{profile.age}} years old, and I go {{searchedTerm.toLowerCase()}} at {{userLocation}} at {{userTime}} on {{userDay}}. </h5>
+        </div>
+        <div v-else>
+          <!-- if they do have covid 19 display this instead -->
+          <b class="warning">Do not leave home except for essential medical visits. Even if you have not tested positive and do not feel ill, you can spread COVID-19.</b>
+        </div>
+        
         <!-- {{profile}} -->
-        <div id="personalRecommendation">
+        <!-- only show the personal recommendation if they have not tested positive for coronavirus, otherwise only show the warning to quarantine -->
+        <div v-if="profile.COVIDpositive=='no'" id="personalRecommendation">
           <div class="accordion" id="accordionExample">
             <div class="card">
               <div class="card-header" id="headingOne">
@@ -269,12 +277,39 @@
               </div>
           </div>
         </div>
+        <!-- if someone tested positive for coronavirus -->
+        <div v-else>
+          <div class="accordion" id="accordionExample">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h2 class="mb-0">
+                  <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    You or someone in your household has tested positive for COVID-19 (coronavirus).
+                  </button>
+                </h2>
+              </div>
+              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                  <p align="left">
+                    The CDC recommends the following:
+                    <ul>
+                      <li>When you need medical care, call ahead to the doctor or medical facility to alert them that you have COVID-19 so they can prepare to care for you and protect others at the facility.</li><br>
+                      <li>Outside of getting medical care, you should isolate yourself to your home. Do not go to work, school, place of worship or other public areas. Avoid using public transportation, ride-sharing or taxis.</li>
+                    </ul>
+                    Learn more: <a href="https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html" target="_blank" >https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import profileCreate from "@/components/profileCreate.vue"
 
 export default {
   name: "searchResults",
@@ -290,6 +325,7 @@ export default {
     },
   },
   components: {
+    profileCreate
   },
   data: function() {
     return {
@@ -392,6 +428,14 @@ export default {
     comorbidity() {
       let profile = this.$store.getters.submitProfile
       return profile.comorbidity
+    },
+    createProfile() {
+      return this.$store.getters.createProfile
+    },
+    checkSubmitted() {
+      this.submitted = this.$store.getters.setSubmitted
+      if(this.$store.getters.submitProfile.COVIDpositive == "yes"){this.submitted = true} //if the patient tests positive for COVID19, we dont bother asking about location, time of activity
+      return this.submitted
     }
   },
   methods: {
@@ -414,6 +458,9 @@ export default {
 .results {
   color: black;
   background-color: #e8ebf5;
+}
+.warning {
+  color: red
 }
 h3 {
   margin: 40px 0 0;

@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     profileCreated: false,
+    submitted: false,
     userProfile: {
       age: 0,
       gender: "male",
@@ -28,6 +29,10 @@ export default new Vuex.Store({
     },
     createAge: (state, age) => {
       state.userProfile.age = age;
+    },
+    setSubmitted: (state, boolean) => {
+      console.log("submitted to store:", boolean)
+      state.submitted = boolean;
     }
   },
   getters: {
@@ -39,6 +44,9 @@ export default new Vuex.Store({
     },
     createAge: (state) => {
       return state.userProfile.age;
+    },
+    setSubmitted: (state) => {
+      return state.submitted;
     }
   },
   actions: {

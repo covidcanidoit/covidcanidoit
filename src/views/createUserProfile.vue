@@ -2,7 +2,7 @@
   <div class="about">
     <h1><u>Personalized Risk Screener</u></h1>
     <br />
-    <profile-create :searched="searched" />
+    <profile-create :searched="searched" style="margin-left:30%; margin-right:30%"/>
   </div>
 </template>
 <script>
