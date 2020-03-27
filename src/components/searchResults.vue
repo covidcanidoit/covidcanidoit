@@ -1,6 +1,6 @@
 <template>
   <div class="introduction">
-    <div v-show="searched" v-if="profile.COVIDpositive=='no'">
+    <div v-show="searched" >
       <!-- only show if they are not covid positive -->
       <h1>{{searchResult["Activity"]}}</h1>
       <table class="results" width="100%">
@@ -77,14 +77,8 @@
     <!-- once a user profile has been created -->
     <div v-else >
       <div v-if="searched">
-        <div v-if="profile.COVIDpositive=='no'">
           <!-- only display this message if the user doesnt have covid19 -->
           <h5>I am {{profile.age}} years old, and I go {{searchedTerm.toLowerCase()}} at {{userLocation}} at {{userTime}} on {{userDay}}. </h5>
-        </div>
-        <div v-else>
-          <!-- if they do have covid 19 display this instead -->
-          <b class="warning">Do not leave home except for essential medical visits. Even if you have not tested positive and do not feel ill, you can spread COVID-19.</b>
-        </div>
         
         <!-- {{profile}} -->
         <!-- only show the personal recommendation if they have not tested positive for coronavirus, otherwise only show the warning to quarantine -->
@@ -275,32 +269,7 @@
               </div>
           </div>
         </div>
-        <!-- if someone tested positive for coronavirus -->
-        <div v-else>
-          <div class="accordion" id="accordionExample">
-            <div class="card">
-              <div class="card-header" id="headingOne">
-                <h2 class="mb-0">
-                  <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    You or someone in your household has tested positive for COVID-19 (coronavirus).
-                  </button>
-                </h2>
-              </div>
-              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                <div class="card-body">
-                  <p align="left">
-                    The CDC recommends the following:
-                    <ul>
-                      <li>When you need medical care, call ahead to the doctor or medical facility to alert them that you have COVID-19 so they can prepare to care for you and protect others at the facility.</li><br>
-                      <li>Outside of getting medical care, you should isolate yourself to your home. Do not go to work, school, place of worship or other public areas. Avoid using public transportation, ride-sharing or taxis.</li>
-                    </ul>
-                    Learn more: <a href="https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html" target="_blank" >https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html</a>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        
       </div>
     </div>
   </div>
