@@ -6,7 +6,16 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     profileCreated: false,
-    userProfile: {}
+    userProfile: {
+      age: 0,
+      gender: "male",
+      smoking: "no",
+      comorbidity: "no",
+      pregnant: "no",
+      feelSick: "no",
+      familySick: "no",
+      COVIDpositive: "no"
+    }
   },
   mutations: {
     createProfile: (state, boolean) => {

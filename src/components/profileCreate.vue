@@ -6,22 +6,23 @@
           <p align="center">Fill in the blanks:</p>
           <div align="left">
             <!-- age input -->
-            How old are you? 
+            <b>How old are you?</b> 
             <select id="age" v-model="userProfile.age">
               <option v-for="age in ageGroups.groups">{{age}}</option>
             </select>
             <br />
             <!-- gender input -->
-            What is your gender?
+            <!-- do we actually need this? -->
+            <!-- What is your gender?
             <br />
             <input type="radio" id="male" value="male" v-model="userProfile.gender">
             <label for="male">Male</label>
             <br>
             <input type="radio" id="female" value="female" v-model="userProfile.gender">
             <label for="female">Female</label>
-            <br />
+            <br /> -->
             <!-- smoking input -->
-            Do you smoke/vape?
+            <b>Do you smoke/vape?</b>
             <br />
             <input type="radio" id="yes" value="yes" v-model="userProfile.smoking">
             <label for="yes">Yes, I smoke/vape</label>
@@ -33,7 +34,7 @@
             <label for="used">I used to smoke/vape</label>
             <br />
             <!-- chronic medical condition input -->
-            Do you have any of the following chronic medical conditions?
+            <b>Do you have any of the following chronic medical conditions?</b>
             <br />
             <input type="radio" id="yes" value="yes" v-model="userProfile.comorbidity">
             <label for="yes">Yes</label>
@@ -55,7 +56,7 @@
               <li>Any immunocompromising diseases or medications (diseases or medications that weaken your immune system)</li>
             </ol>
             <!-- pregnancy -->
-            Are you pregnant?
+            <b>Are you pregnant?</b>
             <br />
             <input type="radio" id="yes" value="yes" v-model="userProfile.pregnant">
             <label for="yes">Yes</label>
@@ -64,7 +65,7 @@
             <label for="no">No</label>
             <br />
             <!-- feel sick -->
-            Do you feel sick?
+            <b>Do you feel sick?</b>
             <br />
             <input type="radio" id="yes" value="yes" v-model="userProfile.feelSick">
             <label for="yes">Yes</label>
@@ -73,7 +74,7 @@
             <label for="no">No</label>
             <br />
             <!-- family sick -->
-            Do you have family members who are sick?
+            <b>Do you have family members who are sick?</b>
             <br />
             <input type="radio" id="yes" value="yes" v-model="userProfile.familySick">
             <label for="yes">Yes</label>
@@ -82,7 +83,7 @@
             <label for="no">No</label>
             <br />
             <!-- test postive for COVID-19? -->
-            Has anyone in your household or apartment tested positive for COVID-19 (coronavirus)?
+            <b>Has anyone in your household or apartment tested positive for COVID-19 (coronavirus)?</b>
             <br />
             <input type="radio" id="yes" value="yes" v-model="userProfile.COVIDpositive">
             <label for="yes">Yes</label>
@@ -90,7 +91,7 @@
             <input type="radio" id="no" value="no" v-model="userProfile.COVIDpositive">
             <label for="no">No</label>
             <br />
-            <button @click="submit">Create Profile</button>
+            <button @click="submit" to="/userProfile">Create Profile</button>
           </div>
         </div>
       </div>
@@ -185,6 +186,9 @@ export default {
       return index
     }
   },
+  mounted() {
+    this.userProfile = this.$store.getters.submitProfile
+  },
   methods: {
     submit() {
       this.submitted = true;
@@ -193,6 +197,8 @@ export default {
       this.$store.commit("createProfile", this.submitted);
       //send user profile values
       this.$store.commit("submitProfile", this.userProfile);
+      // after creating user profile, go to the profile page instead of staying on create profile page
+      this.$router.push('userProfile')
     }
   }
 };

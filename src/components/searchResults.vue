@@ -19,7 +19,7 @@
       </table>
     </div>
 <!-- if the user has not yet created a profile, give them the option to after searching -->
-    <div v-if="!profileCreated">
+    <div v-if="!submitted">
       <div v-show="searched">
         <div class="accordion" id="personalizedReport">
           <div class="card">
@@ -45,11 +45,13 @@
               <div style="margin-left:30%; margin-right:30%" >
                 <p align="center">Fill in the blanks:</p>
                 <div align="center">
-                    How old are you? 
-                  <select id="age" v-model="userAge">
-                    <option v-for="age in ageGroups.groups">{{age}}</option>
-                  </select>
-                  <br />
+                  <div v-if="getAge==0">
+                      How old are you? 
+                    <select id="age" v-model="userAge">
+                      <option v-for="age in ageGroups.groups">{{age}}</option>
+                    </select>
+                    <br />
+                  </div>
                   Location:
                   <input type="text" v-model="userLocation" />
                   <br />
@@ -79,6 +81,7 @@
     <div v-else >
       <div v-if="searched">
         <h5>I am {{profile.age}} years old, and I go {{searchedTerm.toLowerCase()}} at {{userLocation}} at {{userTime}} on {{userDay}}. </h5>
+        <!-- {{profile}} -->
         <div id="personalRecommendation">
           <div class="accordion" id="accordionExample">
             <div class="card">
@@ -95,39 +98,175 @@
                 </div>
               </div>
             </div>
-
+            <!-- only show this for 50+ -->
             <div class="card" v-if="userAge=='50 to 69' || userAge=='70+'">
               <div class="card-header" id="headingTwo">
                 <h2 class="mb-0">
                   <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    <!-- only show this for 50+ -->
                     Your age puts you at a higher risk for COVID-19
                   </button>
                 </h2>
               </div>
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                 <div class="card-body">
-                  Learn More
+                  <p align="left">
+                    Older adults may be at higher risk for more serious complications from COVID-19.
+                    <br>
+                    The CDC recommends taking the following precautions:
+                    <ul>
+                      <li>•	Stay home if possible.</li><br>
+                      <li>•	Wash your hands often.</li><br>
+                      <li>•	Avoid close contact (6 feet, which is about two arm lengths) with people who are sick.</li><br>
+                      <li>•	Clean and disinfect frequently touched surfaces.</li><br>
+                      <li>•	Avoid all cruise travel and non-essential air travel.</li><br>
+                      <li>•	Call your healthcare professional if you have concerns about COVID-19 and your underlying condition or if you are sick.</li><br>
+                      <li>•	For more information on steps you can take to protect yourself, see CDC’s How to Protect Yourself</li>                   
+                    </ul>
+                    Learn more: <a href="https://www.cdc.gov/coronavirus/2019-ncov/specific-groups/high-risk-complications/older-adults.html" target="_blank">https://www.cdc.gov/coronavirus/2019-ncov/specific-groups/high-risk-complications/older-adults.html</a>
+                    </p>
                 </div>
               </div>
             </div>
-            <div v-if="comorbidity=='yes'">
+            <!-- only show for smokers -->
+            <div v-if="profile.smoking=='yes' || profile.smoking=='used'"> <!--could be yes or used to-->
               <div class="card">
                 <div class="card-header" id="headingThree">
                   <h2 class="mb-0">
                     <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                      Comorbididies will go here (static)
+                      Your smoking or history of smoking/vaping puts you at higher risk for COVID-19
                     </button>
                   </h2>
                 </div>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                   <div class="card-body">
-                    More info
+                    <p align="left">
+                      Smokers or individuals with a history of smoking/vaping may be at higher risk for more serious complications from COVID-19.
+                      <br>
+                        If you are able to avoid smoking for the time being, you may want to consider smoking/vaping alternatives.
+                        <br>
+                        If you are unable to avoid smoking/vaping for the time being, you may want to:
+                        <ul>
+                          <li>•	Avoid sharing smoking/vaping products such as water pipes or cigarettes.</li>
+                          <li>•	Wash your hands thoroughly before smoking/vaping</li>
+                        </ul>
+                        Learn more: <a href="https://www.who.int/news-room/q-a-detail/q-a-on-smoking-and-covid-19" target="_blank">https://www.who.int/news-room/q-a-detail/q-a-on-smoking-and-covid-19</a> <br>
+                        Learn more: <a  href="https://www.drugabuse.gov/about-nida/noras-blog/2020/03/covid-19-potential-implications-individuals-substance-use-disorders" target="_blank">https://www.drugabuse.gov/about-nida/noras-blog/2020/03/covid-19-potential-implications-individuals-substance-use-disorders</a> <br>
+                        Learn more: <a  href="https://tobacco.ucsf.edu/reduce-your-risk-serious-lung-disease-caused-corona-virus-quitting-smoking-and-vaping l" target="_blank">https://tobacco.ucsf.edu/reduce-your-risk-serious-lung-disease-caused-corona-virus-quitting-smoking-and-vaping l</a> <br>
+                    </p>
                   </div>
                 </div>
               </div>
-              <!-- set up additional accordians here for smoking, pregnancy, etc -->
             </div>
+            <!-- if patient has additional comorbidity -->
+              <div v-if="profile.comorbidity=='yes'">
+                <div class="card">
+                  <div class="card-header" id="headingFour">
+                    <h2 class="mb-0">
+                      <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        You have underlying medical conditions which may increase your risk for serious illness.
+                      </button>
+                    </h2>
+                  </div>
+                  <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                    <div class="card-body">
+                      <p align="left">
+                        People of any age who have serious underlying medical conditions may be at higher risk for more serious complications from COVID-19.
+                        <br>
+                        The CDC recommends taking the following precautions:<br>
+                        <ul>
+                          <li>•	Stay home if possible.</li><br>
+                          <li>•	Wash your hands often.</li><br>
+                          <li>•	Avoid close contact (6 feet, which is about two arm lengths) with people who are sick.</li><br>
+                          <li>•	Clean and disinfect frequently touched surfaces.</li><br>
+                          <li>•	Avoid all cruise travel and non-essential air travel.</li><br>
+                          <li>•	Call your healthcare professional if you have concerns about COVID-19 and your underlying condition or if you are sick.</li><br>
+                          <li>•	For more information on steps you can take to protect yourself, see CDC’s How to Protect Yourself</li>
+                        </ul>
+                        Learn more: <a href="https://www.cdc.gov/coronavirus/2019-ncov/hcp/underlying-conditions.html" target="_blank">https://www.cdc.gov/coronavirus/2019-ncov/hcp/underlying-conditions.html</a><br>
+                        Learn more: <a href="https://www.cdc.gov/coronavirus/2019-ncov/specific-groups/hiv.html" target="_blank">https://www.cdc.gov/coronavirus/2019-ncov/specific-groups/hiv.html</a><br>
+                        Learn more: <a href="https://www.cdc.gov/coronavirus/2019-ncov/specific-groups/asthma.html" target="_blank">https://www.cdc.gov/coronavirus/2019-ncov/specific-groups/asthma.html</a><br>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- if patient is pregnant -->
+              <div v-if="profile.pregnant=='yes'">
+                <div class="card">
+                  <div class="card-header" id="headingFive">
+                    <h2 class="mb-0">
+                      <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                        Pregnant women experience changes in their bodies that may increase their risk of some infections. 
+                      </button>
+                    </h2>
+                  </div>
+                  <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+                    <div class="card-body">
+                      <p align="left">
+                        The CDC recommends that pregnant women should do the same things as the general public to avoid infection. You can help stop the spread of COVID-19 by taking these actions:
+                        <ul>
+                          <li>•	Cover your cough (using your elbow is a good technique)</li><br>
+                          <li>•	Avoid people who are sick</li><br>
+                          <li>•	Clean your hands often using soap and water or alcohol-based hand sanitizer</li>
+                        </ul>
+                        Learn more: <a href="https://www.who.int/news-room/q-a-detail/q-a-on-covid-19-pregnancy-childbirth-and-breastfeeding" target="_blank">https://www.who.int/news-room/q-a-detail/q-a-on-covid-19-pregnancy-childbirth-and-breastfeeding</a><br>
+                        Learn more: <a href=" https://www.cdc.gov/coronavirus/2019-ncov/prepare/pregnancy-breastfeeding.html" target="_blank"> https://www.cdc.gov/coronavirus/2019-ncov/prepare/pregnancy-breastfeeding.html</a><br>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- if patient is feeling sick -->
+              <div v-if="profile.feelSick=='yes'">
+                <div class="card">
+                  <div class="card-header" id="headingSix">
+                    <h2 class="mb-0">
+                      <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                        You are currently feeling sick.
+                      </button>
+                    </h2>
+                  </div>
+                  <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
+                    <div class="card-body">
+                      <p align="left">
+                        Going out when you’re ill can expose others to what you have! 
+                        <br>
+                        The CDC recommends taking the following precautions:
+                        <ul>
+                          <li>•	Stay home if possible.</li><br>
+                          <li>•	Wash your hands often.</li><br>
+                          <li>•	Avoid close contact (6 feet, which is about two arm lengths)</li><br>
+                          <li>•	Clean and disinfect frequently touched surfaces.</li><br>
+                          <li>•	Avoid all cruise travel and non-essential air travel.</li><br>
+                          <li>•	Call your healthcare professional if you have concerns about COVID-19 and your underlying condition or if you are sick.</li><br>
+                          <li>•	For more information on steps you can take to protect yourself, see CDC’s <a href="https://www.cdc.gov/coronavirus/2019-ncov/prepare/prevention.html" target="_blank">How to Protect Yourself</a></li>
+                        </ul>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- if patient has sick family -->
+              <div v-if="profile.familySick=='yes'">
+                <div class="card">
+                  <div class="card-header" id="headingSeven">
+                    <h2 class="mb-0">
+                      <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                        You have family members who feel sick.
+                      </button>
+                    </h2>
+                  </div>
+                  <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
+                    <div class="card-body">
+                      <p align="left">
+                        You can spread an illness even when you’re not feeling ill. If you have family members who feel sick, stay home if possible and following the CDCs recommendations on <a href="https://www.cdc.gov/coronavirus/2019-ncov/prepare/prevention.html" target="_blank">How to Protect Yourself</a>.
+                        <br>
+                        Learn more: <a href="https://www.lvhn.org/testing-services/coronavirus-covid-19-care/faqs-you-or-family-member-has-covid-19" target="_blank">https://www.lvhn.org/testing-services/coronavirus-covid-19-care/faqs-you-or-family-member-has-covid-19</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
           </div>
         </div>
       </div>
@@ -136,7 +275,6 @@
 </template>
 
 <script>
-import profileCreate from "./profileCreate.vue"
 
 export default {
   name: "searchResults",
@@ -152,7 +290,6 @@ export default {
     },
   },
   components: {
-    profileCreate
   },
   data: function() {
     return {
@@ -238,6 +375,7 @@ export default {
       userLocation: "",
       userDay: "",
       userTime: 0,
+      userAge: 0,
       submitted: false
     };
   },
@@ -248,17 +386,8 @@ export default {
     riskDescription() {
       return this.scores.riskDescription[this.riskScore];
     },
-    profileCreated() {
-      //track if the user has created a profile yet
-      return this.$store.getters.createProfile;
-    },
-    ageIndex() {
-      let index = null
-      this.ageGroups.groups.map((group, id) => {
-        console.log(group, this.userAge, id)
-        if(group == this.userAge){index= id}
-      })
-      return index
+    getAge() {
+      return this.$store.getters.createAge
     },
     comorbidity() {
       let profile = this.$store.getters.submitProfile
@@ -270,7 +399,7 @@ export default {
       this.submitted = true;
       console.log("submitted")
       // sends value to store letting user know they have created a profile
-      this.$store.commit("createProfile", this.submitted);
+      // this.$store.commit("createProfile", this.submitted);
       this.$store.commit("createAge", this.userAge);
     }
   },
