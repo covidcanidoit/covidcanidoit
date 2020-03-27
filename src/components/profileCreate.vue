@@ -6,7 +6,7 @@
           <p align="center">Please enter the following information about yourself:</p>
           <div align="left">
             <!-- age input -->
-            <b>How old are you?</b> 
+            <b>How old are you?</b> <br>
             <select id="age" v-model="userProfile.age">
               <option v-for="age in ageGroups.groups">{{age}}</option>
             </select>

@@ -6,10 +6,18 @@
       <table class="results" width="100%">
         <tr>
           <td width="25%">
-            Risk Score:
+            <div v-if="checkSubmitted">
+               Age-Specific Risk Score:
+            <br />
+            <br />
+            <h1>{{searchResult[getAge]}}</h1>
+            </div>
+            <div v-else>
+               Risk Score:
             <br />
             <br />
             <h1>{{searchResult["Overall Risk Scoring"]}}</h1>
+            </div>
           </td>
           <td width="75%">
             <ul v-for="desc in riskDescription" align="left" >
@@ -45,24 +53,28 @@
               <!-- <profile-create :searched="searched" /> -->
               <div style="margin-left:30%; margin-right:30%" >
                 <div align="center">
-                  <div v-if="profile.COVIDpositive == 'no'">
+                  <div v-if="profile.COVIDpositive == 'no' && searchResult['showLocation']" align="center" width="50%">
+                    
                       <p align="center">Please fill in the information below specific to {{searchResult["Activity"]}}:</p>
-                        Location:
+                        <p align="left">Location:
                       <input type="text" v-model="userLocation" />
+                      </p>
                       <br />
                       
-                      Day:
+                      <p align="left">Day:
                       <select id="day" v-model="userDay">
                         <option v-for="day in days">{{day}}</option>
                       </select>
+                      </p>
                       <br />
                       
-                      Time:
+                     <p align="left"> Time:
                       <select id="time" v-model="userTime">
                         <option v-for="time in times">{{time}}</option>
                       </select>
+                      </p>
                       <br>
-                        <button @click="submit">Submit</button>
+                        <button @click="submit" v-if="createProfile">Submit</button>
                     </div>
                   <div v-if="createProfile==false">
                     <profile-create :searched="searched" />

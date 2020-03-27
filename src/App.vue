@@ -1,11 +1,12 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
+    <div id="nav" class="navigation">
+      <router-link class="router" to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link v-if="profileCreated" to="/userProfile">View/Edit Profile</router-link>
       <router-link v-else to="/createUserProfile">Create Profile</router-link>
     </div>
+    <br>
     <div v-if="!hasCoronavirus"><router-view/></div>
     <div v-else>Warning
 
@@ -66,14 +67,16 @@ export default {
 
 #nav {
   padding: 30px;
+  background-color: steelblue;
 }
 
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: black;
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: white;
 }
+
 </style>
