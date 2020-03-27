@@ -45,11 +45,7 @@
               <!-- <profile-create :searched="searched" /> -->
               <div style="margin-left:30%; margin-right:30%" >
                 <div align="center">
-                  <div v-if="createProfile==false">
-                    <profile-create :searched="searched" />
-                  </div>
-                  <div v-else>
-                    <div v-if="profile.COVIDpositive == 'no'">
+                  <div v-if="profile.COVIDpositive == 'no'">
                       <p align="center">Please fill in the information below specific to {{searchResult["Activity"]}}:</p>
                         Location:
                       <input type="text" v-model="userLocation" />
@@ -68,6 +64,8 @@
                       <br>
                         <button @click="submit">Submit</button>
                     </div>
+                  <div v-if="createProfile==false">
+                    <profile-create :searched="searched" />
                   </div>
                 </div>
               </div>
@@ -420,7 +418,7 @@ export default {
       return this.searchResult["Overall Risk Scoring"];
     },
     riskDescription() {
-      return this.scores.riskDescription[this.riskScore];
+      return this.scores.riskDescription[this.riskScore-1];
     },
     getAge() {
       return this.$store.getters.createAge
