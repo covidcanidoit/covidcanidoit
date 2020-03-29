@@ -22,75 +22,73 @@
             <label for="female">Female</label>
             <br /> -->
             <!-- smoking input -->
-            <b>Do you smoke/vape?</b>
-            <br />
-            <input type="radio" id="yes" value="yes" v-model="userProfile.smoking">
-            <label for="yes">Yes, I smoke/vape</label>
-            <br>
-            <input type="radio" id="no" value="no" v-model="userProfile.smoking">
-            <label for="no">No, I do not smoke/vape</label>
-            <br />
-            <input type="radio" id="used" value="used" v-model="userProfile.smoking">
-            <label for="used">I used to smoke/vape</label>
-            <br />
+            <MultiQuestion
+              v-model="userProfile.smoking"
+              questionPrompt="Do you smoke/vape?"
+              :options="[
+                ['Yes, I smoke/vape', 'yes'],
+                ['No, I do not smoke/vape', 'no'],
+                ['I used to smoke/vape', 'used']
+              ]"
+            />
             <!-- chronic medical condition input -->
-            <b>Do you have any of the following chronic medical conditions?</b>
-            <br />
-            <input type="radio" id="yes" value="yes" v-model="userProfile.comorbidity">
-            <label for="yes">Yes</label>
-            <br />
-            <input type="radio" id="no" value="no" v-model="userProfile.comorbidity">
-            <label for="no">No</label>
-            <br />
-            List of Medical conditions
-            <ol>
-              <li>• Chronic kidney disease</li><br>
-              <li>• Organ or bone marrow transplant</li><br>
-              <li>• Active hepatitis B infection or Chronic liver disease</li><br>
-              <li>• Any cardiovascular/heart disease, including high blood pressure</li><br>
-              <li>• Diabetes</li><br>
-              <li>• Any chronic lung disease or condition, including asthma, COPD/chronic emphysema, or interstitial lung disease (such as pneumonitis or pulmonary fibrosis)</li><br>
-              <li>• Blood disorders such as sickle cell anemia</li><br>
-              <li>• Metabolic/mitochondrial disorders</li><br>
-              <li>• Neurologic/neurodevelopmental conditions including stroke, intellectual disability, moderate to severe neurodevelopmental delay, and neuromuscular diseases</li><br>
-              <li>• Any immunocompromising diseases or medications (diseases or medications that weaken your immune system)</li>
-            </ol>
+            <MultiQuestion
+              v-model="userProfile.comorbidity"
+              questionPrompt="Do you have any of the following chronic medical conditions?"
+              :options="[
+                ['Yes', 'yes'],
+                ['No', 'no']
+              ]"
+            >
+              <ul>
+                <li>Chronic kidney disease</li><br>
+                <li>Organ or bone marrow transplant</li><br>
+                <li>Active hepatitis B infection or Chronic liver disease</li><br>
+                <li>Any cardiovascular/heart disease, including high blood pressure</li><br>
+                <li>Diabetes</li><br>
+                <li>Any chronic lung disease or condition, including asthma, COPD/chronic emphysema, or interstitial lung disease (such as pneumonitis or pulmonary fibrosis)</li><br>
+                <li>Blood disorders such as sickle cell anemia</li><br>
+                <li>Metabolic/mitochondrial disorders</li><br>
+                <li>Neurologic/neurodevelopmental conditions including stroke, intellectual disability, moderate to severe neurodevelopmental delay, and neuromuscular diseases</li><br>
+                <li>Any immunocompromising diseases or medications (diseases or medications that weaken your immune system)</li>
+              </ul>
+            </MultiQuestion>
             <!-- pregnancy -->
-            <b>Are you pregnant?</b>
-            <br />
-            <input type="radio" id="yes" value="yes" v-model="userProfile.pregnant">
-            <label for="yes">Yes</label>
-            <br />
-            <input type="radio" id="no" value="no" v-model="userProfile.pregnant">
-            <label for="no">No</label>
-            <br />
+            <MultiQuestion
+              v-model="userProfile.pregnant"
+              questionPrompt="Are you pregnant?"
+              :options="[
+                ['Yes', 'yes'],
+                ['No', 'no']
+              ]"
+            />
             <!-- feel sick -->
-            <b>Do you feel sick?</b>
-            <br />
-            <input type="radio" id="yes" value="yes" v-model="userProfile.feelSick">
-            <label for="yes">Yes</label>
-            <br />
-            <input type="radio" id="no" value="no" v-model="userProfile.feelSick">
-            <label for="no">No</label>
-            <br />
+            <MultiQuestion
+              v-model="userProfile.feelSick"
+              questionPrompt="Do you feel sick?"
+              :options="[
+                ['Yes', 'yes'],
+                ['No', 'no']
+              ]"
+            />
             <!-- family sick -->
-            <b>Do you have family members who are sick?</b>
-            <br />
-            <input type="radio" id="yes" value="yes" v-model="userProfile.familySick">
-            <label for="yes">Yes</label>
-            <br />
-            <input type="radio" id="no" value="no" v-model="userProfile.familySick">
-            <label for="no">No</label>
-            <br />
+            <MultiQuestion
+              v-model="userProfile.familySick"
+              questionPrompt="Do you have family members who are sick?"
+              :options="[
+                ['Yes', 'yes'],
+                ['No', 'no']
+              ]"
+            />
             <!-- test postive for COVID-19? -->
-            <b>Has anyone in your household or apartment tested positive for COVID-19 (coronavirus)?</b>
-            <br />
-            <input type="radio" id="yes" value="yes" v-model="userProfile.COVIDpositive">
-            <label for="yes">Yes</label>
-            <br />
-            <input type="radio" id="no" value="no" v-model="userProfile.COVIDpositive">
-            <label for="no">No</label>
-            <br />
+            <MultiQuestion
+              v-model="userProfile.COVIDpositive"
+              questionPrompt="Has anyone in your household or apartment tested positive for COVID-19 (coronavirus)?"
+              :options="[
+                ['Yes', 'yes'],
+                ['No', 'no']
+              ]"
+            />
             <button @click="submit" to="/userProfile">Create Profile</button>
           </div>
         </div>
@@ -100,8 +98,14 @@
 </template>
 
 <script>
+
+import MultiQuestion from "@/components/MultiQuestion.vue";
+
 export default {
   name: "profileCreate",
+  components: {
+    MultiQuestion
+  },
   props: {
     searched: {
       type: Boolean,
@@ -115,44 +119,44 @@ export default {
         riskCategory: ["Low", "Moderate", "Elevated", "High", "Critical"],
         riskDescription: [
           [
-            "•You can continue to do this activity.",
-            "•The frequency and nature of the activity puts you at low risk for contracting or transmitting COVID-19.",
-            "•You may still want to take extra precautions for prevent infection."
+            "You can continue to do this activity.",
+            "The frequency and nature of the activity puts you at low risk for contracting or transmitting COVID-19.",
+            "You may still want to take extra precautions for prevent infection."
           ],
           [
-            "•You can continue to do this activity but you should consider ways to do this activity less or during less risky times.",
-            "•The frequency and nature of the activity puts you at some risk for contracting or transmitting COVID-19.",
-            "•Make sure to take extra precautions for prevent infection, like frequently washing your hands (with soap) for at least 20 seconds and remaining 6 feet from another person."
+            "You can continue to do this activity but you should consider ways to do this activity less or during less risky times.",
+            "The frequency and nature of the activity puts you at some risk for contracting or transmitting COVID-19.",
+            "Make sure to take extra precautions for prevent infection, like frequently washing your hands (with soap) for at least 20 seconds and remaining 6 feet from another person."
           ],
           [
-            "•You should consider stopping this activity.",
-            "•If you are unable to stop, you should consider ways to do this activity less or during less risky times.",
-            "•The frequency and nature of the activity puts you at more risk for contracting or transmitting COVID-19.",
-            "•Extra precautions to preventing infection are not enough, like frequently washing your hands (with soap) for at least 20 seconds and remaining 6 feet from another person. "
+            "You should consider stopping this activity.",
+            "If you are unable to stop, you should consider ways to do this activity less or during less risky times.",
+            "The frequency and nature of the activity puts you at more risk for contracting or transmitting COVID-19.",
+            "Extra precautions to preventing infection are not enough, like frequently washing your hands (with soap) for at least 20 seconds and remaining 6 feet from another person. "
           ],
           [
-            "•You should stop this activity.",
-            "•The frequency and nature of the activity puts you at high risk for contracting or transmitting COVID-19.",
-            "•You may be endangering others and efforts to control the outbreak.",
-            "•Extra precautions to preventing infection are not enough, like frequently washing your hands (with soap) for at least 20 seconds and remaining 6 feet from another person. "
+            "You should stop this activity.",
+            "The frequency and nature of the activity puts you at high risk for contracting or transmitting COVID-19.",
+            "You may be endangering others and efforts to control the outbreak.",
+            "Extra precautions to preventing infection are not enough, like frequently washing your hands (with soap) for at least 20 seconds and remaining 6 feet from another person. "
           ],
           [
-            "•Stop this activity immediately.",
-            "•The frequency and nature of the activity is endangering yourself and efforts to control the COVID-19 outbreak, regardless of extra precautions to preventing infection, like frequently washing your hands (with soap) for at least 20 seconds and remaining 6 feet from another person. "
+            "Stop this activity immediately.",
+            "The frequency and nature of the activity is endangering yourself and efforts to control the COVID-19 outbreak, regardless of extra precautions to preventing infection, like frequently washing your hands (with soap) for at least 20 seconds and remaining 6 feet from another person. "
           ]
         ]
       },
       ageGroups: {
         groups: [
-        "Under 10",
-        "10 to 18",
-        "18 to 19",
-        "20 to 29",
-        "30 to 49",
-        "50 to 69",
-        "70+"
-      ],
-    },
+          "Under 10",
+          "10 to 18",
+          "18 to 19",
+          "20 to 29",
+          "30 to 49",
+          "50 to 69",
+          "70+"
+        ],
+      },
       submitted: false,
       userProfile: {
         age:0,
@@ -217,12 +221,14 @@ h3 {
   margin: 40px 0 0;
 }
 ul {
-  list-style-type: none;
   padding: 0;
 }
 li {
   display: inline-block;
   margin: 0 10px;
+}
+li:before {
+    content: "• ";
 }
 a {
   color: #42b983;
