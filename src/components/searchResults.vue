@@ -676,6 +676,14 @@ export default {
     },
     createProfile() {
       return this.$store.getters.createProfile;
+    },
+    checkSubmitted() {
+      return this.$store.getters.setSubmitted;
+      // this.submitted = this.$store.getters.setSubmitted;
+      // if (this.$store.getters.submitProfile.COVIDpositive == "yes") {
+      //   this.submitted = true;
+      // } //if the patient tests positive for COVID19, we dont bother asking about location, time of activity
+      // return this.submitted;
     }
   },
   methods: {
@@ -685,13 +693,6 @@ export default {
       // sends value to store letting user know they have created a profile
       // this.$store.commit("createProfile", this.submitted);
       this.$store.commit("createAge", this.userAge);
-    },
-    checkSubmitted() {
-      this.submitted = this.$store.getters.setSubmitted;
-      if (this.$store.getters.submitProfile.COVIDpositive == "yes") {
-        this.submitted = true;
-      } //if the patient tests positive for COVID19, we dont bother asking about location, time of activity
-      return this.submitted;
     }
   },
   mounted() {
