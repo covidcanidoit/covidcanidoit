@@ -1,14 +1,18 @@
 <template>
   <div>
     <div v-show="searched">
-      <div >
+      <div>
         <div class="card-body">
-          <p align="center">Please enter the following information about yourself:</p>
+          <p align="center">
+            Please enter the following information about yourself:
+          </p>
           <div align="left">
             <!-- age input -->
-            <b>How old are you?</b> <br>
+            <b>How old are you?</b> <br />
             <select id="age" v-model="userProfile.age">
-              <option v-for="age in ageGroups.groups">{{age}}</option>
+              <option v-for="age in ageGroups.groups" :key="age.id">{{
+                age
+              }}</option>
             </select>
             <br />
             <!-- gender input -->
@@ -24,71 +28,162 @@
             <!-- smoking input -->
             <b>Do you smoke/vape?</b>
             <br />
-            <input type="radio" id="yes" value="yes" v-model="userProfile.smoking">
+            <input
+              type="radio"
+              id="yes"
+              value="yes"
+              v-model="userProfile.smoking"
+            />
             <label for="yes">Yes, I smoke/vape</label>
-            <br>
-            <input type="radio" id="no" value="no" v-model="userProfile.smoking">
+            <br />
+            <input
+              type="radio"
+              id="no"
+              value="no"
+              v-model="userProfile.smoking"
+            />
             <label for="no">No, I do not smoke/vape</label>
             <br />
-            <input type="radio" id="used" value="used" v-model="userProfile.smoking">
+            <input
+              type="radio"
+              id="used"
+              value="used"
+              v-model="userProfile.smoking"
+            />
             <label for="used">I used to smoke/vape</label>
             <br />
             <!-- chronic medical condition input -->
             <b>Do you have any of the following chronic medical conditions?</b>
             <br />
-            <input type="radio" id="yes" value="yes" v-model="userProfile.comorbidity">
+            <input
+              type="radio"
+              id="yes"
+              value="yes"
+              v-model="userProfile.comorbidity"
+            />
             <label for="yes">Yes</label>
             <br />
-            <input type="radio" id="no" value="no" v-model="userProfile.comorbidity">
+            <input
+              type="radio"
+              id="no"
+              value="no"
+              v-model="userProfile.comorbidity"
+            />
             <label for="no">No</label>
             <br />
             List of Medical conditions
             <ol>
-              <li>• Chronic kidney disease</li><br>
-              <li>• Organ or bone marrow transplant</li><br>
-              <li>• Active hepatitis B infection or Chronic liver disease</li><br>
-              <li>• Any cardiovascular/heart disease, including high blood pressure</li><br>
-              <li>• Diabetes</li><br>
-              <li>• Any chronic lung disease or condition, including asthma, COPD/chronic emphysema, or interstitial lung disease (such as pneumonitis or pulmonary fibrosis)</li><br>
-              <li>• Blood disorders such as sickle cell anemia</li><br>
-              <li>• Metabolic/mitochondrial disorders</li><br>
-              <li>• Neurologic/neurodevelopmental conditions including stroke, intellectual disability, moderate to severe neurodevelopmental delay, and neuromuscular diseases</li><br>
-              <li>• Any immunocompromising diseases or medications (diseases or medications that weaken your immune system)</li>
+              <li>• Chronic kidney disease</li>
+              <br />
+              <li>• Organ or bone marrow transplant</li>
+              <br />
+              <li>• Active hepatitis B infection or Chronic liver disease</li>
+              <br />
+              <li>
+                • Any cardiovascular/heart disease, including high blood
+                pressure
+              </li>
+              <br />
+              <li>• Diabetes</li>
+              <br />
+              <li>
+                • Any chronic lung disease or condition, including asthma,
+                COPD/chronic emphysema, or interstitial lung disease (such as
+                pneumonitis or pulmonary fibrosis)
+              </li>
+              <br />
+              <li>• Blood disorders such as sickle cell anemia</li>
+              <br />
+              <li>• Metabolic/mitochondrial disorders</li>
+              <br />
+              <li>
+                • Neurologic/neurodevelopmental conditions including stroke,
+                intellectual disability, moderate to severe neurodevelopmental
+                delay, and neuromuscular diseases
+              </li>
+              <br />
+              <li>
+                • Any immunocompromising diseases or medications (diseases or
+                medications that weaken your immune system)
+              </li>
             </ol>
             <!-- pregnancy -->
             <b>Are you pregnant?</b>
             <br />
-            <input type="radio" id="yes" value="yes" v-model="userProfile.pregnant">
+            <input
+              type="radio"
+              id="yes"
+              value="yes"
+              v-model="userProfile.pregnant"
+            />
             <label for="yes">Yes</label>
             <br />
-            <input type="radio" id="no" value="no" v-model="userProfile.pregnant">
+            <input
+              type="radio"
+              id="no"
+              value="no"
+              v-model="userProfile.pregnant"
+            />
             <label for="no">No</label>
             <br />
             <!-- feel sick -->
             <b>Do you feel sick?</b>
             <br />
-            <input type="radio" id="yes" value="yes" v-model="userProfile.feelSick">
+            <input
+              type="radio"
+              id="yes"
+              value="yes"
+              v-model="userProfile.feelSick"
+            />
             <label for="yes">Yes</label>
             <br />
-            <input type="radio" id="no" value="no" v-model="userProfile.feelSick">
+            <input
+              type="radio"
+              id="no"
+              value="no"
+              v-model="userProfile.feelSick"
+            />
             <label for="no">No</label>
             <br />
             <!-- family sick -->
             <b>Do you have family members who are sick?</b>
             <br />
-            <input type="radio" id="yes" value="yes" v-model="userProfile.familySick">
+            <input
+              type="radio"
+              id="yes"
+              value="yes"
+              v-model="userProfile.familySick"
+            />
             <label for="yes">Yes</label>
             <br />
-            <input type="radio" id="no" value="no" v-model="userProfile.familySick">
+            <input
+              type="radio"
+              id="no"
+              value="no"
+              v-model="userProfile.familySick"
+            />
             <label for="no">No</label>
             <br />
             <!-- test postive for COVID-19? -->
-            <b>Has anyone in your household or apartment tested positive for COVID-19 (coronavirus)?</b>
+            <b
+              >Has anyone in your household or apartment tested positive for
+              COVID-19 (coronavirus)?</b
+            >
             <br />
-            <input type="radio" id="yes" value="yes" v-model="userProfile.COVIDpositive">
+            <input
+              type="radio"
+              id="yes"
+              value="yes"
+              v-model="userProfile.COVIDpositive"
+            />
             <label for="yes">Yes</label>
             <br />
-            <input type="radio" id="no" value="no" v-model="userProfile.COVIDpositive">
+            <input
+              type="radio"
+              id="no"
+              value="no"
+              v-model="userProfile.COVIDpositive"
+            />
             <label for="no">No</label>
             <br />
             <button @click="submit" to="/userProfile">Create Profile</button>
@@ -144,25 +239,25 @@ export default {
       },
       ageGroups: {
         groups: [
-        "Under 10",
-        "10 to 18",
-        "18 to 19",
-        "20 to 29",
-        "30 to 49",
-        "50 to 69",
-        "70+"
-      ],
-    },
+          "Under 10",
+          "10 to 18",
+          "18 to 19",
+          "20 to 29",
+          "30 to 49",
+          "50 to 69",
+          "70+"
+        ]
+      },
       submitted: false,
       userProfile: {
-        age:0,
+        age: 0,
         gender: "male",
         smoking: "no",
         comorbidity: "no",
         pregnant: "no",
         feelSick: "no",
         familySick: "no",
-        COVIDpositive: "no",
+        COVIDpositive: "no"
       }
     };
   },
@@ -178,30 +273,36 @@ export default {
       return this.$store.getters.createProfile;
     },
     ageIndex() {
-      let index = null
+      let index = null;
       this.ageGroups.groups.map((group, id) => {
-        console.log(group, this.userAge, id)
-        if(group == this.userAge){index= id}
-      })
-      return index
+        console.log(group, this.userAge, id);
+        if (group == this.userAge) {
+          index = id;
+        }
+      });
+      return index;
     }
   },
   mounted() {
-    this.userProfile = this.$store.getters.submitProfile
+    this.userProfile = this.$store.getters.submitProfile;
   },
   methods: {
     submit() {
       this.submitted = true;
-      console.log("submitted")
+      console.log("submitted");
       // sends value to store letting user know they have created a profile
       this.$store.commit("createProfile", this.submitted);
       //send user profile values
       this.$store.commit("submitProfile", this.userProfile);
       // if we are on the create profile page, move to the current profile page, otherwise stay where you are
-      if(this.$router.currentRoute.name == "createUserProfile"){this.$router.push('userProfile')}
+      if (this.$router.currentRoute.name == "createUserProfile") {
+        this.$router.push("userProfile");
+      }
       //if we are on the home page, trigger the submit function in the results view
       // console.log("rotername:", this.$router.currentRoute.name)
-      if(this.$router.currentRoute.name == "Home"){this.$store.commit('setSubmitted', this.submitted)}
+      if (this.$router.currentRoute.name == "Home") {
+        this.$store.commit("setSubmitted", this.submitted);
+      }
     }
   }
 };

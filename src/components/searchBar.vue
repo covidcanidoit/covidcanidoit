@@ -1,28 +1,28 @@
 <template>
   <div class="introduction">
-    <input type="text" v-model="searchTerm" placeholder="I want to go..." >
-    <button @click="onSearch" >Search</button>
-    <br>
+    <input type="text" v-model="searchTerm" placeholder="I want to go..." />
+    <button @click="onSearch">Search</button>
+    <br />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'searchBar',
+  name: "searchBar",
   props: {
     msg: String
   },
   data: function() {
-    return{
+    return {
       searchTerm: ""
-    }
+    };
   },
   methods: {
     onSearch() {
-      this.$emit('searched', this.searchTerm)
+      this.$emit("searched", this.searchTerm);
     }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

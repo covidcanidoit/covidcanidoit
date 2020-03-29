@@ -26,10 +26,12 @@
                 <div class="card-body">
                   <p align="left">
                     The CDC recommends the following:
+                    </p>
                     <ul>
                       <li>When you need medical care, call ahead to the doctor or medical facility to alert them that you have COVID-19 so they can prepare to care for you and protect others at the facility.</li><br>
                       <li>Outside of getting medical care, you should isolate yourself to your home. Do not go to work, school, place of worship or other public areas. Avoid using public transportation, ride-sharing or taxis.</li>
                     </ul>
+                   <p>
                     Learn more: <a href="https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html" target="_blank" >https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html</a>
                   </p>
                 </div>
@@ -38,8 +40,6 @@
           </div>
         </div>
     </div>
-    
-  </div>
 </template>
 
 <script>
@@ -67,16 +67,14 @@ export default {
 
 #nav {
   padding: 30px;
-  background-color: steelblue;
-}
 
-#nav a {
-  font-weight: bold;
-  color: black;
-}
+  a {
+    font-weight: bold;
+    color: #2c3e50;
 
-#nav a.router-link-exact-active {
-  color: white;
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
 }
-
 </style>
