@@ -89,7 +89,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .banner {
   /* background-color: steelblue; */
 }

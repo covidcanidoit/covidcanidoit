@@ -56,7 +56,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .table {
   width: 75%;
   margin-left: 12.5%;

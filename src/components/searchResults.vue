@@ -701,7 +701,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="scss">
 .results {
   color: black;
   background-color: #e8ebf5;
