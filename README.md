@@ -1,29 +1,24 @@
-# prototype
+# COVID-19 Risk Assessment
 
-## Project setup
-```
-npm install
-```
+This project is for helping folks learn about the risks created by various
+activities in the context of the COVID-19 pandemic.
 
-### Compiles and hot-reloads for development
+## Dev workflow
 ```
-npm run serve
-```
+# Initial setup
+yarn install
 
-### Compiles and minifies for production
-```
-npm run build
-```
+# Compiles and hot-reloads for development
+yarn serve
 
-### Run your tests
-```
-npm run test
-```
+# Prepare for deploy (deprecated)
+yarn build
 
-### Lints and fixes files
-```
-npm run lint
+# Run your tests
+yarn test:unit
+yarn test:e2e
+
+# Lint (and fix) cruft
+yarn lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
