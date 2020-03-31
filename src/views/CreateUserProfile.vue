@@ -2,18 +2,17 @@
   <div class="about">
     <h1><u>Personalized Risk Screener</u></h1>
     <br />
-    <profile-create
+    <ProfileCreate
       :searched="searched"
       style="margin-left:30%; margin-right:30%"
     />
   </div>
 </template>
 <script>
-import profileCreate from "@/components/profileCreate.vue";
+import ProfileCreate from "@/components/ProfileCreate.vue";
 export default {
-  name: "createUserProfile",
   components: {
-    profileCreate
+    ProfileCreate
   },
   data: function() {
     return {

@@ -52,7 +52,6 @@
               aria-labelledby="headingOne"
               data-parent="#personalizedReport"
             >
-              <!-- <profile-create :searched="searched" /> -->
               <div style="margin-left:30%; margin-right:30%">
                 <div align="center">
                   <div
@@ -95,7 +94,7 @@
                     <button @click="submit" v-if="createProfile">Submit</button>
                   </div>
                   <div v-if="createProfile == false">
-                    <profile-create :searched="searched" />
+                    <ProfileCreate :searched="searched" />
                   </div>
                 </div>
               </div>
@@ -554,10 +553,9 @@
 </template>
 
 <script>
-import profileCreate from "@/components/profileCreate.vue";
+import ProfileCreate from "@/components/ProfileCreate.vue";
 
 export default {
-  name: "searchResults",
   props: {
     searchedTerm: String,
     searchResult: Object,
@@ -570,7 +568,7 @@ export default {
     }
   },
   components: {
-    profileCreate
+    ProfileCreate
   },
   data: function() {
     return {

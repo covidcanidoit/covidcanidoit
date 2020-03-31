@@ -1,14 +1,13 @@
 <template>
   <div class="home">
-    <!-- <Introduction /> -->
     <div class="banner">
       <h5 class="bannerText">
         Tell us what you <b>want to do</b>, and this tool will tell you if you
         <b>should</b> do it during the COVID-19 outbreak.
       </h5>
     </div>
-    <search-bar @searched="onSearch" />
-    <search-results
+    <SearchBar @searched="onSearch" />
+    <SearchResults
       :searchedTerm="searchTerm"
       :searchResult="result"
       :searched="searched"
@@ -18,15 +17,15 @@
 </template>
 
 <script>
-import searchBar from "@/components/searchBar.vue";
-import searchResults from "@/components/searchResults.vue";
+import SearchBar from "@/components/SearchBar.vue";
+import SearchResults from "@/components/SearchResults.vue";
 import riskData from "@/assets/riskData.json";
 
 export default {
   name: "Home",
   components: {
-    searchBar,
-    searchResults
+    SearchBar,
+    SearchResults
   },
   data: function() {
     return {

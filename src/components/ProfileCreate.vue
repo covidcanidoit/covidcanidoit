@@ -128,7 +128,6 @@
 import MultiQuestion from "@/components/MultiQuestion.vue";
 
 export default {
-  name: "profileCreate",
   components: {
     MultiQuestion
   },
