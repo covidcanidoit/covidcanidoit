@@ -11,8 +11,8 @@ yarn install
 # Compiles and hot-reloads for development
 yarn serve
 
-# Prepare for deploy (deprecated)
-yarn build
+# Deploy! Builds app and uploads to Firebase
+yarn deploy
 
 # Run your tests
 yarn test:unit
