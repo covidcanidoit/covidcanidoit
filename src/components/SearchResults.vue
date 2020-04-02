@@ -57,7 +57,7 @@
                   <div
                     v-if="
                       profile.COVIDpositive == 'no' &&
-                        searchResult['showLocation']
+                        searchResult['showLocation'] == 'TRUE'
                     "
                     align="center"
                     width="50%"
