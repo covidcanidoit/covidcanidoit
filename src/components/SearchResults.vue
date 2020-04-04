@@ -1,32 +1,10 @@
 <template>
   <div class="introduction">
     <div v-show="searched">
-      <!-- only show if they are not covid positive -->
       <h1>{{ searchResult["Activity"] }}</h1>
-      <table class="results" width="100%">
-        <tr>
-          <td width="25%">
-            <div v-if="checkSubmitted">
-              Age-Specific Risk Score:
-              <br />
-              <br />
-              <h1>{{ searchResult[getAge] }}</h1>
-            </div>
-            <div v-else>
-              Risk Score:
-              <br />
-              <br />
-              <h1>{{ searchResult["Overall Risk Scoring"] }}</h1>
-            </div>
-          </td>
-          <td width="75%">
-            <ul v-for="desc in riskDescription" :key="desc.id" align="left">
-              <li>{{ desc }}</li>
-            </ul>
-          </td>
-        </tr>
-      </table>
+      <RiskDescription score="1" :isAgeScore="false" />
     </div>
+
     <!-- if the user has not yet created a profile, give them the option to after searching -->
     <div v-if="!checkSubmitted">
       <div v-show="searched">
@@ -92,9 +70,6 @@
                     </p>
                     <br />
                     <button @click="submit" v-if="createProfile">Submit</button>
-                  </div>
-                  <div v-if="createProfile == false">
-                    <ProfileCreate :searched="searched" />
                   </div>
                 </div>
               </div>
@@ -553,7 +528,7 @@
 </template>
 
 <script>
-import ProfileCreate from "@/components/ProfileCreate.vue";
+import RiskDescription from "@/components/RiskDescription.vue";
 
 export default {
   props: {
@@ -568,7 +543,7 @@ export default {
     }
   },
   components: {
-    ProfileCreate
+    RiskDescription
   },
   data: function() {
     return {

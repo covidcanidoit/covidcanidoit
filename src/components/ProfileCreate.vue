@@ -1,7 +1,11 @@
 <template>
   <div>
-    <div v-show="searched">
-      <div>
+    <div class="profile-create">
+      <div class="left-side">
+        <h1>Tell us more about you, so we can give you more accurate information</h1>
+        <h2>Create a profile &#x25b6;</h2>
+      </div>
+      <div class="right-side">
         <div class="card-body">
           <p align="center">
             Please enter the following information about yourself:
@@ -131,12 +135,6 @@ export default {
   components: {
     MultiQuestion
   },
-  props: {
-    searched: {
-      type: Boolean,
-      default: false
-    }
-  },
   data: function() {
     return {
       scores: {
@@ -244,6 +242,24 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.profile-create {
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+
+  .left-side {
+    background-color: $color-navy;
+    color: $color-mint;
+    flex: 30%;
+  }
+
+  .right-side {
+    background-color: $color-mint;
+    color: $color-navy;
+    flex: 70%;
+  }
+}
+
 .results {
   color: black;
   background-color: #e8ebf5;

@@ -3,7 +3,14 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackInlineSourcePlugin = require("html-webpack-inline-source-plugin");
 module.exports = {
   css: {
-    extract: false
+    extract: false,
+    loaderOptions: {
+      sass: {
+        prependData: `
+          @import "@/scss/variables.scss";
+        `
+      }
+    }
   },
   configureWebpack: {
     optimization: {
