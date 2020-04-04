@@ -11,8 +11,10 @@
     "deploy": "yarn build && yarn run firebase deploy"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "core-js": "^3.6.4",
+    "csv-parse": "^4.8.8",
     "html-webpack-inline-source-plugin": "0.0.10",
     "jquery": "^3.4.1",
     "papaparse": "^5.1.1",

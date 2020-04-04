@@ -19,7 +19,8 @@
 <script>
 import SearchBar from "@/components/SearchBar.vue";
 import SearchResults from "@/components/SearchResults.vue";
-import riskData from "@/assets/riskData.json";
+import axios from "axios";
+import parseCSV from "csv-parse/lib/sync";
 
 export default {
   name: "Home",
@@ -32,6 +33,7 @@ export default {
       searchTerm: "",
       searched: false,
       result: {},
+      riskData: [],
       scores: {
         score: [1, 2, 3, 4, 5],
         riskCategory: ["Low", "Moderate", "Elevated", "High", "Critical"],
@@ -67,16 +69,26 @@ export default {
       userProfile: {}
     };
   },
-  mounted() {
-    console.log("riskData");
-    console.log(riskData);
+  async mounted() {
+    const dataSheetUrl =
+      "https://docs.google.com/spreadsheets/d/11jG7_PkjIq3kPmhSwl9W2GpGoNe57WoBSoTo_0MS5J8/export?format=csv";
+    const activities_result = await axios.get(`${dataSheetUrl}&gid=219638739`);
+    const activities = activities_result.data;
+
+    const records = parseCSV(activities, {
+      columns: true,
+      skip_empty_lines: true
+    });
+
+    // console.log({ records });
+    this.riskData = records;
     this.userProfile = this.$store.getters.submitProfile;
   },
   methods: {
     onSearch(searchValue) {
       this.searchTerm = searchValue;
       this.searched = true;
-      riskData.map(activity => {
+      this.riskData.map(activity => {
         if (activity["Activity"].toLowerCase() == searchValue.toLowerCase()) {
           console.log(activity);
           this.result = activity;
