@@ -2,78 +2,72 @@
   <div class="introduction">
     <div v-show="searched">
       <RiskDescription
-        :score="activity['Overall Risk Scoring']"
+        :score="maybeAgeScore"
         :activity="activity"
-        :isAgeScore="false"
+        :isAgeScore="isAgeSet"
       />
     </div>
 
     <!-- if the user has not yet created a profile, give them the option to after searching -->
-    <div v-if="!checkSubmitted">
-      <div v-show="searched">
-        <div class="accordion" id="personalizedReport">
-          <div class="card">
-            <div class="card-header" id="headingOne">
-              <h2 class="mb-0">
-                <button
-                  class="btn btn-link"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#collapseOne"
-                  aria-expanded="true"
-                  aria-controls="collapseOne"
+    <div v-show="searched">
+      <div class="accordion" id="personalizedReport">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <h2 class="mb-0">
+              <button
+                class="btn btn-link"
+                type="button"
+                data-toggle="collapse"
+                data-target="#collapseOne"
+                aria-expanded="true"
+                aria-controls="collapseOne"
+              >
+                Share more info with us to get a personalized result.
+              </button>
+            </h2>
+          </div>
+          <div
+            id="collapseOne"
+            class="collapse"
+            aria-labelledby="headingOne"
+            data-parent="#personalizedReport"
+          >
+            <div style="margin-left:30%; margin-right:30%">
+              <div align="center">
+                <div
+                  v-if="
+                    profile.COVIDpositive == 'no' &&
+                      activity['showLocation'] == 'TRUE'
+                  "
+                  align="center"
+                  width="50%"
                 >
-                  Share more info with us to get a personalized result.
-                </button>
-              </h2>
-            </div>
-            <div
-              id="collapseOne"
-              class="collapse"
-              aria-labelledby="headingOne"
-              data-parent="#personalizedReport"
-            >
-              <div style="margin-left:30%; margin-right:30%">
-                <div align="center">
-                  <div
-                    v-if="
-                      profile.COVIDpositive == 'no' &&
-                        activity['showLocation'] == 'TRUE'
-                    "
-                    align="center"
-                    width="50%"
-                  >
-                    <p align="center">
-                      Please fill in the information below specific to
-                      {{ activity["Activity"] }}:
-                    </p>
-                    <p align="left">
-                      Location:
-                      <input type="text" v-model="userLocation" />
-                    </p>
-                    <br />
+                  <p align="center">
+                    Please fill in the information below specific to
+                    <b>{{ activity["activityName"] }}</b>:
+                  </p>
+                  <p align="left">
+                    Location:
+                    <input type="text" v-model="userLocation" />
+                  </p>
 
-                    <p align="left">
-                      Day:
-                      <select id="day" v-model="userDay">
-                        <option v-for="day in days" :key="day.id">{{
-                          day
-                        }}</option>
-                      </select>
-                    </p>
-                    <br />
+                  <p align="left">
+                    Day:
+                    <select id="day" v-model="userDay">
+                      <option v-for="day in days" :key="day.id">{{
+                        day
+                      }}</option>
+                    </select>
+                  </p>
 
-                    <p align="left">
-                      Time:
-                      <select id="time" v-model="userTime">
-                        <option v-for="time in times" :key="time.id">{{
-                          time
-                        }}</option>
-                      </select>
-                    </p>
-                    <br />
-                    <button @click="submit" v-if="createProfile">Submit</button>
-                  </div>
+                  <p align="left">
+                    Time:
+                    <select id="time" v-model="userTime">
+                      <option v-for="time in times" :key="time.id">{{
+                        time
+                      }}</option>
+                    </select>
+                  </p>
                 </div>
               </div>
             </div>
@@ -82,18 +76,15 @@
       </div>
     </div>
     <!-- once a user profile has been created -->
-    <div v-else>
+    <div>
       <div v-if="searched">
-        <!-- only display this message if the user doesnt have covid19 -->
         <h5>
-          I am {{ profile.age }} years old, and I go
+          I am {{ ageDescription }} years old, and I go
           {{ searchedTerm.toLowerCase() }} at {{ userLocation }} at
           {{ userTime }} on {{ userDay }}.
         </h5>
 
-        <!-- {{profile}} -->
-        <!-- only show the personal recommendation if they have not tested positive for coronavirus, otherwise only show the warning to quarantine -->
-        <div v-if="profile.COVIDpositive == 'no'" id="personalRecommendation">
+        <div v-if="profile.COVIDpositive !== 'yes'" id="personalRecommendation">
           <div class="accordion" id="accordionExample">
             <div class="card">
               <div class="card-header" id="headingOne">
@@ -124,7 +115,10 @@
               </div>
             </div>
             <!-- only show this for 50+ -->
-            <div class="card" v-if="userAge == '50 to 69' || userAge == '70+'">
+            <div
+              class="card"
+              v-if="profile.age == 'risk50To69' || profile.age == 'riskOver70'"
+            >
               <div class="card-header" id="headingTwo">
                 <h2 class="mb-0">
                   <button
@@ -588,48 +582,23 @@ export default {
       ],
       userLocation: "",
       userDay: "",
-      userTime: 0,
-      userAge: 0,
-      submitted: false
+      userTime: 0
     };
   },
   computed: {
-    riskScore() {
-      return this.activity["Overall Risk Scoring"];
+    isAgeSet() {
+      return !!this.profile.age;
     },
-    riskDescription() {
-      return this.scores.riskDescription[this.riskScore - 1];
+    maybeAgeScore() {
+      if (this.profile.age) {
+        return this.activity[this.profile.age];
+      } else {
+        return this.activity.generalRiskScore;
+      }
     },
-    getAge() {
-      return this.$store.getters.createAge;
-    },
-    comorbidity() {
-      let profile = this.$store.getters.submitProfile;
-      return profile.comorbidity;
-    },
-    createProfile() {
-      return this.$store.getters.createProfile;
-    },
-    checkSubmitted() {
-      return this.$store.getters.setSubmitted;
-      // this.submitted = this.$store.getters.setSubmitted;
-      // if (this.$store.getters.submitProfile.COVIDpositive == "yes") {
-      //   this.submitted = true;
-      // } //if the patient tests positive for COVID19, we dont bother asking about location, time of activity
-      // return this.submitted;
+    ageDescription() {
+      return this.$store.getters.ageDescription;
     }
-  },
-  methods: {
-    submit() {
-      this.submitted = true;
-      console.log("submitted");
-      // sends value to store letting user know they have created a profile
-      // this.$store.commit("createProfile", this.submitted);
-      this.$store.commit("createAge", this.userAge);
-    }
-  },
-  mounted() {
-    this.userAge = this.$store.getters.createAge;
   }
 };
 </script>

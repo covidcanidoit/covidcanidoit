@@ -14,20 +14,22 @@
         </h2>
         <div class="profile-questions">
           <MultiQuestion
+            @input="profileEdited"
             v-model="userProfile.age"
             questionPrompt="How old are you?"
             :options="[
-              ['Under 10', 'Under 10'],
-              ['10 to 18', '10 to 18'],
-              ['18 to 19', '18 to 19'],
-              ['20 to 29', '20 to 29'],
-              ['30 to 49', '30 to 49'],
-              ['50 to 69', '50 to 69'],
-              ['70+', '70+']
+              ['Under 10', 'riskUnder10'],
+              ['10 to 18', 'risk10To18'],
+              ['18 to 19', 'risk18To19'],
+              ['20 to 29', 'risk20To29'],
+              ['30 to 49', 'risk30To49'],
+              ['50 to 69', 'risk50To69'],
+              ['70+', 'riskOver70']
             ]"
           />
 
           <MultiQuestion
+            @input="profileEdited"
             v-model="userProfile.smoking"
             questionPrompt="Do you smoke/vape?"
             :options="[
@@ -39,6 +41,7 @@
 
           <!-- pregnancy -->
           <MultiQuestion
+            @input="profileEdited"
             v-model="userProfile.pregnant"
             questionPrompt="Are you pregnant?"
             :options="[
@@ -48,6 +51,7 @@
           />
           <!-- feel sick -->
           <MultiQuestion
+            @input="profileEdited"
             v-model="userProfile.feelSick"
             questionPrompt="Do you feel sick?"
             :options="[
@@ -57,6 +61,7 @@
           />
           <!-- family sick -->
           <MultiQuestion
+            @input="profileEdited"
             v-model="userProfile.familySick"
             questionPrompt="Do you have family members who are sick?"
             :options="[
@@ -67,6 +72,7 @@
 
           <!-- test postive for COVID-19? -->
           <MultiQuestion
+            @input="profileEdited"
             v-model="userProfile.COVIDpositive"
             questionPrompt="Has anyone in your household or apartment tested positive for COVID-19 (coronavirus)?"
             :options="[
@@ -77,6 +83,7 @@
 
           <!-- chronic medical condition input -->
           <MultiQuestion
+            @input="profileEdited"
             v-model="userProfile.comorbidity"
             questionPrompt="Do you have any of the following chronic medical conditions?"
             :options="[
@@ -184,7 +191,7 @@ export default {
   },
   computed: {
     riskScore() {
-      return this.searchResult["Overall Risk Scoring"];
+      return this.searchResult["generalRiskScore"];
     },
     riskDescription() {
       return this.scores.riskDescription[this.riskScore];
@@ -198,22 +205,22 @@ export default {
     this.userProfile = this.$store.getters.submitProfile;
   },
   methods: {
-    submit() {
-      this.submitted = true;
-      console.log("submitted");
+    profileEdited() {
+      // this.submitted = true;
+      console.log("edited");
       // sends value to store letting user know they have created a profile
-      this.$store.commit("createProfile", this.submitted);
+      // this.$store.commit("createProfile", this.submitted);
       //send user profile values
       this.$store.commit("submitProfile", this.userProfile);
       // if we are on the create profile page, move to the current profile page, otherwise stay where you are
-      if (this.$router.currentRoute.name == "createUserProfile") {
-        this.$router.push("userProfile");
-      }
+      // if (this.$router.currentRoute.name == "createUserProfile") {
+      //   this.$router.push("userProfile");
+      // }
       //if we are on the home page, trigger the submit function in the results view
       // console.log("rotername:", this.$router.currentRoute.name)
-      if (this.$router.currentRoute.name == "Home") {
-        this.$store.commit("setSubmitted", this.submitted);
-      }
+      // if (this.$router.currentRoute.name == "Home") {
+      //   this.$store.commit("setSubmitted", this.submitted);
+      // }
     }
   }
 };

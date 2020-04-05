@@ -1,13 +1,10 @@
 <template>
-  <div class="about">
-    <h1><u>Personalized Risk Screener</u></h1>
-    <br />
-    <ProfileCreate
-      :searched="searched"
-      style="margin-left:30%; margin-right:30%"
-    />
+  <div class="create-user-profile">
+    <h1>Personalized Risk Screener</h1>
+    <ProfileCreate />
   </div>
 </template>
+
 <script>
 import ProfileCreate from "@/components/ProfileCreate.vue";
 export default {
@@ -21,3 +18,12 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.create-user-profile > h1 {
+  background-color: $color-teal;
+  text-align: center;
+  padding: 1em;
+  margin: 0;
+}
+</style>

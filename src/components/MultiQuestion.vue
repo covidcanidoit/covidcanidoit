@@ -6,7 +6,7 @@
       <select
         class="form-select"
         @input="$emit('input', $event.target.value)"
-        v-model="answer"
+        v-bind:value="value"
       >
         <option
           v-for="(option, index) in options"
@@ -24,12 +24,8 @@
 export default {
   props: {
     questionPrompt: undefined,
-    options: undefined
-  },
-  data() {
-    return {
-      answer: ""
-    };
+    options: undefined,
+    value: undefined
   }
 };
 </script>

@@ -19,6 +19,7 @@ import ProfileCreate from "@/components/ProfileCreate.vue";
 import HowItWorks from "@/components/HowItWorks.vue";
 import axios from "axios";
 import parseCSV from "csv-parse/lib/sync";
+import { mapState } from "vuex";
 
 export default {
   name: "Home",
@@ -33,9 +34,11 @@ export default {
       searchTerm: "",
       searched: false,
       result: {},
-      riskData: [],
-      userProfile: {}
+      riskData: []
     };
+  },
+  computed: {
+    ...mapState(["userProfile"])
   },
   async mounted() {
     const dataSheetUrl =
@@ -50,14 +53,13 @@ export default {
 
     console.log({ records });
     this.riskData = records;
-    this.userProfile = this.$store.getters.submitProfile;
   },
   methods: {
     onSearch(searchValue) {
       this.searchTerm = searchValue;
       this.searched = true;
       this.riskData.map(activity => {
-        if (activity["Activity"].toLowerCase() == searchValue.toLowerCase()) {
+        if (activity["activityName"].toLowerCase() == searchValue.toLowerCase()) {
           console.log(activity);
           this.result = activity;
         }
