@@ -3,7 +3,6 @@
     <h1>Continue to live your life safely</h1>
     <h2>Assess the risk of your actions during the COVID-19 pandemic.</h2>
     <div class="dropdown">
-      <!-- <button class="dropbtn">Dropdown</button> -->
       <input
         type="text"
         class="dropbtn"
@@ -14,10 +13,13 @@
       <div class="dropdown-content">
         <a
           href="#"
-          v-for="activity in activityListDynamic"
+          v-for="(activity, index) in activityListDynamic"
           @click="dropdownClick(activity)"
           :key="activity"
+          :v-if="index <5"
         >{{activity}}</a>
+        <button @click="dropdownIndex--" v-show="dropdownIndex>0">Previous</button>
+        <button @click="dropdownIndex++" v-show="dropdownIndex<maxIndex">Next</button>
       </div>
       <button @click="onSearch">Assess my risk!</button>
     </div>
@@ -30,11 +32,13 @@
 export default {
   props: {
     msg: String,
-    activityList: Array
+    activityList: Array,
+    perPage: {type: Number, default: 5}
   },
   data: function() {
     return {
-      searchTerm: ""
+      searchTerm: "",
+      dropdownIndex: 0,
     };
   },
   methods: {
@@ -47,10 +51,21 @@ export default {
     }
   },
   computed: {
-    activityListDynamic() {
+    activityListComplete() {
       return this.activityList.filter(string =>
         string.toLowerCase().includes(this.searchTerm.toLowerCase())
       );
+    },
+    maxIndex() {
+      return Math.ceil(this.activityListComplete.length/this.perPage);
+    },
+    activityListDynamic() {
+      return this.activityListComplete.slice(this.dropdownIndex*this.perPage,(this.dropdownIndex+1)*this.perPage)
+    }
+  },
+  watch: {
+    activityListComplete: function() {
+      this.dropdownIndex = 0;
     }
   },
   mounted() {
@@ -95,7 +110,7 @@ export default {
 /* Dropdown Button */
 .dropbtn {
   background-color: white;
-  color: white;
+  color: black;
   padding: 16px;
   font-size: 16px;
   border: none;
@@ -137,6 +152,6 @@ export default {
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
-  background-color: steelblue;
+  background-color: white;
 }
 </style>

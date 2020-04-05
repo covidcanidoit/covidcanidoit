@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <SearchBar @searched="onSearch" :activityList="activityList" />
+    <SearchBar @searched="onSearch" :activityList="activityList" :perPage="5" />
     <SearchResults
       :searchedTerm="searchTerm"
       :activity="result"
