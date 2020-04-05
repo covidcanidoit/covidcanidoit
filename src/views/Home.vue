@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <SearchBar @searched="onSearch" />
+    <SearchBar @searched="onSearch" :activityList="activityList" />
     <SearchResults
       :searchedTerm="searchTerm"
       :activity="result"
@@ -34,7 +34,8 @@ export default {
       searchTerm: "",
       searched: false,
       result: {},
-      riskData: []
+      riskData: [],
+      activityList: []
     };
   },
   computed: {
@@ -53,6 +54,12 @@ export default {
 
     console.log({ records });
     this.riskData = records;
+
+    //add the list of activities to an array to pass into searchbar (for dropdown suggestions)
+    // this.activityList = []
+    records.map(record => {
+      this.activityList.push(record.activityName);
+    });
   },
   methods: {
     onSearch(searchValue) {
