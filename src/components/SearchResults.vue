@@ -1,32 +1,13 @@
 <template>
   <div class="introduction">
     <div v-show="searched">
-      <!-- only show if they are not covid positive -->
-      <h1>{{ searchResult["Activity"] }}</h1>
-      <table class="results" width="100%">
-        <tr>
-          <td width="25%">
-            <div v-if="checkSubmitted">
-              Age-Specific Risk Score:
-              <br />
-              <br />
-              <h1>{{ searchResult[getAge] }}</h1>
-            </div>
-            <div v-else>
-              Risk Score:
-              <br />
-              <br />
-              <h1>{{ searchResult["Overall Risk Scoring"] }}</h1>
-            </div>
-          </td>
-          <td width="75%">
-            <ul v-for="desc in riskDescription" :key="desc.id" align="left">
-              <li>{{ desc }}</li>
-            </ul>
-          </td>
-        </tr>
-      </table>
+      <RiskDescription
+        :score="activity['Overall Risk Scoring']"
+        :activity="activity"
+        :isAgeScore="false"
+      />
     </div>
+
     <!-- if the user has not yet created a profile, give them the option to after searching -->
     <div v-if="!checkSubmitted">
       <div v-show="searched">
@@ -57,14 +38,14 @@
                   <div
                     v-if="
                       profile.COVIDpositive == 'no' &&
-                        searchResult['showLocation'] == 'TRUE'
+                        activity['showLocation'] == 'TRUE'
                     "
                     align="center"
                     width="50%"
                   >
                     <p align="center">
                       Please fill in the information below specific to
-                      {{ searchResult["Activity"] }}:
+                      {{ activity["Activity"] }}:
                     </p>
                     <p align="left">
                       Location:
@@ -92,9 +73,6 @@
                     </p>
                     <br />
                     <button @click="submit" v-if="createProfile">Submit</button>
-                  </div>
-                  <div v-if="createProfile == false">
-                    <ProfileCreate :searched="searched" />
                   </div>
                 </div>
               </div>
@@ -553,12 +531,12 @@
 </template>
 
 <script>
-import ProfileCreate from "@/components/ProfileCreate.vue";
+import RiskDescription from "@/components/RiskDescription.vue";
 
 export default {
   props: {
     searchedTerm: String,
-    searchResult: Object,
+    activity: Object,
     searched: {
       type: Boolean,
       default: false
@@ -568,53 +546,10 @@ export default {
     }
   },
   components: {
-    ProfileCreate
+    RiskDescription
   },
   data: function() {
     return {
-      scores: {
-        score: [1, 2, 3, 4, 5],
-        riskCategory: ["Low", "Moderate", "Elevated", "High", "Critical"],
-        riskDescription: [
-          [
-            "•You can continue to do this activity.",
-            "•The frequency and nature of the activity puts you at low risk for contracting or transmitting COVID-19.",
-            "•You may still want to take extra precautions for prevent infection."
-          ],
-          [
-            "•You can continue to do this activity but you should consider ways to do this activity less or during less risky times.",
-            "•The frequency and nature of the activity puts you at some risk for contracting or transmitting COVID-19.",
-            "•Make sure to take extra precautions for prevent infection, like frequently washing your hands (with soap) for at least 20 seconds and remaining 6 feet from another person."
-          ],
-          [
-            "•You should consider stopping this activity.",
-            "•If you are unable to stop, you should consider ways to do this activity less or during less risky times.",
-            "•The frequency and nature of the activity puts you at more risk for contracting or transmitting COVID-19.",
-            "•Extra precautions to preventing infection are not enough, like frequently washing your hands (with soap) for at least 20 seconds and remaining 6 feet from another person. "
-          ],
-          [
-            "•You should stop this activity.",
-            "•The frequency and nature of the activity puts you at high risk for contracting or transmitting COVID-19.",
-            "•You may be endangering others and efforts to control the outbreak.",
-            "•Extra precautions to preventing infection are not enough, like frequently washing your hands (with soap) for at least 20 seconds and remaining 6 feet from another person. "
-          ],
-          [
-            "•Stop this activity immediately.",
-            "•The frequency and nature of the activity is endangering yourself and efforts to control the COVID-19 outbreak, regardless of extra precautions to preventing infection, like frequently washing your hands (with soap) for at least 20 seconds and remaining 6 feet from another person. "
-          ]
-        ]
-      },
-      ageGroups: {
-        groups: [
-          "Under 10",
-          "10 to 18",
-          "18 to 19",
-          "20 to 29",
-          "30 to 49",
-          "50 to 69",
-          "70+"
-        ]
-      },
       times: [
         "Right now",
         "1:00 AM",
@@ -660,7 +595,7 @@ export default {
   },
   computed: {
     riskScore() {
-      return this.searchResult["Overall Risk Scoring"];
+      return this.activity["Overall Risk Scoring"];
     },
     riskDescription() {
       return this.scores.riskDescription[this.riskScore - 1];

@@ -1,15 +1,21 @@
 <template>
-  <div>
-    <div class="question">{{ questionPrompt }}</div>
-    <div><slot></slot></div>
-    <div v-for="option in options" :key="option.id">
-      <input
-        type="radio"
-        :value="option[1]"
-        v-model="answer"
+  <div class="multi-question">
+    <div class="content">
+      <div class="question">{{ questionPrompt }}</div>
+      <div><slot></slot></div>
+      <select
+        class="form-select"
         @input="$emit('input', $event.target.value)"
-      />
-      <label :for="option[1]">{{ option[0] }}</label>
+        v-model="answer"
+      >
+        <option
+          v-for="(option, index) in options"
+          :key="index"
+          :value="option[1]"
+        >
+          {{ option[0] }}
+        </option>
+      </select>
     </div>
   </div>
 </template>
@@ -28,8 +34,16 @@ export default {
 };
 </script>
 
-<style scoped>
-.question {
-  font-weight: bold;
+<style scoped lang="scss">
+.multi-question {
+  display: flex;
+
+  .content {
+    align-self: flex-end;
+  }
+
+  .question {
+    font-weight: bold;
+  }
 }
 </style>

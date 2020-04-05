@@ -1,8 +1,22 @@
 <template>
-  <div class="introduction">
-    <input type="text" v-model="searchTerm" placeholder="I want to go..." />
-    <button @click="onSearch">Search</button>
-    <br />
+  <div class="search-bar">
+    <h1>Continue to live your life safely</h1>
+    <h2>
+      Assess the risk of your actions during the COVID-19 pandemic.
+    </h2>
+    <div class="search-fields">
+      <input
+        type="text"
+        v-model="searchTerm"
+        v-on:keyup.enter="onSearch"
+        placeholder="I want to go..."
+      />
+      <button @click="onSearch">Assess my risk!</button>
+    </div>
+    <h2>
+      Help us give you a more accurate risk appraisal
+    </h2>
+    <button class="create-profile">Create a profile in 2 minutes</button>
   </div>
 </template>
 
@@ -24,20 +38,36 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+<style lang="scss">
+.search-bar {
+  background-color: $color-teal;
+  text-align: center;
+  padding: 1em;
+
+  .search-fields {
+    white-space: nowrap;
+
+    input {
+      border-radius: 30px 0 0 30px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      border-radius: 0 30px 30px 0;
+      border: 1px solid #ccc;
+      padding: 10px;
+      background-color: $color-peach;
+      color: #666;
+    }
+  }
+
+  button.create-profile {
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: $color-salmon;
+    color: #666;
+  }
 }
 </style>
