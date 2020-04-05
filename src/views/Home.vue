@@ -7,7 +7,7 @@
       :searched="searched"
       :profile="userProfile"
     />
-    <ProfileCreate />
+    <!-- <ProfileCreate /> -->
     <HowItWorks />
   </div>
 </template>
@@ -15,7 +15,6 @@
 <script>
 import SearchBar from "@/components/SearchBar.vue";
 import SearchResults from "@/components/SearchResults.vue";
-import ProfileCreate from "@/components/ProfileCreate.vue";
 import HowItWorks from "@/components/HowItWorks.vue";
 import axios from "axios";
 import parseCSV from "csv-parse/lib/sync";
@@ -26,7 +25,6 @@ export default {
   components: {
     SearchBar,
     SearchResults,
-    ProfileCreate,
     HowItWorks
   },
   data: function() {

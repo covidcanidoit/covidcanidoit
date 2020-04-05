@@ -2,12 +2,13 @@
   <div class="risk-description">
     <div class="score-panel">
       <div v-if="isAgeScore">
-        <b>{{ activity["activityName"] }}</b> has an Age-Specific risk factor of
+        <b>{{ activity["activityName"] }}</b> has an Age-Specific risk level of
       </div>
       <div v-else>
-        <b>{{ activity["activityName"] }}</b> has a risk factor of
+        <b>{{ activity["activityName"] }}</b> has a risk level of
       </div>
       <div class="score">{{ score }}</div>
+      <div class="score-title">{{ scoreDescription }}</div>
     </div>
     <div class="risk-details">
       <ul
@@ -33,6 +34,9 @@ export default {
   computed: {
     scoreIndex() {
       return this.score - 1;
+    },
+    scoreDescription() {
+      return this.riskCategory[this.score - 1];
     }
   },
   data() {

@@ -2,7 +2,7 @@
   <div class="search-bar">
     <h1>Continue to live your life safely</h1>
     <h2>Assess the risk of your actions during the COVID-19 pandemic.</h2>
-    <div class="dropdown">
+    <div class="dropdown search-fields">
       <input
         type="text"
         class="dropbtn"
@@ -21,7 +21,7 @@
         <button @click="dropdownIndex--" v-show="dropdownIndex>0">Previous</button>
         <button @click="dropdownIndex++" v-show="dropdownIndex<maxIndex">Next</button>
       </div>
-      <button @click="onSearch">Assess my risk!</button>
+      <button class="run-search" @click="onSearch">Assess my risk!</button>
     </div>
     <h2>Help us give you a more accurate risk appraisal</h2>
     <button class="create-profile">Create a profile in 2 minutes</button>
@@ -89,7 +89,7 @@ export default {
       border: 1px solid #ccc;
     }
 
-    button {
+    button.run-search {
       border-radius: 0 30px 30px 0;
       border: 1px solid #ccc;
       padding: 10px;

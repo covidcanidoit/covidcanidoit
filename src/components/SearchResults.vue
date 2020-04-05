@@ -1,91 +1,89 @@
 <template>
   <div class="introduction">
     <div v-show="searched">
-      <RiskDescription
-        :score="maybeAgeScore"
-        :activity="activity"
-        :isAgeScore="isAgeSet"
-      />
-    </div>
 
-    <!-- if the user has not yet created a profile, give them the option to after searching -->
-    <div v-show="searched">
-      <div class="accordion" id="personalizedReport">
-        <div class="card">
-          <div class="card-header" id="headingOne">
-            <h2 class="mb-0">
-              <button
-                class="btn btn-link"
-                type="button"
-                data-toggle="collapse"
-                data-target="#collapseOne"
-                aria-expanded="true"
-                aria-controls="collapseOne"
-              >
-                Share more info with us to get a personalized result.
-              </button>
-            </h2>
-          </div>
-          <div
-            id="collapseOne"
-            class="collapse"
-            aria-labelledby="headingOne"
-            data-parent="#personalizedReport"
-          >
-            <div style="margin-left:30%; margin-right:30%">
-              <div align="center">
-                <div
-                  v-if="
-                    profile.COVIDpositive == 'no' &&
-                      activity['showLocation'] == 'TRUE'
-                  "
-                  align="center"
-                  width="50%"
+      <div v-if="profile.COVIDpositive == 'yes'">
+        <!-- if someone tested positive for coronavirus -->
+        <b class="warning">
+          Do not leave home except for essential medical visits. Even if you have
+          not tested positive and do not feel ill, you can spread COVID-19.
+        </b>
+
+        <div class="accordion" id="accordionExample">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h2 class="mb-0">
+                <button
+                  class="btn btn-link"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#collapseOne"
+                  aria-expanded="true"
+                  aria-controls="collapseOne"
                 >
-                  <p align="center">
-                    Please fill in the information below specific to
-                    <b>{{ activity["activityName"] }}</b>:
-                  </p>
-                  <p align="left">
-                    Location:
-                    <input type="text" v-model="userLocation" />
-                  </p>
-
-                  <p align="left">
-                    Day:
-                    <select id="day" v-model="userDay">
-                      <option v-for="day in days" :key="day.id">{{
-                        day
-                      }}</option>
-                    </select>
-                  </p>
-
-                  <p align="left">
-                    Time:
-                    <select id="time" v-model="userTime">
-                      <option v-for="time in times" :key="time.id">{{
-                        time
-                      }}</option>
-                    </select>
-                  </p>
-                </div>
+                  You or someone in your household has tested positive for
+                  COVID-19 (coronavirus).
+                </button>
+              </h2>
+            </div>
+            <div
+              id="collapseOne"
+              class="collapse show"
+              aria-labelledby="headingOne"
+              data-parent="#accordionExample"
+            >
+              <div class="card-body">
+                <p align="left">
+                  The CDC recommends the following:
+                </p>
+                <ul>
+                  <li>
+                    When you need medical care, call ahead to the doctor or
+                    medical facility to alert them that you have COVID-19 so they
+                    can prepare to care for you and protect others at the
+                    facility.
+                  </li>
+                  <br />
+                  <li>
+                    Outside of getting medical care, you should isolate yourself
+                    to your home. Do not go to work, school, place of worship or
+                    other public areas. Avoid using public transportation,
+                    ride-sharing or taxis.
+                  </li>
+                </ul>
+                <p>
+                  Learn more:
+                  <a
+                    href="https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html"
+                    target="_blank"
+                    >https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html</a
+                  >
+                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- once a user profile has been created -->
-    <div>
-      <div v-if="searched">
-        <h5>
+
+      <div v-if="profile.COVIDpositive !== 'yes'">
+        <RiskDescription
+          :score="maybeAgeScore"
+          :activity="activity"
+          :isAgeScore="isAgeSet"
+        />
+
+        <h1>Additional Risk Factors</h1>
+        <!-- <h5>
           I am {{ ageDescription }} years old, and I go
           {{ searchedTerm.toLowerCase() }} at {{ userLocation }} at
           {{ userTime }} on {{ userDay }}.
-        </h5>
+        </h5> -->
 
         <div v-if="profile.COVIDpositive !== 'yes'" id="personalRecommendation">
           <div class="accordion" id="accordionExample">
+
+            <!-- Disabled location-specific since that's not hooked up yet -->
+            <!--
             <div class="card">
               <div class="card-header" id="headingOne">
                 <h2 class="mb-0">
@@ -114,6 +112,8 @@
                 </div>
               </div>
             </div>
+            -->
+
             <!-- only show this for 50+ -->
             <div
               class="card"
