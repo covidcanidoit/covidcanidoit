@@ -17,13 +17,13 @@
             v-model="userProfile.age"
             questionPrompt="How old are you?"
             :options="[
-              ['Under 10', 'Under 10'],
-              ['10 to 18', '10 to 18'],
-              ['18 to 19', '18 to 19'],
-              ['20 to 29', '20 to 29'],
-              ['30 to 49', '30 to 49'],
-              ['50 to 69', '50 to 69'],
-              ['70+', '70+']
+              ['Under 10', 'riskUnder10'],
+              ['10 to 18', 'risk10To18'],
+              ['18 to 19', 'risk18To19'],
+              ['20 to 29', 'risk20To29'],
+              ['30 to 49', 'risk30To49'],
+              ['50 to 69', 'risk50To69'],
+              ['70+', 'riskOver70']
             ]"
           />
 
@@ -184,7 +184,7 @@ export default {
   },
   computed: {
     riskScore() {
-      return this.searchResult["Overall Risk Scoring"];
+      return this.searchResult["generalRiskScore"];
     },
     riskDescription() {
       return this.scores.riskDescription[this.riskScore];

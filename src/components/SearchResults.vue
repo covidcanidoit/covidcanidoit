@@ -2,7 +2,7 @@
   <div class="introduction">
     <div v-show="searched">
       <RiskDescription
-        :score="activity['Overall Risk Scoring']"
+        :score="activity['generalRiskScore']"
         :activity="activity"
         :isAgeScore="false"
       />
@@ -45,7 +45,7 @@
                   >
                     <p align="center">
                       Please fill in the information below specific to
-                      {{ activity["Activity"] }}:
+                      {{ activity["activityName"] }}:
                     </p>
                     <p align="left">
                       Location:
@@ -595,7 +595,7 @@ export default {
   },
   computed: {
     riskScore() {
-      return this.activity["Overall Risk Scoring"];
+      return this.activity["generalRiskScore"];
     },
     riskDescription() {
       return this.scores.riskDescription[this.riskScore - 1];

@@ -57,7 +57,7 @@ export default {
       this.searchTerm = searchValue;
       this.searched = true;
       this.riskData.map(activity => {
-        if (activity["Activity"].toLowerCase() == searchValue.toLowerCase()) {
+        if (activity["activityName"].toLowerCase() == searchValue.toLowerCase()) {
           console.log(activity);
           this.result = activity;
         }

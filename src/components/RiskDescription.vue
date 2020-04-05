@@ -2,10 +2,10 @@
   <div class="risk-description">
     <div class="score-panel">
       <div v-if="isAgeScore">
-        <b>{{ activity["Activity"] }}</b> has an Age-Specific risk factor of
+        <b>{{ activity["activityName"] }}</b> has an Age-Specific risk factor of
       </div>
       <div v-else>
-        <b>{{ activity["Activity"] }}</b> has a risk factor of
+        <b>{{ activity["activityName"] }}</b> has a risk factor of
       </div>
       <div class="score">{{ score }}</div>
     </div>
