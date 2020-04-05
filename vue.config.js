@@ -2,6 +2,9 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackInlineSourcePlugin = require("html-webpack-inline-source-plugin");
 module.exports = {
+  devServer: {
+    disableHostCheck: true
+  },
   css: {
     extract: false,
     loaderOptions: {
