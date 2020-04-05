@@ -1,7 +1,11 @@
 <template>
   <div class="introduction">
     <div v-show="searched">
-      <RiskDescription score="1" :activity="activity" :isAgeScore="false" />
+      <RiskDescription
+        :score="activity['Overall Risk Scoring']"
+        :activity="activity"
+        :isAgeScore="false"
+      />
     </div>
 
     <!-- if the user has not yet created a profile, give them the option to after searching -->
