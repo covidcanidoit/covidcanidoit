@@ -587,10 +587,10 @@ export default {
   },
   computed: {
     isAgeSet() {
-      return !!this.profile.age;
+      return this.profile.age && this.activity[this.profile.age];
     },
     maybeAgeScore() {
-      if (this.profile.age) {
+      if (this.profile.age && this.activity[this.profile.age]) {
         return this.activity[this.profile.age];
       } else {
         return this.activity.generalRiskScore;
