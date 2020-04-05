@@ -5,13 +5,13 @@
         <h1>
           Tell us more about you, so we can give you more accurate information
         </h1>
-        <h2>Create a profile&nbsp;&#x25b6;</h2>
+        <h2>Create a profile &#x25b6;</h2>
         <a href="#">Read more about your privacy and rights</a>
       </div>
       <div class="right-side">
-        <h2>
+        <h1>
           Please enter the following information about yourself:
-        </h2>
+        </h1>
         <div class="profile-questions">
           <MultiQuestion
             @input="profileEdited"
@@ -242,6 +242,14 @@ export default {
     flex: 30%;
     font-size: 10px;
 
+    h1 {
+      font-size: 1.5em;
+    }
+    h2 {
+      font-size: 1.25em;
+      white-space: nowrap;
+    }
+
     a {
       color: $color-teal;
     }
@@ -252,6 +260,12 @@ export default {
     background-color: $color-mint;
     color: $color-navy;
     flex: 70%;
+
+    font-size: 10px;
+
+    h1 {
+      font-size: 1.5em;
+    }
 
     .profile-questions {
       display: flex;

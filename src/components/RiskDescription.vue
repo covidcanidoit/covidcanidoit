@@ -5,7 +5,7 @@
         <b>{{ activity["activityName"] }}</b> has an Age-Specific risk level of
       </div>
       <div v-else>
-        <b>{{ activity["activityName"] }}</b> has a risk level of
+        <b>{{ activity["activityName"] }}</b> <div style="white-space: nowrap">has a risk level of</div>
       </div>
       <div class="score">{{ score }}</div>
       <div class="score-title">{{ scoreDescription }}</div>
@@ -82,13 +82,14 @@ export default {
 .risk-description {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   color: black;
   background-color: #e8ebf5;
 
   .score-panel {
     padding: 1em;
     margin: auto;
-    flex: 50%;
+    flex: 30%;
     text-align: center;
     .score {
       font-size: 5em;
@@ -96,7 +97,7 @@ export default {
   }
 
   .risk-details {
-    flex: 50%;
+    flex: 70%;
     margin: auto;
     padding: 1em;
   }
