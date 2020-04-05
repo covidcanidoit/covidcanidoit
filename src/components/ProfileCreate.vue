@@ -2,126 +2,123 @@
   <div>
     <div class="profile-create">
       <div class="left-side">
-        <h1>Tell us more about you, so we can give you more accurate information</h1>
-        <h2>Create a profile &#x25b6;</h2>
+        <h1>
+          Tell us more about you, so we can give you more accurate information
+        </h1>
+        <h2>Create a profile&nbsp;&#x25b6;</h2>
+        <a href="#">Read more about your privacy and rights</a>
       </div>
       <div class="right-side">
-        <div class="card-body">
-          <p align="center">
-            Please enter the following information about yourself:
-          </p>
-          <div align="left">
-            <!-- age input -->
-            <b>How old are you?</b> <br />
-            <select id="age" v-model="userProfile.age">
-              <option v-for="age in ageGroups.groups" :key="age.id">{{
-                age
-              }}</option>
-            </select>
-            <br />
-            <!-- gender input -->
-            <!-- do we actually need this? -->
-            <!-- What is your gender?
-            <br />
-            <input type="radio" id="male" value="male" v-model="userProfile.gender">
-            <label for="male">Male</label>
-            <br>
-            <input type="radio" id="female" value="female" v-model="userProfile.gender">
-            <label for="female">Female</label>
-            <br /> -->
-            <!-- smoking input -->
-            <MultiQuestion
-              v-model="userProfile.smoking"
-              questionPrompt="Do you smoke/vape?"
-              :options="[
-                ['Yes, I smoke/vape', 'yes'],
-                ['No, I do not smoke/vape', 'no'],
-                ['I used to smoke/vape', 'used']
-              ]"
-            />
-            <!-- chronic medical condition input -->
-            <MultiQuestion
-              v-model="userProfile.comorbidity"
-              questionPrompt="Do you have any of the following chronic medical conditions?"
-              :options="[
-                ['Yes', 'yes'],
-                ['No', 'no']
-              ]"
-            >
-              <ul>
-                <li>Chronic kidney disease</li>
-                <br />
-                <li>Organ or bone marrow transplant</li>
-                <br />
-                <li>Active hepatitis B infection or Chronic liver disease</li>
-                <br />
-                <li>
-                  Any cardiovascular/heart disease, including high blood
-                  pressure
-                </li>
-                <br />
-                <li>Diabetes</li>
-                <br />
-                <li>
-                  Any chronic lung disease or condition, including asthma,
-                  COPD/chronic emphysema, or interstitial lung disease (such as
-                  pneumonitis or pulmonary fibrosis)
-                </li>
-                <br />
-                <li>Blood disorders such as sickle cell anemia</li>
-                <br />
-                <li>Metabolic/mitochondrial disorders</li>
-                <br />
-                <li>
-                  Neurologic/neurodevelopmental conditions including stroke,
-                  intellectual disability, moderate to severe neurodevelopmental
-                  delay, and neuromuscular diseases
-                </li>
-                <br />
-                <li>
-                  Any immunocompromising diseases or medications (diseases or
-                  medications that weaken your immune system)
-                </li>
-              </ul>
-            </MultiQuestion>
-            <!-- pregnancy -->
-            <MultiQuestion
-              v-model="userProfile.pregnant"
-              questionPrompt="Are you pregnant?"
-              :options="[
-                ['Yes', 'yes'],
-                ['No', 'no']
-              ]"
-            />
-            <!-- feel sick -->
-            <MultiQuestion
-              v-model="userProfile.feelSick"
-              questionPrompt="Do you feel sick?"
-              :options="[
-                ['Yes', 'yes'],
-                ['No', 'no']
-              ]"
-            />
-            <!-- family sick -->
-            <MultiQuestion
-              v-model="userProfile.familySick"
-              questionPrompt="Do you have family members who are sick?"
-              :options="[
-                ['Yes', 'yes'],
-                ['No', 'no']
-              ]"
-            />
-            <!-- test postive for COVID-19? -->
-            <MultiQuestion
-              v-model="userProfile.COVIDpositive"
-              questionPrompt="Has anyone in your household or apartment tested positive for COVID-19 (coronavirus)?"
-              :options="[
-                ['Yes', 'yes'],
-                ['No', 'no']
-              ]"
-            />
-            <button @click="submit" to="/userProfile">Create Profile</button>
-          </div>
+        <h2>
+          Please enter the following information about yourself:
+        </h2>
+        <div class="profile-questions">
+          <MultiQuestion
+            v-model="userProfile.age"
+            questionPrompt="How old are you?"
+            :options="[
+              ['Under 10', 'Under 10'],
+              ['10 to 18', '10 to 18'],
+              ['18 to 19', '18 to 19'],
+              ['20 to 29', '20 to 29'],
+              ['30 to 49', '30 to 49'],
+              ['50 to 69', '50 to 69'],
+              ['70+', '70+']
+            ]"
+          />
+
+          <MultiQuestion
+            v-model="userProfile.smoking"
+            questionPrompt="Do you smoke/vape?"
+            :options="[
+              ['Yes, I smoke/vape', 'yes'],
+              ['No, I do not smoke/vape', 'no'],
+              ['I used to smoke/vape', 'used']
+            ]"
+          />
+
+          <!-- pregnancy -->
+          <MultiQuestion
+            v-model="userProfile.pregnant"
+            questionPrompt="Are you pregnant?"
+            :options="[
+              ['Yes', 'yes'],
+              ['No', 'no']
+            ]"
+          />
+          <!-- feel sick -->
+          <MultiQuestion
+            v-model="userProfile.feelSick"
+            questionPrompt="Do you feel sick?"
+            :options="[
+              ['Yes', 'yes'],
+              ['No', 'no']
+            ]"
+          />
+          <!-- family sick -->
+          <MultiQuestion
+            v-model="userProfile.familySick"
+            questionPrompt="Do you have family members who are sick?"
+            :options="[
+              ['Yes', 'yes'],
+              ['No', 'no']
+            ]"
+          />
+
+          <!-- test postive for COVID-19? -->
+          <MultiQuestion
+            v-model="userProfile.COVIDpositive"
+            questionPrompt="Has anyone in your household or apartment tested positive for COVID-19 (coronavirus)?"
+            :options="[
+              ['Yes', 'yes'],
+              ['No', 'no']
+            ]"
+          />
+
+          <!-- chronic medical condition input -->
+          <MultiQuestion
+            v-model="userProfile.comorbidity"
+            questionPrompt="Do you have any of the following chronic medical conditions?"
+            :options="[
+              ['Yes', 'yes'],
+              ['No', 'no']
+            ]"
+          >
+            <ul>
+              <li>Chronic kidney disease</li>
+              <br />
+              <li>Organ or bone marrow transplant</li>
+              <br />
+              <li>Active hepatitis B infection or Chronic liver disease</li>
+              <br />
+              <li>
+                Any cardiovascular/heart disease, including high blood pressure
+              </li>
+              <br />
+              <li>Diabetes</li>
+              <br />
+              <li>
+                Any chronic lung disease or condition, including asthma,
+                COPD/chronic emphysema, or interstitial lung disease (such as
+                pneumonitis or pulmonary fibrosis)
+              </li>
+              <br />
+              <li>Blood disorders such as sickle cell anemia</li>
+              <br />
+              <li>Metabolic/mitochondrial disorders</li>
+              <br />
+              <li>
+                Neurologic/neurodevelopmental conditions including stroke,
+                intellectual disability, moderate to severe neurodevelopmental
+                delay, and neuromuscular diseases
+              </li>
+              <br />
+              <li>
+                Any immunocompromising diseases or medications (diseases or
+                medications that weaken your immune system)
+              </li>
+            </ul>
+          </MultiQuestion>
         </div>
       </div>
     </div>
@@ -170,15 +167,7 @@ export default {
         ]
       },
       ageGroups: {
-        groups: [
-          "Under 10",
-          "10 to 18",
-          "18 to 19",
-          "20 to 29",
-          "30 to 49",
-          "50 to 69",
-          "70+"
-        ]
+        groups: []
       },
       submitted: false,
       userProfile: {
@@ -203,16 +192,6 @@ export default {
     profileCreated() {
       //track if the user has created a profile yet
       return this.$store.getters.createProfile;
-    },
-    ageIndex() {
-      let index = null;
-      this.ageGroups.groups.map((group, id) => {
-        console.log(group, this.userAge, id);
-        if (group == this.userAge) {
-          index = id;
-        }
-      });
-      return index;
     }
   },
   mounted() {
@@ -246,17 +225,38 @@ export default {
   display: flex;
   flex-direction: row;
   text-align: left;
+  width: 100%;
+  overflow-x: auto;
 
   .left-side {
+    padding: 1em;
     background-color: $color-navy;
     color: $color-mint;
     flex: 30%;
+    font-size: 10px;
+
+    a {
+      color: $color-teal;
+    }
   }
 
   .right-side {
+    padding: 1em;
     background-color: $color-mint;
     color: $color-navy;
     flex: 70%;
+
+    .profile-questions {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      overflow-x: auto;
+
+      .multi-question {
+        margin: 1em;
+        flex: 45%;
+      }
+    }
   }
 }
 

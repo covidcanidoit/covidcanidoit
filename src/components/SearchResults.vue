@@ -1,8 +1,7 @@
 <template>
   <div class="introduction">
     <div v-show="searched">
-      <h1>{{ searchResult["Activity"] }}</h1>
-      <RiskDescription score="1" :isAgeScore="false" />
+      <RiskDescription score="1" :activity="activity" :isAgeScore="false" />
     </div>
 
     <!-- if the user has not yet created a profile, give them the option to after searching -->
@@ -35,14 +34,14 @@
                   <div
                     v-if="
                       profile.COVIDpositive == 'no' &&
-                        searchResult['showLocation'] == 'TRUE'
+                        activity['showLocation'] == 'TRUE'
                     "
                     align="center"
                     width="50%"
                   >
                     <p align="center">
                       Please fill in the information below specific to
-                      {{ searchResult["Activity"] }}:
+                      {{ activity["Activity"] }}:
                     </p>
                     <p align="left">
                       Location:
@@ -533,7 +532,7 @@ import RiskDescription from "@/components/RiskDescription.vue";
 export default {
   props: {
     searchedTerm: String,
-    searchResult: Object,
+    activity: Object,
     searched: {
       type: Boolean,
       default: false
@@ -635,7 +634,7 @@ export default {
   },
   computed: {
     riskScore() {
-      return this.searchResult["Overall Risk Scoring"];
+      return this.activity["Overall Risk Scoring"];
     },
     riskDescription() {
       return this.scores.riskDescription[this.riskScore - 1];

@@ -1,6 +1,6 @@
 <template>
   <div class="how-it-works">
-    <h1>How `Covid Can I Do It` Works</h1>
+    <h1>How "COVID Can I Do It" Works</h1>
 
     <h2>The Risk Score</h2>
     <p>
@@ -26,6 +26,7 @@
 
 <style lang="scss">
 .how-it-works {
+  padding: 1em;
   background-color: $color-salmon;
   color: $color-peach;
 }

@@ -3,7 +3,7 @@
     <SearchBar @searched="onSearch" />
     <SearchResults
       :searchedTerm="searchTerm"
-      :searchResult="result"
+      :activity="result"
       :searched="searched"
       :profile="userProfile"
     />
@@ -48,7 +48,7 @@ export default {
       skip_empty_lines: true
     });
 
-    // console.log({ records });
+    console.log({ records });
     this.riskData = records;
     this.userProfile = this.$store.getters.submitProfile;
   },

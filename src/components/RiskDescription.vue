@@ -1,36 +1,31 @@
 <template>
   <div class="risk-description">
-    <table width="100%">
-      <tr>
-        <td width="25%">
-          <div v-if="isAgeScore">
-            Age-Specific Risk Score:
-          </div>
-          <div v-else>
-            Risk Score:
-          </div>
-          <br />
-          <br />
-          <h1>{{ score }}</h1>
-        </td>
-        <td width="75%">
-          <ul
-            v-for="(desc, index) in riskDescription[score]"
-            :key="index"
-            align="left"
-          >
-            <li>{{ desc }}</li>
-          </ul>
-        </td>
-      </tr>
-    </table>
+    <div class="score-panel">
+      <div v-if="isAgeScore">
+        <b>{{ activity["Activity"] }}</b> has an Age-Specific risk factor of
+      </div>
+      <div v-else>
+        <b>{{ activity["Activity"] }}</b> has a risk factor of
+      </div>
+      <div class="score">{{ score }}</div>
+    </div>
+    <div class="risk-details">
+      <ul
+        v-for="(desc, index) in riskDescription[score]"
+        :key="index"
+        align="left"
+      >
+        <li>{{ desc }}</li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    score: undefined,
+    score: String,
+    activity: Object,
     isAgeScore: {
       default: false
     }
@@ -78,7 +73,25 @@ export default {
 
 <style scoped lang="scss">
 .risk-description {
+  display: flex;
+  flex-direction: row;
   color: black;
   background-color: #e8ebf5;
+
+  .score-panel {
+    padding: 1em;
+    margin: auto;
+    flex: 50%;
+    text-align: center;
+    .score {
+      font-size: 5em;
+    }
+  }
+
+  .risk-details {
+    flex: 50%;
+    margin: auto;
+    padding: 1em;
+  }
 }
 </style>
