@@ -18,8 +18,8 @@
 
     <h2>Personalized Suggestions</h2>
     <p>
-      By sharing some additional information with the tool, the tool can provide
-      additional, personalized suggestions.
+      By providing some additional information with the tool, the tool can
+      provide additional, personalized suggestions.
     </p>
   </div>
 </template>
@@ -27,7 +27,18 @@
 <style lang="scss">
 .how-it-works {
   padding: 1em;
-  background-color: $color-salmon;
-  color: $color-peach;
+  // background-color: $color-salmon;
+  // color: $color-peach;
+  background-color: #ccc;
+  color: #333;
+  font-size: 12px;
+
+  h1 {
+    font-size: 1.5em;
+  }
+
+  h2 {
+    font-size: 1.25em;
+  }
 }
 </style>

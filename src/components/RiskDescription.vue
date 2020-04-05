@@ -12,7 +12,7 @@
     </div>
     <div class="risk-details">
       <ul
-        v-for="(desc, index) in riskDescription[score]"
+        v-for="(desc, index) in riskDescriptions"
         :key="index"
         align="left"
       >
@@ -37,6 +37,9 @@ export default {
     },
     scoreDescription() {
       return this.riskCategory[this.score - 1];
+    },
+    riskDescriptions() {
+      return this.riskDescription[this.score - 1];
     }
   },
   data() {

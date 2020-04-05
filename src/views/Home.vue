@@ -15,16 +15,21 @@
 <script>
 import SearchBar from "@/components/SearchBar.vue";
 import SearchResults from "@/components/SearchResults.vue";
+// import ProfileCreate from "@/components/ProfileCreate.vue";
 import HowItWorks from "@/components/HowItWorks.vue";
 import axios from "axios";
 import parseCSV from "csv-parse/lib/sync";
 import { mapState } from "vuex";
+
+// Font
+// Helvetica New
 
 export default {
   name: "Home",
   components: {
     SearchBar,
     SearchResults,
+    // ProfileCreate
     HowItWorks
   },
   data: function() {

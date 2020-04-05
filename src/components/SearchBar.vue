@@ -1,7 +1,6 @@
 <template>
   <div class="search-bar">
-    <h1>Continue to live your life safely</h1>
-    <h2>Assess the risk of your actions during the COVID-19 pandemic.</h2>
+    <h2>Learn how to make everyday activities safer.</h2>
     <div class="dropdown search-fields">
       <input
         type="text"
@@ -23,8 +22,6 @@
       </div>
       <button class="run-search" @click="onSearch">Assess my risk!</button>
     </div>
-    <h2>Help us give you a more accurate risk appraisal</h2>
-    <button class="create-profile">Create a profile in 2 minutes</button>
   </div>
 </template>
 

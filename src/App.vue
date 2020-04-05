@@ -20,21 +20,13 @@ export default {
     profileCreated() {
       //track if the user has created a profile yet
       return this.$store.getters.createProfile;
-    },
-    hasCoronavirus() {
-      //check if the user or someone they live with has coronavirus, as soon as this is true they get a warning message and nothing else
-      if (this.$store.getters.submitProfile.COVIDpositive == "yes") {
-        return true;
-      } else {
-        return false;
-      }
     }
   }
 };
 </script>
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
