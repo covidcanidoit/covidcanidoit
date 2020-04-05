@@ -129,7 +129,7 @@ export default {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png)
+  background: url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png)
     no-repeat right 16px center #ddd;
 
   min-height: 34px;
