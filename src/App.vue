@@ -8,7 +8,6 @@
       </router-link>
       <router-link v-else to="/createUserProfile">Create Profile</router-link>
     </div>
-    <br />
     <div v-if="!hasCoronavirus"><router-view /></div>
     <div v-else>
       Warning
@@ -106,6 +105,7 @@ export default {
 
 .navigation {
   text-align: right;
+  padding: 1em;
 
   a {
     font-weight: bold;
