@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "@/views/Home.vue";
+import Browse from "@/views/Browse.vue";
 import About from "@/views/About.vue";
 import UserProfile from "@/views/UserProfile.vue";
 import CreateUserProfile from "@/views/CreateUserProfile.vue";
@@ -12,6 +13,11 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home
+  },
+  {
+    path: "/browse",
+    name: "Browse",
+    component: Browse
   },
   {
     path: "/about",

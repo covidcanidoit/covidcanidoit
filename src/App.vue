@@ -2,6 +2,7 @@
   <div id="app">
     <div id="nav" class="navigation">
       <router-link class="router" to="/">Home</router-link> |
+      <router-link class="router" to="/browse">Browse</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link v-if="profileCreated" to="/userProfile">
         View/Edit Profile
