@@ -6,15 +6,16 @@
         class="activity"
         v-for="activity in categoryActivities"
         :key="activity.activityName"
-      >
-        <div class="activity-name">
-          <router-link
-            :to="{ name: 'Home', params: { search: activity.activityName } }"
-            >{{ activity.activityName }}</router-link
+        >
+        <router-link
+          :to="{ name: 'Home', params: { search: activity.activityName } }"
           >
-          &nbsp;&nbsp;
-          <i class="fas fa-angle-double-right"></i>
-        </div>
+          <div class="activity-name">
+            {{ activity.activityName }}
+            &nbsp;&nbsp;
+            <i class="fas fa-angle-double-right"></i>
+          </div>
+        </router-link>
       </div>
     </div>
 

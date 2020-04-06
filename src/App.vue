@@ -3,27 +3,13 @@
     <div id="nav" class="navigation">
       <router-link class="router" to="/">Home</router-link> |
       <router-link class="router" to="/browse">Browse</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link v-if="profileCreated" to="/userProfile">
-        View/Edit Profile
-      </router-link>
-      <router-link v-else to="/createUserProfile">Create Profile</router-link>
+      <router-link to="/createUserProfile">Profile</router-link> |
+      <router-link to="/about">About</router-link>
     </div>
     <div><router-view /></div>
   </div>
 </template>
 
-<script>
-export default {
-  name: "App",
-  computed: {
-    profileCreated() {
-      //track if the user has created a profile yet
-      return this.$store.getters.createProfile;
-    }
-  }
-};
-</script>
 <style lang="scss">
 #app {
   font-family: Helvetica, Arial, sans-serif;

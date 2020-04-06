@@ -23,13 +23,13 @@ import SearchResults from "@/components/SearchResults.vue";
 import HowItWorks from "@/components/HowItWorks.vue";
 import axios from "axios";
 import parseCSV from "csv-parse/lib/sync";
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 
 // Font
 // Helvetica New
 
 export default {
-  props: ["search"],
+  props: ["search", "skipProfile"],
   components: {
     SearchBar,
     SearchResults,
@@ -45,7 +45,8 @@ export default {
     };
   },
   computed: {
-    ...mapState(["userProfile"])
+    ...mapState(["userProfile"]),
+    ...mapGetters(["hasEnteredProfileData"])
   },
   async mounted() {
     const dataSheetUrl =
@@ -76,6 +77,9 @@ export default {
         ) {
           console.log(activity);
           this.result = activity;
+          if (!this.hasEnteredProfileData && !this.skipProfile) {
+            this.$router.push({ name: 'CreateUserProfile', params: { search: searchValue }});
+          }
         }
       });
       console.log(searchValue);

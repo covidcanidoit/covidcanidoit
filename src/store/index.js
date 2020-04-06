@@ -71,6 +71,19 @@ export default new Vuex.Store({
         return "70+";
       }
       return "unknown";
+    },
+    hasEnteredProfileData: state => {
+      const profile = state.userProfile;
+      return (
+        profile.age
+        || profile.gender
+        || profile.smoking
+        || profile.comorbidity
+        || profile.pregnant
+        || profile.feelSick
+        || profile.familySick
+        || profile.COVIDpositive
+      );
     }
   },
   actions: {},

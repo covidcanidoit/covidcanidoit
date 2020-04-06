@@ -34,13 +34,14 @@ const routes = [
   },
   {
     path: "/userProfile",
-    name: "userProfile",
+    name: "UserProfile",
     component: UserProfile
   },
   {
     path: "/createUserProfile",
-    name: "createUserProfile",
-    component: CreateUserProfile
+    name: "CreateUserProfile",
+    component: CreateUserProfile,
+    props: true
   }
 ];
 

@@ -80,6 +80,7 @@ export default {
     border: 1px solid black;
     padding: 1em;
     margin: 1em;
+    cursor: pointer;
   }
 }
 </style>
