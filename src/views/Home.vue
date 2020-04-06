@@ -1,8 +1,12 @@
 <template>
   <div class="home">
-    <SearchBar @searched="onSearch" :activityList="activityList" :perPage="5" />
+    <SearchBar
+      :initialSearchTerm="search"
+      @searched="onSearch"
+      :activityList="activityList"
+      :perPage="5"
+    />
     <SearchResults
-      :searchedTerm="searchTerm"
       :activity="result"
       :searched="searched"
       :profile="userProfile"
@@ -25,7 +29,7 @@ import { mapState } from "vuex";
 // Helvetica New
 
 export default {
-  name: "Home",
+  props: ["search"],
   components: {
     SearchBar,
     SearchResults,
@@ -34,7 +38,6 @@ export default {
   },
   data: function() {
     return {
-      searchTerm: "",
       searched: false,
       result: {},
       riskData: [],
@@ -66,10 +69,11 @@ export default {
   },
   methods: {
     onSearch(searchValue) {
-      this.searchTerm = searchValue;
       this.searched = true;
       this.riskData.map(activity => {
-        if (activity["activityName"].toLowerCase() == searchValue.toLowerCase()) {
+        if (
+          activity["activityName"].toLowerCase() == searchValue.toLowerCase()
+        ) {
           console.log(activity);
           this.result = activity;
         }

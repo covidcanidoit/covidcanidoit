@@ -1,12 +1,11 @@
 <template>
   <div class="introduction">
     <div v-show="searched">
-
       <div v-if="profile.COVIDpositive == 'yes'">
         <!-- if someone tested positive for coronavirus -->
         <b class="warning">
-          Do not leave home except for essential medical visits. Even if you have
-          not tested positive and do not feel ill, you can spread COVID-19.
+          Do not leave home except for essential medical visits. Even if you
+          have not tested positive and do not feel ill, you can spread COVID-19.
         </b>
 
         <div class="accordion" id="accordionExample">
@@ -39,8 +38,8 @@
                 <ul>
                   <li>
                     When you need medical care, call ahead to the doctor or
-                    medical facility to alert them that you have COVID-19 so they
-                    can prepare to care for you and protect others at the
+                    medical facility to alert them that you have COVID-19 so
+                    they can prepare to care for you and protect others at the
                     facility.
                   </li>
                   <br />
@@ -81,7 +80,6 @@
 
         <div v-if="profile.COVIDpositive !== 'yes'" id="personalRecommendation">
           <div class="accordion" id="accordionExample">
-
             <!-- Disabled location-specific since that's not hooked up yet -->
             <!--
             <div class="card">

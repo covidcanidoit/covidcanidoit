@@ -15,10 +15,15 @@
           v-for="(activity, index) in activityListDynamic"
           @click="dropdownClick(activity)"
           :key="activity"
-          :v-if="index <5"
-        >{{activity}}</a>
-        <button @click="dropdownIndex--" v-show="dropdownIndex>0">Previous</button>
-        <button @click="dropdownIndex++" v-show="dropdownIndex<maxIndex">Next</button>
+          :v-if="index < 5"
+          >{{ activity }}</a
+        >
+        <button @click="dropdownIndex--" v-show="dropdownIndex > 0">
+          Previous
+        </button>
+        <button @click="dropdownIndex++" v-show="dropdownIndex < maxIndex">
+          Next
+        </button>
       </div>
       <button class="run-search" @click="onSearch">Assess my risk!</button>
     </div>
@@ -30,17 +35,19 @@ export default {
   props: {
     msg: String,
     activityList: Array,
-    perPage: {type: Number, default: 5}
+    perPage: { type: Number, default: 5 },
+    initialSearchTerm: String
   },
   data: function() {
     return {
       searchTerm: "",
-      dropdownIndex: 0,
+      dropdownIndex: 0
     };
   },
   methods: {
     onSearch() {
       this.$emit("searched", this.searchTerm);
+      this.searchTerm = "";
     },
     dropdownClick(value) {
       this.searchTerm = value;
@@ -54,10 +61,13 @@ export default {
       );
     },
     maxIndex() {
-      return Math.ceil(this.activityListComplete.length/this.perPage);
+      return Math.ceil(this.activityListComplete.length / this.perPage);
     },
     activityListDynamic() {
-      return this.activityListComplete.slice(this.dropdownIndex*this.perPage,(this.dropdownIndex+1)*this.perPage)
+      return this.activityListComplete.slice(
+        this.dropdownIndex * this.perPage,
+        (this.dropdownIndex + 1) * this.perPage
+      );
     }
   },
   watch: {
@@ -67,6 +77,11 @@ export default {
   },
   mounted() {
     console.log(this.activityList);
+    if (this.initialSearchTerm) {
+      this.searchTerm = this.initialSearchTerm;
+      // I think we shouldn't have to delay this... but it works better if we d
+      setTimeout(() => this.onSearch(), 1000);
+    }
   }
 };
 </script>

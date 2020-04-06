@@ -2,29 +2,15 @@
   <div class="browse">
     <h1>Browse activities by category</h1>
     <div class="categories">
-      <div class="category">
-        <div class="category-name">Errands</div>
-        <div class="category-description">Food shopping, buying things</div>
-      </div>
-      <div class="category">
-        <div class="category-name">Errands</div>
-        <div class="category-description">Food shopping, buying things</div>
-      </div>
-      <div class="category">
-        <div class="category-name">Errands</div>
-        <div class="category-description">Food shopping, buying things</div>
-      </div>
-      <div class="category">
-        <div class="category-name">Errands</div>
-        <div class="category-description">Food shopping, buying things</div>
-      </div>
-      <div class="category">
-        <div class="category-name">Errands</div>
-        <div class="category-description">Food shopping, buying things</div>
-      </div>
-      <div class="category">
-        <div class="category-name">Errands</div>
-        <div class="category-description">Food shopping, buying things</div>
+      <div
+        class="category"
+        v-for="category in categories"
+        :key="category.category"
+        @click="viewActivity(category.category)"
+      >
+        <i :class="category.icon"></i>
+        <div class="category-name">{{ category.category }}</div>
+        <div class="category-description">{{ category.shortDescription }}</div>
       </div>
     </div>
 
@@ -64,6 +50,12 @@ export default {
   methods: {
     onSelect(categoryName) {
       console.log({ categoryName });
+    },
+    viewActivity(category) {
+      this.$router.push({
+        name: "BrowseCategory",
+        params: { category: category }
+      });
     }
   }
 };
@@ -90,5 +82,4 @@ export default {
     margin: 1em;
   }
 }
-
 </style>

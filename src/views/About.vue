@@ -16,8 +16,8 @@
           </td>
           <td>
             The tool uses Google Maps data which tracks location-specific
-            popularity and wait times to estimate whether a place is busy and let
-            you know that it might be too busy to go.
+            popularity and wait times to estimate whether a place is busy and
+            let you know that it might be too busy to go.
           </td>
         </tr>
         <tr>

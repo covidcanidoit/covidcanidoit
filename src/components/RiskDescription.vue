@@ -5,17 +5,14 @@
         <b>{{ activity["activityName"] }}</b> has an Age-Specific risk level of
       </div>
       <div v-else>
-        <b>{{ activity["activityName"] }}</b> <div style="white-space: nowrap">has a risk level of</div>
+        <b>{{ activity["activityName"] }}</b>
+        <div style="white-space: nowrap">has a risk level of</div>
       </div>
       <div class="score">{{ score }}</div>
       <div class="score-title">{{ scoreDescription }}</div>
     </div>
     <div class="risk-details">
-      <ul
-        v-for="(desc, index) in riskDescriptions"
-        :key="index"
-        align="left"
-      >
+      <ul v-for="(desc, index) in riskDescriptions" :key="index" align="left">
         <li>{{ desc }}</li>
       </ul>
     </div>
