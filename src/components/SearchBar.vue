@@ -1,13 +1,14 @@
 <template>
   <div class="search-bar">
-    <h2>Learn how to make everyday activities safer.</h2>
+    <p class="header">I wonder if it's safe to...</p>
+    <p class="subheader">enter an activity you want to learn more about</p>
     <div class="dropdown search-fields">
       <input
         type="text"
         class="dropbtn"
         v-model="searchTerm"
         v-on:keyup.enter="onSearch"
-        placeholder="I want to go..."
+        placeholder=""
       />
       <div class="dropdown-content">
         <a
@@ -26,6 +27,7 @@
         </button>
       </div>
       <button class="run-search" @click="onSearch">Assess my risk!</button>
+      <p class="subheader">during the COVID-19 outbreak</p>
     </div>
     <div class="or-others">
       <button @click="goToProfile">Fill in Profile </button>
@@ -117,10 +119,10 @@ export default {
 
     button.run-search {
       border-radius: 0 30px 30px 0;
-      border: 1px solid #ccc;
+      border: 1px solid #fd6167;
       padding: 10px;
-      background-color: $color-peach;
-      color: #666;
+      background-color: #fd6167;
+      color: black;
     }
   }
 
@@ -190,5 +192,13 @@ export default {
       color: $color-teal;
       margin: 1em;
     }
+}
+
+.header {
+  font-size: 64px;
+  margin-bottom: 0;
+}
+.subheader {
+  font-size: 24px;
 }
 </style>

@@ -3,9 +3,9 @@
     <img src="@/assets/logo.png" class="logo" align="left" />
     <div id="nav" class="navigation">
       <router-link class="router" to="/">Home</router-link> |
-      <router-link class="router" to="/browse">Browse</router-link> |
+      <router-link class="router" to="/browse">Find An Activity</router-link> |
       <router-link to="/createUserProfile">Profile</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/about">Learn More</router-link>
     </div>
     <div><router-view /></div>
   </div>
@@ -25,6 +25,7 @@
 }
 
 .navigation {
+  height: 100px;
   text-align: right;
   padding: 1em;
 
