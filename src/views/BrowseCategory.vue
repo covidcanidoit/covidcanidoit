@@ -19,12 +19,12 @@
       </div>
     </div>
 
-    <HowItWorks />
+    <!-- <HowItWorks /> -->
   </div>
 </template>
 
 <script>
-import HowItWorks from "@/components/HowItWorks.vue";
+// import HowItWorks from "@/components/HowItWorks.vue";
 import axios from "axios";
 import parseCSV from "csv-parse/lib/sync";
 // import { mapState } from "vuex";
@@ -32,7 +32,7 @@ import parseCSV from "csv-parse/lib/sync";
 export default {
   props: ["category"],
   components: {
-    HowItWorks
+    // HowItWorks
   },
   data: function() {
     return {

@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <HowItWorks />
+    <!-- <HowItWorks /> -->
     <div class="info">
       <table class="table">
         <tr>
@@ -72,11 +72,11 @@
 </template>
 
 <script>
-import HowItWorks from "@/components/HowItWorks.vue";
+// import HowItWorks from "@/components/HowItWorks.vue";
 
 export default {
   components: {
-    HowItWorks
+    // HowItWorks
   }
 };
 </script>
