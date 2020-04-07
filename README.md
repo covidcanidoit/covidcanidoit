@@ -1,4 +1,4 @@
-# COVID-19 Risk Assessment
+# COVID Can I Do It?
 
 This project is for helping folks learn about the risks created by various
 activities in the context of the COVID-19 pandemic.
@@ -21,4 +21,3 @@ yarn test:e2e
 # Lint (and fix) cruft
 yarn lint
 ```
-
