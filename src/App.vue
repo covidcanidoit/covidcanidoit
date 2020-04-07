@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <img src="@/assets/logo.png" class="logo" align="left" />
     <div id="nav" class="navigation">
       <router-link class="router" to="/">Home</router-link> |
       <router-link class="router" to="/browse">Browse</router-link> |
@@ -16,6 +17,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+}
+
+.logo {
+  width: 200px;
+  height: 100px;
 }
 
 .navigation {

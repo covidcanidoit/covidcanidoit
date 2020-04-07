@@ -16,11 +16,11 @@
       reviewed each week to reflect changing research on COVID-19.
     </p>
 
-    <h2>Personalized Suggestions</h2>
+    <!-- <h2>Personalized Suggestions</h2>
     <p>
       By providing some additional information with the tool, the tool can
       provide additional, personalized suggestions.
-    </p>
+    </p> -->
   </div>
 </template>
 
