@@ -27,6 +27,10 @@
       </div>
       <button class="run-search" @click="onSearch">Assess my risk!</button>
     </div>
+    <div class="or-others">
+      <button @click="goToProfile">Fill in Profile </button>
+      <button @click="goToBrowse">Browse Activities</button>
+    </div>
   </div>
 </template>
 
@@ -52,6 +56,12 @@ export default {
     dropdownClick(value) {
       this.searchTerm = value;
       this.onSearch();
+    },
+    goToBrowse() {
+      this.$router.push({ name: 'Browse' });
+    },
+    goToProfile() {
+      this.$router.push({ name: 'CreateUserProfile' });
     }
   },
   computed: {
@@ -90,7 +100,11 @@ export default {
 .search-bar {
   background-color: $color-teal;
   text-align: center;
-  padding: 1em;
+  padding-top: 2em;
+
+  h2 {
+    margin-bottom: 1em;
+  }
 
   .search-fields {
     white-space: nowrap;
@@ -165,5 +179,16 @@ export default {
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
   background-color: white;
+}
+
+.or-others {
+  button {
+      border-radius: 30px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      background-color: $color-navy;
+      color: $color-teal;
+      margin: 1em;
+    }
 }
 </style>

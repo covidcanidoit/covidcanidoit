@@ -71,7 +71,7 @@
           :isAgeScore="isAgeSet"
         />
 
-        <h1>Additional Risk Factors</h1>
+        <h2>Additional Risk Factors</h2>
         <!-- <h5>
           I am {{ ageDescription }} years old, and I go
           {{ searchedTerm.toLowerCase() }} at {{ userLocation }} at
