@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="profile-create">
-      <div class="left-side">
-        <h1>
-          Tell us more about you, so we can give you more accurate information
-        </h1>
-        <h2>Create a profile &#x25b6;</h2>
-        <a href="#">Read more about your privacy and rights</a>
-      </div>
+      <!-- <div class="left&#45;side"> -->
+      <!--   <h1> -->
+      <!--     Tell us more about you, so we can give you more accurate information -->
+      <!--   </h1> -->
+      <!--   <h2>Create a profile &#38;#x25b6;</h2> -->
+      <!--   <a href="#">Read more about your privacy and rights</a> -->
+      <!-- </div> -->
       <div class="right-side">
         <h1>
           Please enter the following information about yourself:
@@ -127,6 +127,14 @@
             </ul>
           </MultiQuestion>
         </div>
+        <router-link
+          class="submit"
+          tag="button"
+          :to="{ name: 'Home', params: { search: search, skipProfile: true } }"
+        >
+          Submit
+          <i class="fas fa-angle-double-right"></i>
+        </router-link>
       </div>
     </div>
   </div>
@@ -139,44 +147,9 @@ export default {
   components: {
     MultiQuestion
   },
+  props: ["search"],
   data: function() {
     return {
-      scores: {
-        score: [1, 2, 3, 4, 5],
-        riskCategory: ["Low", "Moderate", "Elevated", "High", "Critical"],
-        riskDescription: [
-          [
-            "You can continue to do this activity.",
-            "The frequency and nature of the activity puts you at low risk for contracting or transmitting COVID-19.",
-            "You may still want to take extra precautions for prevent infection."
-          ],
-          [
-            "You can continue to do this activity but you should consider ways to do this activity less or during less risky times.",
-            "The frequency and nature of the activity puts you at some risk for contracting or transmitting COVID-19.",
-            "Make sure to take extra precautions for prevent infection, like frequently washing your hands (with soap) for at least 20 seconds and remaining 6 feet from another person."
-          ],
-          [
-            "You should consider stopping this activity.",
-            "If you are unable to stop, you should consider ways to do this activity less or during less risky times.",
-            "The frequency and nature of the activity puts you at more risk for contracting or transmitting COVID-19.",
-            "Extra precautions to preventing infection are not enough, like frequently washing your hands (with soap) for at least 20 seconds and remaining 6 feet from another person. "
-          ],
-          [
-            "You should stop this activity.",
-            "The frequency and nature of the activity puts you at high risk for contracting or transmitting COVID-19.",
-            "You may be endangering others and efforts to control the outbreak.",
-            "Extra precautions to preventing infection are not enough, like frequently washing your hands (with soap) for at least 20 seconds and remaining 6 feet from another person. "
-          ],
-          [
-            "Stop this activity immediately.",
-            "The frequency and nature of the activity is endangering yourself and efforts to control the COVID-19 outbreak, regardless of extra precautions to preventing infection, like frequently washing your hands (with soap) for at least 20 seconds and remaining 6 feet from another person. "
-          ]
-        ]
-      },
-      ageGroups: {
-        groups: []
-      },
-      submitted: false,
       userProfile: {
         age: 0,
         gender: "male",
@@ -189,44 +162,18 @@ export default {
       }
     };
   },
-  computed: {
-    riskScore() {
-      return this.searchResult["generalRiskScore"];
-    },
-    riskDescription() {
-      return this.scores.riskDescription[this.riskScore];
-    },
-    profileCreated() {
-      //track if the user has created a profile yet
-      return this.$store.getters.createProfile;
-    }
-  },
   mounted() {
     this.userProfile = this.$store.getters.submitProfile;
   },
   methods: {
     profileEdited() {
-      // this.submitted = true;
       console.log("edited");
-      // sends value to store letting user know they have created a profile
-      // this.$store.commit("createProfile", this.submitted);
-      //send user profile values
       this.$store.commit("submitProfile", this.userProfile);
-      // if we are on the create profile page, move to the current profile page, otherwise stay where you are
-      // if (this.$router.currentRoute.name == "createUserProfile") {
-      //   this.$router.push("userProfile");
-      // }
-      //if we are on the home page, trigger the submit function in the results view
-      // console.log("rotername:", this.$router.currentRoute.name)
-      // if (this.$router.currentRoute.name == "Home") {
-      //   this.$store.commit("setSubmitted", this.submitted);
-      // }
     }
   }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .profile-create {
   display: flex;
@@ -277,6 +224,16 @@ export default {
         margin: 1em;
         flex: 45%;
       }
+    }
+
+    .submit {
+      font-size: 15px;
+      border: 1px solid black;
+      // background-color: $color-peach;
+      width: 10em;
+      padding: 5px 20px;
+      text-align: center;
+      float: right;
     }
   }
 }

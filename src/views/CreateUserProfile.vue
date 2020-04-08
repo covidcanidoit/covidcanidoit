@@ -5,13 +5,15 @@
       <p>With a few more details, we can provide customized risk level scores</p>
       <router-link
         class="skip-link"
+        tag="button"
         v-if="search"
         :to="{ name: 'Home', params: { search: search, skipProfile: true }}">
           Skip
           <i class="fas fa-angle-double-right"></i>
       </router-link>
+      <div class="clear"></div>
     </div>
-    <ProfileCreate />
+    <ProfileCreate :search="search" />
   </div>
 </template>
 
@@ -21,12 +23,7 @@ export default {
   components: {
     ProfileCreate
   },
-  props: ["search"],
-  data: function() {
-    return {
-      searched: true
-    };
-  }
+  props: ["search"]
 };
 </script>
 
@@ -44,10 +41,14 @@ export default {
 
   .skip-link {
     border: 1px solid black;
-    background-color: $color-peach;
+    // background-color: $color-peach;
     width: 10em;
     padding: 5px 20px;
     text-align: center;
+    float: right;
+  }
+  .clear {
+    clear: both;
   }
 }
 </style>

@@ -173,10 +173,10 @@ ent-residents/"
 
 <style lang="scss">
 .how-it-works {
-  padding: 1em;
+  padding: 2em;
   // background-color: $color-salmon;
   // color: $color-peach;
-  background-color: #ccc;
+  // background-color: #ccc;
   color: #333;
   font-size: 12px;
 

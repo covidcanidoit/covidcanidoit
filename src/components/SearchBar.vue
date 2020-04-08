@@ -114,7 +114,10 @@ export default {
     input {
       border-radius: 30px 0 0 30px;
       padding: 10px;
-      border: 1px solid #ccc;
+      border-top: 1px solid $color-darkgrey;
+      border-right: none;
+      border-bottom: 1px solid $color-darkgrey;
+      border-left: 1px solid $color-darkgrey;
     }
 
     button.run-search {
@@ -131,7 +134,7 @@ export default {
     border: 1px solid #ccc;
     padding: 10px;
     background-color: $color-salmon;
-    color: #666;
+    color: $color-darkgrey;
   }
 }
 
