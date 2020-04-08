@@ -18,8 +18,8 @@
       </li>
       <li>
         Two independent
-        <b>reviewers</b> rated the overall risk of each activity and for
-        specific seven age groups.
+        <b>reviewers</b> rated the overall risk of each activity and for seven
+        specific age groups.
       </li>
       <li>
         These ratings were
@@ -32,7 +32,7 @@
         <b>changing research</b> on COVID-19.
       </li>
     </ol>
-    <p>image placeholder</p>
+    <!-- <p>image placeholder</p> -->
     <h1>Who We Are</h1>
     <table style="width:100%">
       <tr>
@@ -185,7 +185,7 @@ ent-residents/"
         yourself.
       </li>
       <li>
-        Thae information provided is not collected or stored by
+        The information provided is not collected or stored by
         <i>COVID Can I Do It</i> in any way.
       </li>
       <li>
