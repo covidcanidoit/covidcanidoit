@@ -20,6 +20,8 @@
 
   max-width: 1024px;
   margin: 0 auto;
+  border-left: 1px solid $color-lightgrey;
+  border-right: 1px solid $color-lightgrey;
 }
 
 .logo {
