@@ -71,14 +71,14 @@
           :isAgeScore="isAgeSet"
         />
 
-        <h2>Additional Risk Factors</h2>
         <!-- <h5>
           I am {{ ageDescription }} years old, and I go
           {{ searchedTerm.toLowerCase() }} at {{ userLocation }} at
           {{ userTime }} on {{ userDay }}.
         </h5> -->
 
-        <div v-if="profile.COVIDpositive !== 'yes'" id="personalRecommendation">
+        <div v-show="hasAdditionalFactors" class="additional-factors">
+          <h2>Additional Risk Factors</h2>
           <div class="accordion" id="accordionExample">
             <!-- Disabled location-specific since that's not hooked up yet -->
             <!--
@@ -596,6 +596,19 @@ export default {
     },
     ageDescription() {
       return this.$store.getters.ageDescription;
+    },
+    hasAdditionalFactors() {
+      return (
+        this.profile.COVIDpositive !== "yes" &&
+        (this.profile.age == "risk50To69" ||
+          this.profile.age == "riskOver70" ||
+          this.profile.smoking == "yes" ||
+          this.profile.smoking == "used" ||
+          this.profile.comorbidity == "yes" ||
+          this.profile.pregnant == "yes" ||
+          this.profile.feelSick == "yes" ||
+          this.profile.familySick == "yes")
+      );
     }
   }
 };
@@ -623,5 +636,9 @@ li {
 }
 a {
   color: #42b983;
+}
+.additional-factors {
+  background-color: $color-salmon;
+  padding: 2em;
 }
 </style>
