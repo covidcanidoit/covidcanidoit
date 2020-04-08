@@ -5,7 +5,6 @@ import Browse from "@/views/Browse.vue";
 import BrowseCategory from "@/views/BrowseCategory.vue";
 import About from "@/views/About.vue";
 import contactUs from "@/views/contactUs.vue";
-import UserProfile from "@/views/UserProfile.vue";
 import CreateUserProfile from "@/views/CreateUserProfile.vue";
 
 Vue.use(VueRouter);
@@ -37,11 +36,6 @@ const routes = [
     path: "/contactUs",
     name: "Contact Us",
     component: contactUs
-  },
-  {
-    path: "/userProfile",
-    name: "UserProfile",
-    component: UserProfile
   },
   {
     path: "/createUserProfile",
