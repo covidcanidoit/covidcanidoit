@@ -78,7 +78,10 @@ export default {
           console.log(activity);
           this.result = activity;
           if (!this.hasEnteredProfileData && !this.skipProfile) {
-            this.$router.push({ name: 'CreateUserProfile', params: { search: searchValue }});
+            this.$router.push({
+              name: "CreateUserProfile",
+              params: { search: searchValue }
+            });
           }
         }
       });

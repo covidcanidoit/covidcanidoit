@@ -5,25 +5,30 @@
     <h2>The Risk Score</h2>
     <ol>
       <li>
-        COVID-19, aka coronavirus, is a new virus that the public health and medical community is
+        COVID-19, aka coronavirus, is a new virus that the public health and
+        medical community is
         <b>still learning about.</b>
       </li>
       <li>
         Our team reviewed
-        <b>public comments</b> made by infectious disease experts and, when available,
-        <b>published scientific literature</b>, to assess the
-        <b>potential risk of getting and spreading</b> COVID-19 posed by doing common, everyday things.
+        <b>public comments</b> made by infectious disease experts and, when
+        available, <b>published scientific literature</b>, to assess the
+        <b>potential risk of getting and spreading</b> COVID-19 posed by doing
+        common, everyday things.
       </li>
       <li>
         Two independent
-        <b>reviewers</b> rated the overall risk of each activity and for specific seven age groups.
+        <b>reviewers</b> rated the overall risk of each activity and for
+        specific seven age groups.
       </li>
       <li>
         These ratings were
-        <b>independently reviewed</b> by a panel of experts and revised based on their comments and feedback.
+        <b>independently reviewed</b> by a panel of experts and revised based on
+        their comments and feedback.
       </li>
       <li>
-        These ratings reflect what we know about risk associated with doing any activity and are reviewed each week to reflect
+        These ratings reflect what we know about risk associated with doing any
+        activity and are reviewed each week to reflect
         <b>changing research</b> on COVID-19.
       </li>
     </ol>
@@ -37,10 +42,14 @@
           </b>
           <ul>
             <li>
-              <a href="https://www.linkedin.com/in/jarjiehfang/">Jarjieh Fang, MPH</a>
+              <a href="https://www.linkedin.com/in/jarjiehfang/"
+                >Jarjieh Fang, MPH</a
+              >
             </li>
             <li>
-              <a href="https://www.linkedin.com/in/gayatri-sanku-16212a4/">Gayatri Sanku, MPH</a>
+              <a href="https://www.linkedin.com/in/gayatri-sanku-16212a4/"
+                >Gayatri Sanku, MPH</a
+              >
             </li>
           </ul>
         </td>
@@ -50,13 +59,19 @@
           </b>
           <ul>
             <li>
-              <a href="https://www.linkedin.com/in/brockwilcox/">Brock Wilcox, MS</a>
+              <a href="https://www.linkedin.com/in/brockwilcox/"
+                >Brock Wilcox, MS</a
+              >
             </li>
             <li>
-              <a href="https://www.linkedin.com/in/david-kratochvil-1bb61a11b/">David Kratochvil</a>
+              <a href="https://www.linkedin.com/in/david-kratochvil-1bb61a11b/"
+                >David Kratochvil</a
+              >
             </li>
             <li>
-              <a href="https://www.linkedin.com/in/grant-hussey-a9854bb4/">Grant Hussey</a>
+              <a href="https://www.linkedin.com/in/grant-hussey-a9854bb4/"
+                >Grant Hussey</a
+              >
             </li>
           </ul>
         </td>
@@ -78,12 +93,15 @@
           </b>
           <ul>
             <li>
-              <a href="https://www.linkedin.com/in/meera-nathan-371b15132/">Meera Nathan</a>
+              <a href="https://www.linkedin.com/in/meera-nathan-371b15132/"
+                >Meera Nathan</a
+              >
             </li>
           </ul>
         </td>
       </tr>
     </table>
+
     <h1>Who Our Advisors Are</h1>
     <table style="width:100%">
       <tr>
@@ -104,51 +122,68 @@
             <li>
               <a
                 href="https://www.linkedin.com/in/saskia-popescu-phd-mph-ma-cic-4ba9a334/"
-              >Sasika Popescu, PhD, MPH, MA, CIC</a>
+                >Sasika Popescu, PhD, MPH, MA, CIC</a
+              >
             </li>
             <li>
-              <a href="https://www.linkedin.com/in/yen-pottinger-8b82a992/">Yen Pottinger, PhD</a>
+              <a href="https://www.linkedin.com/in/yen-pottinger-8b82a992/"
+                >Yen Pottinger, PhD</a
+              >
             </li>
           </ul>
         </td>
         <td>
           <ul>
             <li>
-              <a href="https://profiles.ucsf.edu/jayant.rajan">Jayant Rajan, M.D., P.h.D</a>
+              <a href="https://profiles.ucsf.edu/jayant.rajan"
+                >Jayant Rajan, M.D., P.h.D</a
+              >
             </li>
             <li>
               <a
                 href="https://surgeryresidentresearch.ucsf.edu/research-fellows/general-surg
 ery/andrew-wisneski,-md.aspx"
-              ></a>Andrew Wisneski, M.D.
+              ></a
+              >Andrew Wisneski, M.D.
             </li>
             <li>Heide Kuang, M.D.</li>
             <li>
               <a
                 href="https://depts.washington.edu/neurolog/education/residency/curr
 ent-residents/"
-              >Roger Chang, M.D., P.h.D.</a>
+                >Roger Chang, M.D., P.h.D.</a
+              >
             </li>
             <li>
-              <a href="https://www.uclahealth.org/rheumatology/fellows">Ernest Maningding, M,D.</a>
+              <a href="https://www.uclahealth.org/rheumatology/fellows"
+                >Ernest Maningding, M,D.</a
+              >
             </li>
           </ul>
         </td>
       </tr>
     </table>
+
     <h1>Information Collection Statement (In the Brief)</h1>
     <ol>
       <li>
         You should
-        <b>not</b> rely on us for medical advice. You should seek medical advice from a licensed professional and follow the instructions of government authorities.
+        <b>not</b> rely on us for medical advice. You should seek medical advice
+        from a licensed professional and follow the instructions of government
+        authorities.
       </li>
 
-      <li>We will do our best to provide you with the best information available.</li>
+      <li>
+        We will do our best to provide you with the best information available.
+      </li>
       <li>
         If you notice something is incorrect or outdated, please
         <router-link class="router" to="/contactUs">contact us.</router-link>
       </li>
-      <li>When using this service, you may provide additional details about yourself.</li>
+      <li>
+        When using this service, you may provide additional details about
+        yourself.
+      </li>
       <li>
         Thae information provided is not collected or stored by
         <i>COVID Can I Do It</i> in any way.

@@ -77,14 +77,14 @@ export default new Vuex.Store({
     hasEnteredProfileData: state => {
       const profile = state.userProfile;
       return (
-        profile.age
-        || profile.gender
-        || profile.smoking
-        || profile.comorbidity
-        || profile.pregnant
-        || profile.feelSick
-        || profile.familySick
-        || profile.COVIDpositive
+        profile.age ||
+        profile.gender ||
+        profile.smoking ||
+        profile.comorbidity ||
+        profile.pregnant ||
+        profile.feelSick ||
+        profile.familySick ||
+        profile.COVIDpositive
       );
     }
   },

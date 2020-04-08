@@ -2,14 +2,17 @@
   <div class="create-user-profile">
     <div class="header">
       <h1>Personalized Risk Screener</h1>
-      <p>With a few more details, we can provide customized risk level scores</p>
+      <p>
+        With a few more details, we can provide customized risk level scores
+      </p>
       <router-link
         class="skip-link"
         tag="button"
         v-if="search"
-        :to="{ name: 'Home', params: { search: search, skipProfile: true }}">
-          Skip
-          <i class="fas fa-angle-double-right"></i>
+        :to="{ name: 'Home', params: { search: search, skipProfile: true } }"
+      >
+        Skip
+        <i class="fas fa-angle-double-right"></i>
       </router-link>
       <div class="clear"></div>
     </div>
@@ -34,7 +37,7 @@ export default {
   padding: 1em;
   margin: 0;
   font-size: 15px;
-  
+
   h1 {
     font-size: 1.5em;
   }

@@ -6,10 +6,10 @@
         class="activity"
         v-for="activity in categoryActivities"
         :key="activity.activityName"
-        >
+      >
         <router-link
           :to="{ name: 'Home', params: { search: activity.activityName } }"
-          >
+        >
           <div class="activity-name">
             {{ activity.activityName }}
             &nbsp;&nbsp;
@@ -77,7 +77,7 @@ export default {
   margin-left: 20%;
   margin-right: 20%;
 }
-.activities{
+.activities {
   display: flex;
   flex-direction: column;
   border-bottom: 1px solid black;

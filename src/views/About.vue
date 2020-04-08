@@ -53,11 +53,32 @@
     </p>
     <p></p>
     <ul align="left">
-      <li>Jarjieh Fang: Link to Bio <a href="https://www.linkedin.com/in/jarjiehfang/">(LinkedIn)</a></li>
-      <li>Gayatri Sanku: Link to Bio <a href="https://www.linkedin.com/in/gayatri-sanku-16212a4/">(LinkedIn)</a></li>
-      <li>Grant Hussey: Link to Bio <a href="https://www.linkedin.com/in/grant-hussey-a9854bb4/">(LinkedIn)</a></li>
-      <li>David Kratochvil: Link to Bio <a href="https://www.linkedin.com/in/david-kratochvil-1bb61a11b/">(LinkedIn)</a></li>
-      <li>Andrew Loeb: Link to Bio <a href="https://www.linkedin.com/in/andrewloeb/">(LinkedIn)</a></li>
+      <li>
+        Jarjieh Fang: Link to Bio
+        <a href="https://www.linkedin.com/in/jarjiehfang/">(LinkedIn)</a>
+      </li>
+      <li>
+        Gayatri Sanku: Link to Bio
+        <a href="https://www.linkedin.com/in/gayatri-sanku-16212a4/"
+          >(LinkedIn)</a
+        >
+      </li>
+      <li>
+        Grant Hussey: Link to Bio
+        <a href="https://www.linkedin.com/in/grant-hussey-a9854bb4/"
+          >(LinkedIn)</a
+        >
+      </li>
+      <li>
+        David Kratochvil: Link to Bio
+        <a href="https://www.linkedin.com/in/david-kratochvil-1bb61a11b/"
+          >(LinkedIn)</a
+        >
+      </li>
+      <li>
+        Andrew Loeb: Link to Bio
+        <a href="https://www.linkedin.com/in/andrewloeb/">(LinkedIn)</a>
+      </li>
     </ul>
     <br />
     <p align="left">The following experts reviewed our tool:</p>

@@ -5,13 +5,9 @@
 </template>
 
 <script>
-
 export default {
-  components: {
-  }
+  components: {}
 };
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

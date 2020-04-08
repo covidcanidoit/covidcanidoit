@@ -1,7 +1,7 @@
 <template>
   <div class="search-bar">
     <p class="header">I wonder if it's safe to...</p>
-    <p class="subheader">enter an activity you want to learn more about</p>
+    <p class="subheader">Enter an activity you want to learn more about.</p>
     <div class="dropdown search-fields">
       <input
         type="text"
@@ -30,7 +30,7 @@
       <p class="subheader">during the COVID-19 outbreak</p>
     </div>
     <div class="or-others">
-      <button @click="goToProfile">Fill in Profile </button>
+      <button @click="goToProfile">Fill in Profile</button>
       <button @click="goToBrowse">Browse Activities</button>
     </div>
   </div>
@@ -60,10 +60,10 @@ export default {
       this.onSearch();
     },
     goToBrowse() {
-      this.$router.push({ name: 'Browse' });
+      this.$router.push({ name: "Browse" });
     },
     goToProfile() {
-      this.$router.push({ name: 'CreateUserProfile' });
+      this.$router.push({ name: "CreateUserProfile" });
     }
   },
   computed: {
@@ -188,13 +188,13 @@ export default {
 
 .or-others {
   button {
-      border-radius: 30px;
-      border: 1px solid #ccc;
-      padding: 10px;
-      background-color: $color-navy;
-      color: $color-teal;
-      margin: 1em;
-    }
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: $color-navy;
+    color: $color-teal;
+    margin: 1em;
+  }
 }
 
 .header {
