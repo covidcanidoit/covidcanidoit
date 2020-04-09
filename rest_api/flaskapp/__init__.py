@@ -3,6 +3,7 @@ from flask import Flask
 # from flask.helpers import get_root_path
 
 # from flaskapp.config import BaseConfig
+
 # from flask_wtf.csrf import CSRFProtect
 
 # csrf = CSRFProtect()
