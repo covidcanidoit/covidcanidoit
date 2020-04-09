@@ -122,7 +122,7 @@
             <li>
               <a
                 href="https://www.linkedin.com/in/saskia-popescu-phd-mph-ma-cic-4ba9a334/"
-                >Sasika Popescu, PhD, MPH, MA, CIC</a
+                >Saskia Popescu, PhD, MPH, MA, CIC</a
               >
             </li>
             <li>
