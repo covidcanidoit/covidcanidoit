@@ -4,8 +4,8 @@
     <div id="nav" class="navigation">
       <router-link class="router" to="/">Home</router-link> |
       <router-link class="router" to="/browse">Find An Activity</router-link> |
-      <router-link to="/createUserProfile">Profile</router-link> |
-      <router-link to="/about">Learn More</router-link>
+      <router-link to="/createUserProfile">Profile</router-link>
+      <!-- <router&#45;link to="/about">Learn More</router&#45;link> -->
     </div>
     <div><router-view /></div>
   </div>
