@@ -1,6 +1,6 @@
 <template>
   <div class="search-bar">
-    <p class="header">I wonder if it's safe to...</p>
+    <p class="header">I wonder it's safe to...</p>
     <div class="dropdown search-fields">
       <input
         type="text"
