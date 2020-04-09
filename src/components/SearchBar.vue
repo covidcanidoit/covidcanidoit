@@ -1,7 +1,6 @@
 <template>
   <div class="search-bar">
     <p class="header">I wonder if it's safe to...</p>
-    <p class="subheader">Enter an activity you want to learn more about.</p>
     <div class="dropdown search-fields">
       <input
         type="text"
@@ -27,7 +26,7 @@
         </button>
       </div>
       <button class="run-search" @click="onSearch">Assess my risk!</button>
-      <p class="subheader">during the COVID-19 outbreak</p>
+      <p class="subheader">...during the COVID-19 outbreak.</p>
     </div>
     <div class="or-others">
       <button @click="goToProfile">Fill in Profile</button>
