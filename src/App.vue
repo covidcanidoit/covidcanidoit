@@ -12,11 +12,16 @@
 </template>
 
 <style lang="scss">
+body {
+  background-color: #ccc;
+}
+
 #app {
   font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  background-color: white;
 
   max-width: 1024px;
   margin: 0 auto;
