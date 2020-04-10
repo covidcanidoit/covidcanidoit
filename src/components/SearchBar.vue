@@ -22,7 +22,7 @@
             <button class="dropdownNavControl" @click="dropdownIndex--" v-show="dropdownIndex > 0">
               Previous
             </button>
-            <p class="dropdownNavControl" v-show="dropdownIndex < maxIndex" >({{dropdownIndex}} of {{maxIndex}} )</p>
+            <p class="dropdownNavControl" v-show="dropdownIndex < maxIndex" >({{dropdownIndex}} of {{maxIndex-1}} )</p>
             <button class="dropdownNavControl" @click="dropdownIndex++" v-show="(dropdownIndex < maxIndex) && (maxIndex > 1)">
               Next
             </button>
