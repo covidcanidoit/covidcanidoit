@@ -164,7 +164,7 @@ ent-residents/"
         <li>We will do our best to provide you with the best information available.</li>
         <li>
           If you notice something is incorrect or outdated, please
-          <router-link class="router" to="/contactUs">contact us.</router-link>
+          <a href="mailto:info@covidcanidoit.com">contact us</a>
         </li>
         <li>
           When using this service, you may provide additional details about
@@ -176,7 +176,7 @@ ent-residents/"
         </li>
         <li>
           If you have any questions, please
-          <router-link class="router" to="/contactUs">contact us.</router-link>
+          <a href="mailto:info@covidcanidoit.com">contact us</a>
         </li>
         <!-- need to set up this link once we have the full info collection statement -->
         <li>
@@ -200,12 +200,12 @@ ent-residents/"
         </b> -->
         
         <h1>Information Collection Statement</h1>
-          <p>We make this question and answer service available to you as a convenience. We will do our best to provide you with the best information available and to keep information accurate and up-to-date, but the situation is changing rapidly, so we can’t guarantee this. We will date and provide a source for answers. If you notice something is incorrect or outdated, please contact us (info@covidcanidoit.com).  
+          <p>We make this question and answer service available to you as a convenience. We will do our best to provide you with the best information available and to keep information accurate and up-to-date, but the situation is changing rapidly, so we can’t guarantee this. We will date and provide a source for answers. If you notice something is incorrect or outdated, please <a href="mailto:info@covidcanidoit.com">contact us at info@covidcanidoit.com</a>.
             You shouldn’t rely on us for medical advice. You should seek medical advice from a licensed professional and follow the instructions of government authorities. 
             To provide this service, we work with a network of partners and volunteers, who may help us to process your request and answer your question.  If you email us with a suggested activity, our team may add the suggested activity to the site after review. When using this service, you may provide additional details about yourself. That information is not collected or stored by COVID Can I Do It in any way. 
             Please do not provide us with any additional personally identifiable information beyond your name and email address.
           <br/>
-          If you have any questions, please contact us at info@covidcanidoit.com. </p>
+          If you have any questions, please <a href="mailto:info@covidcanidoit.com">contact us at info@covidcanidoit.com</a> </p>
           <br>
           <p>
             <b>Introduction to this Privacy Notice</b>

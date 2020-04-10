@@ -4,7 +4,6 @@ import Home from "@/views/Home.vue";
 import Browse from "@/views/Browse.vue";
 import BrowseCategory from "@/views/BrowseCategory.vue";
 import About from "@/views/About.vue";
-import contactUs from "@/views/contactUs.vue";
 import CreateUserProfile from "@/views/CreateUserProfile.vue";
 
 Vue.use(VueRouter);
@@ -31,11 +30,6 @@ const routes = [
     path: "/about",
     name: "About",
     component: About
-  },
-  {
-    path: "/contactUs",
-    name: "Contact Us",
-    component: contactUs
   },
   {
     path: "/createUserProfile",
