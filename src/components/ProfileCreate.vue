@@ -137,6 +137,39 @@
         </router-link>
       </div>
     </div>
+    <div>
+      <h1>Information Collection Statement (In the Brief)</h1>
+      <ol>
+        <li>
+          You should
+          <b>not</b> rely on us for medical advice. You should seek medical advice
+          from a licensed professional and follow the instructions of government
+          authorities.
+        </li>
+
+        <li>We will do our best to provide you with the best information available.</li>
+        <li>
+          If you notice something is incorrect or outdated, please
+          <a href="mailto:info@covidcanidoit.com">contact us</a>
+        </li>
+        <li>
+          When using this service, you may provide additional details about
+          yourself.
+        </li>
+        <li>
+          The information provided is not collected or stored by
+          <i>COVID Can I Do It</i> in any way.
+        </li>
+        <li>
+          If you have any questions, please
+          <a href="mailto:info@covidcanidoit.com">contact us</a>
+        </li>
+        <li>
+          Read the full Information Collection Statement
+          <router-link class="router" to="/about">here</router-link>
+        </li>
+      </ol>
+    </div>
   </div>
 </template>
 
