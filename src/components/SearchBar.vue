@@ -18,12 +18,15 @@
           :v-if="index < 5"
           >{{ activity }}</a
         >
-        <button @click="dropdownIndex--" v-show="dropdownIndex > 0">
-          Previous
-        </button>
-        <button @click="dropdownIndex++" v-show="dropdownIndex < maxIndex">
-          Next
-        </button>
+          <div class="dropdownNav">
+            <button class="dropdownNavControl" @click="dropdownIndex--" v-show="dropdownIndex > 0">
+              Previous
+            </button>
+            <p class="dropdownNavControl" v-show="dropdownIndex < maxIndex" >({{dropdownIndex}} of {{maxIndex}} )</p>
+            <button class="dropdownNavControl" @click="dropdownIndex++" v-show="(dropdownIndex < maxIndex) && (maxIndex > 1)">
+              Next
+            </button>
+           </div> 
       </div>
       <button class="run-search" @click="onSearch">Assess my risk!</button>
       <p class="subheader">...during the COVID-19 outbreak.</p>
@@ -157,7 +160,7 @@ export default {
   display: none;
   position: absolute;
   background-color: #f1f1f1;
-  min-width: 160px;
+  width: 300px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
@@ -168,6 +171,7 @@ export default {
   padding: 12px 16px;
   text-decoration: none;
   display: block;
+  overflow-wrap: break-word; //not sure why this isnt working to wrap text
 }
 
 /* Change color of dropdown links on hover */
@@ -183,6 +187,14 @@ export default {
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
   background-color: white;
+}
+
+.dropdownNav {
+  white-space: nowrap;
+}
+
+.dropdownNavControl {
+  display: inline-block;
 }
 
 .or-others {
