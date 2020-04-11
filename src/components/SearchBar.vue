@@ -116,16 +116,16 @@ export default {
     input {
       border-radius: 30px 0 0 30px;
       padding: 10px;
-      border-top: 1px solid $color-darkgrey;
+      /*border-top: 1px solid $color-darkgrey;
       border-right: none;
       border-bottom: 1px solid $color-darkgrey;
-      border-left: 1px solid $color-darkgrey;
+      border-left: 1px solid $color-darkgrey; */
     }
 
     button.run-search {
       border-radius: 0 30px 30px 0;
       border: 1px solid #fd6167;
-      padding: 10px;
+      padding: 9px;
       background-color: #fd6167;
       color: black;
     }
@@ -200,7 +200,7 @@ export default {
 .or-others {
   button {
     border-radius: 30px;
-    border: 1px solid #ccc;
+    border: 1px solid $color-navy;
     padding: 10px;
     background-color: $color-navy;
     color: $color-teal;

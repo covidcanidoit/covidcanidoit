@@ -81,6 +81,7 @@ export default {
     padding: 1em;
     margin: 1em;
     cursor: pointer;
+    background-color: #8ad4b4;
   }
 }
 </style>

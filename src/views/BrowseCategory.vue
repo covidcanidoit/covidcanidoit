@@ -79,17 +79,25 @@ export default {
 }
 .activities {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   border-bottom: 1px solid black;
 
   .activity {
+    width: 100px;
+    padding: 10px white;
     /* border: 1px solid black; */
-    border-top: 1px solid black;
+    /*border-top: 1px solid black;*/
     padding: 1em;
+    background-color: #8ad4b4;
+    flex: 40%;
+    padding: 1em;
+    margin: 1em;
   }
 
   .activity:nth-child(odd) {
-    background-color: #ccc;
+    background-color: #21acb0;
+    flex: 40%
   }
 }
 </style>

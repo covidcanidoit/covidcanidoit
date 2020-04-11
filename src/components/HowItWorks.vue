@@ -7,29 +7,29 @@
       <li>
         COVID-19, aka coronavirus, is a new virus that the public health and
         medical community is
-        <b>still learning about.</b>
+        <b style='color: #fd6167'>still learning about.</b>
       </li>
       <li>
         Our team reviewed
-        <b>public comments</b> made by infectious disease experts and, when
-        available, <b>published scientific literature</b>, to assess the
-        <b>potential risk of getting and spreading</b> COVID-19 posed by doing
+        <b style='color: #fd6167'>public comments</b> made by infectious disease experts and, when
+        available, <b style='color: #fd6167'>published scientific literature</b>, to assess the
+        <b style='color: #fd6167'>potential risk of getting and spreading</b> COVID-19 posed by doing
         common, everyday things.
       </li>
       <li>
         Two independent
-        <b>reviewers</b> rated the overall risk of each activity and for seven
+        <b style='color: #fd6167'>reviewers</b> rated the overall risk of each activity and for seven
         specific age groups.
       </li>
       <li>
         These ratings were
-        <b>independently reviewed</b> by a panel of experts and revised based on
+        <b style='color: #fd6167'>independently reviewed</b> by a panel of experts and revised based on
         their comments and feedback.
       </li>
       <li>
         These ratings reflect what we know about risk associated with doing any
         activity and are reviewed each week to reflect
-        <b>changing research</b> on COVID-19.
+        <b style='color: #fd6167'>changing research</b> on COVID-19.
       </li>
     </ol>
     <!-- <p>image placeholder</p> -->
@@ -49,7 +49,7 @@
   // color: $color-peach;
   // background-color: #ccc;
   color: #333;
-  font-size: 12px;
+  font-size: 16px;
 
   h1 {
     font-size: 1.5em;

@@ -622,6 +622,7 @@ export default {
 }
 .warning {
   color: red;
+  font-size: 24px;
 }
 h3 {
   margin: 40px 0 0;

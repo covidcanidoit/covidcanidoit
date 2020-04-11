@@ -5,6 +5,9 @@
       <p>
         With a few more details, we can provide customized risk level scores
       </p>
+      <p>
+        (Don't worry. We <strong> do not </strong> save any of your data here. Take a look at our information collection statement below.)
+      </p>
       <router-link
         class="skip-link"
         tag="button"
@@ -44,11 +47,12 @@ export default {
 
   .skip-link {
     border: 1px solid black;
-    // background-color: $color-peach;
+    background-color: $color-peach;
     width: 10em;
     padding: 5px 20px;
     text-align: center;
-    float: right;
+    float: center;
+    border-radius: 30px 30px 30px 30px
   }
   .clear {
     clear: both;

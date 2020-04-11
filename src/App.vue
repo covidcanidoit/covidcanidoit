@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img src="@/assets/logo.png" class="logo" align="left" />
+    <a href="https://covidcanidoit.com"> <img src="@/assets/logo.png" class="logo" align="left" /> </a>
     <div id="nav" class="navigation">
       <router-link class="router" to="/">Home</router-link> |
       <router-link class="router" to="/browse">Find An Activity</router-link> |
@@ -17,7 +17,7 @@ body {
 }
 
 #app {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: Geneva, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
@@ -41,10 +41,10 @@ body {
 
   a {
     font-weight: bold;
-    /* color: #2c3e50; */
+    color: #0f4a5c;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: #8ad4b4;
     }
   }
 }

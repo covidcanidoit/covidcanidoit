@@ -261,8 +261,9 @@ export default {
 
     .submit {
       font-size: 15px;
+      border-radius: 30px 30px 30px 30px;
       border: 1px solid black;
-      // background-color: $color-peach;
+      background-color: $color-peach;
       width: 10em;
       padding: 5px 20px;
       text-align: center;
