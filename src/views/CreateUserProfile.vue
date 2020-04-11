@@ -6,7 +6,8 @@
         With a few more details, we can provide customized risk level scores
       </p>
       <p>
-        (Don't worry. We <strong> do not </strong> save any of your data here. Take a look at our information collection statement below.)
+        (Don't worry. We <strong> do not </strong> save any of your data here.
+        Take a look at our information collection statement below.)
       </p>
       <router-link
         class="skip-link"
@@ -52,7 +53,7 @@ export default {
     padding: 5px 20px;
     text-align: center;
     float: center;
-    border-radius: 30px 30px 30px 30px
+    border-radius: 30px 30px 30px 30px;
   }
   .clear {
     clear: both;

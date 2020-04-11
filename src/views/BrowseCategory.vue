@@ -97,7 +97,7 @@ export default {
 
   .activity:nth-child(odd) {
     background-color: #21acb0;
-    flex: 40%
+    flex: 40%;
   }
 }
 </style>

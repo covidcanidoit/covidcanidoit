@@ -142,12 +142,15 @@
       <ol>
         <li>
           You should
-          <b>not</b> rely on us for medical advice. You should seek medical advice
-          from a licensed professional and follow the instructions of government
-          authorities.
+          <b>not</b> rely on us for medical advice. You should seek medical
+          advice from a licensed professional and follow the instructions of
+          government authorities.
         </li>
 
-        <li>We will do our best to provide you with the best information available.</li>
+        <li>
+          We will do our best to provide you with the best information
+          available.
+        </li>
         <li>
           If you notice something is incorrect or outdated, please
           <a href="mailto:info@covidcanidoit.com">contact us</a>

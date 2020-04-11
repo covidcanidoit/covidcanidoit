@@ -18,15 +18,25 @@
           :v-if="index < 5"
           >{{ activity }}</a
         >
-          <div class="dropdownNav">
-            <button class="dropdownNavControl" @click="dropdownIndex--" v-show="dropdownIndex > 0">
-              Previous
-            </button>
-            <p class="dropdownNavControl" v-show="dropdownIndex < maxIndex" >({{dropdownIndex}} of {{maxIndex-1}} )</p>
-            <button class="dropdownNavControl" @click="dropdownIndex++" v-show="(dropdownIndex < maxIndex) && (maxIndex > 1)">
-              Next
-            </button>
-           </div> 
+        <div class="dropdownNav">
+          <button
+            class="dropdownNavControl"
+            @click="dropdownIndex--"
+            v-show="dropdownIndex > 0"
+          >
+            Previous
+          </button>
+          <p class="dropdownNavControl" v-show="dropdownIndex < maxIndex">
+            ({{ dropdownIndex }} of {{ maxIndex - 1 }} )
+          </p>
+          <button
+            class="dropdownNavControl"
+            @click="dropdownIndex++"
+            v-show="dropdownIndex < maxIndex && maxIndex > 1"
+          >
+            Next
+          </button>
+        </div>
       </div>
       <button class="run-search" @click="onSearch">Assess my risk!</button>
       <p class="subheader">...during the COVID-19 outbreak.</p>
