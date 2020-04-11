@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <a href="https://covidcanidoit.com">
+    <router-link class="router" to="/">
       <img src="@/assets/logo.png" class="logo" align="left" />
-    </a>
+    </router-link>
     <div id="nav" class="navigation">
       <router-link class="router" to="/">Home</router-link> |
       <router-link class="router" to="/browse">Find An Activity</router-link> |
