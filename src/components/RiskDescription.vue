@@ -10,6 +10,7 @@
       </div>
       <div class="score">{{ score }}</div>
       <div class="score-title">{{ scoreDescription }}</div>
+      <ScoreScale :score="score" />
     </div>
     <div class="risk-details">
       <ul v-for="(desc, index) in riskDescriptions" :key="index" align="left">
@@ -20,7 +21,10 @@
 </template>
 
 <script>
+import ScoreScale from "@/components/ScoreScale.vue";
+
 export default {
+  components: { ScoreScale },
   props: {
     score: String,
     activity: Object,
@@ -88,8 +92,10 @@ export default {
     margin: auto;
     flex: 30%;
     text-align: center;
+
     .score {
       font-size: 5em;
+      margin-bottom: -0.3em;
     }
   }
 
