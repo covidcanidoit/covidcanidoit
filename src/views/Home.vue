@@ -24,6 +24,7 @@ import HowItWorks from "@/components/HowItWorks.vue";
 import axios from "axios";
 import parseCSV from "csv-parse/lib/sync";
 import { mapState, mapGetters } from "vuex";
+import VueScrollTo from "vue-scrollto";
 
 // Font
 // Helvetica New
@@ -82,6 +83,8 @@ export default {
               name: "CreateUserProfile",
               params: { search: searchValue }
             });
+          } else {
+            VueScrollTo.scrollTo("#search-results");
           }
         }
       });

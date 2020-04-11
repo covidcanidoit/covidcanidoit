@@ -1,5 +1,5 @@
 <template>
-  <div class="introduction">
+  <div class="introduction" id="search-results">
     <div v-show="searched">
       <div v-if="profile.COVIDpositive == 'yes'">
         <!-- if someone tested positive for coronavirus -->
