@@ -7,8 +7,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   plugins: [new VuexPersistence().plugin],
   state: {
-    profileCreated: false,
     submitted: false,
+    activities: [],
+    categories: [],
     userProfile: {
       age: undefined,
       gender: undefined,
@@ -21,36 +22,21 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    createProfile: (state, boolean) => {
-      state.profileCreated = boolean;
-    },
-    submitProfile: (state, profile) => {
-      console.log("mutation: submitProfile");
-      console.log(profile);
+    setProfile(state, profile) {
       state.userProfile = profile;
     },
-    createAge: (state, age) => {
-      state.userProfile.age = age;
+    setActivities(state, activities) {
+      state.activities = activities;
     },
-    setSubmitted: (state, boolean) => {
-      console.log("submitted to store:", boolean);
-      state.submitted = boolean;
+    setCategories(state, categories) {
+      state.categories = categories;
     }
   },
   getters: {
-    createProfile: state => {
-      return state.profileCreated;
-    },
-    submitProfile: state => {
+    getProfile(state) {
       return state.userProfile;
     },
-    createAge: state => {
-      return state.userProfile.age;
-    },
-    setSubmitted: state => {
-      return state.submitted;
-    },
-    ageDescription: state => {
+    ageDescription(state) {
       if (state.userProfile.age == "riskUnder10") {
         return "Under 10";
       }
@@ -74,7 +60,7 @@ export default new Vuex.Store({
       }
       return "unknown";
     },
-    hasEnteredProfileData: state => {
+    hasEnteredProfileData(state) {
       const profile = state.userProfile;
       return (
         profile.age ||

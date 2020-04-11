@@ -40,11 +40,12 @@ export default {
   .score-scale-entry {
     background-color: $color-medgrey;
     color: white;
-    border: 1px solid $color-darkgrey;
-    border-radius: 30px;
+    border: 2px solid $color-darkgrey;
+    border-radius: 10px;
     width: 30px;
     height: 30px;
-    line-height: 30px;
+    line-height: 27px;
+    text-align: center;
   }
 
   .connector {

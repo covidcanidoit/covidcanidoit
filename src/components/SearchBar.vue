@@ -100,11 +100,9 @@ export default {
     }
   },
   mounted() {
-    console.log(this.activityList);
     if (this.initialSearchTerm) {
       this.searchTerm = this.initialSearchTerm;
-      // I think we shouldn't have to delay this... but it works better if we d
-      setTimeout(() => this.onSearch(), 1000);
+      this.onSearch();
     }
   }
 };

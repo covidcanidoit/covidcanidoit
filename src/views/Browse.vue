@@ -13,39 +13,15 @@
         <div class="category-description">{{ category.shortDescription }}</div>
       </div>
     </div>
-
-    <!-- <HowItWorks /> -->
   </div>
 </template>
 
 <script>
-// import HowItWorks from "@/components/HowItWorks.vue";
-import axios from "axios";
-import parseCSV from "csv-parse/lib/sync";
-// import { mapState } from "vuex";
+import { mapState } from "vuex";
 
 export default {
-  components: {
-    // HowItWorks
-  },
-  data: function() {
-    return {
-      categories: []
-    };
-  },
-  async mounted() {
-    const dataSheetUrl =
-      "https://docs.google.com/spreadsheets/d/11jG7_PkjIq3kPmhSwl9W2GpGoNe57WoBSoTo_0MS5J8/export?format=csv";
-    const categories_result = await axios.get(`${dataSheetUrl}&gid=1087436199`);
-    const categories = categories_result.data;
-
-    const records = parseCSV(categories, {
-      columns: true,
-      skip_empty_lines: true
-    });
-
-    console.log({ records });
-    this.categories = records;
+  computed: {
+    ...mapState(['categories'])
   },
   methods: {
     onSelect(categoryName) {

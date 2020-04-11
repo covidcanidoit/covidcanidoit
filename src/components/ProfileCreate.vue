@@ -199,12 +199,12 @@ export default {
     };
   },
   mounted() {
-    this.userProfile = this.$store.getters.submitProfile;
+    this.userProfile = this.$store.getters.getProfile;
   },
   methods: {
     profileEdited() {
       console.log("edited");
-      this.$store.commit("submitProfile", this.userProfile);
+      this.$store.commit("setProfile", this.userProfile);
     }
   }
 };
