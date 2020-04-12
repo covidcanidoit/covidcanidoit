@@ -10,6 +10,7 @@ export default new Vuex.Store({
     submitted: false,
     activities: [],
     categories: [],
+    riskLevels: [],
     userProfile: {
       age: undefined,
       gender: undefined,
@@ -30,6 +31,9 @@ export default new Vuex.Store({
     },
     setCategories(state, categories) {
       state.categories = categories;
+    },
+    setRiskLevels(state, riskLevels) {
+      state.riskLevels = riskLevels;
     }
   },
   getters: {

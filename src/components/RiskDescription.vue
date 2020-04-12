@@ -2,29 +2,29 @@
   <div class="risk-description">
     <div class="score-panel">
       <div v-if="isAgeScore">
-        <b>{{ activity["activityName"] }}</b> has an Age-Specific risk level of
+        <b>{{ activity.activityName }}</b> has an Age-Specific risk level of
       </div>
       <div v-else>
-        <b>{{ activity["activityName"] }}</b>
+        <b>{{ activity.activityName }}</b>
         <div style="white-space: nowrap">has a risk level of</div>
       </div>
       <div class="score">{{ score }}</div>
-      <div class="score-title">{{ scoreDescription }}</div>
+      <div class="score-title">{{ risk.riskName }}</div>
       <ScoreScale :score="score" />
     </div>
-    <div class="risk-details">
-      <ul v-for="(desc, index) in riskDescriptions" :key="index" align="left">
-        <li>{{ desc }}</li>
-      </ul>
-    </div>
+    <Markdown class="risk-details">
+      {{ risk.longDescription }}
+    </Markdown>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+import Markdown from "vue-markdown";
 import ScoreScale from "@/components/ScoreScale.vue";
 
 export default {
-  components: { ScoreScale },
+  components: { ScoreScale, Markdown },
   props: {
     score: String,
     activity: Object,
@@ -33,48 +33,10 @@ export default {
     }
   },
   computed: {
-    scoreIndex() {
-      return this.score - 1;
-    },
-    scoreDescription() {
-      return this.riskCategory[this.score - 1];
-    },
-    riskDescriptions() {
-      return this.riskDescription[this.score - 1];
+    ...mapState(["riskLevels"]),
+    risk() {
+      return this.riskLevels[this.score - 1];
     }
-  },
-  data() {
-    return {
-      riskCategory: ["Low", "Moderate", "Elevated", "High", "Critical"],
-      riskDescription: [
-        [
-          "You can continue to do this activity.",
-          "The frequency and nature of the activity puts you at low risk for contracting or transmitting COVID-19.",
-          "You may still want to take extra precautions for prevent infection."
-        ],
-        [
-          "You can continue to do this activity but you should consider ways to do this activity less or during less risky times.",
-          "The frequency and nature of the activity puts you at some risk for contracting or transmitting COVID-19.",
-          "Make sure to take extra precautions for prevent infection, like frequently washing your hands (with soap) for at least 20 seconds and remaining 6 feet from another person."
-        ],
-        [
-          "You should consider stopping this activity.",
-          "If you are unable to stop, you should consider ways to do this activity less or during less risky times.",
-          "The frequency and nature of the activity puts you at more risk for contracting or transmitting COVID-19.",
-          "Extra precautions to preventing infection are not enough, like frequently washing your hands (with soap) for at least 20 seconds and remaining 6 feet from another person. "
-        ],
-        [
-          "You should stop this activity.",
-          "The frequency and nature of the activity puts you at high risk for contracting or transmitting COVID-19.",
-          "You may be endangering others and efforts to control the outbreak.",
-          "Extra precautions to preventing infection are not enough, like frequently washing your hands (with soap) for at least 20 seconds and remaining 6 feet from another person. "
-        ],
-        [
-          "Stop this activity immediately.",
-          "The frequency and nature of the activity is endangering yourself and efforts to control the COVID-19 outbreak, regardless of extra precautions to preventing infection, like frequently washing your hands (with soap) for at least 20 seconds and remaining 6 feet from another person. "
-        ]
-      ]
-    };
   }
 };
 </script>
