@@ -21,7 +21,7 @@ import { mapState } from "vuex";
 
 export default {
   computed: {
-    ...mapState(['categories'])
+    ...mapState(["categories"])
   },
   methods: {
     onSelect(categoryName) {

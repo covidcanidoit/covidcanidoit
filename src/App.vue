@@ -52,8 +52,6 @@ export default {
       "1690487024"
     );
     this.setRiskLevels(riskLevels);
-
-
   },
   methods: {
     ...mapMutations(["setActivities", "setCategories", "setRiskLevels"])

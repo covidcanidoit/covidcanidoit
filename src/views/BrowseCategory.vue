@@ -22,12 +22,12 @@
 </template>
 
 <script>
- import { mapState } from "vuex";
+import { mapState } from "vuex";
 
 export default {
   props: ["category"],
   computed: {
-    ...mapState(['activities']),
+    ...mapState(["activities"]),
     categoryActivities() {
       return this.activities.filter(
         activity => activity.category === this.category
