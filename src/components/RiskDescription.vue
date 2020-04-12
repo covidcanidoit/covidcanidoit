@@ -9,11 +9,11 @@
         <div style="white-space: nowrap">has a risk level of</div>
       </div>
       <div class="score">{{ score }}</div>
-      <div class="score-title">{{ risk.riskName }}</div>
+      <div class="score-title">{{ risk && risk.riskName }}</div>
       <ScoreScale :score="score" />
     </div>
     <Markdown class="risk-details">
-      {{ risk.longDescription }}
+      {{ risk && risk.longDescription }}
     </Markdown>
   </div>
 </template>
@@ -35,7 +35,7 @@ export default {
   computed: {
     ...mapState(["riskLevels"]),
     risk() {
-      return this.riskLevels[this.score - 1] || {};
+      return this.riskLevels[this.score - 1];
     }
   }
 };
