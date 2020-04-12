@@ -20,45 +20,47 @@ import { mapMutations } from "vuex";
 
 export default {
   async created() {
+    let loadGoogleData = async (id, gid) => {
+      const dataSheetUrl = `https://docs.google.com/spreadsheets/d/${id}/export?format=csv&gid=${gid}`;
+      const googleDataResult = await axios.get(dataSheetUrl);
+      const googleDataCSV = googleDataResult.data;
+
+      const googleData = parseCSV(googleDataCSV, {
+        columns: true,
+        skip_empty_lines: true
+      });
+      return googleData;
+    };
+
     console.log("Downloading activities");
-    const dataSheetUrl =
-      "https://docs.google.com/spreadsheets/d/11jG7_PkjIq3kPmhSwl9W2GpGoNe57WoBSoTo_0MS5J8/export?format=csv";
-    const activities_result = await axios.get(`${dataSheetUrl}&gid=219638739`);
-    const activities_csv = activities_result.data;
-
-    const activities = parseCSV(activities_csv, {
-      columns: true,
-      skip_empty_lines: true
-    });
-
+    const activities = await loadGoogleData(
+      "11jG7_PkjIq3kPmhSwl9W2GpGoNe57WoBSoTo_0MS5J8",
+      "219638739"
+    );
     this.setActivities(activities);
 
     console.log("Downloading categories");
-    const categories_result = await axios.get(`${dataSheetUrl}&gid=1087436199`);
-    const categories_csv = categories_result.data;
-
-    const categories = parseCSV(categories_csv, {
-      columns: true,
-      skip_empty_lines: true
-    });
-
+    const categories = await loadGoogleData(
+      "11jG7_PkjIq3kPmhSwl9W2GpGoNe57WoBSoTo_0MS5J8",
+      "1087436199"
+    );
     this.setCategories(categories);
   },
   methods: {
-    ...mapMutations(['setActivities', 'setCategories'])
+    ...mapMutations(["setActivities", "setCategories"])
   }
 };
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 body {
   background-color: #ccc;
 }
 
 #app {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
