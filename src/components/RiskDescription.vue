@@ -35,7 +35,7 @@ export default {
   computed: {
     ...mapState(["riskLevels"]),
     risk() {
-      return this.riskLevels[this.score - 1];
+      return this.riskLevels[this.score - 1] || {};
     }
   }
 };
