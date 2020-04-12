@@ -12,9 +12,7 @@
       <div class="score-title">{{ risk && risk.riskName }}</div>
       <ScoreScale :score="score" />
     </div>
-    <Markdown class="risk-details">
-      {{ risk && risk.longDescription }}
-    </Markdown>
+    <Markdown class="risk-details" :source="risk && risk.longDescription" />
   </div>
 </template>
 
