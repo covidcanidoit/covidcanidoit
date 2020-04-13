@@ -52,9 +52,16 @@ export default {
       "1690487024"
     );
     this.setRiskLevels(riskLevels);
+
+    console.log("Downloading additional risk factor descriptions");
+    const riskFactors = await loadGoogleData(
+      "11jG7_PkjIq3kPmhSwl9W2GpGoNe57WoBSoTo_0MS5J8",
+      "1126986858"
+    );
+    this.setRiskFactors(riskFactors);
   },
   methods: {
-    ...mapMutations(["setActivities", "setCategories", "setRiskLevels"])
+    ...mapMutations(["setActivities", "setCategories", "setRiskLevels", "setRiskFactors"])
   }
 };
 </script>
