@@ -10,7 +10,7 @@
         <router-link
           :to="{ name: 'Home', params: { search: activity.activityName } }"
         >
-          <div class="activity-name">
+          <div class="activity-name stretched-link">
             {{ activity.activityName }}
             &nbsp;&nbsp;
             <i class="fas fa-angle-double-right"></i>
@@ -59,6 +59,11 @@ export default {
     flex: 40%;
     padding: 1em;
     margin: 1em;
+    position: relative;
+
+    .activity-name {
+      color:#2c3e50;
+    }
   }
 
   .activity:nth-child(odd) {
