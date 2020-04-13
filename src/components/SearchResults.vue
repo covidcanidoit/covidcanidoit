@@ -16,7 +16,7 @@
         v-show="profile.COVIDpositive !== 'yes'"
       />
 
-      <div v-show="additionalRiskFactors" class="additional-factors">
+      <div v-show="additionalRiskFactors.length > 0" class="additional-factors">
         <h2>Additional Risk Factors</h2>
         <div class="accordion" id="accordionExample">
           <div
