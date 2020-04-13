@@ -16,7 +16,7 @@
         v-show="profile.COVIDpositive !== 'yes'"
       />
 
-      <div v-show="hasAdditionalFactors" class="additional-factors">
+      <div v-show="additionalRiskFactors" class="additional-factors">
         <h2>Additional Risk Factors</h2>
         <div class="accordion" id="accordionExample">
           <div
@@ -25,7 +25,8 @@
             :key="riskFactor.name"
           >
             <div class="card-header" :id="'heading-' + riskFactor.name">
-              <h2 class="mb-0">
+              <h2 class="mb-0 flex-row">
+                <i class="icon" :class="riskFactor.icon"></i>
                 <button
                   class="btn btn-link collapsed"
                   type="button"
@@ -88,18 +89,6 @@ export default {
     ageDescription() {
       return this.$store.getters.ageDescription;
     },
-    hasAdditionalFactors() {
-      return (
-        this.profile.age == "risk50To69" ||
-        this.profile.age == "riskOver70" ||
-        this.profile.smoking == "yes" ||
-        this.profile.smoking == "used" ||
-        this.profile.comorbidity == "yes" ||
-        this.profile.pregnant == "yes" ||
-        this.profile.feelSick == "yes" ||
-        this.profile.familySick == "yes"
-      );
-    },
     additionalRiskFactors() {
       return this.riskFactors.filter(riskFactor => {
         console.log("Checking to see if we have", { riskFactor });
@@ -138,5 +127,14 @@ a {
 .additional-factors {
   background-color: $color-salmon;
   padding: 2em;
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.icon {
+  width: 40px;
 }
 </style>
