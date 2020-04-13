@@ -14,13 +14,16 @@
         :activity="activity"
         :isAgeScore="isAgeSet"
         v-show="profile.COVIDpositive !== 'yes'"
-        />
+      />
 
       <div v-show="hasAdditionalFactors" class="additional-factors">
         <h2>Additional Risk Factors</h2>
         <div class="accordion" id="accordionExample">
-
-          <div class="card" v-for="riskFactor in additionalRiskFactors" :key="riskFactor.name">
+          <div
+            class="card"
+            v-for="riskFactor in additionalRiskFactors"
+            :key="riskFactor.name"
+          >
             <div class="card-header" :id="'heading-' + riskFactor.name">
               <h2 class="mb-0">
                 <button
@@ -30,7 +33,7 @@
                   :data-target="'#collapse-' + riskFactor.name"
                   aria-expanded="false"
                   aria-controls="collapseTwo"
-                  >
+                >
                   {{ riskFactor.shortDescription }}
                 </button>
               </h2>
@@ -40,7 +43,7 @@
               class="collapse"
               :aria-labelledby="'heading-' + riskFactor.name"
               data-parent="#accordionExample"
-              >
+            >
               <div class="card-body">
                 <Markdown :source="riskFactor.longDescription" />
               </div>
@@ -88,18 +91,18 @@ export default {
     hasAdditionalFactors() {
       return (
         this.profile.age == "risk50To69" ||
-          this.profile.age == "riskOver70" ||
-          this.profile.smoking == "yes" ||
-          this.profile.smoking == "used" ||
-          this.profile.comorbidity == "yes" ||
-          this.profile.pregnant == "yes" ||
-          this.profile.feelSick == "yes" ||
-          this.profile.familySick == "yes"
+        this.profile.age == "riskOver70" ||
+        this.profile.smoking == "yes" ||
+        this.profile.smoking == "used" ||
+        this.profile.comorbidity == "yes" ||
+        this.profile.pregnant == "yes" ||
+        this.profile.feelSick == "yes" ||
+        this.profile.familySick == "yes"
       );
     },
     additionalRiskFactors() {
-      return this.riskFactors.filter( riskFactor => {
-        console.log("Checking to see if we have", {riskFactor});
+      return this.riskFactors.filter(riskFactor => {
+        console.log("Checking to see if we have", { riskFactor });
         const lookFor = riskFactor.showWhen.split(",");
         return lookFor.includes(this.profile[riskFactor.name]);
       });

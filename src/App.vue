@@ -61,7 +61,12 @@ export default {
     this.setRiskFactors(riskFactors);
   },
   methods: {
-    ...mapMutations(["setActivities", "setCategories", "setRiskLevels", "setRiskFactors"])
+    ...mapMutations([
+      "setActivities",
+      "setCategories",
+      "setRiskLevels",
+      "setRiskFactors"
+    ])
   }
 };
 </script>
