@@ -45,6 +45,12 @@ export default {
   methods: {
     onSearch(searchValue) {
       this.searched = true;
+      this.$gtag.event("search", {
+        event_category: "user-action",
+        event_label: "searched",
+        value: 1
+      });
+
       this.activities.map(activity => {
         if (
           activity["activityName"].toLowerCase() == searchValue.toLowerCase()
