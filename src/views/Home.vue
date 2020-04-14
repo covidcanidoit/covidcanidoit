@@ -52,8 +52,7 @@ export default {
       this.searched = true;
       this.$gtag.event("search", {
         event_category: "user-action",
-        event_label: "searched",
-        value: 1
+        event_label: searchValue
       });
 
       this.activities.map(activity => {
