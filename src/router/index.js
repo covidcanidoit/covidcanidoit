@@ -16,6 +16,12 @@ const routes = [
     props: true
   },
   {
+    path: "/activity/:slug",
+    name: "ActivitySearch",
+    component: Home,
+    props: true
+  },
+  {
     path: "/browse",
     name: "Browse",
     component: Browse

@@ -1,6 +1,6 @@
 <template>
   <div class="introduction" id="search-results">
-    <div v-show="searched">
+    <div v-show="activity.activityName">
       <div v-show="profile.COVIDpositive == 'yes'">
         <!-- if someone tested positive for coronavirus -->
         <b class="warning">
@@ -66,10 +66,6 @@ export default {
   props: {
     searchedTerm: String,
     activity: Object,
-    searched: {
-      type: Boolean,
-      default: false
-    },
     profile: {
       type: Object
     }

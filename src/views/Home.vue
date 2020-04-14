@@ -23,7 +23,7 @@ import { mapState, mapGetters } from "vuex";
 import VueScrollTo from "vue-scrollto";
 
 export default {
-  props: ["search", "skipProfile"],
+  props: ["search", "skipProfile", "slug"],
   components: {
     SearchBar,
     SearchResults,
@@ -40,6 +40,11 @@ export default {
     ...mapGetters(["hasEnteredProfileData"]),
     activityList() {
       return this.activities.map(activity => activity.activityName);
+    }
+  },
+  created() {
+    if (this.slug) {
+      this.onSearch( this.activities.filter(activity => activity.slug == this.slug)[0].activityName );
     }
   },
   methods: {
