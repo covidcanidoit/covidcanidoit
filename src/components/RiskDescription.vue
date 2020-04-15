@@ -12,7 +12,18 @@
       <div class="score-title">{{ risk && risk.riskName }}</div>
       <ScoreScale :score="score" />
     </div>
-    <Markdown class="risk-details" :source="risk && risk.longDescription" />
+    <div class="risk-information">
+      <Markdown class="risk-details" :source="risk && risk.longDescription" />
+      <div class="risk-references-container">
+        <!-- uncomment this line for inline referenes -->
+        <span>References: </span><span class="risk-reference">{{concatReferences}}</span>
+        <!-- uncomment this line for numbered list references -->
+        <!--<h5>References: </h5>
+        <ol>
+          <li v-show="activity[reference] !== ''" v-for="(reference,index) in Object.keys(activity).filter((prop) => prop.indexOf('reference') > -1)" :key="index" class="risk-reference"> {{activity[reference]}}</li>
+        </ol>-->
+      </div>
+    </div>
   </div>
 </template>
 
@@ -34,6 +45,20 @@ export default {
     ...mapState(["riskLevels"]),
     risk() {
       return this.riskLevels[this.score - 1];
+    },
+    concatReferences: function() {
+      var referencesString = "";
+      var references = Object.keys(this.activity).filter((prop) => prop.indexOf("reference")>-1);
+      var reference;
+      var i;
+      console.log(references);
+      for (i = 0; i < references.length; i++) {
+        reference = references[i];
+        if (this.activity[reference] === "") continue;
+        referencesString += this.activity[reference] + ", ";
+      }
+      referencesString = referencesString.substring(0,referencesString.length-2) + ".";
+      return referencesString;
     }
   }
 };
@@ -62,6 +87,21 @@ export default {
   .risk-details {
     flex: 70%;
     margin: auto;
+    padding: 1em;
+  }
+
+  .risk-references-container h5 {
+    font-weight: bold;
+    font-size: 1em;
+  }
+
+  .risk-references-container{
+    font-size:0.8em;
+  }
+
+  .risk-information {
+    flex: 70%;
+    margin:auto;
     padding: 1em;
   }
 }
