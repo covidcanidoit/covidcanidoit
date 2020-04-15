@@ -14,14 +14,16 @@
     </div>
     <div class="risk-information">
       <Markdown class="risk-details" :source="risk && risk.longDescription" />
-      <div class="risk-references-container">
+      <a href="#divMoreInfo" data-toggle="collapse" class="moreLessInfoLink" @click="hideMoreInfo=!hideMoreInfo">{{moreOrLessInfo}}</a>
+      <div id="divMoreInfo" class="risk-references-container collapse">
         <!-- uncomment this line for inline referenes -->
-        <span>References: </span><span class="risk-reference">{{concatReferences}}</span>
+        <!--<span>References: </span><span class="risk-reference">{{concatReferences}}</span>-->
         <!-- uncomment this line for numbered list references -->
-        <!--<h5>References: </h5>
+        <h5>Learn more: </h5>
         <ol>
-          <li v-show="activity[reference] !== ''" v-for="(reference,index) in Object.keys(activity).filter((prop) => prop.indexOf('reference') > -1)" :key="index" class="risk-reference"> {{activity[reference]}}</li>
-        </ol>-->
+          <!--<li v-show="activity[reference] !== ''" v-for="(reference,index) in Object.keys(activity).filter((prop) => prop.indexOf('reference') > -1)" :key="index" class="risk-reference"> {{activity[reference]}}</li>-->
+          <li v-for="(reference,index) in references" :key="index" class="risk-reference"> {{reference}}</li>
+        </ol>
       </div>
     </div>
   </div>
@@ -39,7 +41,8 @@ export default {
     activity: Object,
     isAgeScore: {
       default: false
-    }
+    },
+    hideMoreInfo: Boolean
   },
   computed: {
     ...mapState(["riskLevels"]),
@@ -51,7 +54,7 @@ export default {
       var references = Object.keys(this.activity).filter((prop) => prop.indexOf("reference")>-1);
       var reference;
       var i;
-      console.log(references);
+
       for (i = 0; i < references.length; i++) {
         reference = references[i];
         if (this.activity[reference] === "") continue;
@@ -59,6 +62,25 @@ export default {
       }
       referencesString = referencesString.substring(0,referencesString.length-2) + ".";
       return referencesString;
+    },
+    references: function() {
+      var referencePropertyNames = Object.keys(this.activity).filter((prop) => prop.indexOf("reference")>-1);
+
+      var referencesArray = [];
+      var referencesIndex = 0;
+      for (var i = 0; i < referencePropertyNames.length; i++) {
+        var referencePropertyName = referencePropertyNames[i];
+        if (this.activity[referencePropertyName] !== "") referencesArray[referencesIndex++] = this.activity[referencePropertyName];
+      }
+      return referencesArray;
+    },
+    moreOrLessInfo: function() {
+      if (this.hideMoreInfo===true) {
+        return "Less info";
+      }
+      else {
+        return "More info";
+      }
     }
   }
 };
@@ -82,6 +104,10 @@ export default {
       font-size: 5em;
       margin-bottom: -0.3em;
     }
+  }
+
+  .moreLessInfoLink {
+    float: right;
   }
 
   .risk-details {
