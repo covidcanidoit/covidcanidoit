@@ -18,25 +18,6 @@
           :v-if="index < 5"
           >{{ activity }}</a
         >
-        <div class="dropdownNav">
-          <button
-            class="dropdownNavControl"
-            @click="dropdownIndex--"
-            v-show="dropdownIndex > 0"
-          >
-            Previous
-          </button>
-          <p class="dropdownNavControl" v-show="dropdownIndex < maxIndex">
-            ({{ dropdownIndex }} of {{ maxIndex - 1 }} )
-          </p>
-          <button
-            class="dropdownNavControl"
-            @click="dropdownIndex++"
-            v-show="dropdownIndex < maxIndex && maxIndex > 1"
-          >
-            Next
-          </button>
-        </div>
       </div>
       <button class="run-search" @click="onSearch">Assess my risk!</button>
       <p class="subheader">...during the COVID-19 outbreak.</p>
@@ -49,12 +30,15 @@
 </template>
 
 <script>
+import Fuse from "fuse.js";
+
 export default {
   props: {
     msg: String,
     activityList: Array,
     perPage: { type: Number, default: 5 },
-    initialSearchTerm: String
+    initialSearchTerm: String,
+    fullActivityList: Array
   },
   data: function() {
     return {
@@ -80,18 +64,25 @@ export default {
   },
   computed: {
     activityListComplete() {
-      return this.activityList.filter(string =>
-        string.toLowerCase().includes(this.searchTerm.toLowerCase())
-      );
+      const options = {
+        minMatchCharLength : 2,
+        includeScore: true,
+        includeMatches: true,
+        threshold: 0.3,
+        keys: ['activityName'] // include synonyms in the future
+      };
+
+      const fuse = new Fuse(this.fullActivityList,options);
+      const result = fuse.search(this.searchTerm);
+
+      return result.map(result => result.item.activityName);
+
     },
     maxIndex() {
       return Math.ceil(this.activityListComplete.length / this.perPage);
     },
     activityListDynamic() {
-      return this.activityListComplete.slice(
-        this.dropdownIndex * this.perPage,
-        (this.dropdownIndex + 1) * this.perPage
-      );
+      return this.activityListComplete;
     }
   },
   watch: {
@@ -166,11 +157,13 @@ export default {
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
   display: none;
-  position: absolute;
+  position: fixed;
   background-color: #f1f1f1;
-  width: 300px;
+  width: auto;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  max-height: 50%;
+  overflow-y: scroll;
 }
 
 /* Links inside the dropdown */

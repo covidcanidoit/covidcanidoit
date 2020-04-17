@@ -5,6 +5,7 @@
       @searched="onSearch"
       :activityList="activityList"
       :perPage="5"
+      :fullActivityList="this.activities"
     />
     <SearchResults
       :activity="result"
