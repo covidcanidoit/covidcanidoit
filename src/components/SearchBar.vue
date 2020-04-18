@@ -18,25 +18,6 @@
           :v-if="index < 5"
           >{{ activity }}</a
         >
-        <div class="dropdownNav">
-          <button
-            class="dropdownNavControl"
-            @click="dropdownIndex--"
-            v-show="dropdownIndex > 0"
-          >
-            Previous
-          </button>
-          <p class="dropdownNavControl" v-show="dropdownIndex < maxIndex">
-            ({{ dropdownIndex }} of {{ maxIndex - 1 }} )
-          </p>
-          <button
-            class="dropdownNavControl"
-            @click="dropdownIndex++"
-            v-show="dropdownIndex < maxIndex && maxIndex > 1"
-          >
-            Next
-          </button>
-        </div>
       </div>
       <button class="run-search" @click="onSearch">Assess my risk!</button>
       <p class="subheader">...during the COVID-19 outbreak.</p>
@@ -88,10 +69,7 @@ export default {
       return Math.ceil(this.activityListComplete.length / this.perPage);
     },
     activityListDynamic() {
-      return this.activityListComplete.slice(
-        this.dropdownIndex * this.perPage,
-        (this.dropdownIndex + 1) * this.perPage
-      );
+      return this.activityListComplete;
     }
   },
   watch: {
@@ -166,11 +144,14 @@ export default {
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
   display: none;
-  position: absolute;
+  position: fixed;
   background-color: #f1f1f1;
-  width: 300px;
+  width: auto;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  max-height:50%;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 /* Links inside the dropdown */
