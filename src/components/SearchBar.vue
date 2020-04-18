@@ -144,12 +144,12 @@ export default {
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
   display: none;
-  position: absolute;
+  position: fixed;
   background-color: #f1f1f1;
   width: auto;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  max-height:500px;
+  max-height:50%;
   overflow-y: scroll;
   overflow-x: hidden;
 }
