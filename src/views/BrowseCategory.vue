@@ -62,7 +62,7 @@ export default {
     position: relative;
 
     .activity-name {
-      color:#2c3e50;
+      color: #2c3e50;
     }
   }
 

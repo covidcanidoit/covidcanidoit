@@ -44,7 +44,10 @@ export default {
   },
   created() {
     if (this.slug) {
-      this.onSearch( this.activities.filter(activity => activity.slug == this.slug)[0].activityName );
+      this.onSearch(
+        this.activities.filter(activity => activity.slug == this.slug)[0]
+          .activityName
+      );
     }
   },
   methods: {

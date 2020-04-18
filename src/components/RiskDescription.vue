@@ -14,11 +14,23 @@
     </div>
     <div class="risk-information">
       <Markdown class="risk-details" :source="risk && risk.longDescription" />
-      <a href="#divMoreInfo" data-toggle="collapse" class="moreLessInfoLink" @click="hideMoreInfo=!hideMoreInfo">{{moreOrLessInfo}}</a>
+      <a
+        href="#divMoreInfo"
+        data-toggle="collapse"
+        class="moreLessInfoLink"
+        @click="hideMoreInfo = !hideMoreInfo"
+        >{{ moreOrLessInfo }}</a
+      >
       <div id="divMoreInfo" class="risk-references-container collapse">
-        <h5>Learn more: </h5>
+        <h5>Learn more:</h5>
         <ol>
-          <li v-for="(reference,index) in references" :key="index" class="risk-reference"> {{reference}}</li>
+          <li
+            v-for="(reference, index) in references"
+            :key="index"
+            class="risk-reference"
+          >
+            {{ reference }}
+          </li>
         </ol>
       </div>
     </div>
@@ -46,21 +58,25 @@ export default {
       return this.riskLevels[this.score - 1];
     },
     references: function() {
-      var referencePropertyNames = Object.keys(this.activity).filter((prop) => prop.indexOf("reference")>-1);
+      var referencePropertyNames = Object.keys(this.activity).filter(
+        prop => prop.indexOf("reference") > -1
+      );
 
       var referencesArray = [];
       var referencesIndex = 0;
       for (var i = 0; i < referencePropertyNames.length; i++) {
         var referencePropertyName = referencePropertyNames[i];
-        if (this.activity[referencePropertyName] !== "") referencesArray[referencesIndex++] = this.activity[referencePropertyName];
+        if (this.activity[referencePropertyName] !== "")
+          referencesArray[referencesIndex++] = this.activity[
+            referencePropertyName
+          ];
       }
       return referencesArray;
     },
     moreOrLessInfo: function() {
-      if (this.hideMoreInfo===true) {
+      if (this.hideMoreInfo === true) {
         return "Less info";
-      }
-      else {
+      } else {
         return "More info";
       }
     }
@@ -103,13 +119,13 @@ export default {
     font-size: 1em;
   }
 
-  .risk-references-container{
-    font-size:0.8em;
+  .risk-references-container {
+    font-size: 0.8em;
   }
 
   .risk-information {
     flex: 70%;
-    margin:auto;
+    margin: auto;
     padding: 1em;
   }
 }
