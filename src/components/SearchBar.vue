@@ -87,6 +87,15 @@ export default {
 </script>
 
 <style lang="scss">
+@media only screen and (max-width: 600px) {
+  .dropdown-content {
+  max-width: 80%;
+  }
+
+  .header {
+    font-size: 32px !important;
+  }
+}
 .search-bar {
   background-color: $color-teal;
   text-align: center;
