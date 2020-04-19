@@ -2,7 +2,14 @@
   <div class="search-bar">
     <p class="header">I wonder if it's safe to...</p>
     <div class="dropdown search-fields">
-      <input
+      <VueSelect 
+        label="activityName" 
+        :options="this.activityList"
+        class="v-select"
+        v-model="searchTerm"
+        v-on:input="onSearch"
+      />
+      <!--<input
         type="text"
         class="dropbtn"
         v-model="searchTerm"
@@ -19,7 +26,7 @@
           >{{ activity }}</a
         >
       </div>
-      <button class="run-search" @click="onSearch">Assess my risk!</button>
+      <button class="run-search" @click="onSearch">Assess my risk!</button>-->
       <p class="subheader">...during the COVID-19 outbreak.</p>
     </div>
     <div class="or-others">
@@ -31,8 +38,12 @@
 
 <script>
 import Fuse from "fuse.js";
+import VueSelect from "vue-select";
 
 export default {
+  components: {
+    VueSelect
+  },
   props: {
     msg: String,
     activityList: Array,
@@ -47,6 +58,11 @@ export default {
     };
   },
   methods: {
+    onVueSelect(whatisthis) {
+      console.log("--------");
+      console.log(whatisthis);
+      console.log("--------");
+    },
     onSearch() {
       this.$emit("searched", this.searchTerm);
       this.searchTerm = "";
@@ -65,18 +81,17 @@ export default {
   computed: {
     activityListComplete() {
       const options = {
-        minMatchCharLength : 2,
+        minMatchCharLength: 2,
         includeScore: true,
         includeMatches: true,
         threshold: 0.3,
-        keys: ['activityName'] // include synonyms in the future
+        keys: ["activityName"] // include synonyms in the future
       };
 
-      const fuse = new Fuse(this.fullActivityList,options);
+      const fuse = new Fuse(this.fullActivityList, options);
       const result = fuse.search(this.searchTerm);
 
       return result.map(result => result.item.activityName);
-
     },
     maxIndex() {
       return Math.ceil(this.activityListComplete.length / this.perPage);
@@ -100,6 +115,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import "vue-select/src/scss/vue-select.scss";
 .search-bar {
   background-color: $color-teal;
   text-align: center;
@@ -215,5 +231,13 @@ export default {
 }
 .subheader {
   font-size: 24px;
+}
+
+.v-select {
+  /*width: 200px;
+  height: 100px;
+  display: block;*/
+  background-color: white;
+  width: 100%;
 }
 </style>
