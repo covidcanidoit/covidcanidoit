@@ -149,7 +149,7 @@ export default {
   width: auto;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  max-height:50%;
+  max-height: 50%;
   overflow-y: scroll;
   overflow-x: hidden;
 }

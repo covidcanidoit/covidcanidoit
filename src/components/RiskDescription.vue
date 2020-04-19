@@ -53,13 +53,18 @@ export default {
       return this.riskLevels[this.score - 1];
     },
     references: function() {
-      var referencePropertyNames = Object.keys(this.activity).filter((prop) => prop.indexOf("reference")>-1);
+      var referencePropertyNames = Object.keys(this.activity).filter(
+        prop => prop.indexOf("reference") > -1
+      );
 
       var referencesArray = [];
       var referencesIndex = 0;
       for (var i = 0; i < referencePropertyNames.length; i++) {
         var referencePropertyName = referencePropertyNames[i];
-        if (this.activity[referencePropertyName] !== "") referencesArray[referencesIndex++] = this.activity[referencePropertyName];
+        if (this.activity[referencePropertyName] !== "")
+          referencesArray[referencesIndex++] = this.activity[
+            referencePropertyName
+          ];
       }
       return referencesArray;
     }
@@ -107,13 +112,13 @@ export default {
     font-size: 1em;
   }
 
-  .risk-references-container{
-    font-size:0.8em;
+  .risk-references-container {
+    font-size: 0.8em;
   }
 
   .risk-information {
     flex: 70%;
-    margin:auto;
+    margin: auto;
     padding: 1em;
   }
 }
