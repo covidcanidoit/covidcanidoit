@@ -180,6 +180,7 @@ export default {
   z-index: 1;
   max-height: 50%;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 /* Links inside the dropdown */
