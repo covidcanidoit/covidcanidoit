@@ -14,22 +14,13 @@
     </div>
     <div class="risk-information">
       <Markdown class="risk-details" :source="risk && risk.longDescription" />
-      <a
-        href="#divMoreInfo"
-        data-toggle="collapse"
-        class="moreLessInfoLink"
-        @click="hideMoreInfo = !hideMoreInfo"
-        >{{ moreOrLessInfo }}</a
-      >
-      <div id="divMoreInfo" class="risk-references-container collapse">
-        <h5>Learn more:</h5>
+      <a v-show="hideMoreInfo" href="#divMoreInfo" data-toggle="collapse" class="moreLessInfoLink" @click="toggleMoreInfo">More info</a>
+      <a v-show="!hideMoreInfo" href="#divMoreInfo" data-toggle="collapse" class="moreLessInfoLink" @click="toggleMoreInfo">Less info</a>
+      <div v-show="!hideMoreInfo" id="divMoreInfo" class="risk-references-container collapse">
+        <h5>Learn more: </h5>
         <ol>
-          <li
-            v-for="(reference, index) in references"
-            :key="index"
-            class="risk-reference"
-          >
-            {{ reference }}
+          <li v-for="(reference,index) in references" :key="index" class="risk-reference">
+            <a :href="reference">{{reference}}</a>
           </li>
         </ol>
       </div>
@@ -49,8 +40,12 @@ export default {
     activity: Object,
     isAgeScore: {
       default: false
-    },
-    hideMoreInfo: Boolean
+    }
+  },
+  data() {
+    return {
+      hideMoreInfo: true
+    }
   },
   computed: {
     ...mapState(["riskLevels"]),
@@ -72,13 +67,11 @@ export default {
           ];
       }
       return referencesArray;
-    },
-    moreOrLessInfo: function() {
-      if (this.hideMoreInfo === true) {
-        return "Less info";
-      } else {
-        return "More info";
-      }
+    }
+  },
+  methods: {
+    toggleMoreInfo() {
+      this.hideMoreInfo = !this.hideMoreInfo;
     }
   }
 };
