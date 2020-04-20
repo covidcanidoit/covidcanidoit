@@ -130,6 +130,9 @@ export default {
   .v-select .vs__dropdown-menu{
     width: 90vw;
   }
+  .header {
+    font-size: 32px;
+  }
 }
 @media (min-width: 1023px) {
   .v-select {
@@ -138,6 +141,9 @@ export default {
   }
   .v-select .vs__dropdown-menu{
     width: 25vw;
+  }
+  .header {
+    font-size: 64px;
   }
 }
 .search-bar {
@@ -252,7 +258,7 @@ export default {
 }
 
 .header {
-  font-size: 64px;
+  
   margin-bottom: 0;
   margin-top: 0;
 }
