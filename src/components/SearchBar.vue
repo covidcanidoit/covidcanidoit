@@ -51,8 +51,7 @@ export default {
     msg: String,
     activityList: Array,
     perPage: { type: Number, default: 5 },
-    initialSearchTerm: String,
-    fullActivityList: Array
+    initialSearchTerm: String
   },
   data: function() {
     return {
@@ -88,10 +87,11 @@ export default {
         includeScore: true,
         includeMatches: true,
         threshold: 0.3,
-        keys: ["activityName"] // include synonyms in the future
+        //keys: ["activityName"] // include synonyms in the future
       };
 
-      const fuse = new Fuse(this.fullActivityList, options);
+      //const fuse = new Fuse(this.fullActivityList, options); // uncomment when ready to search both activityName and synonyms
+      const fuse = new Fuse(this.activityList, options);
       const result = fuse.search(this.searchTerm);
 
       return result.map(result => result.item.activityName);
