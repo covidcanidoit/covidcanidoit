@@ -2,13 +2,16 @@
   <div class="search-bar">
     <p class="header">I wonder if it's safe to...</p>
     <div class="dropdown search-fields">
-      <VueSelect 
-        label="activityName" 
-        :options="this.activityList"
-        class="v-select"
-        v-model="searchTerm"
-        v-on:input="onSearch"
-      />
+      <div class="searchbar-container">
+        <VueSelect 
+          label="activityName" 
+          :options="this.activityList"
+          class="v-select"
+          v-model="searchTerm"
+          v-on:input="onSearch"
+        />
+        <button class="run-search" @click="onSearch">Assess my risk!</button>
+      </div>
       <!--<input
         type="text"
         class="dropbtn"
@@ -116,6 +119,27 @@ export default {
 
 <style lang="scss">
 @import "vue-select/src/scss/vue-select.scss";
+@media only screen and (max-width: 1022px) {
+  body{ 
+    background-color: black;
+  }
+  .v-select {
+    width: 50vw;
+    background-color: black;
+  }
+  .v-select .vs__dropdown-menu{
+    width: 90vw;
+  }
+}
+@media (min-width: 1023px) {
+  .v-select {
+    width: 20vw;
+    background-color: black;
+  }
+  .v-select .vs__dropdown-menu{
+    width: 25vw;
+  }
+}
 .search-bar {
   background-color: $color-teal;
   text-align: center;
@@ -143,6 +167,8 @@ export default {
       padding: 9px;
       background-color: #fd6167;
       color: black;
+      font-size: 1.37em;
+      float:right;
     }
   }
 
@@ -228,16 +254,28 @@ export default {
 .header {
   font-size: 64px;
   margin-bottom: 0;
+  margin-top: 0;
 }
 .subheader {
   font-size: 24px;
+  margin-top: 1px;
+  clear:both;
 }
 
 .v-select {
-  /*width: 200px;
-  height: 100px;
-  display: block;*/
   background-color: white;
-  width: 100%;
+  border-radius: 30px 0 0 30px;
+  display: inline-block;
+}
+.v-select .vs__dropdown-toggle {
+  border:none;  
+}
+
+.v-select .vs__dropdown-toggle .vs__actions{
+  display: none;
+}
+
+.searchbar-container {
+  width: fit-content;
 }
 </style>
