@@ -14,13 +14,35 @@
     </div>
     <div class="risk-information">
       <Markdown class="risk-details" :source="risk && risk.longDescription" />
-      <a v-show="hideMoreInfo" href="#divMoreInfo" data-toggle="collapse" class="moreLessInfoLink" @click="toggleMoreInfo">More info</a>
-      <a v-show="!hideMoreInfo" href="#divMoreInfo" data-toggle="collapse" class="moreLessInfoLink" @click="toggleMoreInfo">Less info</a>
-      <div v-show="!hideMoreInfo" id="divMoreInfo" class="risk-references-container collapse">
-        <h5>Learn more: </h5>
+      <a
+        v-show="hideMoreInfo"
+        href="#divMoreInfo"
+        data-toggle="collapse"
+        class="moreLessInfoLink"
+        @click="toggleMoreInfo"
+        >More info</a
+      >
+      <a
+        v-show="!hideMoreInfo"
+        href="#divMoreInfo"
+        data-toggle="collapse"
+        class="moreLessInfoLink"
+        @click="toggleMoreInfo"
+        >Less info</a
+      >
+      <div
+        v-show="!hideMoreInfo"
+        id="divMoreInfo"
+        class="risk-references-container collapse"
+      >
+        <h5>Learn more:</h5>
         <ol>
-          <li v-for="(reference,index) in references" :key="index" class="risk-reference">
-            <a :href="reference">{{reference}}</a>
+          <li
+            v-for="(reference, index) in references"
+            :key="index"
+            class="risk-reference"
+          >
+            <a :href="reference">{{ reference }}</a>
           </li>
         </ol>
       </div>
@@ -45,7 +67,7 @@ export default {
   data() {
     return {
       hideMoreInfo: true
-    }
+    };
   },
   computed: {
     ...mapState(["riskLevels"]),

@@ -92,18 +92,21 @@
             ]"
           >
             <ul class="listMedConditions">
-            <li>Moderate to severe asthma or chronic lung disease</li>
-            <li>Cancer treatment or medicines causing immune suppression</li>
-            <li>Inherited immune system deficiencies or HIV</li>
-            <li>Serious heart conditions, such as heart failure or prior heart attack</li>
-            <li>Diabetes with complications</li>
-            <li>Kidney failure that need dialysis</li>
-            <li>Cirrhosis of the liver</li>
-            <li>Diseases or conditions that make It harder to cough</li>
-            <li>Extreme obesity</li>
-            <li>Pregnancy</li>
-            <li>None of the above</li>
-          </ul>
+              <li>Moderate to severe asthma or chronic lung disease</li>
+              <li>Cancer treatment or medicines causing immune suppression</li>
+              <li>Inherited immune system deficiencies or HIV</li>
+              <li>
+                Serious heart conditions, such as heart failure or prior heart
+                attack
+              </li>
+              <li>Diabetes with complications</li>
+              <li>Kidney failure that need dialysis</li>
+              <li>Cirrhosis of the liver</li>
+              <li>Diseases or conditions that make It harder to cough</li>
+              <li>Extreme obesity</li>
+              <li>Pregnancy</li>
+              <li>None of the above</li>
+            </ul>
           </MultiQuestion>
         </div>
         <router-link
@@ -275,9 +278,9 @@ a {
   color: #42b983;
 }
 .listMedConditions li {
-  display:block;
+  display: block;
 }
 .listMedConditions {
-  display:inline-block;
+  display: inline-block;
 }
 </style>

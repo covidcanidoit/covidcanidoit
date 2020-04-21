@@ -3,8 +3,8 @@
     <p class="header">I wonder if it's safe to...</p>
     <div class="dropdown search-fields">
       <div class="searchbar-container">
-        <VueSelect 
-          label="activityName" 
+        <VueSelect
+          label="activityName"
           :options="this.activityList"
           class="v-select"
           v-model="searchTerm"
@@ -86,7 +86,7 @@ export default {
         minMatchCharLength: 2,
         includeScore: true,
         includeMatches: true,
-        threshold: 0.3,
+        threshold: 0.3
         //keys: ["activityName"] // include synonyms in the future
       };
 
@@ -120,14 +120,14 @@ export default {
 <style lang="scss">
 @import "vue-select/src/scss/vue-select.scss";
 @media only screen and (max-width: 1022px) {
-  body{ 
+  body {
     background-color: black;
   }
   .v-select {
     width: 50vw;
     background-color: black;
   }
-  .v-select .vs__dropdown-menu{
+  .v-select .vs__dropdown-menu {
     width: 90vw;
   }
   .header {
@@ -139,7 +139,7 @@ export default {
     width: 20vw;
     background-color: black;
   }
-  .v-select .vs__dropdown-menu{
+  .v-select .vs__dropdown-menu {
     width: 25vw;
   }
   .header {
@@ -174,7 +174,7 @@ export default {
       background-color: #fd6167;
       color: black;
       font-size: 1.37em;
-      float:right;
+      float: right;
     }
   }
 
@@ -258,14 +258,13 @@ export default {
 }
 
 .header {
-  
   margin-bottom: 0;
   margin-top: 0;
 }
 .subheader {
   font-size: 24px;
   margin-top: 1px;
-  clear:both;
+  clear: both;
 }
 
 .v-select {
@@ -274,10 +273,10 @@ export default {
   display: inline-block;
 }
 .v-select .vs__dropdown-toggle {
-  border:none;  
+  border: none;
 }
 
-.v-select .vs__dropdown-toggle .vs__actions{
+.v-select .vs__dropdown-toggle .vs__actions {
   display: none;
 }
 
