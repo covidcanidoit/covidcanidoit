@@ -12,7 +12,19 @@
       <div class="score-title">{{ risk && risk.riskName }}</div>
       <ScoreScale :score="score" />
     </div>
-    <Markdown class="risk-details" :source="risk && risk.longDescription" />
+    <div class="risk-information">
+      <Markdown class="risk-details" :source="risk && risk.longDescription" />
+      <a v-show="hideMoreInfo" href="#divMoreInfo" data-toggle="collapse" class="moreLessInfoLink" @click="toggleMoreInfo">More info</a>
+      <a v-show="!hideMoreInfo" href="#divMoreInfo" data-toggle="collapse" class="moreLessInfoLink" @click="toggleMoreInfo">Less info</a>
+      <div v-show="!hideMoreInfo" id="divMoreInfo" class="risk-references-container collapse">
+        <h5>Learn more: </h5>
+        <ol>
+          <li v-for="(reference,index) in references" :key="index" class="risk-reference">
+            <a :href="reference">{{reference}}</a>
+          </li>
+        </ol>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -30,10 +42,36 @@ export default {
       default: false
     }
   },
+  data() {
+    return {
+      hideMoreInfo: true
+    }
+  },
   computed: {
     ...mapState(["riskLevels"]),
     risk() {
       return this.riskLevels[this.score - 1];
+    },
+    references: function() {
+      var referencePropertyNames = Object.keys(this.activity).filter(
+        prop => prop.indexOf("reference") > -1
+      );
+
+      var referencesArray = [];
+      var referencesIndex = 0;
+      for (var i = 0; i < referencePropertyNames.length; i++) {
+        var referencePropertyName = referencePropertyNames[i];
+        if (this.activity[referencePropertyName] !== "")
+          referencesArray[referencesIndex++] = this.activity[
+            referencePropertyName
+          ];
+      }
+      return referencesArray;
+    }
+  },
+  methods: {
+    toggleMoreInfo() {
+      this.hideMoreInfo = !this.hideMoreInfo;
     }
   }
 };
@@ -59,7 +97,26 @@ export default {
     }
   }
 
+  .moreLessInfoLink {
+    float: right;
+  }
+
   .risk-details {
+    flex: 70%;
+    margin: auto;
+    padding: 1em;
+  }
+
+  .risk-references-container h5 {
+    font-weight: bold;
+    font-size: 1em;
+  }
+
+  .risk-references-container {
+    font-size: 0.8em;
+  }
+
+  .risk-information {
     flex: 70%;
     margin: auto;
     padding: 1em;
