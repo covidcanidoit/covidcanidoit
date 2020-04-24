@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import VuexPersistence from "vuex-persist";
+import { vuexfireMutations, firebaseAction } from 'vuexfire';
+import { db } from "@/db.js";
 
 Vue.use(Vuex);
 
@@ -8,10 +10,7 @@ export default new Vuex.Store({
   plugins: [new VuexPersistence().plugin],
   state: {
     submitted: false,
-    activities: [],
-    categories: [],
-    riskLevels: [],
-    riskFactors: [],
+    content: {},
     userProfile: {
       age: undefined,
       gender: undefined,
@@ -24,21 +23,22 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    ...vuexfireMutations,
     setProfile(state, profile) {
       state.userProfile = profile;
-    },
-    setActivities(state, activities) {
-      state.activities = activities;
-    },
-    setCategories(state, categories) {
-      state.categories = categories;
-    },
-    setRiskLevels(state, riskLevels) {
-      state.riskLevels = riskLevels;
-    },
-    setRiskFactors(state, riskFactors) {
-      state.riskFactors = riskFactors;
     }
+    // setActivities(state, activities) {
+    //   state.activities = activities;
+    // },
+    // setCategories(state, categories) {
+    //   state.categories = categories;
+    // },
+    // setRiskLevels(state, riskLevels) {
+    //   state.riskLevels = riskLevels;
+    // },
+    // setRiskFactors(state, riskFactors) {
+    //   state.riskFactors = riskFactors;
+    // }
   },
   getters: {
     getProfile(state) {
@@ -80,8 +80,17 @@ export default new Vuex.Store({
         profile.familySick ||
         profile.COVIDpositive
       );
-    }
+    },
+    activities(state) { return state.content.activities; },
+    categories(state) { return state.content.categories; },
+    riskLevels(state) { return state.content.riskLevels; },
+    riskFactors(state) { return state.content.riskFactors; }
   },
-  actions: {},
+  actions: {
+    bindContent: firebaseAction(({ bindFirebaseRef }) => {
+      // return the promise returned by `bindFirebaseRef`
+      return bindFirebaseRef('content', db.ref('content'))
+    })
+  },
   modules: {}
 });

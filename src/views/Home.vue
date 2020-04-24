@@ -36,10 +36,10 @@ export default {
     };
   },
   computed: {
-    ...mapState(["userProfile", "activities"]),
-    ...mapGetters(["hasEnteredProfileData"]),
+    ...mapState(["userProfile"]),
+    ...mapGetters(["hasEnteredProfileData", "activities"]),
     activityList() {
-      return this.activities.map(activity => activity.activityName);
+      return Object.values(this.activities).map(activity => activity.activityName);
     }
   },
   created() {
@@ -58,7 +58,7 @@ export default {
         event_label: searchValue
       });
 
-      this.activities.map(activity => {
+      Object.values(this.activities).map(activity => {
         if (
           activity["activityName"].toLowerCase() == searchValue.toLowerCase()
         ) {
