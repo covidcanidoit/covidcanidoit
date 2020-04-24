@@ -16,6 +16,7 @@
     "core-js": "^3.6.4",
     "csv-parse": "^4.8.8",
     "firebase": "^7.14.1",
+    "fuse.js": "^5.1.0",
     "html-webpack-inline-source-plugin": "0.0.10",
     "jquery": "^3.4.1",
     "papaparse": "^5.1.1",
@@ -26,6 +27,7 @@
     "vue-router": "^3.1.5",
     "vue-scrollto": "^2.17.1",
     "vuefire": "^2.2.2",
+    "vue-select": "^3.10.1",
     "vuex": "^3.1.2",
     "vuex-persist": "^2.2.0",
     "vuexfire": "^3.2.2"

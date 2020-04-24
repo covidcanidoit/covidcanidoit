@@ -91,39 +91,21 @@
               ['No', 'no']
             ]"
           >
-            <ul>
-              <li>Chronic kidney disease</li>
-              <br />
-              <li>Organ or bone marrow transplant</li>
-              <br />
-              <li>Active hepatitis B infection or Chronic liver disease</li>
-              <br />
+            <ul class="listMedConditions">
+              <li>Moderate to severe asthma or chronic lung disease</li>
+              <li>Cancer treatment or medicines causing immune suppression</li>
+              <li>Inherited immune system deficiencies or HIV</li>
               <li>
-                Any cardiovascular/heart disease, including high blood pressure
+                Serious heart conditions, such as heart failure or prior heart
+                attack
               </li>
-              <br />
-              <li>Diabetes</li>
-              <br />
-              <li>
-                Any chronic lung disease or condition, including asthma,
-                COPD/chronic emphysema, or interstitial lung disease (such as
-                pneumonitis or pulmonary fibrosis)
-              </li>
-              <br />
-              <li>Blood disorders such as sickle cell anemia</li>
-              <br />
-              <li>Metabolic/mitochondrial disorders</li>
-              <br />
-              <li>
-                Neurologic/neurodevelopmental conditions including stroke,
-                intellectual disability, moderate to severe neurodevelopmental
-                delay, and neuromuscular diseases
-              </li>
-              <br />
-              <li>
-                Any immunocompromising diseases or medications (diseases or
-                medications that weaken your immune system)
-              </li>
+              <li>Diabetes with complications</li>
+              <li>Kidney failure that need dialysis</li>
+              <li>Cirrhosis of the liver</li>
+              <li>Diseases or conditions that make It harder to cough</li>
+              <li>Extreme obesity</li>
+              <li>Pregnancy</li>
+              <li>None of the above</li>
             </ul>
           </MultiQuestion>
         </div>
@@ -294,5 +276,11 @@ li:before {
 }
 a {
   color: #42b983;
+}
+.listMedConditions li {
+  display: block;
+}
+.listMedConditions {
+  display: inline-block;
 }
 </style>
