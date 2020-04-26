@@ -58,17 +58,7 @@ export default {
     };
   },
   mounted() {
-    this.createPlot({
-      labels: this.days,
-      datasets: [
-        {
-          label: "Popular Times",
-          backgroundColor: "rgb(255, 99, 132)",
-          borderColor: "rgb(255, 99, 132)",
-          data: this.crowdingData.weekly
-        }
-      ]
-    });
+    this.weeklyPlot();
   },
   methods: {
     createPlot(plotData) {
@@ -83,34 +73,47 @@ export default {
         // Configuration options go here
         options: {
           onClick: (evt, item) => {
-            console.log(evt, item);
-            this.drillDown(item[0]["_index"]);
+            // console.log(evt, item);
+            if (this.daily){
+              this.weeklyPlot();
+              this.daily = false
+            }else{
+              this.drillDown(item[0]["_index"]);
+              this.daily = true
+            }
           },
           // This chart will not respond to mousemove, etc
           events: ['click']
         }
       });
     },
-    drillDown(index) {
-      let day = this.days[index]
-      if (!this.daily) {
-        this.daily = true
-        console.log("day: ", day);
-      console.log(this.crowdingData.populartimes[index].data)
-      //replot with daily data
+    weeklyPlot(){
       this.createPlot({
-      labels: this.hours,
+      labels: this.days,
       datasets: [
         {
-          label: "Popular Times",
+          label: "Popular Times (weekly)",
           backgroundColor: "rgb(255, 99, 132)",
           borderColor: "rgb(255, 99, 132)",
-          data: this.crowdingData.populartimes[index].data
+          data: this.crowdingData.weekly
         }
       ]
     });
-      }
-      
+    },
+    drillDown(index) {
+          let day = this.days[index]
+          //replot with daily data
+          this.createPlot({
+          labels: this.hours,
+          datasets: [
+            {
+              label: "Popular Times ("+day+")",
+              backgroundColor: "rgb(255, 99, 132)",
+              borderColor: "rgb(255, 99, 132)",
+              data: this.crowdingData.populartimes[index].data
+            }
+          ]
+        });      
     }
   }
 };
