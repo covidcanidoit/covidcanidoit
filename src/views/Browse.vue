@@ -5,11 +5,11 @@
       <div
         class="category"
         v-for="category in categories"
-        :key="category.category"
-        @click="viewActivity(category.category)"
+        :key="category.name"
+        @click="viewActivity(category.name)"
       >
         <i :class="category.icon"></i>
-        <div class="category-name">{{ category.category }}</div>
+        <div class="category-name">{{ category.name }}</div>
         <div class="category-description">{{ category.shortDescription }}</div>
       </div>
     </div>
@@ -17,20 +17,17 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapState(["categories"])
+    ...mapGetters(["categories"])
   },
   methods: {
-    onSelect(categoryName) {
-      console.log({ categoryName });
-    },
-    viewActivity(category) {
+    viewActivity(name) {
       this.$router.push({
         name: "BrowseCategory",
-        params: { category: category }
+        params: { name: name }
       });
     }
   }

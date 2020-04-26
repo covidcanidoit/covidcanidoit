@@ -58,7 +58,7 @@
 
 <script>
 import Markdown from "vue-markdown";
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 import RiskDescription from "@/components/RiskDescription.vue";
 
 export default {
@@ -71,7 +71,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(["riskFactors"]),
+    ...mapGetters(["riskFactors"]),
     isAgeSet() {
       return this.profile.age && this.activity[this.profile.age];
     },
@@ -86,7 +86,7 @@ export default {
       return this.$store.getters.ageDescription;
     },
     additionalRiskFactors() {
-      return this.riskFactors.filter(riskFactor => {
+      return Object.values(this.riskFactors).filter(riskFactor => {
         console.log("Checking to see if we have", { riskFactor });
         const lookFor = riskFactor.showWhen.split(",");
         return lookFor.includes(this.profile[riskFactor.name]);
