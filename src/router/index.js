@@ -10,6 +10,7 @@ import AdminActivityEdit from "@/views/AdminActivityEdit.vue";
 import AdminRiskLevelEdit from "@/views/AdminRiskLevelEdit.vue";
 import AdminRiskFactorEdit from "@/views/AdminRiskFactorEdit.vue";
 import AdminCategoryEdit from "@/views/AdminCategoryEdit.vue";
+import AdminUserEdit from "@/views/AdminUserEdit.vue";
 
 Vue.use(VueRouter);
 
@@ -76,6 +77,12 @@ const routes = [
     path: "/admin/category/:name",
     name: "AdminCategoryEdit",
     component: AdminCategoryEdit,
+    props: true
+  },
+  {
+    path: "/admin/user/:userId",
+    name: "AdminUserEdit",
+    component: AdminUserEdit,
     props: true
   }
 ];

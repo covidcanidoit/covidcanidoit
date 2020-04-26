@@ -152,6 +152,36 @@
         </tr>
       </tbody>
     </table>
+
+    <hr />
+
+    <h2 @click="toggleUsers">{{ showUsers ? "&#x25bc;" : "&#x25b6;" }} Users</h2>
+    <table v-show="showUsers" cellspacing="0" cellpadding="2px" border="1">
+      <thead>
+        <tr>
+          <th>Action</th>
+          <th>email</th>
+          <th>isAdmin?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="userId in userIds" :key="userId">
+          <td>
+            <router-link
+              :to="{
+                name: 'AdminUserEdit',
+                params: { userId: userId }
+              }"
+            >
+              Edit
+            </router-link>
+          </td>
+          <td>{{ users[userId].email }}</td>
+          <td>{{ userSettings[userId] && userSettings[userId].isAdmin }}</td>
+        </tr>
+      </tbody>
+    </table>
+
   </div>
 </template>
 
@@ -163,12 +193,14 @@ export default {
   data() {
     return {
       // content: {},
-      userSettings: {},
+      // userSettings: {},
+      // users: {},
       user: undefined,
       showActivities: false,
       showCategories: false,
       showRiskFactors: false,
-      showRiskLevels: false
+      showRiskLevels: false,
+      showUsers: false
     };
   },
   created() {
@@ -184,7 +216,7 @@ export default {
     });
   },
   computed: {
-    ...mapState(["content"]),
+    ...mapState(["content", "users", "userSettings"]),
     ...mapGetters(["activities", "riskLevels", "riskFactors", "categories"]),
     isAdmin() {
       if (this.user && this.userSettings) {
@@ -198,6 +230,9 @@ export default {
         this.userSettings[this.user.uid] &&
         this.userSettings[this.user.uid].isAdmin
       );
+    },
+    userIds() {
+      return Object.keys(this.users);
     }
   },
   methods: {
@@ -238,10 +273,13 @@ export default {
     toggleCategories() {
       this.showCategories = !this.showCategories;
     },
+    toggleUsers() {
+      this.showUsers = !this.showUsers;
+    }
   },
   firebase: {
     // content: db.ref("content"),
-    userSettings: db.ref("userSettings")
+    // userSettings: db.ref("userSettings")
   }
 };
 </script>
