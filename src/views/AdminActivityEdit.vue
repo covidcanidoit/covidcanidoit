@@ -6,7 +6,12 @@
     <div class="edit-form">
       <div class="form-group">
         <label>slug</label>
-        <input @input="saveField('slug', $event)" class="form-control" type="text" :value="this.activity.slug" />
+        <input
+          @input="saveField('slug', $event)"
+          class="form-control"
+          type="text"
+          :value="this.activity.slug"
+        />
       </div>
       <div class="form-group">
         <label>activityName</label>
@@ -46,9 +51,11 @@
       </div>
       <div class="form-group">
         <label>showLocation</label>
-        <select class="form-control"
+        <select
+          class="form-control"
           @input="saveField('showLocation', $event)"
-          :value="this.activity.showLocation">
+          :value="this.activity.showLocation"
+        >
           <option>FALSE</option>
           <option>TRUE</option>
         </select>
@@ -150,9 +157,12 @@ export default {
   },
   methods: {
     saveField(name, event) {
-      console.log("So... you want to save...", {name, event});
+      console.log("So... you want to save...", { name, event });
       console.log("New value", event.target.value);
-      db.ref('content/activities').child(this.currentKey).child(name).set(event.target.value);
+      db.ref("content/activities")
+        .child(this.currentKey)
+        .child(name)
+        .set(event.target.value);
     },
     // saveField(field, event) {
     //
@@ -160,10 +170,10 @@ export default {
     lookupActivity() {
       console.log({ activities: this.activities });
       console.log({ keys: Object.keys(this.activities) });
-      this.currentKey = Object.keys(this.activities).find(key =>
-        this.activities[key].activityName === this.activityName
+      this.currentKey = Object.keys(this.activities).find(
+        key => this.activities[key].activityName === this.activityName
       );
-      console.log({key: this.currentKey});
+      console.log({ key: this.currentKey });
     }
   }
 };

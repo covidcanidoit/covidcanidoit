@@ -13,7 +13,7 @@
       <ScoreScale :score="score" />
     </div>
     <div class="risk-information">
-      <Markdown class="risk-details" :source="risk?.longDescription" />
+      <Markdown class="risk-details" :source="risk.longDescription" />
       <a
         v-show="hideMoreInfo"
         href="#divMoreInfo"
@@ -72,7 +72,7 @@ export default {
   computed: {
     ...mapGetters(["riskLevels"]),
     risk() {
-      return this.riskLevels[this.score - 1];
+      return this.riskLevels["riskLevel" + this.score];
     },
     references: function() {
       var referencePropertyNames = Object.keys(this.activity).filter(

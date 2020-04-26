@@ -39,7 +39,9 @@ export default {
     ...mapState(["userProfile"]),
     ...mapGetters(["hasEnteredProfileData", "activities"]),
     activityList() {
-      return Object.values(this.activities).map(activity => activity.activityName);
+      return Object.values(this.activities).map(
+        activity => activity.activityName
+      );
     }
   },
   created() {

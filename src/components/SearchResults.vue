@@ -86,7 +86,7 @@ export default {
       return this.$store.getters.ageDescription;
     },
     additionalRiskFactors() {
-      return this.riskFactors.filter(riskFactor => {
+      return Object.values(this.riskFactors).filter(riskFactor => {
         console.log("Checking to see if we have", { riskFactor });
         const lookFor = riskFactor.showWhen.split(",");
         return lookFor.includes(this.profile[riskFactor.name]);

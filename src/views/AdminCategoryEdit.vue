@@ -51,7 +51,7 @@ export default {
   computed: {
     ...mapGetters(["riskLevels"]),
     riskLevel() {
-      return this.riskLevels["riskLevel" + this.riskScore];
+      return this.riskLevels[this.riskScore - 1];
     }
   },
   methods: {
@@ -59,7 +59,7 @@ export default {
       console.log("So... you want to save...", { name, event });
       console.log("New value", event.target.value);
       db.ref("content/riskLevels")
-        .child("riskLevel" + this.riskScore)
+        .child(this.riskScore - 1)
         .child(name)
         .set(event.target.value);
     }

@@ -1,8 +1,15 @@
 <template>
   <div class="admin-view">
     <h1>Admin!</h1>
-    <h2>Activities</h2>
-    <table cellspacing="0" cellpadding="2px" border="1">
+
+    <button v-if="!user" @click="login">Sign in with Google</button>
+    <button v-if="user" @click="logout">Sign out</button>
+    <br />
+    Current User: {{ user && user.email }} isAdmin: {{ isAdmin }}
+    <br />
+
+    <h2 @click="toggleActivities">{{ showActivities ? "&#x25bc;" : "&#x25b6;" }} Activities</h2>
+    <table v-show="showActivities" cellspacing="0" cellpadding="2px" border="1">
       <thead>
         <tr>
           <th>Action</th>
@@ -19,7 +26,13 @@
         <tr v-for="activity in activities" :key="activity.activityName">
           <td>
             <router-link
-              :to="{ name: 'AdminActivityEdit', params: { activityName: activity.activityName, slug: activity.slug } }"
+              :to="{
+                name: 'AdminActivityEdit',
+                params: {
+                  activityName: activity.activityName,
+                  slug: activity.slug
+                }
+              }"
             >
               Edit
             </router-link>
@@ -41,10 +54,10 @@
       </tbody>
     </table>
 
-    <hr/>
+    <hr />
 
-    <h2>Risk Levels</h2>
-    <table cellspacing="0" cellpadding="2px" border="1">
+    <h2 @click="toggleRiskLevels">{{ showRiskLevels ? "&#x25bc;" : "&#x25b6;" }} Risk Levels</h2>
+    <table v-show="showRiskLevels" cellspacing="0" cellpadding="2px" border="1">
       <thead>
         <tr>
           <th>Action</th>
@@ -56,7 +69,10 @@
         <tr v-for="riskLevel in riskLevels" :key="riskLevel.riskScore">
           <td>
             <router-link
-              :to="{ name: 'AdminRiskLevelEdit', params: { riskScore: riskLevel.riskScore } }"
+              :to="{
+                name: 'AdminRiskLevelEdit',
+                params: { riskScore: riskLevel.riskScore }
+              }"
             >
               Edit
             </router-link>
@@ -67,15 +83,75 @@
       </tbody>
     </table>
 
-    <pre>
-    Firebase content: {{ Object.keys(content) }}
-    </pre>
-    <br />
-    <button v-if="!user" @click="login">Sign in with Google</button>
-    <button v-if="user" @click="logout">Sign out</button>
-    <br />
-    User: {{ user?.email }} isAdmin: {{ isAdmin }}
-    <br />
+    <hr />
+
+    <h2 @click="toggleRiskFactors">{{ showRiskFactors ? "&#x25bc;" : "&#x25b6;" }} Risk Factors</h2>
+    <table v-show="showRiskFactors" cellspacing="0" cellpadding="2px" border="1">
+      <thead>
+        <tr>
+          <th>Action</th>
+          <th>description</th>
+          <th>icon</th>
+          <th>longDescription</th>
+          <th>name</th>
+          <th>shortDescription</th>
+          <th>showWhen</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="riskFactor in riskFactors" :key="riskFactor.name">
+          <td>
+            <router-link
+              :to="{
+                name: 'AdminRiskFactorEdit',
+                params: { name: riskFactor.name }
+              }"
+            >
+              Edit
+            </router-link>
+          </td>
+          <td>{{ riskFactor.description }}</td>
+          <td>{{ riskFactor.icon }}</td>
+          <td>{{ riskFactor.longDescription }}</td>
+          <td>{{ riskFactor.name }}</td>
+          <td>{{ riskFactor.shortDescription }}</td>
+          <td>{{ riskFactor.showWhen }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr />
+
+    <h2 @click="toggleCategories">{{ showCategories ? "&#x25bc;" : "&#x25b6;" }} Categories</h2>
+    <table v-show="showCategories" cellspacing="0" cellpadding="2px" border="1">
+      <thead>
+        <tr>
+          <th>Action</th>
+          <th>name</th>
+          <th>icon</th>
+          <th>shortDescription</th>
+          <th>longDescription</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="category in categories" :key="category.name">
+          <td>
+            <router-link
+              :to="{
+                name: 'AdminCategoryEdit',
+                params: { name: category.name }
+              }"
+            >
+              Edit
+            </router-link>
+          </td>
+          <td>{{ category.name }}</td>
+          <td>{{ category.icon }}</td>
+          <td>{{ category.shortDescription }}</td>
+          <td>{{ category.longDescription }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -88,7 +164,11 @@ export default {
     return {
       // content: {},
       userSettings: {},
-      user: undefined
+      user: undefined,
+      showActivities: false,
+      showCategories: false,
+      showRiskFactors: false,
+      showRiskLevels: false
     };
   },
   created() {
@@ -105,10 +185,13 @@ export default {
   },
   computed: {
     ...mapState(["content"]),
-    ...mapGetters(["activities", "riskLevels"]),
+    ...mapGetters(["activities", "riskLevels", "riskFactors", "categories"]),
     isAdmin() {
       if (this.user && this.userSettings) {
-        console.log({ userSettings: this.userSettings[this.user.uid], uid: this.user.uid});
+        console.log({
+          userSettings: this.userSettings[this.user.uid],
+          uid: this.user.uid
+        });
       }
       return !!(
         this.user &&
@@ -142,7 +225,19 @@ export default {
         .catch(function(error) {
           console.log("Error signing out!", { error });
         });
-    }
+    },
+    toggleActivities() {
+      this.showActivities = !this.showActivities;
+    },
+    toggleRiskLevels() {
+      this.showRiskLevels = !this.showRiskLevels;
+    },
+    toggleRiskFactors() {
+      this.showRiskFactors = !this.showRiskFactors;
+    },
+    toggleCategories() {
+      this.showCategories = !this.showCategories;
+    },
   },
   firebase: {
     // content: db.ref("content"),

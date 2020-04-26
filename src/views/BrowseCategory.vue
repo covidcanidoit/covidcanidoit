@@ -1,6 +1,6 @@
 <template>
   <div class="browse-activities">
-    <h1>Category: {{ category }}</h1>
+    <h1>Category: {{ name }}</h1>
     <div class="activities">
       <div
         class="activity"
@@ -25,12 +25,12 @@
 import { mapGetters } from "vuex";
 
 export default {
-  props: ["category"],
+  props: ["name"],
   computed: {
     ...mapGetters(["activities"]),
     categoryActivities() {
       return this.activities.filter(
-        activity => activity.category === this.category
+        activity => activity.category === this.name
       );
     }
   }
