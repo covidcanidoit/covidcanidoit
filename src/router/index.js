@@ -5,7 +5,6 @@ import Browse from "@/views/Browse.vue";
 import BrowseCategory from "@/views/BrowseCategory.vue";
 import About from "@/views/About.vue";
 import CreateUserProfile from "@/views/CreateUserProfile.vue";
-import Test from "@/views/Testing.vue";
 
 Vue.use(VueRouter);
 
@@ -43,11 +42,6 @@ const routes = [
     name: "CreateUserProfile",
     component: CreateUserProfile,
     props: true
-  },
-  {
-    path: "/testing",
-    name: "Test",
-    component: Test
   }
 ];
 
