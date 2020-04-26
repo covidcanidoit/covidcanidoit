@@ -11,6 +11,7 @@ import AdminRiskLevelEdit from "@/views/AdminRiskLevelEdit.vue";
 import AdminRiskFactorEdit from "@/views/AdminRiskFactorEdit.vue";
 import AdminCategoryEdit from "@/views/AdminCategoryEdit.vue";
 import AdminUserEdit from "@/views/AdminUserEdit.vue";
+import Test from "@/views/Testing.vue";
 
 Vue.use(VueRouter);
 
@@ -84,6 +85,11 @@ const routes = [
     name: "AdminUserEdit",
     component: AdminUserEdit,
     props: true
+  },
+  {
+    path: "/testing",
+    name: "Test",
+    component: Test
   }
 ];
 
