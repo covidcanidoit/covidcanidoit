@@ -14,6 +14,10 @@ yarn serve
 # Deploy! Builds app and uploads to Firebase
 yarn deploy
 
+# Deploy Firebase db rule changes
+# The rules are defined in firebase.rules.json
+yarn deploy-db-rules
+
 # Run your tests
 yarn test:unit
 yarn test:e2e
