@@ -24,9 +24,6 @@ export default {
     ...mapGetters(["categories"])
   },
   methods: {
-    onSelect(categoryName) {
-      console.log({ categoryName });
-    },
     viewActivity(name) {
       this.$router.push({
         name: "BrowseCategory",
