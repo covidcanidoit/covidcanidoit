@@ -27,7 +27,7 @@ export default {
     viewActivity(name) {
       this.$router.push({
         name: "BrowseCategory",
-        params: { name: name}
+        params: { name: name }
       });
     }
   }

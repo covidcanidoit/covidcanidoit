@@ -29,18 +29,6 @@ export default new Vuex.Store({
     setProfile(state, profile) {
       state.userProfile = profile;
     }
-    // setActivities(state, activities) {
-    //   state.activities = activities;
-    // },
-    // setCategories(state, categories) {
-    //   state.categories = categories;
-    // },
-    // setRiskLevels(state, riskLevels) {
-    //   state.riskLevels = riskLevels;
-    // },
-    // setRiskFactors(state, riskFactors) {
-    //   state.riskFactors = riskFactors;
-    // }
   },
   getters: {
     getProfile(state) {
@@ -94,20 +82,10 @@ export default new Vuex.Store({
     },
     riskFactors(state) {
       return state.content.riskFactors;
-    },
-    // users(state) {
-    //   return state.users;
-    // },
-    // userSettings(state) {
-    //   return state.userSettings;
-    // }
+    }
   },
   actions: {
     bindContent: firebaseAction(({ bindFirebaseRef }) => {
-      // ... will these work without chaining promise?
-      // bindFirebaseRef("users", db.ref("users"));
-      // bindFirebaseRef("userSettings", db.ref("userSettings"));
-      // return the promise returned by `bindFirebaseRef`
       console.log("Binding content");
       return bindFirebaseRef("content", db.ref("content"));
     }),
