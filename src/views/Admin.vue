@@ -2,15 +2,15 @@
   <div class="admin-view">
     <h1>Admin!</h1>
 
-    <button v-if="!user" @click="login">Sign in with Google</button>
-    <button v-if="user" @click="logout">Sign out</button>
-    <br />
+    <button class="btn btn-primary" v-if="!user" @click="login">Sign in with Google</button>
+    <button class="btn btn-secondary" v-if="user" @click="logout">Sign out</button>
     Current User: {{ user && user.email }} isAdmin: {{ isAdmin }}
     <br />
 
-    <h2 @click="toggleActivities">{{ showActivities ? "&#x25bc;" : "&#x25b6;" }} Activities</h2>
-    <table v-show="showActivities" cellspacing="0" cellpadding="2px" border="1">
-      <thead>
+    <div>
+    <h2 class="btn" @click="toggleActivities">{{ showActivities ? "&#x25bc;" : "&#x25b6;" }} Activities</h2>
+    <table class="table table-striped" v-show="showActivities" cellspacing="0" cellpadding="2px" border="1">
+      <thead class="thead-dark">
         <tr>
           <th>Action</th>
           <th>slug</th>
@@ -19,7 +19,7 @@
           <th>general</th>
           <th>50-69</th>
           <th>70+</th>
-          <th>showLocation</th>
+          <th>location?</th>
         </tr>
       </thead>
       <tbody>
@@ -53,12 +53,12 @@
         </tr>
       </tbody>
     </table>
+    </div>
 
-    <hr />
-
-    <h2 @click="toggleRiskLevels">{{ showRiskLevels ? "&#x25bc;" : "&#x25b6;" }} Risk Levels</h2>
-    <table v-show="showRiskLevels" cellspacing="0" cellpadding="2px" border="1">
-      <thead>
+    <div>
+    <h2 class="btn" @click="toggleRiskLevels">{{ showRiskLevels ? "&#x25bc;" : "&#x25b6;" }} Risk Levels</h2>
+    <table class="table table-striped" v-show="showRiskLevels" cellspacing="0" cellpadding="2px" border="1">
+      <thead class="thead-dark">
         <tr>
           <th>Action</th>
           <th>Level</th>
@@ -82,12 +82,12 @@
         </tr>
       </tbody>
     </table>
+    </div>
 
-    <hr />
-
-    <h2 @click="toggleRiskFactors">{{ showRiskFactors ? "&#x25bc;" : "&#x25b6;" }} Risk Factors</h2>
-    <table v-show="showRiskFactors" cellspacing="0" cellpadding="2px" border="1">
-      <thead>
+    <div>
+    <h2 class="btn" @click="toggleRiskFactors">{{ showRiskFactors ? "&#x25bc;" : "&#x25b6;" }} Risk Factors</h2>
+    <table class="table table-striped" v-show="showRiskFactors" cellspacing="0" cellpadding="2px" border="1">
+      <thead class="thead-dark">
         <tr>
           <th>Action</th>
           <th>description</th>
@@ -111,7 +111,7 @@
             </router-link>
           </td>
           <td>{{ riskFactor.description }}</td>
-          <td>{{ riskFactor.icon }}</td>
+          <td><i class="icon" :class="riskFactor.icon"></i></td>
           <td>{{ riskFactor.longDescription }}</td>
           <td>{{ riskFactor.name }}</td>
           <td>{{ riskFactor.shortDescription }}</td>
@@ -119,12 +119,12 @@
         </tr>
       </tbody>
     </table>
+    </div>
 
-    <hr />
-
-    <h2 @click="toggleCategories">{{ showCategories ? "&#x25bc;" : "&#x25b6;" }} Categories</h2>
-    <table v-show="showCategories" cellspacing="0" cellpadding="2px" border="1">
-      <thead>
+    <div>
+    <h2 class="btn" @click="toggleCategories">{{ showCategories ? "&#x25bc;" : "&#x25b6;" }} Categories</h2>
+    <table class="table table-striped" v-show="showCategories" cellspacing="0" cellpadding="2px" border="1">
+      <thead class="thead-dark">
         <tr>
           <th>Action</th>
           <th>name</th>
@@ -139,25 +139,25 @@
             <router-link
               :to="{
                 name: 'AdminCategoryEdit',
-                params: { name: category.name }
+                params: { categoryName: category.name }
               }"
             >
               Edit
             </router-link>
           </td>
           <td>{{ category.name }}</td>
-          <td>{{ category.icon }}</td>
+          <td><i class="icon" :class="category.icon"></i></td>
           <td>{{ category.shortDescription }}</td>
           <td>{{ category.longDescription }}</td>
         </tr>
       </tbody>
     </table>
+    </div>
 
-    <hr />
-
-    <h2 @click="toggleUsers">{{ showUsers ? "&#x25bc;" : "&#x25b6;" }} Users</h2>
-    <table v-show="showUsers" cellspacing="0" cellpadding="2px" border="1">
-      <thead>
+    <div>
+    <h2 class="btn" @click="toggleUsers">{{ showUsers ? "&#x25bc;" : "&#x25b6;" }} Users</h2>
+    <table class="table table-striped" v-show="showUsers" cellspacing="0" cellpadding="2px" border="1">
+      <thead class="thead-dark">
         <tr>
           <th>Action</th>
           <th>email</th>
@@ -181,6 +181,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
 
   </div>
 </template>
@@ -219,12 +220,6 @@ export default {
     ...mapState(["content", "users", "userSettings"]),
     ...mapGetters(["activities", "riskLevels", "riskFactors", "categories"]),
     isAdmin() {
-      if (this.user && this.userSettings) {
-        console.log({
-          userSettings: this.userSettings[this.user.uid],
-          uid: this.user.uid
-        });
-      }
       return !!(
         this.user &&
         this.userSettings[this.user.uid] &&
@@ -236,16 +231,6 @@ export default {
     }
   },
   methods: {
-    // uploadContent() {
-    //   db.ref("content")
-    //     .set(this.storeContent)
-    //     .then(() => {
-    //       console.log("content updated!");
-    //     });
-    // },
-    // bindContent() {
-    //   this.$store.dispatch("bindContent");
-    // },
     login() {
       const provider = new firebase.auth.GoogleAuthProvider();
       firebase.auth().signInWithRedirect(provider);
@@ -276,10 +261,12 @@ export default {
     toggleUsers() {
       this.showUsers = !this.showUsers;
     }
-  },
-  firebase: {
-    // content: db.ref("content"),
-    // userSettings: db.ref("userSettings")
   }
 };
 </script>
+
+<style scoped lang="scss">
+table {
+  margin: 0 1em;
+}
+</style>
