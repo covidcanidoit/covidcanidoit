@@ -38,6 +38,16 @@ export default {
 </script>
 
 <style lang="scss">
+@media only screen and (max-width: 1022px) {
+  .activity {
+    flex: 100%;
+  }
+}
+@media (min-width: 1023px) {
+  .activity {
+    flex: 40%;
+  }
+}
 .bannerText {
   text-align: center;
   margin-left: 20%;
@@ -56,7 +66,6 @@ export default {
     /*border-top: 1px solid black;*/
     padding: 1em;
     background-color: #8ad4b4;
-    flex: 40%;
     padding: 1em;
     margin: 1em;
     position: relative;
@@ -68,7 +77,7 @@ export default {
 
   .activity:nth-child(odd) {
     background-color: #21acb0;
-    flex: 40%;
+    
   }
 }
 </style>
