@@ -16,6 +16,11 @@
         v-show="profile.COVIDpositive !== 'yes'"
       />
 
+      City/Neighborhood: <input type=text v-model="location" /><br/>
+      Business: <input type=text v-model="business" /><br/>
+      <button @click="getBusyInfo">When should I go?</button>
+      <div>{{ busyResults }}</div>
+
       <div v-show="additionalRiskFactors.length > 0" class="additional-factors">
         <h2>Additional Risk Factors</h2>
         <div class="accordion" id="accordionExample">
@@ -61,6 +66,8 @@ import Markdown from "vue-markdown";
 import { mapGetters } from "vuex";
 import RiskDescription from "@/components/RiskDescription.vue";
 
+import axios from "axios";
+
 export default {
   components: { RiskDescription, Markdown },
   props: {
@@ -69,6 +76,13 @@ export default {
     profile: {
       type: Object
     }
+  },
+  data() {
+    return {
+      location: "",
+      business: "",
+      busyResults: ""
+    };
   },
   computed: {
     ...mapGetters(["riskFactors"]),
@@ -91,6 +105,12 @@ export default {
         const lookFor = riskFactor.showWhen.split(",");
         return lookFor.includes(this.profile[riskFactor.name]);
       });
+    }
+  },
+  methods: {
+    async getBusyInfo() {
+      const locationResults = await axios.get("https://thelackthereof.org/api", { params: { location: this.location, name: this.business }});
+      this.busyResults = locationResults;
     }
   }
 };
