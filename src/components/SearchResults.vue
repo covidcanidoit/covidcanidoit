@@ -110,7 +110,7 @@ export default {
   methods: {
     async getBusyInfo() {
       const locationResults = await axios.get("https://thelackthereof.org/api", { params: { location: this.location, name: this.business }});
-      this.busyResults = locationResults;
+      this.busyResults = locationResults.data;
     }
   }
 };
