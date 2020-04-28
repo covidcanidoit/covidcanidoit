@@ -14,59 +14,12 @@
 </template>
 
 <script>
-import axios from "axios";
-import parseCSV from "csv-parse/lib/sync";
-import { mapMutations } from "vuex";
-
 export default {
-  async created() {
-    let loadGoogleData = async (id, gid) => {
-      const dataSheetUrl = `https://docs.google.com/spreadsheets/d/${id}/export?format=csv&gid=${gid}`;
-      const googleDataResult = await axios.get(dataSheetUrl);
-      const googleDataCSV = googleDataResult.data;
-
-      const googleData = parseCSV(googleDataCSV, {
-        columns: true,
-        skip_empty_lines: true
-      });
-      return googleData;
-    };
-
-    console.log("Downloading activities");
-    const activities = await loadGoogleData(
-      "11jG7_PkjIq3kPmhSwl9W2GpGoNe57WoBSoTo_0MS5J8",
-      "219638739"
-    );
-    this.setActivities(activities);
-
-    console.log("Downloading categories");
-    const categories = await loadGoogleData(
-      "11jG7_PkjIq3kPmhSwl9W2GpGoNe57WoBSoTo_0MS5J8",
-      "1087436199"
-    );
-    this.setCategories(categories);
-
-    console.log("Downloading risk level descriptions");
-    const riskLevels = await loadGoogleData(
-      "11jG7_PkjIq3kPmhSwl9W2GpGoNe57WoBSoTo_0MS5J8",
-      "1690487024"
-    );
-    this.setRiskLevels(riskLevels);
-
-    console.log("Downloading additional risk factor descriptions");
-    const riskFactors = await loadGoogleData(
-      "11jG7_PkjIq3kPmhSwl9W2GpGoNe57WoBSoTo_0MS5J8",
-      "1126986858"
-    );
-    this.setRiskFactors(riskFactors);
-  },
-  methods: {
-    ...mapMutations([
-      "setActivities",
-      "setCategories",
-      "setRiskLevels",
-      "setRiskFactors"
-    ])
+  created() {
+    console.log("Loading content from Firebase");
+    this.$store.dispatch("bindContent");
+    this.$store.dispatch("bindUsers");
+    this.$store.dispatch("bindUserSettings");
   }
 };
 </script>

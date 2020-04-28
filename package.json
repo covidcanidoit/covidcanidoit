@@ -11,27 +11,29 @@
     "deploy": "yarn build && yarn run firebase deploy"
   },
   "dependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.9.0",
     "axios": "^0.19.2",
-    "babel-preset-es2015": "^6.24.1",
     "bootstrap": "^4.4.1",
     "canvasjs": "^1.8.3",
     "chart.js": "^2.9.3",
     "core-js": "^3.6.4",
     "csv-parse": "^4.8.8",
-    "fuse.js": "^5.2.3",
+    "firebase": "^7.14.1",
+    "fuse.js": "^5.1.0",
     "html-webpack-inline-source-plugin": "0.0.10",
-    "jquery": "^3.5.0",
+    "jquery": "^3.4.1",
     "papaparse": "^5.1.1",
     "popper.js": "^1.16.1",
     "vue": "^2.6.11",
     "vue-gtag": "^1.6.2",
     "vue-markdown": "^2.2.4",
     "vue-router": "^3.1.5",
-    "vue-scrollto": "^2.18.1",
-    "vue-select": "^3.10.2",
+    "vue-scrollto": "^2.17.1",
+    "vue-select": "^3.10.1",
+    "vuefire": "^2.2.2",
     "vuex": "^3.1.2",
     "vuex-persist": "^2.2.0",
-    "webpack": "^4.43.0"
+    "vuexfire": "^3.2.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.2.0",
@@ -53,6 +55,7 @@
     "prettier": "^1.19.1",
     "sass": "^1.25.0",
     "sass-loader": "^8.0.2",
+    "vue-cli-plugin-vuefire": "~1.0.2",
     "vue-template-compiler": "^2.6.11"
   },
   "_id": "prototype@0.1.0",

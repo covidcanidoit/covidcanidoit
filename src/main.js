@@ -6,6 +6,9 @@ import store from "./store";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import { rtdbPlugin } from "vuefire";
+Vue.use(rtdbPlugin);
+
 Vue.config.productionTip = false;
 
 Vue.use(

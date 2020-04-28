@@ -5,7 +5,12 @@ import Browse from "@/views/Browse.vue";
 import BrowseCategory from "@/views/BrowseCategory.vue";
 import About from "@/views/About.vue";
 import CreateUserProfile from "@/views/CreateUserProfile.vue";
-import Test from "@/views/Testing.vue";
+import Admin from "@/views/Admin.vue";
+import AdminActivityEdit from "@/views/AdminActivityEdit.vue";
+import AdminRiskLevelEdit from "@/views/AdminRiskLevelEdit.vue";
+import AdminRiskFactorEdit from "@/views/AdminRiskFactorEdit.vue";
+import AdminCategoryEdit from "@/views/AdminCategoryEdit.vue";
+import AdminUserEdit from "@/views/AdminUserEdit.vue";
 
 Vue.use(VueRouter);
 
@@ -28,7 +33,7 @@ const routes = [
     component: Browse
   },
   {
-    path: "/browse/category/:category",
+    path: "/browse/category/:name",
     name: "BrowseCategory",
     component: BrowseCategory,
     props: true
@@ -45,9 +50,40 @@ const routes = [
     props: true
   },
   {
-    path: "/testing",
-    name: "Test",
-    component: Test
+    path: "/admin",
+    name: "Admin",
+    component: Admin,
+    props: true
+  },
+  {
+    path: "/admin/activity/:slug",
+    name: "AdminActivityEdit",
+    component: AdminActivityEdit,
+    props: true
+  },
+  {
+    path: "/admin/risk-level/:riskScore",
+    name: "AdminRiskLevelEdit",
+    component: AdminRiskLevelEdit,
+    props: true
+  },
+  {
+    path: "/admin/risk-factor/:name",
+    name: "AdminRiskFactorEdit",
+    component: AdminRiskFactorEdit,
+    props: true
+  },
+  {
+    path: "/admin/category/:categoryName",
+    name: "AdminCategoryEdit",
+    component: AdminCategoryEdit,
+    props: true
+  },
+  {
+    path: "/admin/user/:userId",
+    name: "AdminUserEdit",
+    component: AdminUserEdit,
+    props: true
   }
 ];
 

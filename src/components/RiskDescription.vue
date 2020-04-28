@@ -8,12 +8,12 @@
         <b>{{ activity.activityName }}</b>
         <div style="white-space: nowrap">has a risk level of</div>
       </div>
-      <div class="score">{{ score }}</div>
-      <div class="score-title">{{ risk && risk.riskName }}</div>
+      <div class="score">{{ risk.riskScore }}</div>
+      <div class="score-title">{{ risk.riskName }}</div>
       <ScoreScale :score="score" />
     </div>
     <div class="risk-information">
-      <Markdown class="risk-details" :source="risk && risk.longDescription" />
+      <Markdown class="risk-details" :source="risk.longDescription" />
       <a
         v-show="hideMoreInfo"
         href="#divMoreInfo"
@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 import Markdown from "vue-markdown";
 import ScoreScale from "@/components/ScoreScale.vue";
 
@@ -70,9 +70,9 @@ export default {
     };
   },
   computed: {
-    ...mapState(["riskLevels"]),
+    ...mapGetters(["riskLevels"]),
     risk() {
-      return this.riskLevels[this.score - 1];
+      return this.riskLevels["riskLevel" + this.score];
     },
     references: function() {
       var referencePropertyNames = Object.keys(this.activity).filter(
