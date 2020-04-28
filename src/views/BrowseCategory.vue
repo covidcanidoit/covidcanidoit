@@ -29,9 +29,7 @@ export default {
   computed: {
     ...mapGetters(["activities"]),
     categoryActivities() {
-      return this.activities.filter(
-        activity => activity.category === this.name
-      );
+      return Object.values(this.activities).filter(activity => activity.category === this.name);
     }
   }
 };
