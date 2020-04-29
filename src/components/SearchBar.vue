@@ -1,6 +1,6 @@
 <template>
   <div class="search-bar">
-    <p class="header">I wonder if it's safe to...</p>
+    <p class="header">Can I...</p>
     <div class="dropdown search-fields">
       <div class="searchbar-container">
         <VueSelect
@@ -30,7 +30,7 @@
         >
       </div>
       <button class="run-search" @click="onSearch">Assess my risk!</button>-->
-      <p class="subheader">...during the COVID-19 outbreak.</p>
+      <p class="subheader">...safely during the COVID-19 outbreak.</p>
     </div>
     <div class="or-others">
       <button @click="goToProfile">Fill in Profile</button>
