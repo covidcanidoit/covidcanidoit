@@ -140,6 +140,9 @@
                     >Grant Hussey</a
                   >
                 </li>
+                <li>
+                  <a href="https://www.linkedin.com/in/johnny-li-031b949/">Johnny Li</a>
+                </li>
               </ul>
             </td>
           </tr>
