@@ -58,7 +58,10 @@ import ScoreScale from "@/components/ScoreScale.vue";
 export default {
   components: { ScoreScale, Markdown },
   props: {
-    score: String,
+    score: {
+      type: String,
+      default: "5"
+    },
     activity: Object,
     isAgeScore: {
       default: false

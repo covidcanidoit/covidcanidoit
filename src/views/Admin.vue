@@ -2,13 +2,13 @@
   <div class="admin-view">
     <h1>Admin!</h1>
 
-    <button class="btn btn-primary" v-if="!user" @click="login">
+    <button class="btn btn-primary" v-if="!currentUser" @click="login">
       Sign in with Google
     </button>
-    <button class="btn btn-secondary" v-if="user" @click="logout">
+    <button class="btn btn-secondary" v-if="currentUser" @click="logout">
       Sign out
     </button>
-    Current User: {{ user && user.email }} isAdmin: {{ isAdmin }}
+    Current User: {{ currentUser && currentUser.email }} isAdmin: {{ isAdmin }}
     <br />
 
     <div>
@@ -242,7 +242,7 @@ export default {
       // content: {},
       // userSettings: {},
       // users: {},
-      user: undefined,
+      // user: undefined,
       showActivities: false,
       showCategories: false,
       showRiskFactors: false,
@@ -253,7 +253,7 @@ export default {
   created() {
     // this.$store.dispatch("bindContent");
     firebase.auth().onAuthStateChanged(user => {
-      this.user = user;
+      this.$store.commit('setCurrentUserUid', user?.uid);
       if (user) {
         db.ref().update({
           [`users/${user.uid}/lastLogin`]: Date.now(),
@@ -263,17 +263,21 @@ export default {
     });
   },
   computed: {
-    ...mapState(["content", "users", "userSettings"]),
+    ...mapState(["content", "users", "userSettings", "currentUserUid"]),
     ...mapGetters(["activities", "riskLevels", "riskFactors", "categories"]),
     isAdmin() {
+      console.log("calc isAdmin", this.currentUserUid, this.userSettings[this.currentUserUid].isAdmin);
       return !!(
-        this.user &&
-        this.userSettings[this.user.uid] &&
-        this.userSettings[this.user.uid].isAdmin
+        this.currentUserUid &&
+        this.userSettings[this.currentUserUid] &&
+        this.userSettings[this.currentUserUid].isAdmin
       );
     },
     userIds() {
       return Object.keys(this.users);
+    },
+    currentUser() {
+      return this.currentUserUid && this.users[this.currentUserUid];
     }
   },
   methods: {
