@@ -7,19 +7,38 @@
       <router-link class="router" to="/">Home</router-link> |
       <router-link class="router" to="/browse">Find An Activity</router-link> |
       <router-link to="/createUserProfile">Profile</router-link> |
-      <router-link to="/about">Learn More</router-link>
+      <router-link to="/about">Learn More</router-link> |
+      <select @input="changeCountry" :value="currentCountry">
+        <option v-for="country in countries" :key="country" :value="country"><img :src="`${ publicPath }images/flag/${ country }.png`"/> {{ country }}</option>
+      </select>
     </div>
     <div><router-view /></div>
   </div>
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex";
+
 export default {
+  data() {
+    return {
+      publicPath: process.env.BASE_URL
+    };
+  },
+  computed: {
+    ...mapState(["currentCountry"]),
+    ...mapGetters(["countries"])
+  },
   created() {
     console.log("Loading content from Firebase");
     this.$store.dispatch("bindContent");
     this.$store.dispatch("bindUsers");
     this.$store.dispatch("bindUserSettings");
+  },
+  methods: {
+    changeCountry(event) {
+      this.$store.commit("setCurrentCountry", event.target.value);
+    }
   }
 };
 </script>
