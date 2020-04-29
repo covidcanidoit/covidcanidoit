@@ -7,10 +7,18 @@
       <router-link class="router" to="/">Home</router-link> |
       <router-link class="router" to="/browse">Find An Activity</router-link> |
       <router-link to="/createUserProfile">Profile</router-link> |
-      <router-link to="/about">Learn More</router-link> |
-      <select @input="changeCountry" :value="currentCountry">
-        <option v-for="country in countries" :key="country" :value="country"><img :src="`${ publicPath }images/flag/${ country }.png`"/> {{ country }}</option>
-      </select>
+      <router-link to="/about">Learn More</router-link>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <img :src="`${ publicPath }images/flag/${ currentCountry }.png`"/>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#" v-for="country in countries" :key="country" @click="setCurrentCountry(country)">
+          <img :src="`${ publicPath }images/flag/${ country }.png`"/>
+          {{ country }}
+          </a>
+        </div>
+      </li>
     </div>
     <div><router-view /></div>
   </div>
@@ -38,6 +46,9 @@ export default {
   methods: {
     changeCountry(event) {
       this.$store.commit("setCurrentCountry", event.target.value);
+    },
+    setCurrentCountry(country) {
+      this.$store.commit("setCurrentCountry", country);
     }
   }
 };
