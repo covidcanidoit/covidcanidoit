@@ -80,19 +80,27 @@ export default new Vuex.Store({
       );
     },
     activities(state) {
+      if (!state.currentCountry) { return []; }
+      if (!state.content || !state.content[state.currentCountry]) { return []; }
       return state.content[state.currentCountry].activities;
     },
     categories(state) {
+      if (!state.currentCountry) { return []; }
+      if (!state.content || !state.content[state.currentCountry]) { return []; }
       return state.content[state.currentCountry].categories;
     },
     riskLevels(state) {
+      if (!state.currentCountry) { return []; }
+      if (!state.content || !state.content[state.currentCountry]) { return []; }
       return state.content[state.currentCountry].riskLevels;
     },
     riskFactors(state) {
+      if (!state.currentCountry) { return []; }
+      if (!state.content || !state.content[state.currentCountry]) { return []; }
       return state.content[state.currentCountry].riskFactors;
     },
     countries(state) {
-      return Object.keys(state.content);
+      return Object.keys(state.content || {});
     },
     currentUserSettings(state) {
       if (state.currentUserUid && state.userSettings && state.userSettings[state.currentUserUid]) {
