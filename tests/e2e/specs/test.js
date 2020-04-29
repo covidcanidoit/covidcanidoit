@@ -3,7 +3,7 @@
 describe("Homepage", () => {
   it("Loads with header text", () => {
     cy.visit("/");
-    cy.contains(".header", "I wonder if it's safe to");
+    cy.contains(".header", "Can I");
   });
   it("Shows the nav", () => {
     cy.visit("/");
