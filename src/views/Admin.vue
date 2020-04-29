@@ -266,7 +266,7 @@ export default {
     ...mapState(["content", "users", "userSettings", "currentUserUid"]),
     ...mapGetters(["activities", "riskLevels", "riskFactors", "categories"]),
     isAdmin() {
-      console.log("calc isAdmin", this.currentUserUid, this.userSettings[this.currentUserUid].isAdmin);
+      // console.log("calc isAdmin", this.currentUserUid, this.userSettings[this.currentUserUid].isAdmin);
       return !!(
         this.currentUserUid &&
         this.userSettings[this.currentUserUid] &&
