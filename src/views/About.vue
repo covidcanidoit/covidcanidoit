@@ -99,13 +99,18 @@
     </div>
     <div style="margin:2em">
       <div>
-        <h1>Who We Are</h1>
-        <table style="width:100%">
+        <!--<h1>Who We Are</h1>-->
+        <table class="weTable">
           <tr>
-            <td>
-              <b>
-                <u>Risk Assessment</u>
-              </b>
+            <th class="peopleBigHeader">Who We Are</th>
+          </tr>
+          <tr>
+
+          </tr>
+            <td class="peopleGroupHeader">Risk Assessment</td>
+            <td class="peopleGroupHeader">Development</td>
+          <tr>
+            <td class="peopleGroup">
               <ul>
                 <li>
                   <a href="https://www.linkedin.com/in/jarjiehfang/"
@@ -119,10 +124,7 @@
                 </li>
               </ul>
             </td>
-            <td>
-              <b>
-                <u>Development</u>
-              </b>
+            <td class="peopleGroup">
               <ul>
                 <li>
                   <a href="https://www.linkedin.com/in/brockwilcox/"
@@ -147,10 +149,11 @@
             </td>
           </tr>
           <tr>
-            <td>
-              <b>
-                <u>Public Relations</u>
-              </b>
+            <td class="peopleGroupHeader">Public Relations</td>
+            <td class="peopleGroupHeader">Design</td>
+          </tr>
+          <tr>
+            <td class="peopleGroup">
               <ul>
                 <li>
                   <a href="https://www.linkedin.com/in/andrewloeb/"
@@ -159,10 +162,7 @@
                 </li>
               </ul>
             </td>
-            <td>
-              <b>
-                <u>Design</u>
-              </b>
+            <td class="peopleGroup">
               <ul>
                 <li>
                   <a href="https://www.linkedin.com/in/meera-nathan-371b15132/"
@@ -172,24 +172,14 @@
               </ul>
             </td>
           </tr>
-        </table>
-
-        <h1>Who Our Advisors Are</h1>
-        <table style="width:100%">
           <tr>
-            <td>
-              <b>
-                <u>Expert Reviewers</u>
-              </b>
-            </td>
-            <td>
-              <b>
-                <u>Clinicians</u>
-              </b>
-            </td>
+            <th class="peopleBigHeader">Who Our Advisors Are</th>
+          <tr>
+            <td class="peopleGroupHeader">Expert Reviewers</td>
+            <td class="peopleGroupHeader">Clinicians</td>
           </tr>
           <tr style="vertical-align: top;">
-            <td>
+            <td class="peopleGroup">
               <ul>
                 <li>
                   <a
@@ -204,7 +194,7 @@
                 </li>
               </ul>
             </td>
-            <td>
+            <td class="peopleGroup">
               <ul>
                 <li>
                   <a href="https://profiles.ucsf.edu/jayant.rajan"
@@ -522,4 +512,25 @@ export default {
     overflow-x: auto;
   }
 }
+.peopleGroup {
+  vertical-align: top;
+}
+.peopleGroupHeader {
+  font-weight: bold;
+  text-decoration: underline;
+}
+.peopleBigHeader {
+  font-size: 2.5em;
+  padding-bottom: 0.5rem;
+  padding-top: 1rem;
+  font-weight: 500;
+  line-height: 1.2;
+  
+}
+.weTable {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0px;
+}
+
 </style>
