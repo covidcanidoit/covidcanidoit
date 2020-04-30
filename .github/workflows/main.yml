@@ -12,3 +12,4 @@ jobs:
         uses: cypress-io/github-action@v1
         with:
           start: yarn serve
+          wait-on: 'http://localhost:8080'
