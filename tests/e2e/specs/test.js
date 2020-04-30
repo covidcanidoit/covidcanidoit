@@ -48,5 +48,39 @@ describe("Profile", () => {
     cy.contains("Profile").click();
     cy.contains("Personalized Risk Screener")
   });
-
+  it("Fill in profile after search",() =>{
+    cy.visit("/");
+    cy.get(".v-select").type("sex");
+    cy.contains("Sex with casual partner").click();
+    cy.contains("Personalized Risk Screener");
+    cy.contains("Submit").click();
+    cy.contains("Sex with casual partner");
+    cy.contains("risk level");
+  });
+  it("Add additional risk", () => {
+    cy.visit("/");
+    cy.get(".v-select").type("Going to bar");
+    cy.contains("Going to barber").click();
+    cy.contains("Personalized Risk Screener");
+    cy.contains("How old are you?");
+    cy.get(':nth-child(1) > .content > .form-select').select("70+");
+    //cy.contains("70+").click();
+    cy.contains("Submit").click();
+    cy.contains("Going to barber");
+    cy.contains("risk level");
+    cy.contains("Your age puts you at a higher risk");
+  });
 });
+
+describe("Change Country", () => {
+  it("Click and change country", () => {
+    cy.visit("/");
+    cy.get("#navbarDropdownMenuLink > img").click();
+    cy.contains("US");
+    cy.contains("UG");
+    cy.get(".dropdown-menu > :nth-child(1)").click();
+    cy.get(".v-select").click();
+    cy.contains("Prayer congregations");
+  });
+});
+
