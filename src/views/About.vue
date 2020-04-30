@@ -122,6 +122,12 @@
                     >Gayatri Sanku, MPH</a
                   >
                 </li>
+                <li>
+                  <a href="https://www.linkedin.com/in/mpaju-david-07606718a">Mpaju David, MBChB V</a>  
+                </li>
+                <li>
+                  <a href="https://www.linkedin.com/in/joseph-byamugisha-44b313155">Joseph Byamugisha, MBChB V</a>
+                </li>
               </ul>
             </td>
             <td class="peopleGroup">
