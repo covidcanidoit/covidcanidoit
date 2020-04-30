@@ -13,3 +13,5 @@ jobs:
         with:
           start: yarn serve
           wait-on: 'http://localhost:8080'
+        env:
+          CYPRESS_baseUrl: http://localhost:8080/
