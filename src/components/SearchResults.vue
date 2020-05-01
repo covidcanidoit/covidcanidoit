@@ -51,6 +51,7 @@
                 Business: <input type="text" v-model="business" /><br />
                 <button @click="getBusyInfo">When should I go?</button>
                 <!-- <div>{{ busyResults }}</div> -->
+                <div v-if="busyResults">{{busyResults.name}} at {{busyResults.address}}</div>
                 <Chart v-if="busyResults" :crowdingData="busyResults" />
               </div>
             </div>
