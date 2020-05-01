@@ -286,8 +286,8 @@ export default {
       datasets: [
         {
           label: this.crowdingData.name,
-          backgroundColor: "rgb(255, 99, 132)",
-          borderColor: "rgb(255, 99, 132)",
+          backgroundColor: "rgb(253,97,103)",
+          borderColor: "rgb(253,97,103)",
           data: this.weeklyData
         }
       ]
@@ -315,8 +315,8 @@ export default {
                 datasets: [
                   {
                     label: this.crowdingData.name,
-                    backgroundColor: "rgb(255, 99, 132)",
-                    borderColor: "rgb(255, 99, 132)",
+                    backgroundColor: "rgb(253,97,103)",
+                    borderColor: "rgb(253,97,103)",
                     data: this.weeklyData
                   }
                 ]
@@ -341,8 +341,8 @@ export default {
         datasets: [
           {
             label: this.crowdingData.name,
-            backgroundColor: "rgb(255, 99, 132)",
-            borderColor: "rgb(255, 99, 132)",
+            backgroundColor: "rgb(253,97,103)",
+            borderColor: "rgb(253,97,103)",
             data: this.crowdingData.populartimes[index].data
           }
         ]

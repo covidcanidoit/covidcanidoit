@@ -17,8 +17,41 @@
       />
 
       <div v-show="additionalRiskFactors.length > 0" class="additional-factors">
+        <!-- need to add condition to v-show where if there is a location needed for the activity OR if (additionalRiskFactors.length > 0) -->
         <h2>Additional Risk Factors</h2>
         <div class="accordion" id="accordionExample">
+          <!-- crowding accordian -->
+          <div class="card">
+            <div class="card-header" id="heading-crowding">
+              <h2 class="mb-0 flex-row">
+                <!-- insert corwding icon here -->
+                <!-- <i class="icon" :class="riskFactor.icon"></i> -->
+                <button
+                  class="btn btn-link collapsed"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#collapse-crowding"
+                  aria-expanded="false"
+                  aria-controls="collapseTwo"
+                >
+                  Check to see if it's going to be crowded when and where you
+                  are
+                </button>
+              </h2>
+            </div>
+            <div
+              id="collapse-crowding"
+              class="collapse"
+              aria-labelledby="heading-crowding"
+              data-parent="#accordionExample"
+            >
+              <div class="card-body">
+                <crowdingComponent />
+              </div>
+            </div>
+          </div>
+
+          <!-- risk factor accordians -->
           <div
             class="card"
             v-for="riskFactor in additionalRiskFactors"
@@ -60,9 +93,10 @@
 import Markdown from "vue-markdown";
 import { mapGetters } from "vuex";
 import RiskDescription from "@/components/RiskDescription.vue";
+import crowdingComponent from "@/components/crowdingComponent.vue";
 
 export default {
-  components: { RiskDescription, Markdown },
+  components: { RiskDescription, Markdown, crowdingComponent},
   props: {
     searchedTerm: String,
     activity: Object,
