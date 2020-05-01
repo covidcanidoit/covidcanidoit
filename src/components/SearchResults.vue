@@ -16,11 +16,6 @@
         v-show="profile.COVIDpositive !== 'yes'"
       />
 
-      City/Neighborhood: <input type=text v-model="location" /><br/>
-      Business: <input type=text v-model="business" /><br/>
-      <button @click="getBusyInfo">When should I go?</button>
-      <div>{{ busyResults }}</div>
-
       <div v-show="additionalRiskFactors.length > 0" class="additional-factors">
         <!-- need to add condition to v-show where if there is a location needed for the activity OR if (additionalRiskFactors.length > 0) -->
         <h2>Additional Risk Factors</h2>
@@ -51,7 +46,12 @@
               data-parent="#accordionExample"
             >
               <div class="card-body">
-                <crowdingComponent />
+                City/Neighborhood:
+                <input type="text" v-model="location" /><br />
+                Business: <input type="text" v-model="business" /><br />
+                <button @click="getBusyInfo">When should I go?</button>
+                <!-- <div>{{ busyResults }}</div> -->
+                <Chart v-if="busyResults" :crowdingData="busyResults" />
               </div>
             </div>
           </div>
@@ -98,12 +98,12 @@
 import Markdown from "vue-markdown";
 import { mapGetters } from "vuex";
 import RiskDescription from "@/components/RiskDescription.vue";
-import crowdingComponent from "@/components/crowdingComponent.vue";
+import Chart from "@/components/PopularTimesChart";
 
 import axios from "axios";
 
 export default {
-  components: { RiskDescription, Markdown, crowdingComponent},
+  components: { RiskDescription, Markdown, Chart },
   props: {
     searchedTerm: String,
     activity: Object,
@@ -115,7 +115,8 @@ export default {
     return {
       location: "",
       business: "",
-      busyResults: ""
+      busyResults: null,
+      hasSearched: false
     };
   },
   computed: {
@@ -143,8 +144,12 @@ export default {
   },
   methods: {
     async getBusyInfo() {
-      const locationResults = await axios.get("https://thelackthereof.org/api", { params: { location: this.location, name: this.business }});
+      const locationResults = await axios.get(
+        "https://thelackthereof.org/api",
+        { params: { location: this.location, name: this.business } }
+      );
       this.busyResults = locationResults.data;
+      this.hasSearched = true;
     }
   }
 };

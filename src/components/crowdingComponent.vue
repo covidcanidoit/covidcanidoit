@@ -1,22 +1,8 @@
 <template>
   <div class="crowding-data">
-    <form>
-      <label for="location">Location:</label>
-      <input type="text" id="location" name="location" /><br /><br />
-      <select class="form-select" v-bind:selectedTime="selectedTime">
-        <option
-          v-for="(time, index) in times"
-          :key="index"
-          :selectedTime="time"
-        >
-          {{ time }}
-        </option>
-      </select>
-      <button type="button" @click="searchLocation">Submit</button>
-    </form>
     <div v-show="haveSearched">
-      <Chart />
-      <!-- <Chart :crowdingData="" /> -->
+      <!-- <Chart /> -->
+      <Chart v-show="hasSearched" :crowdingData="busyResults" />
     </div>
   </div>
 </template>
@@ -24,8 +10,8 @@
 <script>
 import Chart from "@/components/PopularTimesChart";
 export default {
-  components: {Chart},
-  props: {},
+  components: { Chart },
+  props: { busyResults: { type: Object }, hasSearched: { type: Boolean } },
   data() {
     return {
       haveSearched: false,
@@ -63,7 +49,12 @@ export default {
   methods: {
     searchLocation() {
       this.selectedLocation = document.getElementById("location").value;
-      console.log("searched: ", this.selectedLocation, " at ", this.times[this.selectedTime]);
+      console.log(
+        "searched: ",
+        this.selectedLocation,
+        " at ",
+        this.times[this.selectedTime]
+      );
       this.haveSearched = true;
     }
   }

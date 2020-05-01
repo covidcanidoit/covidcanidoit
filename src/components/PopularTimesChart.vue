@@ -241,6 +241,7 @@ export default {
   },
   data: function() {
     return {
+      gradient: null,
       days: [
         "Monday",
         "Tuesday",
@@ -281,13 +282,18 @@ export default {
     };
   },
   mounted() {
+    var ctx = document.getElementById("myChart").getContext("2d");
+    //this will be where we set up color gradient
+    this.gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    this.gradient.addColorStop(0, "rgb(253,97,103)");
+    this.gradient.addColorStop(1, "rgb(253,97,103)");
     this.createPlot({
       labels: this.days,
       datasets: [
         {
           label: this.crowdingData.name,
-          backgroundColor: "rgb(253,97,103)",
-          borderColor: "rgb(253,97,103)",
+          backgroundColor: this.gradient,
+          borderColor: this.gradient,
           data: this.weeklyData
         }
       ]
@@ -305,6 +311,15 @@ export default {
 
         // Configuration options go here
         options: {
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  display: false
+                }
+              }
+            ]
+          },
           onClick: (evt, item) => {
             console.log(evt, item);
             if (!this.daily) {
@@ -315,8 +330,8 @@ export default {
                 datasets: [
                   {
                     label: this.crowdingData.name,
-                    backgroundColor: "rgb(253,97,103)",
-                    borderColor: "rgb(253,97,103)",
+                    backgroundColor: this.gradient,
+                    borderColor: this.gradient,
                     data: this.weeklyData
                   }
                 ]
@@ -341,8 +356,8 @@ export default {
         datasets: [
           {
             label: this.crowdingData.name,
-            backgroundColor: "rgb(253,97,103)",
-            borderColor: "rgb(253,97,103)",
+            backgroundColor: this.gradient,
+            borderColor: this.gradient,
             data: this.crowdingData.populartimes[index].data
           }
         ]
@@ -360,8 +375,8 @@ export default {
           total += day.data[i];
         }
         var avg = total / day.data.length;
-        console.log(avg)
-        weekAvg.push(avg)
+        console.log(avg);
+        weekAvg.push(avg);
       });
       return weekAvg;
     }
