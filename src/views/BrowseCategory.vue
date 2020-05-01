@@ -44,6 +44,7 @@ export default {
 @media (min-width: 1023px) {
   .activity {
     flex: 40%;
+    max-width: 45%;
   }
 }
 .bannerText {
