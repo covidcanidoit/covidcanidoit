@@ -8,12 +8,12 @@
         <b>{{ activity.activityName }}</b>
         <div style="white-space: nowrap">has a risk level of</div>
       </div>
-      <div class="score">{{ risk.riskScore }}</div>
-      <div class="score-title">{{ risk.riskName }}</div>
+      <div class="score">{{ risk && risk.riskScore }}</div>
+      <div class="score-title">{{ risk && risk.riskName }}</div>
       <ScoreScale :score="score" />
     </div>
     <div class="risk-information">
-      <Markdown class="risk-details" :source="risk.longDescription" />
+      <Markdown class="risk-details" :source="risk && risk.longDescription" />
       <a
         v-show="hideMoreInfo"
         href="#divMoreInfo"
@@ -58,7 +58,10 @@ import ScoreScale from "@/components/ScoreScale.vue";
 export default {
   components: { ScoreScale, Markdown },
   props: {
-    score: String,
+    score: {
+      type: String,
+      default: "5"
+    },
     activity: Object,
     isAgeScore: {
       default: false

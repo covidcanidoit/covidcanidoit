@@ -200,36 +200,16 @@ export default {
   width: 100%;
   overflow-x: auto;
 
-  .left-side {
-    padding: 1em;
-    background-color: $color-navy;
-    color: $color-mint;
-    flex: 30%;
-    font-size: 10px;
-
-    h1 {
-      font-size: 1.5em;
-    }
-    h2 {
-      font-size: 1.25em;
-      white-space: nowrap;
-    }
-
-    a {
-      color: $color-teal;
-    }
-  }
-
   .right-side {
     padding: 1em;
     background-color: $color-mint;
     color: $color-navy;
     flex: 70%;
 
-    font-size: 10px;
+    font-size: 1em;
 
     h1 {
-      font-size: 1.5em;
+      font-size: 1em;
     }
 
     .profile-questions {

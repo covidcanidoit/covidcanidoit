@@ -3,6 +3,8 @@
 This project is for helping folks learn about the risks created by various
 activities in the context of the COVID-19 pandemic.
 
+![](https://github.com/covidcanidoit/covidcanidoit/workflows/End-to-end%20tests/badge.svg?branch=master)
+
 ## Dev workflow
 ```
 # Initial setup

@@ -35,6 +35,16 @@ export default {
 </script>
 
 <style lang="scss">
+@media only screen and (max-width: 1022px) {
+  .category {
+    flex: 100%;
+  }
+}
+@media (min-width: 1023px) {
+  .category {
+    flex: 40%;
+  }
+}
 .banner {
   /* background-color: steelblue; */
 }
@@ -49,7 +59,6 @@ export default {
   flex-wrap: wrap;
 
   .category {
-    flex: 40%;
     border: 1px solid black;
     padding: 1em;
     margin: 1em;

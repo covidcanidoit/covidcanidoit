@@ -13,6 +13,8 @@ export default new Vuex.Store({
     content: {},
     users: {},
     userSettings: {},
+    currentCountry: "US",
+    currentUserUid: undefined,
     userProfile: {
       age: undefined,
       gender: undefined,
@@ -28,6 +30,12 @@ export default new Vuex.Store({
     ...vuexfireMutations,
     setProfile(state, profile) {
       state.userProfile = profile;
+    },
+    setCurrentUserUid(state, currentUserUid) {
+      state.currentUserUid = currentUserUid;
+    },
+    setCurrentCountry(state, currentCountry) {
+      state.currentCountry = currentCountry;
     }
   },
   getters: {
@@ -72,16 +80,34 @@ export default new Vuex.Store({
       );
     },
     activities(state) {
-      return state.content.activities;
+      if (!state.currentCountry) { return []; }
+      if (!state.content || !state.content[state.currentCountry]) { return []; }
+      return state.content[state.currentCountry].activities;
     },
     categories(state) {
-      return state.content.categories;
+      if (!state.currentCountry) { return []; }
+      if (!state.content || !state.content[state.currentCountry]) { return []; }
+      return state.content[state.currentCountry].categories;
     },
     riskLevels(state) {
-      return state.content.riskLevels;
+      if (!state.currentCountry) { return []; }
+      if (!state.content || !state.content[state.currentCountry]) { return []; }
+      return state.content[state.currentCountry].riskLevels;
     },
     riskFactors(state) {
-      return state.content.riskFactors;
+      if (!state.currentCountry) { return []; }
+      if (!state.content || !state.content[state.currentCountry]) { return []; }
+      return state.content[state.currentCountry].riskFactors;
+    },
+    countries(state) {
+      return Object.keys(state.content || {});
+    },
+    currentUserSettings(state) {
+      if (state.currentUserUid && state.userSettings && state.userSettings[state.currentUserUid]) {
+        return state.userSettings[state.currentUserUid];
+      } else {
+        return {};
+      }
     }
   },
   actions: {

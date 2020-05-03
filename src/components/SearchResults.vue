@@ -17,8 +17,47 @@
       />
 
       <div v-show="additionalRiskFactors.length > 0" class="additional-factors">
+        <!-- need to add condition to v-show where if there is a location needed for the activity OR if (additionalRiskFactors.length > 0) -->
         <h2>Additional Risk Factors</h2>
         <div class="accordion" id="accordionExample">
+          <!-- crowding accordian -->
+          <div class="card">
+            <div class="card-header" id="heading-crowding">
+              <h2 class="mb-0 flex-row">
+                <!-- insert corwding icon here -->
+                <!-- <i class="icon" :class="riskFactor.icon"></i> -->
+                <button
+                  class="btn btn-link collapsed"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#collapse-crowding"
+                  aria-expanded="false"
+                  aria-controls="collapseTwo"
+                >
+                  Check to see if it's going to be crowded when and where you
+                  are
+                </button>
+              </h2>
+            </div>
+            <div
+              id="collapse-crowding"
+              class="collapse"
+              aria-labelledby="heading-crowding"
+              data-parent="#accordionExample"
+            >
+              <div class="card-body">
+                City/Neighborhood:
+                <input type="text" v-model="location" /><br />
+                Business: <input type="text" v-model="business" /><br />
+                <button @click="getBusyInfo">When should I go?</button>
+                <!-- <div>{{ busyResults }}</div> -->
+                <div v-if="busyResults">{{busyResults.name}} at {{busyResults.address}}</div>
+                <Chart v-if="busyResults" :crowdingData="busyResults" />
+              </div>
+            </div>
+          </div>
+
+          <!-- risk factor accordians -->
           <div
             class="card"
             v-for="riskFactor in additionalRiskFactors"
@@ -60,15 +99,26 @@
 import Markdown from "vue-markdown";
 import { mapGetters } from "vuex";
 import RiskDescription from "@/components/RiskDescription.vue";
+import Chart from "@/components/PopularTimesChart";
+
+import axios from "axios";
 
 export default {
-  components: { RiskDescription, Markdown },
+  components: { RiskDescription, Markdown, Chart },
   props: {
     searchedTerm: String,
     activity: Object,
     profile: {
       type: Object
     }
+  },
+  data() {
+    return {
+      location: "",
+      business: "",
+      busyResults: null,
+      hasSearched: false
+    };
   },
   computed: {
     ...mapGetters(["riskFactors"]),
@@ -91,6 +141,16 @@ export default {
         const lookFor = riskFactor.showWhen.split(",");
         return lookFor.includes(this.profile[riskFactor.name]);
       });
+    }
+  },
+  methods: {
+    async getBusyInfo() {
+      const locationResults = await axios.get(
+        "https://thelackthereof.org/api",
+        { params: { location: this.location, name: this.business } }
+      );
+      this.busyResults = locationResults.data;
+      this.hasSearched = true;
     }
   }
 };
