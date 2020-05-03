@@ -7,18 +7,18 @@
     // Users may read/write their own record
     "users": {
       "$uid": {
-        ".read": "auth != null && auth.uid == $uid",
-        ".write": "auth != null && auth.uid == $uid"
+        ".read": "auth.uid == $uid",
+        ".write": "auth.uid == $uid"
       }
     },
-      
+
     // Users may read their own settings
     "userSettings": {
       "$uid": {
-        ".read": "auth != null && auth.uid == $uid"
-      }      
+        ".read": "auth.uid == $uid"
+      }
     },
-    
+
     // Anyone may read content
     "content": {
       ".read": true
