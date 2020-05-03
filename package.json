@@ -8,7 +8,8 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
-    "deploy": "yarn build && yarn run firebase deploy --only hosting"
+    "deploy": "yarn build && yarn run firebase deploy --only hosting",
+    "deploy-db-rules": "yarn build && yarn run firebase deploy --only database"
   },
   "dependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.9.0",
