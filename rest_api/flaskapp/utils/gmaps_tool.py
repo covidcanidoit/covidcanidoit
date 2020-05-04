@@ -16,6 +16,9 @@ def get_lat_lng(geocode_dic):
         geocode_dic["geometry"]["location"]["lng"],
     )
 
+def get_place_data(place_id):
+    results = ptimes.get_id(BaseConfig.GMAPS_API_KEY, place_id)
+    return results
 
 def get_ptimes_data(location, name):
     gmaps = googlemaps.Client(key=BaseConfig.GMAPS_API_KEY)
