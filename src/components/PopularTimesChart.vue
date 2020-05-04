@@ -8,7 +8,12 @@
 <script>
 import Chart from "chart.js";
 export default {
-  name: "Popular Timea",
+  watch: {
+    crowdingData(oldVal, newVal) {
+      console.log("crowdingData changed!");
+      this.updatePlot();
+    }
+  },
   props: {
     crowdingData: {
       type: Object,
@@ -287,19 +292,22 @@ export default {
     this.gradient = ctx.createLinearGradient(0, 0, 0, 400);
     this.gradient.addColorStop(0, "rgb(253,97,103)");
     this.gradient.addColorStop(1, "rgb(253,97,103)");
-    this.createPlot({
-      labels: this.days,
-      datasets: [
-        {
-          label: this.crowdingData.name,
-          backgroundColor: this.gradient,
-          borderColor: this.gradient,
-          data: this.weeklyData
-        }
-      ]
-    });
+    this.updatePlot();
   },
   methods: {
+    updatePlot() {
+      this.createPlot({
+        labels: this.days,
+        datasets: [
+          {
+            label: this.crowdingData.name,
+            backgroundColor: this.gradient,
+            borderColor: this.gradient,
+            data: this.weeklyData
+          }
+        ]
+      });
+    },
     createPlot(plotData) {
       var ctx = document.getElementById("myChart").getContext("2d");
       var chart = new Chart(ctx, {
@@ -368,16 +376,18 @@ export default {
     weeklyData() {
       //will compute the weekly trend here
       let weekAvg = [];
-      this.crowdingData.populartimes.forEach(day => {
-        console.log(day.data);
-        var total = 0;
-        for (var i = 0; i < day.data.length; i++) {
-          total += day.data[i];
-        }
-        var avg = total / day.data.length;
-        console.log(avg);
-        weekAvg.push(avg);
-      });
+      if(this.crowdingData.populartimes) {
+        this.crowdingData.populartimes.forEach(day => {
+          console.log(day.data);
+          var total = 0;
+          for (var i = 0; i < day.data.length; i++) {
+            total += day.data[i];
+          }
+          var avg = total / day.data.length;
+          console.log(avg);
+          weekAvg.push(avg);
+        });
+      }
       return weekAvg;
     }
   }

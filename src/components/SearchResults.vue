@@ -49,10 +49,13 @@
                 City/Neighborhood:
                 <input type="text" v-model="location" /><br />
                 Business: <input type="text" v-model="business" /><br />
-                <button @click="getBusyInfo">When should I go?</button>
+                <button @click="getBusyInfo">How Busy Will It Be?</button>
                 <!-- <div>{{ busyResults }}</div> -->
-                <div v-if="busyResults">{{busyResults.name}} at {{busyResults.address}}</div>
-                <Chart v-if="busyResults" :crowdingData="busyResults" />
+                <div v-if="loadingBusyResults">Loading...</div>
+                <div v-else>
+                  <div v-if="busyResults">{{busyResults.name}} at {{busyResults.address}}</div>
+                  <Chart v-if="busyResults" :crowdingData="busyResults" />
+                </div>
               </div>
             </div>
           </div>
@@ -116,7 +119,8 @@ export default {
     return {
       location: "",
       business: "",
-      busyResults: null,
+      busyResults: undefined,
+      loadingBusyResults: false,
       hasSearched: false
     };
   },
@@ -145,10 +149,13 @@ export default {
   },
   methods: {
     async getBusyInfo() {
+      this.busyResults = undefined;
+      this.loadingBusyResults = true;
       const locationResults = await axios.get(
         "https://thelackthereof.org/api",
         { params: { location: this.location, name: this.business } }
       );
+      this.loadingBusyResults = false;
       this.busyResults = locationResults.data;
       this.hasSearched = true;
     }
