@@ -46,13 +46,20 @@
               data-parent="#accordionExample"
             >
               <div class="card-body">
-                City/Neighborhood:
-                <input type="text" v-model="location" /><br />
-                Business: <input type="text" v-model="business" /><br />
-                <button @click="getBusyInfo">When should I go?</button>
+                <VueGoogleAutocomplete
+                  classname="form-control"
+                  id="map"
+                  placeholder="Please type your address"
+                  @placechanged="getAddressData"
+                  :enableGeolocation="true"
+                  types="establishment"
+                />
+                <button class="form-control btn-primary" @click="getBusyInfo">How Busy Will It Be?</button>
                 <!-- <div>{{ busyResults }}</div> -->
-                <div v-if="busyResults">{{busyResults.name}} at {{busyResults.address}}</div>
-                <Chart v-if="busyResults" :crowdingData="busyResults" />
+                <div v-if="loadingBusyResults">Loading...</div>
+                <div v-else>
+                  <Chart v-if="busyResults" :crowdingData="busyResults" />
+                </div>
               </div>
             </div>
           </div>
@@ -100,11 +107,12 @@ import Markdown from "vue-markdown";
 import { mapGetters } from "vuex";
 import RiskDescription from "@/components/RiskDescription.vue";
 import Chart from "@/components/PopularTimesChart";
+import VueGoogleAutocomplete from "vue-google-autocomplete";
 
 import axios from "axios";
 
 export default {
-  components: { RiskDescription, Markdown, Chart },
+  components: { RiskDescription, Markdown, Chart, VueGoogleAutocomplete },
   props: {
     searchedTerm: String,
     activity: Object,
@@ -116,7 +124,9 @@ export default {
     return {
       location: "",
       business: "",
-      busyResults: null,
+      placeId: undefined,
+      busyResults: undefined,
+      loadingBusyResults: false,
       hasSearched: false
     };
   },
@@ -145,12 +155,20 @@ export default {
   },
   methods: {
     async getBusyInfo() {
+      this.busyResults = undefined;
+      this.loadingBusyResults = true;
       const locationResults = await axios.get(
         "https://thelackthereof.org/api",
-        { params: { location: this.location, name: this.business } }
+        { params: { location: this.location, name: this.business, placeId: this.placeId } }
       );
+      this.loadingBusyResults = false;
       this.busyResults = locationResults.data;
       this.hasSearched = true;
+    },
+    getAddressData(something, rawSomething) {
+      console.log("Got some address data", something, rawSomething);
+      this.placeId = rawSomething.reference;
+      this.getBusyInfo();
     }
   }
 };

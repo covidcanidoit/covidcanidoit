@@ -7,10 +7,11 @@ from flask import Flask
 # from flask_wtf.csrf import CSRFProtect
 
 # csrf = CSRFProtect()
-
+from flask_cors import CORS
 
 def start_flask_server():
     server = Flask(__name__)
+    CORS(server)
     # csrf.init_app(server)
 
     from flaskapp.main.routes import main
