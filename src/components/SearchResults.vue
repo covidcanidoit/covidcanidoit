@@ -16,8 +16,7 @@
         v-show="profile.COVIDpositive !== 'yes'"
       />
 
-      <div v-show="additionalRiskFactors.length > 0" class="additional-factors">
-        <!-- need to add condition to v-show where if there is a location needed for the activity OR if (additionalRiskFactors.length > 0) -->
+      <div v-show="additionalRiskFactors.length > 0 || activity.showLocation == 'TRUE'" class="additional-factors">
         <h2>Additional Risk Factors</h2>
         <div class="accordion" id="accordionExample">
           <!-- crowding accordian -->
@@ -49,9 +48,10 @@
                 <VueGoogleAutocomplete
                   classname="form-control"
                   id="map"
-                  placeholder="Please type your address"
+                  placeholder="Please enter the activity location"
                   @placechanged="getAddressData"
                   :enableGeolocation="true"
+                  :geolocationOptions="{enableHighAccuracy: false}"
                   types="establishment"
                 />
                 <button class="form-control btn-primary" @click="getBusyInfo">How Busy Will It Be?</button>
