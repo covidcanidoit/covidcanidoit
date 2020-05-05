@@ -295,8 +295,10 @@ export default {
     this.gradient.addColorStop(0, "rgb(253,97,103)");
     this.gradient.addColorStop(1, "rgb(253,97,103)");
     this.hoverGradient = ctx.createLinearGradient(0, 0, 0, 400);
-    this.hoverGradient.addColorStop(0, "rgb(33,172,176)");
-    this.hoverGradient.addColorStop(1, "rgb(33,172,176)");
+    this.hoverGradient.addColorStop(0, "rgb(163,7,13)");
+    this.hoverGradient.addColorStop(1, "rgb(163,7,13)");
+    /*this.hoverGradient.addColorStop(0, "rgb(33,172,176)");
+    this.hoverGradient.addColorStop(1, "rgb(33,172,176)");*/
     this.updatePlot();
   },
   methods: {
