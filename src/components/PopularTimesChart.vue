@@ -307,9 +307,10 @@ export default {
       var canvasContainer = document.getElementById("canvasContainer");
       canvasContainer.removeChild(canvas);
       var canvas = document.createElement("canvas");
-      canvas.setAttribute("id","myChart")
+      canvas.setAttribute("id", "myChart");
       var caption = document.createElement("caption");
-      caption.textContent = "Click on a bar to see hourly busy times for the day.";
+      caption.textContent =
+        "Click on a bar to see hourly busy times for the day.";
       caption.style.float = "left";
       caption.style.fontStyle = "italic";
       caption.classList.add("chartCaption");
@@ -334,7 +335,7 @@ export default {
     },
     createPlot(plotData) {
       console.log("creating plot");
-      
+
       this.clearPlot();
       var ctx = document.getElementById("myChart").getContext("2d");
 
@@ -362,6 +363,16 @@ export default {
           },
           tooltips: {
             mode: "point",
+            callbacks: {
+              label: function(tooltipItem, data) {
+                var label = data.datasets[tooltipItem.datasetIndex].label || "";
+                if (label) {
+                  label += ": ";
+                }
+                label += Math.round(tooltipItem.yLabel * 100) / 100;
+                return label;
+              }
+            }
           },
           onClick: (evt, item) => {
             //console.log(evt, item);
@@ -384,16 +395,14 @@ export default {
               });
               this.daily = false;
             }
-          } ,
-          onHover: (evt,items) => {
+          },
+          onHover: (evt, items) => {
             if (items.length === 0) {
               document.getElementById("myChart").style.cursor = "default";
-            }
-            else {
-              document.getElementById("myChart").style.cursor = "pointer"
+            } else {
+              document.getElementById("myChart").style.cursor = "pointer";
             }
             //console.log("hovering",evt,item);
-
           } /*,
           // This chart will not respond to mousemove, etc
           events: ["click","mouseover"]*/
