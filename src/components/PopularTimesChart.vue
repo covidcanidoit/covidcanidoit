@@ -1,5 +1,5 @@
 <template>
-  <div style="border: 1px solid black">
+  <div id="canvasContainer" style="border: 1px solid black">
     <canvas id="myChart"></canvas>
   </div>
 </template>
@@ -10,7 +10,7 @@ import Chart from "chart.js";
 export default {
   watch: {
     crowdingData(oldVal, newVal) {
-      console.log("crowdingData changed!");
+      //console.log("crowdingData changed!");
       this.updatePlot();
     }
   },
@@ -246,7 +246,9 @@ export default {
   },
   data: function() {
     return {
+      chart: null,
       gradient: null,
+      hoverGradient: null,
       days: [
         "Monday",
         "Tuesday",
@@ -292,16 +294,36 @@ export default {
     this.gradient = ctx.createLinearGradient(0, 0, 0, 400);
     this.gradient.addColorStop(0, "rgb(253,97,103)");
     this.gradient.addColorStop(1, "rgb(253,97,103)");
+    this.hoverGradient = ctx.createLinearGradient(0, 0, 0, 400);
+    this.hoverGradient.addColorStop(0, "rgb(33,172,176)");
+    this.hoverGradient.addColorStop(1, "rgb(33,172,176)");
     this.updatePlot();
   },
   methods: {
+    clearPlot() {
+      var canvas = document.getElementById("myChart");
+      var canvasContainer = document.getElementById("canvasContainer");
+      canvasContainer.removeChild(canvas);
+      var canvas = document.createElement("canvas");
+      canvas.setAttribute("id","myChart")
+      var caption = document.createElement("caption");
+      caption.textContent = "Click on a bar to see hourly busy times for the day.";
+      caption.style.float = "left";
+      caption.style.fontStyle = "italic";
+      caption.classList.add("chartCaption");
+      canvasContainer.appendChild(canvas);
+      canvasContainer.appendChild(caption);
+    },
     updatePlot() {
       this.createPlot({
         labels: this.days,
         datasets: [
           {
-            label: this.crowdingData.name,
+            label: "busy score",
             backgroundColor: this.gradient,
+            hoverBackgroundColor: this.hoverGradient,
+            hoverBorderColor: "black",
+            hoverBorderWidth: "1",
             borderColor: this.gradient,
             data: this.weeklyData
           }
@@ -309,8 +331,12 @@ export default {
       });
     },
     createPlot(plotData) {
+      console.log("creating plot");
+      
+      this.clearPlot();
       var ctx = document.getElementById("myChart").getContext("2d");
-      var chart = new Chart(ctx, {
+
+      this.chart = new Chart(ctx, {
         // The type of chart we want to create
         type: "bar",
 
@@ -319,6 +345,10 @@ export default {
 
         // Configuration options go here
         options: {
+          title: {
+            text: this.crowdingData.name,
+            display: true
+          },
           scales: {
             yAxes: [
               {
@@ -328,8 +358,11 @@ export default {
               }
             ]
           },
+          tooltips: {
+            mode: "point",
+          },
           onClick: (evt, item) => {
-            console.log(evt, item);
+            //console.log(evt, item);
             if (!this.daily) {
               this.drillDown(item[0]["_index"]);
             } else {
@@ -337,8 +370,11 @@ export default {
                 labels: this.days,
                 datasets: [
                   {
-                    label: this.crowdingData.name,
+                    label: "busy hours",
                     backgroundColor: this.gradient,
+                    hoverBackgroundColor: this.hoverGradient,
+                    hoverBorderColor: "black",
+                    hoverBorderWidth: "1",
                     borderColor: this.gradient,
                     data: this.weeklyData
                   }
@@ -346,9 +382,19 @@ export default {
               });
               this.daily = false;
             }
-          },
+          } ,
+          onHover: (evt,items) => {
+            if (items.length === 0) {
+              document.getElementById("myChart").style.cursor = "default";
+            }
+            else {
+              document.getElementById("myChart").style.cursor = "pointer"
+            }
+            //console.log("hovering",evt,item);
+
+          } /*,
           // This chart will not respond to mousemove, etc
-          events: ["click"]
+          events: ["click","mouseover"]*/
         }
       });
     },
@@ -356,8 +402,8 @@ export default {
       let day = this.days[index];
 
       this.daily = true;
-      console.log("day: ", day);
-      console.log(this.crowdingData.populartimes[index].data);
+      //console.log("day: ", day);
+      //console.log(this.crowdingData.populartimes[index].data);
       //replot with daily data
       this.createPlot({
         labels: this.hours,
@@ -376,15 +422,15 @@ export default {
     weeklyData() {
       //will compute the weekly trend here
       let weekAvg = [];
-      if(this.crowdingData.populartimes) {
+      if (this.crowdingData.populartimes) {
         this.crowdingData.populartimes.forEach(day => {
-          console.log(day.data);
+          //console.log(day.data);
           var total = 0;
           for (var i = 0; i < day.data.length; i++) {
             total += day.data[i];
           }
           var avg = total / day.data.length;
-          console.log(avg);
+          //console.log(avg);
           weekAvg.push(avg);
         });
       }
@@ -409,5 +455,10 @@ li {
 }
 a {
   color: #42b983;
+}
+
+.chartCaption {
+  float: left;
+  font-weight: italic;
 }
 </style>
