@@ -325,8 +325,6 @@ export default {
             label: "busy score",
             backgroundColor: this.gradient,
             hoverBackgroundColor: this.hoverGradient,
-            hoverBorderColor: "black",
-            hoverBorderWidth: "1",
             borderColor: this.gradient,
             data: this.weeklyData
           }
@@ -386,8 +384,6 @@ export default {
                     label: "busy hours",
                     backgroundColor: this.gradient,
                     hoverBackgroundColor: this.hoverGradient,
-                    hoverBorderColor: "black",
-                    hoverBorderWidth: "1",
                     borderColor: this.gradient,
                     data: this.weeklyData
                   }
