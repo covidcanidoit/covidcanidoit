@@ -9,7 +9,10 @@
           class="v-select"
           v-model="searchTerm"
           v-on:input="onSearch"
-        />
+        >
+          <template #no-options>We don't have information on this. Click Assess My Risk! to suggest it.</template>
+        </VueSelect>
+
         <button class="run-search" @click="onSearch">Assess my risk!</button>
       </div>
       <!--<input

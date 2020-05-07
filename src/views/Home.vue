@@ -6,6 +6,9 @@
       :activityList="activityList"
       :perPage="5"
     />
+    <ThanksForSuggesting
+      :NoResultsToShow="noResults"
+    />
     <SearchResults
       :activity="result"
       :searched="searched"
@@ -21,6 +24,7 @@
 import SearchBar from "@/components/SearchBar.vue";
 import SearchResults from "@/components/SearchResults.vue";
 import HowItWorks from "@/components/HowItWorks.vue";
+import ThanksForSuggesting from "@/components/ThanksForSuggesting.vue";
 import { mapState, mapGetters } from "vuex";
 import VueScrollTo from "vue-scrollto";
 // import Chart from "@/components/PopularTimesChart.vue"
@@ -31,12 +35,14 @@ export default {
     SearchBar,
     SearchResults,
     HowItWorks,
+    ThanksForSuggesting
     // Chart
   },
   data: function() {
     return {
       searched: false,
-      result: {}
+      result: {},
+      noResults: false
     };
   },
   computed: {
@@ -58,6 +64,9 @@ export default {
   },
   methods: {
     onSearch(searchValue) {
+      if (searchValue === "") this.noResults = true;
+      else this.noResults = false;
+      console.log("searched for: ",searchValue);
       this.searched = true;
       this.$gtag.event("search", {
         event_category: "user-action",
@@ -77,6 +86,9 @@ export default {
           } else {
             VueScrollTo.scrollTo("#search-results");
           }
+        }
+        else {
+          console.log("searchValue: ",searchValue.toLowerCase());
         }
       });
     }
