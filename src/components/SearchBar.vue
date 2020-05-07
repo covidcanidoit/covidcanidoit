@@ -133,6 +133,9 @@ export default {
   .header {
     font-size: 32px;
   }
+  .subheader {
+    font-size: 18px;
+  }
 }
 @media (min-width: 1023px) {
   .v-select {
@@ -144,6 +147,9 @@ export default {
   }
   .header {
     font-size: 64px;
+  }
+  .subheader {
+    font-size: 24px;
   }
 }
 .search-bar {
@@ -262,7 +268,7 @@ export default {
   margin-top: 0;
 }
 .subheader {
-  font-size: 24px;
+  
   margin-top: 1px;
   clear: both;
 }
