@@ -399,9 +399,9 @@ export default {
               document.getElementById("myChart").style.cursor = "pointer";
             }
             //console.log("hovering",evt,item);
-          } /*,
+          },
           // This chart will not respond to mousemove, etc
-          events: ["click","mouseover"]*/
+          events: ["click","mousemove","mouseout"]
         }
       });
     },
