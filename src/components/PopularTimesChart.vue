@@ -333,7 +333,7 @@ export default {
       });
     },
     createPlot(plotData) {
-      console.log("creating plot");
+      // console.log("creating plot");
 
       this.clearPlot();
       var ctx = document.getElementById("myChart").getContext("2d");
@@ -409,8 +409,6 @@ export default {
         }
       });
       var bars = this.chart.config.data.datasets[0];
-      console.log("bars")
-      console.log(bars)
       bars.backgroundColor = [];
       bars.borderColor = [];
       bars.hoverBackgroundColor = [];
