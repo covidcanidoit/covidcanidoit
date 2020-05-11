@@ -15,7 +15,7 @@
     <div class="risk-information">
       <Markdown class="risk-details" :source="risk && risk.longDescription" />
       <br />
-      <div>
+      <div v-show="activity.showLocation == 'TRUE'">
         <p>Check to see if it's going to be crowded when and where you are</p>
         <VueGoogleAutocomplete
           classname="form-control"
