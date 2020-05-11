@@ -249,6 +249,13 @@ export default {
       chart: null,
       gradient: null,
       hoverGradient: null,
+      riskLabels: [
+        "1 - Low Risk",
+        "2 - Moderate Risk",
+        "3 - Elevated Risk",
+        "4 - High Risk",
+        "5 - Critical Risk"
+      ],
       days: [
         "Monday",
         "Tuesday",
@@ -323,7 +330,7 @@ export default {
         labels: this.days,
         datasets: [
           {
-            label: "busy score",
+            label: this.riskLabels[0],
             backgroundColor: this.gradient,
             hoverBackgroundColor: this.hoverGradient,
             borderColor: this.gradient,
@@ -368,7 +375,30 @@ export default {
             callbacks: {
               label: function(tooltipItem, data) {
                 var label = data.datasets[tooltipItem.datasetIndex].label || "";
+                var riskLabels = [
+                  "1 - Low Risk",
+                  "2 - Moderate Risk",
+                  "3 - Elevated Risk",
+                  "4 - High Risk",
+                  "5 - Critical Risk"
+                ];
                 if (label) {
+                  switch (true) {
+                    case tooltipItem.yLabel <= 20:
+                      label = riskLabels[0];
+                      break;
+                    case tooltipItem.yLabel <= 40:
+                      label = riskLabels[1];
+                      break;
+                    case tooltipItem.yLabel <= 60:
+                      label = riskLabels[2];
+                      break;
+                    case tooltipItem.yLabel <= 80:
+                      label = riskLabels[3];
+                      break;
+                    default:
+                      label = riskLabels[4];
+                  }
                   label += ": ";
                 }
                 label += Math.round(tooltipItem.yLabel * 100) / 100;
@@ -405,36 +435,33 @@ export default {
             //console.log("hovering",evt,item);
           },
           // This chart will not respond to mousemove, etc
-          events: ["click","mousemove","mouseout"]
+          events: ["click", "mousemove", "mouseout"]
         }
       });
       var bars = this.chart.config.data.datasets[0];
       bars.backgroundColor = [];
       bars.borderColor = [];
       bars.hoverBackgroundColor = [];
+      console.log("bars");
+      console.log(bars);
       for (var i = 0; i < bars.data.length; i++) {
         const x = bars.data[i];
         //there's probably a better way to get our colors for risk 1-5 here but I'm no sure where they're saved
         switch (true) {
           case x <= 20:
-            // code block
             var color = "#339900";
             break;
           case x <= 40:
-            // code block
             var color = "#99cc33";
             break;
           case x <= 60:
-            // code block
             var color = "#ffcc00";
             break;
           case x <= 80:
-            // code block
             var color = "#ff9966";
             break;
           default:
             var color = "#cc3300";
-          // code block
         }
 
         //You can check for bars[i].value and put your conditions here
