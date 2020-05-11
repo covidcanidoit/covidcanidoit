@@ -14,6 +14,28 @@
     </div>
     <div class="risk-information">
       <Markdown class="risk-details" :source="risk && risk.longDescription" />
+      <br />
+      <div>
+        <p>Check to see if it's going to be crowded when and where you are</p>
+        <VueGoogleAutocomplete
+          classname="form-control"
+          id="map"
+          placeholder="Please enter the activity location"
+          @placechanged="getAddressData"
+          :enableGeolocation="true"
+          :geolocationOptions="{ enableHighAccuracy: false }"
+          types="establishment"
+        />
+        <button class="form-control btn-primary" @click="getBusyInfo">
+          How Busy Will It Be?
+        </button>
+        <!-- <div>{{ busyResults }}</div> -->
+        <div v-if="loadingBusyResults">Loading...</div>
+        <div v-else>
+          <Chart v-if="busyResults" :crowdingData="busyResults" />
+        </div>
+      </div>
+      <br />
       <a
         v-show="hideMoreInfo"
         href="#divMoreInfo"
@@ -54,9 +76,13 @@
 import { mapGetters } from "vuex";
 import Markdown from "vue-markdown";
 import ScoreScale from "@/components/ScoreScale.vue";
+import Chart from "@/components/PopularTimesChart";
+import VueGoogleAutocomplete from "vue-google-autocomplete";
+
+import axios from "axios";
 
 export default {
-  components: { ScoreScale, Markdown },
+  components: { ScoreScale, Markdown, Chart, VueGoogleAutocomplete },
   props: {
     score: {
       type: String,
@@ -69,7 +95,13 @@ export default {
   },
   data() {
     return {
-      hideMoreInfo: true
+      hideMoreInfo: true,
+      location: "",
+      business: "",
+      placeId: undefined,
+      busyResults: undefined,
+      loadingBusyResults: false,
+      hasSearched: false
     };
   },
   computed: {
@@ -97,6 +129,28 @@ export default {
   methods: {
     toggleMoreInfo() {
       this.hideMoreInfo = !this.hideMoreInfo;
+    },
+    async getBusyInfo() {
+      this.busyResults = undefined;
+      this.loadingBusyResults = true;
+      const locationResults = await axios.get(
+        "https://thelackthereof.org/api",
+        {
+          params: {
+            location: this.location,
+            name: this.business,
+            placeId: this.placeId
+          }
+        }
+      );
+      this.loadingBusyResults = false;
+      this.busyResults = locationResults.data;
+      this.hasSearched = true;
+    },
+    getAddressData(something, rawSomething) {
+      console.log("Got some address data", something, rawSomething);
+      this.placeId = rawSomething.reference;
+      this.getBusyInfo();
     }
   }
 };

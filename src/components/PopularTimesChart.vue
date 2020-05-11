@@ -314,6 +314,7 @@ export default {
       caption.style.float = "left";
       caption.style.fontStyle = "italic";
       caption.classList.add("chartCaption");
+      //when you go back and forth between the weekly/hourly view, this caption gets added every time, so we need to clear it out each time or otherwise only add once
       canvasContainer.appendChild(canvas);
       canvasContainer.appendChild(caption);
     },
@@ -346,6 +347,9 @@ export default {
 
         // Configuration options go here
         options: {
+          legend: {
+            display: false
+          },
           title: {
             text: this.crowdingData.name,
             display: true
@@ -404,8 +408,12 @@ export default {
           events: ["click","mousemove","mouseout"]
         }
       });
-      var bars = chart.config.data.datasets[0];
+      var bars = this.chart.config.data.datasets[0];
+      console.log("bars")
+      console.log(bars)
       bars.backgroundColor = [];
+      bars.borderColor = [];
+      bars.hoverBackgroundColor = [];
       for (var i = 0; i < bars.data.length; i++) {
         const x = bars.data[i];
         //there's probably a better way to get our colors for risk 1-5 here but I'm no sure where they're saved
@@ -433,9 +441,10 @@ export default {
 
         //You can check for bars[i].value and put your conditions here
         bars.backgroundColor.push(color);
-        // bars.borderColor.push(color);
+        bars.hoverBackgroundColor.push(color);
+        bars.borderColor.push(color);
       }
-      chart.update();
+      this.chart.update();
     },
     drillDown(index) {
       let day = this.days[index];

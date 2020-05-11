@@ -19,51 +19,6 @@
       <div v-show="additionalRiskFactors.length > 0 || activity.showLocation == 'TRUE'" class="additional-factors">
         <h2>Additional Risk Factors</h2>
         <div class="accordion" id="accordionExample">
-          <!-- crowding accordian -->
-          <div class="card">
-            <div class="card-header" id="heading-crowding">
-              <h2 class="mb-0 flex-row">
-                <!-- insert corwding icon here -->
-                <!-- <i class="icon" :class="riskFactor.icon"></i> -->
-                <button
-                  class="btn btn-link collapsed"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#collapse-crowding"
-                  aria-expanded="false"
-                  aria-controls="collapseTwo"
-                >
-                  Check to see if it's going to be crowded when and where you
-                  are
-                </button>
-              </h2>
-            </div>
-            <div
-              id="collapse-crowding"
-              class="collapse"
-              aria-labelledby="heading-crowding"
-              data-parent="#accordionExample"
-            >
-              <div class="card-body">
-                <VueGoogleAutocomplete
-                  classname="form-control"
-                  id="map"
-                  placeholder="Please enter the activity location"
-                  @placechanged="getAddressData"
-                  :enableGeolocation="true"
-                  :geolocationOptions="{enableHighAccuracy: false}"
-                  types="establishment"
-                />
-                <button class="form-control btn-primary" @click="getBusyInfo">How Busy Will It Be?</button>
-                <!-- <div>{{ busyResults }}</div> -->
-                <div v-if="loadingBusyResults">Loading...</div>
-                <div v-else>
-                  <Chart v-if="busyResults" :crowdingData="busyResults" />
-                </div>
-              </div>
-            </div>
-          </div>
-
           <!-- risk factor accordians -->
           <div
             class="card"
@@ -106,13 +61,10 @@
 import Markdown from "vue-markdown";
 import { mapGetters } from "vuex";
 import RiskDescription from "@/components/RiskDescription.vue";
-import Chart from "@/components/PopularTimesChart";
-import VueGoogleAutocomplete from "vue-google-autocomplete";
 
-import axios from "axios";
 
 export default {
-  components: { RiskDescription, Markdown, Chart, VueGoogleAutocomplete },
+  components: { RiskDescription, Markdown },
   props: {
     searchedTerm: String,
     activity: Object,
@@ -122,12 +74,6 @@ export default {
   },
   data() {
     return {
-      location: "",
-      business: "",
-      placeId: undefined,
-      busyResults: undefined,
-      loadingBusyResults: false,
-      hasSearched: false
     };
   },
   computed: {
@@ -154,22 +100,7 @@ export default {
     }
   },
   methods: {
-    async getBusyInfo() {
-      this.busyResults = undefined;
-      this.loadingBusyResults = true;
-      const locationResults = await axios.get(
-        "https://thelackthereof.org/api",
-        { params: { location: this.location, name: this.business, placeId: this.placeId } }
-      );
-      this.loadingBusyResults = false;
-      this.busyResults = locationResults.data;
-      this.hasSearched = true;
-    },
-    getAddressData(something, rawSomething) {
-      console.log("Got some address data", something, rawSomething);
-      this.placeId = rawSomething.reference;
-      this.getBusyInfo();
-    }
+    
   }
 };
 </script>
