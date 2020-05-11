@@ -246,7 +246,6 @@ export default {
   },
   data: function() {
     return {
-      gradient: null,
       days: [
         "Monday",
         "Tuesday",
@@ -288,10 +287,6 @@ export default {
   },
   mounted() {
     var ctx = document.getElementById("myChart").getContext("2d");
-    //this will be where we set up color gradient
-    this.gradient = ctx.createLinearGradient(0, 0, 0, 400);
-    this.gradient.addColorStop(0, "rgb(253,97,103)");
-    this.gradient.addColorStop(1, "rgb(253,97,103)");
     this.updatePlot();
   },
   methods: {
@@ -301,8 +296,8 @@ export default {
         datasets: [
           {
             label: this.crowdingData.name,
-            backgroundColor: this.gradient,
-            borderColor: this.gradient,
+            backgroundColor: "grey",
+            borderColor: "grey",
             data: this.weeklyData
           }
         ]
@@ -319,6 +314,9 @@ export default {
 
         // Configuration options go here
         options: {
+          legend: {
+            display: false
+          },
           scales: {
             yAxes: [
               {
@@ -338,8 +336,8 @@ export default {
                 datasets: [
                   {
                     label: this.crowdingData.name,
-                    backgroundColor: this.gradient,
-                    borderColor: this.gradient,
+                    backgroundColor: "grey",
+                    borderColor: "grey",
                     data: this.weeklyData
                   }
                 ]
@@ -351,6 +349,38 @@ export default {
           events: ["click"]
         }
       });
+      var bars = chart.config.data.datasets[0];
+      bars.backgroundColor = [];
+      for (var i = 0; i < bars.data.length; i++) {
+        const x = bars.data[i];
+        //there's probably a better way to get our colors for risk 1-5 here but I'm no sure where they're saved
+        switch (true) {
+          case x <= 20:
+            // code block
+            var color = "#339900";
+            break;
+          case x <= 40:
+            // code block
+            var color = "#99cc33";
+            break;
+          case x <= 60:
+            // code block
+            var color = "#ffcc00";
+            break;
+          case x <= 80:
+            // code block
+            var color = "#ff9966";
+            break;
+          default:
+            var color = "#cc3300";
+          // code block
+        }
+
+        //You can check for bars[i].value and put your conditions here
+        bars.backgroundColor.push(color);
+        // bars.borderColor.push(color);
+      }
+      chart.update();
     },
     drillDown(index) {
       let day = this.days[index];
@@ -364,8 +394,8 @@ export default {
         datasets: [
           {
             label: this.crowdingData.name,
-            backgroundColor: this.gradient,
-            borderColor: this.gradient,
+            backgroundColor: "grey",
+            borderColor: "grey",
             data: this.crowdingData.populartimes[index].data
           }
         ]
@@ -376,7 +406,7 @@ export default {
     weeklyData() {
       //will compute the weekly trend here
       let weekAvg = [];
-      if(this.crowdingData.populartimes) {
+      if (this.crowdingData.populartimes) {
         this.crowdingData.populartimes.forEach(day => {
           console.log(day.data);
           var total = 0;
