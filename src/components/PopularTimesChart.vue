@@ -1,6 +1,7 @@
 <template>
   <div id="canvasContainer" style="border: 1px solid black">
     <canvas id="myChart"></canvas>
+    <caption id="captionChart" class="chartCaption">Click on a bar to see hourly busy times for the day.</caption>
   </div>
 </template>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
@@ -315,15 +316,8 @@ export default {
       canvasContainer.removeChild(canvas);
       var canvas = document.createElement("canvas");
       canvas.setAttribute("id", "myChart");
-      var caption = document.createElement("caption");
-      caption.textContent =
-        "Click on a bar to see hourly busy times for the day.";
-      caption.style.float = "left";
-      caption.style.fontStyle = "italic";
-      caption.classList.add("chartCaption");
-      //when you go back and forth between the weekly/hourly view, this caption gets added every time, so we need to clear it out each time or otherwise only add once
-      canvasContainer.appendChild(canvas);
-      canvasContainer.appendChild(caption);
+      var caption = document.getElementById("captionChart");
+      canvasContainer.insertBefore(canvas,caption);
     },
     updatePlot() {
       this.createPlot({
