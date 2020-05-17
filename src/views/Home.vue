@@ -3,11 +3,13 @@
     <SearchBar
       :initialSearchTerm="search"
       @searched="onSearch"
+      @suggested="onSuggest"
       :activityList="activityList"
       :perPage="5"
     />
     <ThanksForSuggesting
       :NoResultsToShow="noResults"
+      :suggested="suggested"
     />
     <SearchResults
       :activity="result"
@@ -42,7 +44,8 @@ export default {
     return {
       searched: false,
       result: {},
-      noResults: false
+      noResults: false,
+      suggested: ""
     };
   },
   computed: {
@@ -66,7 +69,6 @@ export default {
     onSearch(searchValue) {
       if (searchValue === "") this.noResults = true;
       else this.noResults = false;
-      console.log("searched for: ",searchValue);
       this.searched = true;
       this.$gtag.event("search", {
         event_category: "user-action",
@@ -87,9 +89,13 @@ export default {
             VueScrollTo.scrollTo("#search-results");
           }
         }
-        else {
-          console.log("searchValue: ",searchValue.toLowerCase());
-        }
+      });
+    },
+    onSuggest(suggestValue) {
+      this.suggested = suggestValue;
+      this.$gtag.event("search", {
+        event_category: "user-action",
+        event_label: "suggestion|" + suggestValue
       });
     }
   }

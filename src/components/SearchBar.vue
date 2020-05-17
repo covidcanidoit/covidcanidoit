@@ -64,12 +64,14 @@ export default {
     return {
       searchTerm: "",
       dropdownIndex: 0,
-      selected: ""
+      suggested: ""
     };
   },
   methods: {
     onSearch() {
-      console.log("onSearch: ",this.selected);
+      if (this.searchTerm === "") {
+        this.$emit("suggested",this.suggested)
+      }
       this.$emit("searched", this.searchTerm);
       this.searchTerm = "";
     },
@@ -84,7 +86,7 @@ export default {
       this.$router.push({ name: "CreateUserProfile" });
     },
     computedSearch(search) {
-      this.selected = search;
+      this.suggested = search;
       return search;
     }
   },

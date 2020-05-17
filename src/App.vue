@@ -46,9 +46,11 @@ export default {
   methods: {
     changeCountry(event) {
       this.$store.commit("setCurrentCountry", event.target.value);
+      this.$gtag.set({'db-country': event.target.value});
     },
     setCurrentCountry(country) {
       this.$store.commit("setCurrentCountry", country);
+      this.$gtag.set({'db-country': country});
     }
   }
 };
