@@ -27,7 +27,7 @@ export default {
         .then(this.saveInner);
     },
     saveInner(snapshot) {
-      if (typeof snapshot === "undefined") return;
+      if (!snapshot) return;
       let count = snapshot.val();
       console.log(this.suggested, " : ", count);
 

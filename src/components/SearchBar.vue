@@ -12,15 +12,12 @@
         >
           <template #no-options='{ search, searching}'>
             <template v-if="searching">
-              We don't have information on {{computedSearch(search)}}. Click {{searchbarButtonName}} to suggest it.
+              We don't have information on {{computedSearch(search)}}. Click "Assess my risk!" to suggest it.
             </template>
           </template>
-          <!--<template #footer='{filteredOptions}'>
-            {{onOptions(filteredOptions)}}
-          </template>-->
         </VueSelect>
 
-        <button class="run-search" @click="onSearch">{{searchbarButtonName}}</button>
+        <button class="run-search" @click="onSearch">"Assess my risk!"</button>
       </div>
       <!--<input
         type="text"
@@ -67,8 +64,7 @@ export default {
     return {
       searchTerm: "",
       dropdownIndex: 0,
-      suggested: "",
-      noOptions: false
+      suggested: ""
     };
   },
   methods: {
@@ -93,11 +89,6 @@ export default {
     computedSearch(search) {
       this.suggested = search;
       return search;
-    },
-    onOptions(options) {
-      if (options.length === 0) this.noOptions = true;
-      else this.noOptions = false;
-      return "";
     }
   },
   computed: {
@@ -121,14 +112,6 @@ export default {
     },
     activityListDynamic() {
       return this.activityListComplete;
-    },
-    searchbarButtonName() {
-      if (this.noOptions === false) {
-        return "Assess my risk!";
-      }
-      else {
-        return "Suggest!";
-      }
     }
   },
   watch: {
