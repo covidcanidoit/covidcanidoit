@@ -92,7 +92,6 @@ export default {
     },
     computedSearch(search) {
       this.suggested = search;
-      console.log("computedSearch",this.suggested);
       return search;
     },
     onOptions(options) {

@@ -29,7 +29,6 @@ import HowItWorks from "@/components/HowItWorks.vue";
 import ThanksForSuggesting from "@/components/ThanksForSuggesting.vue";
 import { mapState, mapGetters } from "vuex";
 import VueScrollTo from "vue-scrollto";
-import { db } from "@/db.js";
 // import Chart from "@/components/PopularTimesChart.vue"
 
 export default {
@@ -51,7 +50,7 @@ export default {
   },
   computed: {
     ...mapState(["userProfile"]),
-    ...mapGetters(["hasEnteredProfileData", "activities","currentCountry","suggestions"]),
+    ...mapGetters(["hasEnteredProfileData", "activities"]),
     activityList() {
       return Object.values(this.activities || {}).map(
         activity => activity.activityName
@@ -102,29 +101,7 @@ export default {
       this.$gtag.event("search", {
         event_category: "user-action",
         event_label: suggestValue
-        //event_label: "suggestion|" + suggestValue
       });
-      //this.$store.commit("addSuggestion",suggestValue);
-      if (!this.suggestions) {
-        db.ref("suggestions");
-      }
-      if (!this.suggestions[this.currentCountry]) {
-        db.ref("suggestions").child(this.currentCountry);
-        this.suggestions[this.currentCountry] = {};
-      }
-      if (!this.suggestions[this.currentCountry]["activitySuggestions"]) {
-        db.ref("suggestions").child(this.currentCountry).child("activitySuggestions");
-        this.suggestions[this.currentCountry]["activitySuggestions"] = {};
-      }
-      if (this.suggestions[this.currentCountry]["activitySuggestions"][suggestValue] === null) {
-        db.ref("suggestions").child(this.currentCountry).child("activitySuggestions").child(suggestValue).child("count").set(1);
-      }
-      else {
-        let count;
-        if (!this.suggestions[this.currentCountry]["activitySuggestions"][suggestValue]) count = 0;
-        else count = this.suggestions[this.currentCountry]["activitySuggestions"][suggestValue].count;
-        db.ref("suggestions").child(this.currentCountry).child("activitySuggestions").child(suggestValue).child("count").set(count+1);
-      }
     }
   }
 };

@@ -11,33 +11,41 @@ import { db } from "@/db.js";
 import { mapGetters } from "vuex";
 
 export default {
-  props: ["NoResultsToShow","suggested"],
+  props: ["NoResultsToShow", "suggested"],
   computed: {
-    ...mapGetters(["currentCountry","suggestions"]),
+    ...mapGetters(["currentCountry", "suggestions"])
+  },
+  methods: {
+    save() {
+      //let count = 0;
+      db.ref("suggestions")
+        .child(this.currentCountry)
+        .child("activitySuggestions")
+        .child(this.suggested)
+        .child("count")
+        .once("value")
+        .then(this.saveInner);
+    },
+    saveInner(snapshot) {
+      if (typeof snapshot === "undefined") return;
+      let count = snapshot.val();
+      console.log(this.suggested, " : ", count);
+
+          db.ref("suggestions")
+            .child(this.currentCountry)
+            .child("activitySuggestions")
+            .child(this.suggested)
+            .child("count")
+            .set(count + 1);
+    }
+  },
+  watch: {
+    suggested: "save"
   },
   mounted() {
-    if (!this.suggestions) {
-        db.ref("suggestions");
-      }
-      if (!this.suggestions[this.currentCountry]) {
-        db.ref("suggestions").child(this.currentCountry);
-        this.suggestions[this.currentCountry] = {};
-      }
-      if (!this.suggestions[this.currentCountry]["activitySuggestions"]) {
-        db.ref("suggestions").child(this.currentCountry).child("activitySuggestions");
-        this.suggestions[this.currentCountry]["activitySuggestions"] = {};
-      }
-      if (this.suggestions[this.currentCountry]["activitySuggestions"][this.suggested] === null) {
-        db.ref("suggestions").child(this.currentCountry).child("activitySuggestions").child(this.suggested).child("count").set(1);
-      }
-      else {
-        let count;
-        if (!this.suggestions[this.currentCountry]["activitySuggestions"][this.suggested]) count = 0;
-        else count = this.suggestions[this.currentCountry]["activitySuggestions"][this.suggested].count;
-        db.ref("suggestions").child(this.currentCountry).child("activitySuggestions").child(this.suggested).child("count").set(count+1);
-      }
+    this.save();
   }
-}
+};
 </script>
 
 <style scoped>
