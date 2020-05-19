@@ -4,7 +4,6 @@ curl 'https://docs.google.com/spreadsheets/d/16ZUrB5ahf6ebzEFbX8VKTcTevvkPpv1gxA
 csv2json categories.csv > categories.json
 cat categories.json| jq 'map( { (.category): (. + {name: .category} | del(.category)) }) | add' > categories_clean.json
 
-
 curl 'https://docs.google.com/spreadsheets/d/16ZUrB5ahf6ebzEFbX8VKTcTevvkPpv1gxARFR1EsmEE/export?format=csv&gid=1126986858' > riskFactors.csv
 csv2json riskFactors.csv > riskFactors.json
 cat riskFactors.json| jq 'map( { (.name): . }) | add' > riskFactors_clean.json
@@ -18,4 +17,4 @@ csv2json activities.csv > activities.json
 cat activities.json|jq '[.[] | .slug = ( .activityName | sub("[ /]";"-";"g") | sub("[(),'"'"'.]";"";"g") | ascii_downcase ) | [.] | map( { (.slug): (. | del(.[""])) } ) []]|add' > activities_clean.json
 
 # Merge them all together!
-jq -s '{ activities: .[0], riskLevels: .[1], riskFactors: .[2], categories: .[2] }' activities_clean.json riskLevels_clean.json riskFactors_clean.json categories_clean.json > content.json
+jq -s '{ activities: .[0], riskLevels: .[1], riskFactors: .[2], categories: .[3] }' activities_clean.json riskLevels_clean.json riskFactors_clean.json categories_clean.json > content.json
