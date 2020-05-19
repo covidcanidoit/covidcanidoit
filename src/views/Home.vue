@@ -3,8 +3,13 @@
     <SearchBar
       :initialSearchTerm="search"
       @searched="onSearch"
+      @suggested="onSuggest"
       :activityList="activityList"
       :perPage="5"
+    />
+    <ThanksForSuggesting
+      :NoResultsToShow="noResults"
+      :suggested="suggested"
     />
     <SearchResults
       :activity="result"
@@ -21,6 +26,7 @@
 import SearchBar from "@/components/SearchBar.vue";
 import SearchResults from "@/components/SearchResults.vue";
 import HowItWorks from "@/components/HowItWorks.vue";
+import ThanksForSuggesting from "@/components/ThanksForSuggesting.vue";
 import { mapState, mapGetters } from "vuex";
 import VueScrollTo from "vue-scrollto";
 // import Chart from "@/components/PopularTimesChart.vue"
@@ -31,12 +37,15 @@ export default {
     SearchBar,
     SearchResults,
     HowItWorks,
+    ThanksForSuggesting
     // Chart
   },
   data: function() {
     return {
       searched: false,
-      result: {}
+      result: {},
+      noResults: false,
+      suggested: ""
     };
   },
   computed: {
@@ -58,12 +67,18 @@ export default {
   },
   methods: {
     onSearch(searchValue) {
-      this.searched = true;
-      this.$gtag.event("search", {
+      if (searchValue === "") {
+        this.noResults = true;
+      }
+      else {
+        this.noResults = false;
+        this.$gtag.event("search", {
         event_category: "user-action",
         event_label: searchValue
-      });
+        });
+      }
 
+      this.searched = true;
       Object.values(this.activities).map(activity => {
         if (
           activity["activityName"].toLowerCase() == searchValue.toLowerCase()
@@ -78,6 +93,14 @@ export default {
             VueScrollTo.scrollTo("#search-results");
           }
         }
+      });
+    },
+
+    onSuggest(suggestValue) {
+      this.suggested = suggestValue;
+      this.$gtag.event("search", {
+        event_category: "user-action",
+        event_label: suggestValue
       });
     }
   }

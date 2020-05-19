@@ -24,7 +24,8 @@ export default new Vuex.Store({
       feelSick: undefined,
       familySick: undefined,
       COVIDpositive: undefined
-    }
+    },
+    suggestions: {}
   },
   mutations: {
     ...vuexfireMutations,
@@ -108,6 +109,17 @@ export default new Vuex.Store({
       } else {
         return {};
       }
+    },
+    suggestions(state) {
+      if (state.suggestions && state.suggestions[state.currentCountry]) {
+        return state.suggestions;
+      }
+      else {
+        return [];
+      }
+    },
+    currentCountry(state) {
+      return state.currentCountry;
     }
   },
   actions: {
@@ -122,7 +134,11 @@ export default new Vuex.Store({
     bindUserSettings: firebaseAction(({ bindFirebaseRef }) => {
       console.log("Binding userSettings");
       return bindFirebaseRef("userSettings", db.ref("userSettings"));
+    }),
+    bindSuggestions: firebaseAction(({bindFirebaseRef}) => {
+      console.log("Binding suggestions");
+      return bindFirebaseRef("suggestions", db.ref("suggestions"));
     })
-  },
+  }, 
   modules: {}
 });
