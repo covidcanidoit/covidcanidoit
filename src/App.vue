@@ -42,6 +42,7 @@ export default {
     this.$store.dispatch("bindContent");
     this.$store.dispatch("bindUsers");
     this.$store.dispatch("bindUserSettings");
+    this.$store.dispatch("bindSuggestions");
   },
   methods: {
     changeCountry(event) {

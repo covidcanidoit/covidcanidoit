@@ -9,8 +9,15 @@
           class="v-select"
           v-model="searchTerm"
           v-on:input="onSearch"
-        />
-        <button class="run-search" @click="onSearch">Assess my risk!</button>
+        >
+          <template #no-options='{ search, searching}'>
+            <template v-if="searching">
+              We don't have information on {{computedSearch(search)}}. Click "Assess my risk!" to suggest it.
+            </template>
+          </template>
+        </VueSelect>
+
+        <button class="run-search" @click="onSearch">"Assess my risk!"</button>
       </div>
       <!--<input
         type="text"
@@ -56,16 +63,16 @@ export default {
   data: function() {
     return {
       searchTerm: "",
-      dropdownIndex: 0
+      dropdownIndex: 0,
+      suggested: ""
     };
   },
   methods: {
-    onVueSelect(whatisthis) {
-      console.log("--------");
-      console.log(whatisthis);
-      console.log("--------");
-    },
     onSearch() {
+      if (this.searchTerm === "") {
+        this.$emit("suggested",this.suggested)
+        this.suggested = "";
+      }
       this.$emit("searched", this.searchTerm);
       this.searchTerm = "";
     },
@@ -78,6 +85,10 @@ export default {
     },
     goToProfile() {
       this.$router.push({ name: "CreateUserProfile" });
+    },
+    computedSearch(search) {
+      this.suggested = search;
+      return search;
     }
   },
   computed: {

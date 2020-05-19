@@ -22,6 +22,10 @@
     // Anyone may read content
     "content": {
       ".read": true
+    },
+    "suggestions":  {
+      ".read": true,
+      ".write": true
     }
   }
 }
