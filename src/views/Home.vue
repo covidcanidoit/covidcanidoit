@@ -56,9 +56,9 @@ export default {
   },
   created() {
     if (this.slug) {
+      console.log("Using slug", this.slug);
       this.onSearch(
-        this.activities.filter(activity => activity.slug == this.slug)[0]
-          .activityName
+        this.activities[this.slug].activityName
       );
     }
   },
@@ -80,12 +80,17 @@ export default {
           activity["activityName"].toLowerCase() == searchValue.toLowerCase()
         ) {
           this.result = activity;
+          // Update URL
           if (!this.hasEnteredProfileData && !this.skipProfile) {
             this.$router.push({
               name: "CreateUserProfile",
               params: { search: searchValue }
             });
           } else {
+            this.$router.replace({
+              name: 'ActivitySearch',
+              params: { slug: activity.slug }
+            });
             VueScrollTo.scrollTo("#search-results");
           }
         }

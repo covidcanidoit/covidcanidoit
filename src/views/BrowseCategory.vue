@@ -8,7 +8,7 @@
         :key="activity.activityName"
       >
         <router-link
-          :to="{ name: 'Home', params: { search: activity.activityName } }"
+          :to="{ name: 'ActivitySearch', params: { slug: activity.slug } }"
         >
           <div class="activity-name stretched-link">
             {{ activity.activityName }}
