@@ -2,44 +2,22 @@
   <div class="search-bar">
     <p class="header">Can I...</p>
     <div class="dropdown search-fields">
-      <div class="searchbar-container">
-        <VueSelect
-          label="activityName"
-          :options="this.activityList"
-          class="v-select"
-          v-model="searchTerm"
-          v-on:input="onSearch"
-        >
-          <template #no-options="{ search, searching}">
-            <template v-if="searching">
-              We don't have information on {{ computedSearch(search) }}. Click
-              "Assess my risk!" to suggest it.
-            </template>
-          </template>
-        </VueSelect>
-
-        <button class="run-search" @click="onSearch">"Assess my risk!"</button>
-      </div>
-      <!--<input
-        type="text"
-        class="dropbtn"
+      <VueSelect
+        label="activityName"
+        :options="this.activityList"
+        class="v-select"
         v-model="searchTerm"
-        v-on:keyup.enter="onSearch"
-        placeholder=""
-      />
-      <div class="dropdown-content">
-        <a
-          href="#"
-          v-for="(activity, index) in activityListDynamic"
-          @click="dropdownClick(activity)"
-          :key="activity"
-          :v-if="index < 5"
-          >{{ activity }}</a
-        >
-      </div>
-      <button class="run-search" @click="onSearch">Assess my risk!</button>-->
-      <p class="subheader">...safely during the COVID-19 outbreak.</p>
+        v-on:input="onSearch"
+      >
+        <template #no-options="{ search, searching}">
+          <template v-if="searching">
+            We don't have information on {{ computedSearch(search) }}. Click
+            "Assess my risk!" to suggest it.
+          </template>
+        </template>
+      </VueSelect><button class="run-search" @click="onSearch">"Assess my risk!"</button>
     </div>
+    <p class="subheader">...safely during the COVID-19 outbreak.</p>
     <div class="or-others">
       <button @click="goToProfile">Fill in Profile</button>
       <button @click="goToBrowse">Browse Activities</button>
@@ -168,6 +146,9 @@ export default {
   background-color: $color-teal;
   text-align: center;
   padding-top: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   h2 {
     margin-bottom: 1em;
@@ -176,7 +157,11 @@ export default {
   .search-fields {
     white-space: nowrap;
 
-    input {
+    display: flex;
+    align-content: center;
+    align-items: center;
+
+    .v-select {
       border-radius: 30px 0 0 30px;
       padding: 10px;
       /*border-top: 1px solid $color-darkgrey;
@@ -192,7 +177,6 @@ export default {
       background-color: #fd6167;
       color: black;
       font-size: 1.37em;
-      float: right;
     }
   }
 
@@ -297,7 +281,4 @@ export default {
   display: none;
 }
 
-.searchbar-container {
-  width: fit-content;
-}
 </style>
