@@ -20,16 +20,15 @@
           <img :src="`${publicPath}images/flag/${currentCountry}.png`" />
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a
+          <button
             class="dropdown-item"
-            href="#"
             v-for="country in countries"
             :key="country"
             @click="setCurrentCountry(country)"
           >
             <img :src="`${publicPath}images/flag/${country}.png`" />
             {{ country }}
-          </a>
+          </button>
         </div>
       </li>
     </div>
