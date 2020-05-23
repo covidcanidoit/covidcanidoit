@@ -1,5 +1,5 @@
 <template>
-  <div v-show="NoResultsToShow">
+  <div>
     <div class="container-sm text-center p-5 colorBlock">
       <h2>Thanks for suggesting "{{this.suggested}}" as an activity!</h2>
     </div>
@@ -11,7 +11,7 @@ import { db } from "@/db.js";
 import { mapGetters } from "vuex";
 
 export default {
-  props: ["NoResultsToShow", "suggested"],
+  props: ["suggested"],
   computed: {
     ...mapGetters(["currentCountry", "suggestions"])
   },

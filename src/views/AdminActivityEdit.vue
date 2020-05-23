@@ -150,7 +150,7 @@ export default {
     this.lookupActivity();
   },
   computed: {
-    ...mapGetters(["activities"]),
+    ...mapGetters(["activities", "currentCountry"]),
     activity() {
       return this.activities[this.currentKey];
     }
@@ -159,7 +159,9 @@ export default {
     saveField(name, event) {
       console.log("So... you want to save...", { name, event });
       console.log("New value", event.target.value);
-      db.ref("content/activities")
+      db.ref("content")
+        .child(this.currentCountry)
+        .child("activities")
         .child(this.currentKey)
         .child(name)
         .set(event.target.value);
