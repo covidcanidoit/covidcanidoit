@@ -23,6 +23,8 @@
     "content": {
       ".read": true
     },
+
+    // Anyone may add suggestions
     "suggestions":  {
       ".read": true,
       ".write": true

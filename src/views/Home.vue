@@ -8,7 +8,7 @@
       :perPage="5"
     />
     <ThanksForSuggesting
-      :NoResultsToShow="noResults"
+      v-if="noResults"
       :suggested="suggested"
     />
     <SearchResults

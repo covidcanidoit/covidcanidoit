@@ -11,7 +11,7 @@
     Current User: {{ currentUser && currentUser.email }} isAdmin: {{ isAdmin }}
     <br />
 
-    <div v-show="isAdmin">
+    <div v-if="isAdmin && users && userSettings">
       <div>
         <h2 class="btn" @click="toggleActivities">
           {{ showActivities ? "&#x25bc;" : "&#x25b6;" }} Activities
@@ -248,12 +248,14 @@ export default {
       showCategories: false,
       showRiskFactors: false,
       showRiskLevels: false,
-      showUsers: false
+      showUsers: false,
+      currentUser: undefined,
+      currentUserSettings: undefined
     };
   },
   created() {
     firebase.auth().onAuthStateChanged(user => {
-      console.log("Firebase auth callback!", user);
+      console.log("Firebase auth callback!");
       this.$store.commit("setCurrentUserUid", user?.uid);
       if (user) {
         console.log("Got user, now writing directly into users/", {
@@ -264,6 +266,27 @@ export default {
           ["lastLogin"]: Date.now(),
           ["email"]: user.email
         });
+
+        // Look up current user settings, and if they are an admin load other stuff
+        // retrieve a document
+        console.log("Going to look up user");
+        db.ref(`users/${user.uid}`).once('value').then(snapshot => {
+          console.log("Looked up current user", snapshot.val());
+          this.currentUser = snapshot.val();
+        });
+
+        // Look up current user settings, and if they are an admin load other stuff
+        // retrieve a document
+        console.log("Going to look up userSettings");
+        db.ref(`userSettings/${user.uid}`).once('value').then(snapshot => {
+          console.log("Looked up current user settings", snapshot.val());
+          this.currentUserSettings = snapshot.val() || {};
+          if(this.currentUserSettings.isAdmin) {
+            console.log("User is an admin!");
+            this.$store.dispatch("bindUsers");
+            this.$store.dispatch("bindUserSettings");
+          }
+        });
       }
     });
   },
@@ -271,17 +294,10 @@ export default {
     ...mapState(["content", "users", "userSettings", "currentUserUid"]),
     ...mapGetters(["activities", "riskLevels", "riskFactors", "categories"]),
     isAdmin() {
-      return !!(
-        this.currentUserUid &&
-        this.userSettings[this.currentUserUid] &&
-        this.userSettings[this.currentUserUid].isAdmin
-      );
+      return !!(this.currentUserSettings?.isAdmin);
     },
     userIds() {
       return Object.keys(this.users);
-    },
-    currentUser() {
-      return this.currentUserUid && this.users[this.currentUserUid];
     }
   },
   methods: {
@@ -293,8 +309,10 @@ export default {
       firebase
         .auth()
         .signOut()
-        .then(function() {
+        .then(() => {
           console.log("Signed out!");
+          this.currentUser = undefined;
+          this.currentUserSettings = undefined;
         })
         .catch(function(error) {
           console.log("Error signing out!", { error });

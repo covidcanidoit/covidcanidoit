@@ -40,8 +40,6 @@ export default {
   created() {
     console.log("Loading content from Firebase");
     this.$store.dispatch("bindContent");
-    this.$store.dispatch("bindUsers");
-    this.$store.dispatch("bindUserSettings");
     this.$store.dispatch("bindSuggestions");
   },
   methods: {
