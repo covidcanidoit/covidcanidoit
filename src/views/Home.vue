@@ -7,10 +7,7 @@
       :activityList="activityList"
       :perPage="5"
     />
-    <ThanksForSuggesting
-      v-if="noResults"
-      :suggested="suggested"
-    />
+    <ThanksForSuggesting v-if="noResults" :suggested="suggested" />
     <SearchResults
       :activity="result"
       :searched="searched"
@@ -69,12 +66,11 @@ export default {
     onSearch(searchValue) {
       if (searchValue === "") {
         this.noResults = true;
-      }
-      else {
+      } else {
         this.noResults = false;
         this.$gtag.event("search", {
-        event_category: "user-action",
-        event_label: searchValue
+          event_category: "user-action",
+          event_label: searchValue
         });
       }
 

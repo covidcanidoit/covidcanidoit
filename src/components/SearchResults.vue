@@ -16,7 +16,12 @@
         v-show="profile.COVIDpositive !== 'yes'"
       />
 
-      <div v-show="additionalRiskFactors.length > 0 || activity.showLocation == 'TRUE'" class="additional-factors">
+      <div
+        v-show="
+          additionalRiskFactors.length > 0 || activity.showLocation == 'TRUE'
+        "
+        class="additional-factors"
+      >
         <h2>Additional Risk Factors</h2>
         <div class="accordion" id="accordionExample">
           <!-- risk factor accordians -->
@@ -62,7 +67,6 @@ import Markdown from "vue-markdown";
 import { mapGetters } from "vuex";
 import RiskDescription from "@/components/RiskDescription.vue";
 
-
 export default {
   components: { RiskDescription, Markdown },
   props: {
@@ -73,8 +77,7 @@ export default {
     }
   },
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
     ...mapGetters(["riskFactors"]),
@@ -99,9 +102,7 @@ export default {
       });
     }
   },
-  methods: {
-    
-  }
+  methods: {}
 };
 </script>
 

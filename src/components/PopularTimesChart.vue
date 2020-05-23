@@ -1,7 +1,9 @@
 <template>
   <div id="canvasContainer" style="border: 1px solid black">
     <canvas id="myChart"></canvas>
-    <caption id="captionChart" class="chartCaption">Click on a bar to see hourly busy times for the day.</caption>
+    <caption id="captionChart" class="chartCaption">
+      Click on a bar to see hourly busy times for the day.
+    </caption>
   </div>
 </template>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
@@ -317,7 +319,7 @@ export default {
       var canvas = document.createElement("canvas");
       canvas.setAttribute("id", "myChart");
       var caption = document.getElementById("captionChart");
-      canvasContainer.insertBefore(canvas,caption);
+      canvasContainer.insertBefore(canvas, caption);
     },
     updatePlot() {
       this.createPlot({

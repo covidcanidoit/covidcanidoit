@@ -29,7 +29,9 @@ export default {
   computed: {
     ...mapGetters(["activities"]),
     categoryActivities() {
-      return Object.values(this.activities).filter(activity => activity.category === this.name);
+      return Object.values(this.activities).filter(
+        activity => activity.category === this.name
+      );
     }
   }
 };
@@ -76,7 +78,6 @@ export default {
 
   .activity:nth-child(odd) {
     background-color: #21acb0;
-    
   }
 }
 </style>

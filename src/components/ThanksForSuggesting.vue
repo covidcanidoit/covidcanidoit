@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container-sm text-center p-5 colorBlock">
-      <h2>Thanks for suggesting "{{this.suggested}}" as an activity!</h2>
+      <h2>Thanks for suggesting "{{ this.suggested }}" as an activity!</h2>
     </div>
   </div>
 </template>
@@ -31,12 +31,12 @@ export default {
       let count = snapshot.val();
       console.log(this.suggested, " : ", count);
 
-          db.ref("suggestions")
-            .child(this.currentCountry)
-            .child("activitySuggestions")
-            .child(this.suggested)
-            .child("count")
-            .set(count + 1);
+      db.ref("suggestions")
+        .child(this.currentCountry)
+        .child("activitySuggestions")
+        .child(this.suggested)
+        .child("count")
+        .set(count + 1);
     }
   },
   watch: {

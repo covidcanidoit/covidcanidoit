@@ -9,13 +9,26 @@
       <router-link to="/createUserProfile">Profile</router-link> |
       <router-link to="/about">Learn More</router-link>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img :src="`${ publicPath }images/flag/${ currentCountry }.png`"/>
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbarDropdownMenuLink"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <img :src="`${publicPath}images/flag/${currentCountry}.png`" />
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#" v-for="country in countries" :key="country" @click="setCurrentCountry(country)">
-          <img :src="`${ publicPath }images/flag/${ country }.png`"/>
-          {{ country }}
+          <a
+            class="dropdown-item"
+            href="#"
+            v-for="country in countries"
+            :key="country"
+            @click="setCurrentCountry(country)"
+          >
+            <img :src="`${publicPath}images/flag/${country}.png`" />
+            {{ country }}
           </a>
         </div>
       </li>

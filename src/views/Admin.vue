@@ -270,23 +270,27 @@ export default {
         // Look up current user settings, and if they are an admin load other stuff
         // retrieve a document
         console.log("Going to look up user");
-        db.ref(`users/${user.uid}`).once('value').then(snapshot => {
-          console.log("Looked up current user", snapshot.val());
-          this.currentUser = snapshot.val();
-        });
+        db.ref(`users/${user.uid}`)
+          .once("value")
+          .then(snapshot => {
+            console.log("Looked up current user", snapshot.val());
+            this.currentUser = snapshot.val();
+          });
 
         // Look up current user settings, and if they are an admin load other stuff
         // retrieve a document
         console.log("Going to look up userSettings");
-        db.ref(`userSettings/${user.uid}`).once('value').then(snapshot => {
-          console.log("Looked up current user settings", snapshot.val());
-          this.currentUserSettings = snapshot.val() || {};
-          if(this.currentUserSettings.isAdmin) {
-            console.log("User is an admin!");
-            this.$store.dispatch("bindUsers");
-            this.$store.dispatch("bindUserSettings");
-          }
-        });
+        db.ref(`userSettings/${user.uid}`)
+          .once("value")
+          .then(snapshot => {
+            console.log("Looked up current user settings", snapshot.val());
+            this.currentUserSettings = snapshot.val() || {};
+            if (this.currentUserSettings.isAdmin) {
+              console.log("User is an admin!");
+              this.$store.dispatch("bindUsers");
+              this.$store.dispatch("bindUserSettings");
+            }
+          });
       }
     });
   },
@@ -294,7 +298,7 @@ export default {
     ...mapState(["content", "users", "userSettings", "currentUserUid"]),
     ...mapGetters(["activities", "riskLevels", "riskFactors", "categories"]),
     isAdmin() {
-      return !!(this.currentUserSettings?.isAdmin);
+      return !!this.currentUserSettings?.isAdmin;
     },
     userIds() {
       return Object.keys(this.users);

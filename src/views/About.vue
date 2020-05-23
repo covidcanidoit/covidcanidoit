@@ -2,100 +2,190 @@
   <div class="about">
     <!-- <HowItWorks /> -->
     <div class="info" style="margin:2em">
-    <h1>Questions You Might Have</h1>
+      <h1>Questions You Might Have</h1>
 
-    <div class="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true" style="background:#fec0a4">
+      <div
+        class="accordion md-accordion"
+        id="accordionEx"
+        role="tablist"
+        aria-multiselectable="true"
+        style="background:#fec0a4"
+      >
+        <div class="card" style="background:#fec0a4">
+          <!-- Card header -->
+          <div class="card-header" role="tab" id="headingOne1">
+            <a
+              data-toggle="collapse"
+              data-parent="#accordionEx"
+              href="#collapseOne1"
+              aria-expanded="true"
+              aria-controls="collapseOne1"
+            >
+              <h5 class="mb-0">
+                How does adding the location and time of my activities change
+                the risk?<i class="fas fa-angle-down rotate-icon"></i>
+              </h5>
+            </a>
+          </div>
 
-  <div class="card" style="background:#fec0a4">
+          <!-- Card body -->
+          <div
+            id="collapseOne1"
+            class="collapse show"
+            role="tabpanel"
+            aria-labelledby="headingOne1"
+            data-parent="#accordionEx"
+          >
+            <div class="card-body">
+              <p>
+                CovidCanIDoIt uses Google Maps data which tracks
+                location-specific popularity and wait times to estimate whether
+                a place is busy and let you know that it might be too busy to
+                go.
+              </p>
+              <p>
+                The tool will also suggest alternative times that reduce
+                crowding risk, so that you can more effectively follow social
+                distancing guidelines
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="background:#fec0a4">
+          <!-- Card header -->
+          <div class="card-header" role="tab" id="headingTwo2">
+            <a
+              class="collapsed"
+              data-toggle="collapse"
+              data-parent="#accordionEx"
+              href="#collapseTwo2"
+              aria-expanded="false"
+              aria-controls="collapseTwo2"
+            >
+              <h5 class="mb-0">
+                If I am diagnosed with one of the additional disease and
+                conditions, how does the risk of an activity change?<i
+                  class="fas fa-angle-down rotate-icon"
+                ></i>
+              </h5>
+            </a>
+          </div>
 
-    <!-- Card header -->
-    <div class="card-header" role="tab" id="headingOne1">
-      <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
-        aria-controls="collapseOne1">
-        <h5 class="mb-0">
-          How does adding the location and time of my activities change the risk?<i class="fas fa-angle-down rotate-icon"></i>
-        </h5>
-      </a>
-    </div>
+          <!-- Card body -->
+          <div
+            id="collapseTwo2"
+            class="collapse"
+            role="tabpanel"
+            aria-labelledby="headingTwo2"
+            data-parent="#accordionEx"
+          >
+            <div class="card-body">
+              <p>
+                Research has shown that having one or more specific
+                diseases/conditions can increase your risk of developing severe
+                illness. CovidCanIDoit summarizes recommendations from health
+                authorities when you share your disease/medical condition
+                information with us.
+              </p>
 
-    <!-- Card body -->
-    <div id="collapseOne1" class="collapse show" role="tabpanel" aria-labelledby="headingOne1"
-      data-parent="#accordionEx">
-      <div class="card-body">
-        <p>CovidCanIDoIt uses Google Maps data which tracks location-specific popularity and wait times to estimate whether a place is busy and let you know that it might be too busy to go. </p>
-    <p>The tool will also suggest alternative times that reduce crowding risk, so that you can more effectively follow social distancing guidelines </p>
+              <p>
+                The tool will also suggest that you take additional precautions,
+                like avoiding more crowded places, and finding lower risk ways
+                of accomplishing your daily tasks.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="background:#fec0a4">
+          <!-- Card header -->
+          <div class="card-header" role="tab" id="headingThree3">
+            <a
+              class="collapsed"
+              data-toggle="collapse"
+              data-parent="#accordionEx"
+              href="#collapseThree3"
+              aria-expanded="false"
+              aria-controls="collapseThree3"
+            >
+              <h5 class="mb-0">
+                What does CovidCanIDoIt do with the information I provide?
+                <i class="fas fa-angle-down rotate-icon"></i>
+              </h5>
+            </a>
+          </div>
+
+          <!-- Card body -->
+          <div
+            id="collapseThree3"
+            class="collapse"
+            role="tabpanel"
+            aria-labelledby="headingThree3"
+            data-parent="#accordionEx"
+          >
+            <div class="card-body">
+              <p>
+                We use that information solely for the purposes of responding to
+                your request and improving the Service. For example, we may
+                share your suggested activity with a network of individuals who
+                will research the answer to the question. We may also post a
+                version of your question and our answer that would be useful to
+                provide to the public via the Service. We will not collect your
+                name or email address.
+              </p>
+
+              <p>
+                Check out our Information Collection Statement for a more
+                detailed explanation of where your information goes.
+              </p>
+            </div>
+          </div>
+
+          <div class="card-header" role="tab" id="headingFour4">
+            <a
+              class="collapsed"
+              data-toggle="collapse"
+              data-parent="#accordionEx"
+              href="#collapseFour4"
+              aria-expanded="false"
+              aria-controls="collapseFour4"
+            >
+              <h5 class="mb-0">
+                Can I rely on CovidCanIDoIt for medical advice?
+                <i class="fas fa-angle-down rotate-icon"></i>
+              </h5>
+            </a>
+          </div>
+
+          <!-- Card body -->
+          <div
+            id="collapseFour4"
+            class="collapse"
+            role="tabpanel"
+            aria-labelledby="headingFour4"
+            data-parent="#accordionEx"
+          >
+            <div class="card-body">
+              <p>
+                <strong>You shouldn’t rely on us for medical advice. </strong>
+                We make this question and answer service available to you as a
+                convenience. We will do our best to provide you with the best
+                information available and to keep information accurate and
+                up-to-date, but the situation is changing rapidly, so we can’t
+                guarantee this. We will date and provide a source for answers.
+                If you notice something is incorrect or outdated, please contact
+                us at info@covidcanidoit.com. You should seek medical advice
+                from a licensed professional and follow the instructions of
+                government authorities.
+              </p>
+
+              <p>
+                Check out our Information Collection Statement for a more
+                detailed explanation of the appropriate use of this tool.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-
-  </div>
-  <div class="card" style="background:#fec0a4">
-
-    <!-- Card header -->
-    <div class="card-header" role="tab" id="headingTwo2">
-      <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo2"
-        aria-expanded="false" aria-controls="collapseTwo2">
-        <h5 class="mb-0">
-          If I am diagnosed with one of the additional disease and conditions, how does the risk of an activity change?<i class="fas fa-angle-down rotate-icon"></i>
-        </h5>
-      </a>
-    </div>
-
-    <!-- Card body -->
-    <div id="collapseTwo2" class="collapse" role="tabpanel" aria-labelledby="headingTwo2"
-      data-parent="#accordionEx">
-      <div class="card-body">
-        <p> Research has shown that having one or more specific diseases/conditions can increase your risk of developing severe illness. CovidCanIDoit summarizes recommendations from health authorities when you share your disease/medical condition information with us. </p>
-
-    <p>The tool will also suggest that you take additional precautions, like avoiding more crowded places, and finding lower risk ways of accomplishing your daily tasks. </p>
-      </div>
-    </div>
-
-  </div>
-  <div class="card" style="background:#fec0a4">
-
-    <!-- Card header -->
-    <div class="card-header" role="tab" id="headingThree3">
-      <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree3"
-        aria-expanded="false" aria-controls="collapseThree3">
-        <h5 class="mb-0">
-          What does CovidCanIDoIt do with the information I provide? <i class="fas fa-angle-down rotate-icon"></i>
-        </h5>
-      </a>
-    </div>
-
-    <!-- Card body -->
-    <div id="collapseThree3" class="collapse" role="tabpanel" aria-labelledby="headingThree3"
-      data-parent="#accordionEx">
-      <div class="card-body">
-        <p>We use that information solely for the purposes of responding to your request and improving the Service. For example, we may share your suggested activity with a network of individuals who will research the answer to the question. We may also post a version of your question and our answer that would be useful to provide to the public via the Service. We will not collect your name or email address. </p>
-
-    <p>Check out our Information Collection Statement for a more detailed explanation of where your information goes. </p>
-      </div>
-    </div>
-
-    <div class="card-header" role="tab" id="headingFour4">
-      <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseFour4"
-        aria-expanded="false" aria-controls="collapseFour4">
-        <h5 class="mb-0">
-          Can I rely on CovidCanIDoIt for medical advice? <i class="fas fa-angle-down rotate-icon"></i>
-        </h5>
-      </a>
-    </div>
-
-    <!-- Card body -->
-    <div id="collapseFour4" class="collapse" role="tabpanel" aria-labelledby="headingFour4"
-      data-parent="#accordionEx">
-      <div class="card-body">
-        <p><strong>You shouldn’t rely on us for medical advice. </strong> We make this question and answer service available to you as a convenience. We will do our best to provide you with the best information available and to keep information accurate and up-to-date, but the situation is changing rapidly, so we can’t guarantee this. We will date and provide a source for answers. If you notice something is incorrect or outdated, please contact us at info@covidcanidoit.com.  You should seek medical advice from a licensed professional and follow the instructions of government authorities. </p>
-
-    <p>Check out our Information Collection Statement for a more detailed explanation of the appropriate use of this tool. </p> 
-      </div>
-    </div>
-  </div>
-  
-
-</div>
-      
     </div>
     <div style="margin:2em">
       <div>
@@ -105,10 +195,9 @@
             <th class="peopleBigHeader">Who We Are</th>
           </tr>
           <tr>
-
-          </tr>
             <td class="peopleGroupHeader">Risk Assessment</td>
             <td class="peopleGroupHeader">Development</td>
+          </tr>
           <tr>
             <td class="peopleGroup">
               <ul>
@@ -123,10 +212,15 @@
                   >
                 </li>
                 <li>
-                  <a href="https://www.linkedin.com/in/mpaju-david-07606718a">Mpaju David, MBChB V</a>  
+                  <a href="https://www.linkedin.com/in/mpaju-david-07606718a"
+                    >Mpaju David, MBChB V</a
+                  >
                 </li>
                 <li>
-                  <a href="https://www.linkedin.com/in/joseph-byamugisha-44b313155">Joseph Byamugisha, MBChB V</a>
+                  <a
+                    href="https://www.linkedin.com/in/joseph-byamugisha-44b313155"
+                    >Joseph Byamugisha, MBChB V</a
+                  >
                 </li>
               </ul>
             </td>
@@ -149,7 +243,9 @@
                   >
                 </li>
                 <li>
-                  <a href="https://www.linkedin.com/in/johnny-li-031b949/">Johnny Li</a>
+                  <a href="https://www.linkedin.com/in/johnny-li-031b949/"
+                    >Johnny Li</a
+                  >
                 </li>
               </ul>
             </td>
@@ -180,6 +276,8 @@
           </tr>
           <tr>
             <th class="peopleBigHeader">Who Our Advisors Are</th>
+          </tr>
+
           <tr>
             <td class="peopleGroupHeader">Expert Reviewers</td>
             <td class="peopleGroupHeader">Clinicians</td>
@@ -531,12 +629,10 @@ export default {
   padding-top: 1rem;
   font-weight: 500;
   line-height: 1.2;
-  
 }
 .weTable {
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0px;
 }
-
 </style>

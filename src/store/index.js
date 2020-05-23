@@ -81,30 +81,50 @@ export default new Vuex.Store({
       );
     },
     activities(state) {
-      if (!state.currentCountry) { return []; }
-      if (!state.content || !state.content[state.currentCountry]) { return []; }
+      if (!state.currentCountry) {
+        return [];
+      }
+      if (!state.content || !state.content[state.currentCountry]) {
+        return [];
+      }
       return state.content[state.currentCountry].activities;
     },
     categories(state) {
-      if (!state.currentCountry) { return []; }
-      if (!state.content || !state.content[state.currentCountry]) { return []; }
+      if (!state.currentCountry) {
+        return [];
+      }
+      if (!state.content || !state.content[state.currentCountry]) {
+        return [];
+      }
       return state.content[state.currentCountry].categories;
     },
     riskLevels(state) {
-      if (!state.currentCountry) { return []; }
-      if (!state.content || !state.content[state.currentCountry]) { return []; }
+      if (!state.currentCountry) {
+        return [];
+      }
+      if (!state.content || !state.content[state.currentCountry]) {
+        return [];
+      }
       return state.content[state.currentCountry].riskLevels;
     },
     riskFactors(state) {
-      if (!state.currentCountry) { return []; }
-      if (!state.content || !state.content[state.currentCountry]) { return []; }
+      if (!state.currentCountry) {
+        return [];
+      }
+      if (!state.content || !state.content[state.currentCountry]) {
+        return [];
+      }
       return state.content[state.currentCountry].riskFactors;
     },
     countries(state) {
       return Object.keys(state.content || {});
     },
     currentUserSettings(state) {
-      if (state.currentUserUid && state.userSettings && state.userSettings[state.currentUserUid]) {
+      if (
+        state.currentUserUid &&
+        state.userSettings &&
+        state.userSettings[state.currentUserUid]
+      ) {
         return state.userSettings[state.currentUserUid];
       } else {
         return {};
@@ -113,8 +133,7 @@ export default new Vuex.Store({
     suggestions(state) {
       if (state.suggestions && state.suggestions[state.currentCountry]) {
         return state.suggestions;
-      }
-      else {
+      } else {
         return [];
       }
     },
@@ -135,10 +154,10 @@ export default new Vuex.Store({
       console.log("Binding userSettings");
       return bindFirebaseRef("userSettings", db.ref("userSettings"));
     }),
-    bindSuggestions: firebaseAction(({bindFirebaseRef}) => {
+    bindSuggestions: firebaseAction(({ bindFirebaseRef }) => {
       console.log("Binding suggestions");
       return bindFirebaseRef("suggestions", db.ref("suggestions"));
     })
-  }, 
+  },
   modules: {}
 });

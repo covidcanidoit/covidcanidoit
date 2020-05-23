@@ -35,20 +35,22 @@ describe("Browsing Categories", () => {
   });
   it("Click Activity in Category", () => {
     //cy.contains("Dog Walking").click();
-    cy.get(".router-link-active").contains("Dog Walking").click();
+    cy.get(".router-link-active")
+      .contains("Dog Walking")
+      .click();
     cy.contains("Skip").click();
     cy.contains("Dog");
     cy.contains("risk level");
   });
-})
+});
 
 describe("Profile", () => {
   it("Navigates from homepage to profile", () => {
     cy.visit("/");
     cy.contains("Profile").click();
-    cy.contains("Personalized Risk Screener")
+    cy.contains("Personalized Risk Screener");
   });
-  it("Fill in profile after search",() =>{
+  it("Fill in profile after search", () => {
     cy.visit("/");
     cy.get(".v-select").type("sex");
     cy.contains("Sex with casual partner").click();
@@ -63,7 +65,7 @@ describe("Profile", () => {
     cy.contains("Going to barber").click();
     cy.contains("Personalized Risk Screener");
     cy.contains("How old are you?");
-    cy.get(':nth-child(1) > .content > .form-select').select("70+");
+    cy.get(":nth-child(1) > .content > .form-select").select("70+");
     //cy.contains("70+").click();
     cy.contains("Submit").click();
     cy.contains("Going to barber");
@@ -83,4 +85,3 @@ describe("Change Country", () => {
     cy.contains("Prayer congregations");
   });
 });
-

@@ -10,9 +10,10 @@
           v-model="searchTerm"
           v-on:input="onSearch"
         >
-          <template #no-options='{ search, searching}'>
+          <template #no-options="{ search, searching}">
             <template v-if="searching">
-              We don't have information on {{computedSearch(search)}}. Click "Assess my risk!" to suggest it.
+              We don't have information on {{ computedSearch(search) }}. Click
+              "Assess my risk!" to suggest it.
             </template>
           </template>
         </VueSelect>
@@ -70,7 +71,7 @@ export default {
   methods: {
     onSearch() {
       if (this.searchTerm === "") {
-        this.$emit("suggested",this.suggested)
+        this.$emit("suggested", this.suggested);
         this.suggested = "";
       }
       this.$emit("searched", this.searchTerm);
@@ -279,7 +280,6 @@ export default {
   margin-top: 0;
 }
 .subheader {
-  
   margin-top: 1px;
   clear: both;
 }
