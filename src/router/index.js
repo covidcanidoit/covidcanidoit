@@ -31,7 +31,7 @@ const routes = [
     beforeEnter(to, from, next) {
       const country = to.params.country;
       console.log("Router /:country", { country });
-      if (store.getters.countries.includes(country)) {
+      if (store.getters.countries.includes(country) || country == "US") {
         console.log("We do have that country");
         if (store.state.currentCountry !== country) {
           console.log("We are not already on that as the currentCountry, dispatching");

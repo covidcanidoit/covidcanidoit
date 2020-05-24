@@ -2,11 +2,11 @@
 
 describe("Homepage", () => {
   it("Loads with header text", () => {
-    cy.visit("/");
+    cy.visit("/US/");
     cy.contains(".header", "Can I");
   });
   it("Shows the nav", () => {
-    cy.visit("/");
+    cy.visit("/US/");
     cy.contains(".navigation", "Find An Activity");
   });
 });
@@ -24,7 +24,7 @@ describe("Searching", () => {
 
 describe("Browsing Categories", () => {
   it("Navigates from homepage to categories", () => {
-    cy.visit("/");
+    cy.visit("/US/");
     cy.contains("Find An Activity").click();
     cy.contains("h1", "Browse activities by category");
   });
@@ -34,10 +34,8 @@ describe("Browsing Categories", () => {
     cy.get(".activities").contains("Going");
   });
   it("Click Activity in Category", () => {
-    //cy.contains("Dog Walking").click();
-    cy.get(".router-link-active")
-      .contains("Dog Walking")
-      .click();
+    cy.contains("Category: Errand");
+    cy.contains(".activity-name", "Dog Walking").click();
     cy.contains("Skip").click();
     cy.contains("Dog");
     cy.contains("risk level");
@@ -46,12 +44,12 @@ describe("Browsing Categories", () => {
 
 describe("Profile", () => {
   it("Navigates from homepage to profile", () => {
-    cy.visit("/");
+    cy.visit("/US/");
     cy.contains("Profile").click();
     cy.contains("Personalized Risk Screener");
   });
   it("Fill in profile after search", () => {
-    cy.visit("/");
+    cy.visit("/US/");
     cy.get(".v-select").type("sex");
     cy.contains("Sex with casual partner").click();
     cy.contains("Personalized Risk Screener");
@@ -60,7 +58,7 @@ describe("Profile", () => {
     cy.contains("risk level");
   });
   it("Add additional risk", () => {
-    cy.visit("/");
+    cy.visit("/US/");
     cy.get(".v-select").type("Going to bar");
     cy.contains("Going to barber").click();
     cy.contains("Personalized Risk Screener");
@@ -76,12 +74,13 @@ describe("Profile", () => {
 
 describe("Change Country", () => {
   it("Click and change country", () => {
-    cy.visit("/");
+    cy.visit("/US/");
     cy.get("#navbarDropdownMenuLink > img").click();
     cy.contains("US");
     cy.contains("UG");
     cy.get(".dropdown-menu > :nth-child(1)").click();
     cy.get(".v-select").click();
     cy.contains("Prayer congregations");
+    cy.visit("/US/");
   });
 });
