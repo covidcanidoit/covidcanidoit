@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-    <router-link class="router" to="/">
+    <router-link class="router" :to="{name: 'Home'}">
       <img src="@/assets/logo.png" class="logo" align="left" />
     </router-link>
     <div id="nav" class="navigation">
-      <router-link class="router" to="/">Home</router-link> |
-      <router-link class="router" to="/browse">Find An Activity</router-link> |
-      <router-link to="/createUserProfile">Profile</router-link> |
-      <router-link to="/about">Learn More</router-link>
+      <router-link class="router" :to="{name: 'Home'}">Home</router-link> |
+      <router-link class="router" :to="{name: 'Browse'}">Find An Activity</router-link> |
+      <router-link :to="{name: 'CreateUserProfile'}">Profile</router-link> |
+      <router-link :to="{name: 'About'}">Learn More</router-link>
       <li class="nav-item dropdown">
         <a
           class="nav-link dropdown-toggle"
@@ -20,16 +20,15 @@
           <img :src="`${publicPath}images/flag/${currentCountry}.png`" />
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a
+          <button
             class="dropdown-item"
-            href="#"
             v-for="country in countries"
             :key="country"
             @click="setCurrentCountry(country)"
           >
             <img :src="`${publicPath}images/flag/${country}.png`" />
             {{ country }}
-          </a>
+          </button>
         </div>
       </li>
     </div>
@@ -54,15 +53,18 @@ export default {
     console.log("Loading content from Firebase");
     this.$store.dispatch("bindContent");
     this.$store.dispatch("bindSuggestions");
+    this.$store.dispatch('changeCountry', this.$store.state.currentCountry)
   },
   methods: {
-    changeCountry(event) {
-      this.$store.commit("setCurrentCountry", event.target.value);
-    },
     setCurrentCountry(country) {
-      this.$store.commit("setCurrentCountry", country);
+      this.$store.dispatch('changeCountry', country);
     }
-  }
+  },
+  watch: {
+    currentCountry() {
+      this.$router.replace({ params: { country: this.currentCountry } }).catch(() => {})
+    }
+  },
 };
 </script>
 

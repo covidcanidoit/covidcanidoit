@@ -157,7 +157,11 @@ export default new Vuex.Store({
     bindSuggestions: firebaseAction(({ bindFirebaseRef }) => {
       console.log("Binding suggestions");
       return bindFirebaseRef("suggestions", db.ref("suggestions"));
-    })
+    }),
+    changeCountry({ commit }, newCountry) {
+      // i18n.locale = newLocale
+      commit('setCurrentCountry', newCountry);
+    }
   },
   modules: {}
 });
