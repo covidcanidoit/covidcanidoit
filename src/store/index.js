@@ -130,11 +130,14 @@ export default new Vuex.Store({
         return {};
       }
     },
-    suggestions(state) {
+    suggestionsForCountry(state) {
+      if (!state.currentCountry) {
+        return {};
+      }
       if (state.suggestions && state.suggestions[state.currentCountry]) {
-        return state.suggestions;
+        return state.suggestions[state.currentCountry];
       } else {
-        return [];
+        return {};
       }
     },
     currentCountry(state) {

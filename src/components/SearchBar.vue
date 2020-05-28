@@ -15,7 +15,7 @@
             "Assess my risk!" to suggest it.
           </template>
         </template>
-      </VueSelect><button class="run-search" @click="onSearch">"Assess my risk!"</button>
+      </VueSelect><button class="run-search" @click="onSearch">Assess my risk!</button>
     </div>
     <p class="subheader">...safely during the COVID-19 outbreak.</p>
     <div class="or-others">

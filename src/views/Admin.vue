@@ -233,6 +233,44 @@
           </tbody>
         </table>
       </div>
+      <div>
+        <h2 class="btn" @click="toggleSuggestions">
+          {{ showSuggestions ? "&#x25bc;" : "&#x25b6;" }} Suggestions
+        </h2>
+        <table
+          class="table table-striped"
+          v-show="showSuggestions"
+          cellspacing="0"
+          cellpadding="2px"
+          border="1"
+        >
+          <thead class="thead-dark">
+            <tr>
+              <th>Area</th>
+              <th>Count</th>
+              <th>{{suggestionsForCountry}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="topic in suggestionsForCountry" :key="topic">
+              <td>
+                <!--<router-link
+                  :to="{
+                    name: 'AdminUserEdit',
+                    params: { userId: userId }
+                  }"
+                >
+                  Edit
+                </router-link>-->
+              </td>
+              <td>{{ topic }}</td>
+              <td>
+                {{ Object.keys(topic).length }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -249,6 +287,7 @@ export default {
       showRiskFactors: false,
       showRiskLevels: false,
       showUsers: false,
+      showSuggestions: false,
       currentUser: undefined,
       currentUserSettings: undefined
     };
@@ -296,7 +335,7 @@ export default {
   },
   computed: {
     ...mapState(["content", "users", "userSettings", "currentUserUid"]),
-    ...mapGetters(["activities", "riskLevels", "riskFactors", "categories"]),
+    ...mapGetters(["activities", "riskLevels", "riskFactors", "categories","suggestionsForCountry"]),
     isAdmin() {
       return !!this.currentUserSettings?.isAdmin;
     },
@@ -336,6 +375,9 @@ export default {
     },
     toggleUsers() {
       this.showUsers = !this.showUsers;
+    },
+    toggleSuggestions() {
+      this.showSuggestions = !this.showSuggestions;
     },
     deleteUser(userId) {
       db.ref("userSettings")

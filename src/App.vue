@@ -47,12 +47,17 @@ export default {
   },
   computed: {
     ...mapState(["currentCountry"]),
-    ...mapGetters(["countries"])
+    ...mapGetters(["countries","suggestionsForCountry"])
   },
   created() {
     console.log("Loading content from Firebase");
     this.$store.dispatch("bindContent");
     this.$store.dispatch("bindSuggestions");
+
+    console.log("country", this.$store.state.currentCountry);
+    console.log("post bind suggestions", this.suggestionsForCountry);
+    console.log("suggestions", this.$store.state.suggestions);
+
     this.$store.dispatch('changeCountry', this.$store.state.currentCountry)
   },
   methods: {
