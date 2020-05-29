@@ -1,9 +1,9 @@
 <template>
   <v-app>
-    <router-link class="router" :to="{ name: 'Home' }">
-      <img src="@/assets/logo.png" class="logo" align="left" />
-    </router-link>
     <div id="nav" class="navigation">
+      <router-link class="router" :to="{ name: 'Home' }">
+        <img src="@/assets/logo.png" class="logo" align="left" />
+      </router-link>
       <router-link class="router" :to="{ name: 'Home' }">Home</router-link> |
       <router-link class="router" :to="{ name: 'Browse' }"
         >Find An Activity</router-link
@@ -94,12 +94,12 @@ body {
 .logo {
   width: 200px;
   height: 100px;
+  margin: 0;
 }
 
 .navigation {
   height: 100px;
   text-align: right;
-  padding: 1em;
 
   a {
     font-weight: bold;
