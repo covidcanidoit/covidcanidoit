@@ -280,5 +280,4 @@ export default {
 .v-select .vs__dropdown-toggle .vs__actions {
   display: none;
 }
-
 </style>
