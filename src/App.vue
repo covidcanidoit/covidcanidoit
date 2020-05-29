@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <v-app>
     <router-link class="router" :to="{ name: 'Home' }">
       <img src="@/assets/logo.png" class="logo" align="left" />
     </router-link>
@@ -35,7 +35,7 @@
       </li>
     </div>
     <div><router-view /></div>
-  </div>
+  </v-app>
 </template>
 
 <script>
