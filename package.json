@@ -38,6 +38,7 @@
     "vuexfire": "^3.2.2"
   },
   "devDependencies": {
+    "@vue/cli": "^4.4.1",
     "@vue/cli-plugin-babel": "~4.2.0",
     "@vue/cli-plugin-e2e-cypress": "~4.2.0",
     "@vue/cli-plugin-eslint": "~4.2.0",
