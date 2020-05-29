@@ -1,13 +1,15 @@
 <template>
-  <div id="app">
-    <router-link class="router" :to="{name: 'Home'}">
+  <v-app>
+    <router-link class="router" :to="{ name: 'Home' }">
       <img src="@/assets/logo.png" class="logo" align="left" />
     </router-link>
     <div id="nav" class="navigation">
-      <router-link class="router" :to="{name: 'Home'}">Home</router-link> |
-      <router-link class="router" :to="{name: 'Browse'}">Find An Activity</router-link> |
-      <router-link :to="{name: 'CreateUserProfile'}">Profile</router-link> |
-      <router-link :to="{name: 'About'}">Learn More</router-link>
+      <router-link class="router" :to="{ name: 'Home' }">Home</router-link> |
+      <router-link class="router" :to="{ name: 'Browse' }"
+        >Find An Activity</router-link
+      >
+      | <router-link :to="{ name: 'CreateUserProfile' }">Profile</router-link> |
+      <router-link :to="{ name: 'About' }">Learn More</router-link>
       <li class="nav-item dropdown">
         <a
           class="nav-link dropdown-toggle"
@@ -33,7 +35,7 @@
       </li>
     </div>
     <div><router-view /></div>
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -53,18 +55,20 @@ export default {
     console.log("Loading content from Firebase");
     this.$store.dispatch("bindContent");
     this.$store.dispatch("bindSuggestions");
-    this.$store.dispatch('changeCountry', this.$store.state.currentCountry)
+    this.$store.dispatch("changeCountry", this.$store.state.currentCountry);
   },
   methods: {
     setCurrentCountry(country) {
-      this.$store.dispatch('changeCountry', country);
+      this.$store.dispatch("changeCountry", country);
     }
   },
   watch: {
     currentCountry() {
-      this.$router.replace({ params: { country: this.currentCountry } }).catch(() => {})
+      this.$router
+        .replace({ params: { country: this.currentCountry } })
+        .catch(() => {});
     }
-  },
+  }
 };
 </script>
 
