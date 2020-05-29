@@ -160,7 +160,7 @@ export default new Vuex.Store({
     }),
     changeCountry({ commit }, newCountry) {
       // i18n.locale = newLocale
-      commit('setCurrentCountry', newCountry);
+      commit("setCurrentCountry", newCountry);
     }
   },
   modules: {}

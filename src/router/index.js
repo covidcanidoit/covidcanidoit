@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import store from '@/store'
+import store from "@/store";
 import AppBody from "@/components/AppBody.vue";
 import Home from "@/views/Home.vue";
 import Browse from "@/views/Browse.vue";
@@ -18,15 +18,15 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'root',
+    path: "/",
+    name: "root",
     beforeEnter(to, from, next) {
       console.log(`Router / -> next(${store.state.currentCountry})`);
       next(store.state.currentCountry);
     }
   },
   {
-    path: '/:country',
+    path: "/:country",
     component: AppBody,
     beforeEnter(to, from, next) {
       const country = to.params.country;
@@ -34,8 +34,10 @@ const routes = [
       if (store.getters.countries.includes(country) || country == "US") {
         console.log("We do have that country");
         if (store.state.currentCountry !== country) {
-          console.log("We are not already on that as the currentCountry, dispatching");
-          store.dispatch('changeCountry', country);
+          console.log(
+            "We are not already on that as the currentCountry, dispatching"
+          );
+          store.dispatch("changeCountry", country);
         }
         return next();
       } else {
