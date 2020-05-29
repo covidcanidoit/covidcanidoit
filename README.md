@@ -20,6 +20,8 @@ yarn deploy
 # The rules are defined in firebase.rules.json
 yarn deploy-db-rules
 
+asdf
+
 # Run your tests
 yarn test:unit
 yarn test:e2e
