@@ -248,24 +248,15 @@
             <tr>
               <th>Area</th>
               <th>Count</th>
-              <th>{{suggestionsForCountry}}</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="topic in suggestionsForCountry" :key="topic">
+            <tr v-for="(topic,topicName) in activitySuggestions" :key="topic.key">
               <td>
-                <!--<router-link
-                  :to="{
-                    name: 'AdminUserEdit',
-                    params: { userId: userId }
-                  }"
-                >
-                  Edit
-                </router-link>-->
+                {{ topicName }}
               </td>
-              <td>{{ topic }}</td>
               <td>
-                {{ Object.keys(topic).length }}
+                {{ topic.count }}
               </td>
             </tr>
           </tbody>
@@ -335,7 +326,7 @@ export default {
   },
   computed: {
     ...mapState(["content", "users", "userSettings", "currentUserUid"]),
-    ...mapGetters(["activities", "riskLevels", "riskFactors", "categories","suggestionsForCountry"]),
+    ...mapGetters(["activities", "riskLevels", "riskFactors", "categories","activitySuggestions"]),
     isAdmin() {
       return !!this.currentUserSettings?.isAdmin;
     },

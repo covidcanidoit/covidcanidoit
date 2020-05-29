@@ -47,16 +47,12 @@ export default {
   },
   computed: {
     ...mapState(["currentCountry"]),
-    ...mapGetters(["countries","suggestionsForCountry"])
+    ...mapGetters(["countries","activitySuggestions"])
   },
   async created() {
     console.log("Loading content from Firebase");
     await this.$store.dispatch("bindContent");
     await this.$store.dispatch("bindSuggestions");
-
-    console.log("country", this.$store.state.currentCountry);
-    console.log("post bind suggestions", this.suggestionsForCountry);
-    console.log("suggestions", this.$store.state.suggestions);
 
     this.$store.dispatch('changeCountry', this.$store.state.currentCountry)
   },
