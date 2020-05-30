@@ -7,6 +7,7 @@
       :activityList="activityList"
       :perPage="5"
     />
+    <HomeBanner />
     <ThanksForSuggesting v-if="noResults" :suggested="suggested" />
     <SearchResults
       :activity="result"
@@ -22,6 +23,7 @@
 <script>
 import SearchBar from "@/components/SearchBar.vue";
 import SearchResults from "@/components/SearchResults.vue";
+import HomeBanner from "@/components/HomeBanner.vue";
 import HowItWorks from "@/components/HowItWorks.vue";
 import ThanksForSuggesting from "@/components/ThanksForSuggesting.vue";
 import { mapState, mapGetters } from "vuex";
@@ -34,7 +36,8 @@ export default {
     SearchBar,
     SearchResults,
     HowItWorks,
-    ThanksForSuggesting
+    ThanksForSuggesting,
+    HomeBanner
     // Chart
   },
   data: function() {
