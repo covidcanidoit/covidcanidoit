@@ -312,13 +312,7 @@ export default {
   },
   computed: {
     ...mapState(["content", "users", "userSettings", "currentUserUid"]),
-    ...mapGetters([
-      "activities",
-      "riskLevels",
-      "riskFactors",
-      "categories",
-      "currentCountry"
-    ]),
+    ...mapGetters(["activities", "riskLevels", "riskFactors", "categories", "currentCountry"]),
     isAdmin() {
       return !!this.currentUserSettings?.isAdmin;
     },
@@ -405,10 +399,7 @@ export default {
         .remove();
     },
     slugify(nodeName) {
-      return nodeName
-        .split(" ")
-        .join("-")
-        .toLowerCase();
+      return nodeName.split(" ").join("-").toLowerCase();
     }
   }
 };

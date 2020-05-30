@@ -14,6 +14,8 @@ import "@mdi/font/css/materialdesignicons.css";
 import { rtdbPlugin } from "vuefire";
 Vue.use(rtdbPlugin);
 
+Vue.use(VueMaterial)
+
 Vue.config.productionTip = false;
 
 Vue.use(
