@@ -2,20 +2,17 @@
   <div class="admin-view">
     <h1>Admin!</h1>
 
-    <button class="btn btn-primary" v-if="!currentUser" @click="login">
-      Sign in with Google
-    </button>
-    <button class="btn btn-secondary" v-if="currentUser" @click="logout">
-      Sign out
-    </button>
+    <button class="btn btn-primary" v-if="!currentUser" @click="login">Sign in with Google</button>
+    <button class="btn btn-secondary" v-if="currentUser" @click="logout">Sign out</button>
     Current User: {{ currentUser && currentUser.email }} isAdmin: {{ isAdmin }}
     <br />
 
     <div v-if="isAdmin && users && userSettings">
       <div>
-        <h2 class="btn" @click="toggleActivities">
-          {{ showActivities ? "&#x25bc;" : "&#x25b6;" }} Activities
-        </h2>
+        <h2
+          class="btn"
+          @click="toggleActivities"
+        >{{ showActivities ? "&#x25bc;" : "&#x25b6;" }} Activities</h2>
         <table
           class="table table-striped"
           v-show="showActivities"
@@ -46,9 +43,7 @@
                       slug: activity.slug
                     }
                   }"
-                >
-                  Edit
-                </router-link>
+                >Edit</router-link>
               </td>
               <td>{{ activity.slug }}</td>
               <td>
@@ -57,9 +52,7 @@
                     name: 'Home',
                     params: { search: activity.activityName }
                   }"
-                >
-                  {{ activity.activityName }}
-                </router-link>
+                >{{ activity.activityName }}</router-link>
               </td>
               <td>{{ activity.category }}</td>
               <td>{{ activity.generalRiskScore }}</td>
@@ -69,12 +62,38 @@
             </tr>
           </tbody>
         </table>
+        <div class="utilityShelf" v-show="showActivities">
+          <v-dialog v-model="showNewActivityPrompt" persistent max-width="500">
+            <template v-slot:activator="{ on }">
+              <v-btn class="buttonNew" color="dark" dark v-on="on">&#x2b; New</v-btn>
+            </template>
+            <v-card>
+              <v-card-title class="headline">Enter new activity name</v-card-title>
+              <v-text-field
+                class="promptInput"
+                v-model="newActivityName"
+                :counter="50"
+                label="Enter activity name"
+                clearable
+                @keydown="activityAlreadyExistsError = false"
+                @keydown.enter="newActivityOk"
+              ></v-text-field>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="secondary darken-1" text @click="showNewActivityPrompt = false">Cancel</v-btn>
+                <v-btn color="primary darken-1" text @click="newActivityOk">Ok</v-btn>
+              </v-card-actions>
+            </v-card>
+            <v-alert v-model="activityAlreadyExistsError" type="error" dismissible="true">Activity already exists!</v-alert>
+          </v-dialog>
+        </div>
       </div>
 
       <div>
-        <h2 class="btn" @click="toggleRiskLevels">
-          {{ showRiskLevels ? "&#x25bc;" : "&#x25b6;" }} Risk Levels
-        </h2>
+        <h2
+          class="btn"
+          @click="toggleRiskLevels"
+        >{{ showRiskLevels ? "&#x25bc;" : "&#x25b6;" }} Risk Levels</h2>
         <table
           class="table table-striped"
           v-show="showRiskLevels"
@@ -97,9 +116,7 @@
                     name: 'AdminRiskLevelEdit',
                     params: { riskScore: riskLevel.riskScore }
                   }"
-                >
-                  Edit
-                </router-link>
+                >Edit</router-link>
               </td>
               <td>{{ riskLevel.riskScore }}</td>
               <td>{{ riskLevel.riskName }}</td>
@@ -109,9 +126,10 @@
       </div>
 
       <div>
-        <h2 class="btn" @click="toggleRiskFactors">
-          {{ showRiskFactors ? "&#x25bc;" : "&#x25b6;" }} Risk Factors
-        </h2>
+        <h2
+          class="btn"
+          @click="toggleRiskFactors"
+        >{{ showRiskFactors ? "&#x25bc;" : "&#x25b6;" }} Risk Factors</h2>
         <table
           class="table table-striped"
           v-show="showRiskFactors"
@@ -138,12 +156,12 @@
                     name: 'AdminRiskFactorEdit',
                     params: { name: riskFactor.name }
                   }"
-                >
-                  Edit
-                </router-link>
+                >Edit</router-link>
               </td>
               <td>{{ riskFactor.description }}</td>
-              <td><i class="icon" :class="riskFactor.icon"></i></td>
+              <td>
+                <i class="icon" :class="riskFactor.icon"></i>
+              </td>
               <td>{{ riskFactor.longDescription }}</td>
               <td>{{ riskFactor.name }}</td>
               <td>{{ riskFactor.shortDescription }}</td>
@@ -154,9 +172,10 @@
       </div>
 
       <div>
-        <h2 class="btn" @click="toggleCategories">
-          {{ showCategories ? "&#x25bc;" : "&#x25b6;" }} Categories
-        </h2>
+        <h2
+          class="btn"
+          @click="toggleCategories"
+        >{{ showCategories ? "&#x25bc;" : "&#x25b6;" }} Categories</h2>
         <table
           class="table table-striped"
           v-show="showCategories"
@@ -181,12 +200,12 @@
                     name: 'AdminCategoryEdit',
                     params: { categoryName: category.name }
                   }"
-                >
-                  Edit
-                </router-link>
+                >Edit</router-link>
               </td>
               <td>{{ category.name }}</td>
-              <td><i class="icon" :class="category.icon"></i></td>
+              <td>
+                <i class="icon" :class="category.icon"></i>
+              </td>
               <td>{{ category.shortDescription }}</td>
               <td>{{ category.longDescription }}</td>
             </tr>
@@ -195,9 +214,7 @@
       </div>
 
       <div>
-        <h2 class="btn" @click="toggleUsers">
-          {{ showUsers ? "&#x25bc;" : "&#x25b6;" }} Users
-        </h2>
+        <h2 class="btn" @click="toggleUsers">{{ showUsers ? "&#x25bc;" : "&#x25b6;" }} Users</h2>
         <table
           class="table table-striped"
           v-show="showUsers"
@@ -220,15 +237,11 @@
                     name: 'AdminUserEdit',
                     params: { userId: userId }
                   }"
-                >
-                  Edit
-                </router-link>
+                >Edit</router-link>
                 <button @click="deleteUser(userId)">Delete</button>
               </td>
               <td>{{ users[userId].email }}</td>
-              <td>
-                {{ userSettings[userId] && userSettings[userId].isAdmin }}
-              </td>
+              <td>{{ userSettings[userId] && userSettings[userId].isAdmin }}</td>
             </tr>
           </tbody>
         </table>
@@ -249,6 +262,9 @@ export default {
       showRiskFactors: false,
       showRiskLevels: false,
       showUsers: false,
+      showNewActivityPrompt: false,
+      newActivityName: "",
+      activityAlreadyExistsError: false,
       currentUser: undefined,
       currentUserSettings: undefined
     };
@@ -296,7 +312,7 @@ export default {
   },
   computed: {
     ...mapState(["content", "users", "userSettings", "currentUserUid"]),
-    ...mapGetters(["activities", "riskLevels", "riskFactors", "categories"]),
+    ...mapGetters(["activities", "riskLevels", "riskFactors", "categories", "currentCountry"]),
     isAdmin() {
       return !!this.currentUserSettings?.isAdmin;
     },
@@ -337,6 +353,43 @@ export default {
     toggleUsers() {
       this.showUsers = !this.showUsers;
     },
+    newActivity() {
+      this.showNewActivityPrompt = true;
+    },
+    newActivityOk() {
+      let currentKey = Object.keys(this.activities).find(
+        key =>
+          this.activities[key].activityName.toLowerCase() ===
+          this.newActivityName.toLowerCase()
+      );
+      console.log("New Activity?", currentKey);
+      if (currentKey) {
+        this.activityAlreadyExistsError = true;
+      } else {
+        let activityName = this.newActivityName;
+        let activitySlug = this.slugify(activityName);
+        this.showNewActivityPrompt = false;
+        db.ref("content")
+          .child(this.currentCountry)
+          .child("activities")
+          .child(activitySlug)
+          .child("slug")
+          .set(activitySlug);
+        db.ref("content")
+          .child(this.currentCountry)
+          .child("activities")
+          .child(activitySlug)
+          .child("activityName")
+          .set(activityName);
+        this.$router.push({
+          name: "AdminActivityEdit",
+          params: { activityName: activityName, slug: activitySlug }
+        });
+      }
+    },
+    activityAlreadyExistsErrorOk() {
+      this.newActivityName = "";
+    },
     deleteUser(userId) {
       db.ref("userSettings")
         .child(userId)
@@ -344,6 +397,9 @@ export default {
       db.ref("users")
         .child(userId)
         .remove();
+    },
+    slugify(nodeName) {
+      return nodeName.split(" ").join("-").toLowerCase();
     }
   }
 };
@@ -352,5 +408,22 @@ export default {
 <style scoped lang="scss">
 table {
   margin: 0 1em;
+}
+
+.buttonNew {
+  float: right;
+  margin-top: 0.1em;
+}
+
+.utilityShelf {
+  width: 100%;
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.promptInput {
+  margin-left: 1em;
+  margin-right: 1em;
 }
 </style>
