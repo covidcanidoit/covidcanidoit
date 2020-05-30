@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "coronavirus-6b732"
+    "default": "coronavirus-6b732",
+    "production": "coronavirus-6b732",
+    "staging": "ccidi-staging"
   }
 }
