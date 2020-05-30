@@ -62,27 +62,30 @@
             </tr>
           </tbody>
         </table>
-        <div class="utilityShelf">
-          <md-dialog-prompt
-            :md-active.sync="showNewActivityPrompt"
-            v-model="newActivityName"
-            md-title="Enter new activity name"
-            md-input-maxlength="50"
-            md-input-placeholder="Enter activity name."
-            md-confirm-text="Ok"
-            @md-confirm="newActivityOk"
-          />
-          <md-dialog-alert
-            :md-active.sync="activityAlreadyExistsError"
-            md-content="Activity already exists!"
-            md-confirm-text="Ok"
-            @md-confirm="activityAlreadyExistsErrorOk"
-          />
-          <button
-            class="btn btn-dark buttonNew"
-            v-show="showActivities"
-            @click="newActivity"
-          >&#x2b; New</button>
+        <div class="utilityShelf" v-show="showActivities">
+          <v-dialog v-model="showNewActivityPrompt" persistent max-width="500">
+            <template v-slot:activator="{ on }">
+              <v-btn class="buttonNew" color="dark" dark v-on="on">&#x2b; New</v-btn>
+            </template>
+            <v-card>
+              <v-card-title class="headline">Enter new activity name</v-card-title>
+              <v-text-field
+                class="promptInput"
+                v-model="newActivityName"
+                :counter="50"
+                label="Enter activity name"
+                clearable
+                @keydown="activityAlreadyExistsError = false"
+                @keydown.enter="newActivityOk"
+              ></v-text-field>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="secondary darken-1" text @click="showNewActivityPrompt = false">Cancel</v-btn>
+                <v-btn color="primary darken-1" text @click="newActivityOk">Ok</v-btn>
+              </v-card-actions>
+            </v-card>
+            <v-alert v-model="activityAlreadyExistsError" type="error" dismissible="true">Activity already exists!</v-alert>
+          </v-dialog>
         </div>
       </div>
 
@@ -309,7 +312,13 @@ export default {
   },
   computed: {
     ...mapState(["content", "users", "userSettings", "currentUserUid"]),
-    ...mapGetters(["activities", "riskLevels", "riskFactors", "categories", "currentCountry"]),
+    ...mapGetters([
+      "activities",
+      "riskLevels",
+      "riskFactors",
+      "categories",
+      "currentCountry"
+    ]),
     isAdmin() {
       return !!this.currentUserSettings?.isAdmin;
     },
@@ -365,22 +374,22 @@ export default {
       } else {
         let activityName = this.newActivityName;
         let activitySlug = this.slugify(activityName);
-        console.log()
+        this.showNewActivityPrompt = false;
         db.ref("content")
-        .child(this.currentCountry)
-        .child("activities")
-        .child(activitySlug)
-        .child("slug")
-        .set(activitySlug);
+          .child(this.currentCountry)
+          .child("activities")
+          .child(activitySlug)
+          .child("slug")
+          .set(activitySlug);
         db.ref("content")
-        .child(this.currentCountry)
-        .child("activities")
-        .child(activitySlug)
-        .child("activityName")
-        .set(activityName);
+          .child(this.currentCountry)
+          .child("activities")
+          .child(activitySlug)
+          .child("activityName")
+          .set(activityName);
         this.$router.push({
           name: "AdminActivityEdit",
-          params: { "activityName": activityName, "slug": activitySlug }
+          params: { activityName: activityName, slug: activitySlug }
         });
       }
     },
@@ -396,7 +405,10 @@ export default {
         .remove();
     },
     slugify(nodeName) {
-      return nodeName.split(" ").join("-").toLowerCase();
+      return nodeName
+        .split(" ")
+        .join("-")
+        .toLowerCase();
     }
   }
 };
@@ -417,5 +429,10 @@ table {
   content: "";
   clear: both;
   display: table;
+}
+
+.promptInput {
+  margin-left: 1em;
+  margin-right: 1em;
 }
 </style>
