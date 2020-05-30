@@ -385,6 +385,7 @@ export default {
     },
     toggleSuggestions() {
       this.showSuggestions = !this.showSuggestions;
+    },
     newActivity() {
       this.showNewActivityPrompt = true;
     },
