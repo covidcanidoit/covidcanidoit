@@ -7,7 +7,7 @@
       :activityList="activityList"
       :perPage="5"
     />
-    <HomeBanner />
+    <HomeBanner v-if="currentCountry === 'US'" />
     <ThanksForSuggesting v-if="noResults" :suggested="suggested" />
     <SearchResults
       :activity="result"
@@ -49,7 +49,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["userProfile"]),
+    ...mapState(["userProfile", "currentCountry"]),
     ...mapGetters(["hasEnteredProfileData", "activities"]),
     activityList() {
       return Object.values(this.activities || {}).map(
