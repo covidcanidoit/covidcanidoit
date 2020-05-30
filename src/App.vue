@@ -49,9 +49,9 @@ export default {
   },
   computed: {
     ...mapState(["currentCountry"]),
-    ...mapGetters(["countries"])
+    ...mapGetters(["countries","activitySuggestions"])
   },
-  created() {
+  async created() {
     console.log("Loading content from Firebase");
     this.$store.dispatch("bindContent");
     this.$store.dispatch("bindSuggestions");

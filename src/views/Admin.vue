@@ -246,6 +246,35 @@
           </tbody>
         </table>
       </div>
+      <div>
+        <h2 class="btn" @click="toggleSuggestions">
+          {{ showSuggestions ? "&#x25bc;" : "&#x25b6;" }} Suggestions
+        </h2>
+        <table
+          class="table table-striped"
+          v-show="showSuggestions"
+          cellspacing="0"
+          cellpadding="2px"
+          border="1"
+        >
+          <thead class="thead-dark">
+            <tr>
+              <th>Area</th>
+              <th>Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(topic,topicName) in activitySuggestions" :key="topic.key">
+              <td>
+                {{ topicName }}
+              </td>
+              <td>
+                {{ topic.count }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -262,6 +291,7 @@ export default {
       showRiskFactors: false,
       showRiskLevels: false,
       showUsers: false,
+      showSuggestions: false,
       showNewActivityPrompt: false,
       newActivityName: "",
       activityAlreadyExistsError: false,
@@ -312,7 +342,7 @@ export default {
   },
   computed: {
     ...mapState(["content", "users", "userSettings", "currentUserUid"]),
-    ...mapGetters(["activities", "riskLevels", "riskFactors", "categories", "currentCountry"]),
+    ...mapGetters(["activities", "riskLevels", "riskFactors", "categories", "currentCountry","activitySuggestions"]),
     isAdmin() {
       return !!this.currentUserSettings?.isAdmin;
     },
@@ -352,6 +382,9 @@ export default {
     },
     toggleUsers() {
       this.showUsers = !this.showUsers;
+    },
+    toggleSuggestions() {
+      this.showSuggestions = !this.showSuggestions;
     },
     newActivity() {
       this.showNewActivityPrompt = true;
