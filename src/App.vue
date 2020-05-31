@@ -10,29 +10,24 @@
       >
       | <router-link :to="{ name: 'CreateUserProfile' }">Profile</router-link> |
       <router-link :to="{ name: 'About' }">Learn More</router-link>
-      <li class="nav-item dropdown">
-        <a
-          class="nav-link dropdown-toggle"
-          href="#"
-          id="navbarDropdownMenuLink"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-          <img :src="`${publicPath}images/flag/${currentCountry}.png`" />
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <button
-            class="dropdown-item"
+      <v-menu>
+        <template v-slot:activator="{ on }">
+          <v-btn text v-on="on" aria-label="Select country">
+            <img :src="`${publicPath}images/flag/${currentCountry}.png`" />
+            {{ currentCountry }}
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item
             v-for="country in countries"
             :key="country"
             @click="setCurrentCountry(country)"
           >
             <img :src="`${publicPath}images/flag/${country}.png`" />
             {{ country }}
-          </button>
-        </div>
-      </li>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </div>
     <div><router-view /></div>
   </v-app>
