@@ -52,7 +52,7 @@ export default {
     ...mapState(["userProfile", "currentCountry"]),
     ...mapGetters(["hasEnteredProfileData", "activities"]),
     activityList() {
-      return Object.values(this.activities || {}).map(
+      return Object.values(this.activities || {}).filter(activity => !activity.disabled).map(
         activity => activity.activityName
       );
     }
