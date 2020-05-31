@@ -31,7 +31,7 @@ export default {
     categoryActivities() {
       return Object.values(this.activities).filter(
         activity => activity.category === this.name
-      );
+      ).filter(activity => !activity.disabled);
     }
   }
 };

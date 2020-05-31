@@ -30,6 +30,8 @@
               <th>50-69</th>
               <th>70+</th>
               <th>location?</th>
+              <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -59,6 +61,8 @@
               <td>{{ activity.risk50To69 }}</td>
               <td>{{ activity.riskOver70 }}</td>
               <td>{{ activity.showLocation }}</td>
+              <td><v-btn text icon @click="toggleActivityIsDisabled(activity.slug,activity.disabled)"><v-icon>{{ activityIsActive(activity.disabled)  }}</v-icon></v-btn></td>
+              <td><v-btn text icon @click="deleteActivity(activity.slug)"><v-icon>mdi-trash-can</v-icon></v-btn></td>
             </tr>
           </tbody>
         </table>
@@ -422,6 +426,26 @@ export default {
     },
     activityAlreadyExistsErrorOk() {
       this.newActivityName = "";
+    },
+    activityIsActive(disabled) {
+      if (disabled) return "mdi-eye-off";
+      else return "mdi-eye";
+    },
+    toggleActivityIsDisabled(activitySlug,state) {
+      state = !state;
+      db.ref("content")
+          .child(this.currentCountry)
+          .child("activities")
+          .child(activitySlug)
+          .child("disabled")
+          .set(state);
+    },
+    deleteActivity(activitySlug) {
+      db.ref("content")
+        .child(this.currentCountry)
+        .child("activities")
+        .child(activitySlug)
+        .remove();
     },
     deleteUser(userId) {
       db.ref("userSettings")
