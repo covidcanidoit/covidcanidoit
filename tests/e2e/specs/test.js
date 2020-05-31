@@ -75,10 +75,10 @@ describe("Profile", () => {
 describe("Change Country", () => {
   it("Click and change country", () => {
     cy.visit("/US/");
-    cy.get("#navbarDropdownMenuLink > img").click();
+    cy.get('button[aria-label="Select country"]').click();
     cy.contains("US");
     cy.contains("UG");
-    cy.get(".dropdown-menu > :nth-child(1)").click();
+    cy.get('.v-list-item').contains("UG").click();
     cy.get(".v-select").click();
     cy.contains("Prayer congregations");
     cy.visit("/US/");
