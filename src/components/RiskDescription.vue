@@ -32,7 +32,10 @@
         <!-- <div>{{ busyResults }}</div> -->
         <div v-if="loadingBusyResults">Loading...</div>
         <div v-else>
-          <Chart v-if="busyResults" :crowdingData="busyResults" />
+          <div v-if="busyResults">
+            <div v-if="busyResults == 'error'">Data not available</div>
+            <Chart v-else :crowdingData="busyResults" />
+          </div>
         </div>
       </div>
       <br />
@@ -133,19 +136,26 @@ export default {
     async getBusyInfo() {
       this.busyResults = undefined;
       this.loadingBusyResults = true;
-      const locationResults = await axios.get(
-        "https://thelackthereof.org/api",
-        {
-          params: {
-            location: this.location,
-            name: this.business,
-            placeId: this.placeId
+      try {
+        const locationResults = await axios.get(
+          "https://thelackthereof.org/api",
+          {
+            params: {
+              location: this.location,
+              name: this.business,
+              placeId: this.placeId
+            }
           }
-        }
-      );
-      this.loadingBusyResults = false;
-      this.busyResults = locationResults.data;
-      this.hasSearched = true;
+        );
+        this.busyResults = locationResults.data;
+      } catch (e) {
+        console.log("error fetching location data");
+        console.error(e);
+        this.busyResults = "error";
+      } finally {
+        this.loadingBusyResults = false;
+        this.hasSearched = true;
+      }
     },
     getAddressData(something, rawSomething) {
       console.log("Got some address data", something, rawSomething);

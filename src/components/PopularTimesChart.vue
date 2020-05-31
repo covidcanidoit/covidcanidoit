@@ -13,243 +13,20 @@ import Chart from "chart.js";
 export default {
   watch: {
     crowdingData(oldVal, newVal) {
-      //console.log("crowdingData changed!");
+      console.log("crowdingData changed!");
       this.updatePlot();
     }
   },
   props: {
     crowdingData: {
       type: Object,
-      default: {
-        address: "2123 14th St NW, Washington, DC 20009, USA",
-        coordinates: {
-          lat: 38.9185198,
-          lng: -77.031746
-        },
-        id: "ChIJJX1IC-e3t4kRcEtgkyeBQmE",
-        international_phone_number: "+1 202-232-6603",
-        name: "Yes! Organic Market 14th St.",
-        populartimes: [
-          {
-            data: [
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              75,
-              93,
-              69,
-              56,
-              63,
-              66,
-              61,
-              52,
-              47,
-              55,
-              70,
-              78,
-              70,
-              47,
-              24,
-              0,
-              0
-            ],
-            name: "Monday"
-          },
-          {
-            data: [
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              16,
-              27,
-              38,
-              49,
-              55,
-              55,
-              49,
-              41,
-              35,
-              40,
-              55,
-              67,
-              64,
-              46,
-              23,
-              0,
-              0
-            ],
-            name: "Tuesday"
-          },
-          {
-            data: [
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              23,
-              35,
-              47,
-              55,
-              60,
-              56,
-              50,
-              44,
-              43,
-              47,
-              55,
-              56,
-              49,
-              35,
-              20,
-              0,
-              0
-            ],
-            name: "Wednesday"
-          },
-          {
-            data: [
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              33,
-              49,
-              60,
-              64,
-              60,
-              49,
-              36,
-              30,
-              35,
-              47,
-              61,
-              67,
-              58,
-              40,
-              21,
-              0,
-              0
-            ],
-            name: "Thursday"
-          },
-          {
-            data: [
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              46,
-              44,
-              43,
-              55,
-              64,
-              61,
-              50,
-              43,
-              50,
-              72,
-              89,
-              87,
-              64,
-              35,
-              13,
-              0,
-              0
-            ],
-            name: "Friday"
-          },
-          {
-            data: [
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              60,
-              60,
-              56,
-              90,
-              96,
-              49,
-              33,
-              56,
-              87,
-              100,
-              84,
-              52,
-              23,
-              6,
-              0,
-              0
-            ],
-            name: "Saturday"
-          },
-          {
-            data: [
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              32,
-              40,
-              72,
-              86,
-              72,
-              52,
-              52,
-              67,
-              84,
-              92,
-              86,
-              67,
-              44,
-              24,
-              0,
-              0
-            ],
-            name: "Sunday"
-          }
-        ],
-        rating: 4.5,
-        rating_n: 133,
-        time_spent: [15, 15],
-        types: [
-          "grocery_or_supermarket",
-          "food",
-          "point_of_interest",
-          "store",
-          "establishment"
-        ]
-      }
+      default: null
     }
   },
   data: function() {
     return {
       chart: null,
+      displayChart: false,
       gradient: null,
       hoverGradient: null,
       riskLabels: [
@@ -339,133 +116,141 @@ export default {
       // console.log("creating plot");
 
       this.clearPlot();
-      var ctx = document.getElementById("myChart").getContext("2d");
+      if (this.crowdingData == "error") {
+        //if no crowding data, display "No data available"
+        console.log("no data")
+        this.displayChart = false
+      } else {
+        this.displayChart = true
+        var ctx = document.getElementById("myChart").getContext("2d");
 
-      this.chart = new Chart(ctx, {
-        // The type of chart we want to create
-        type: "bar",
+        this.chart = new Chart(ctx, {
+          // The type of chart we want to create
+          type: "bar",
 
-        // The data for our dataset
-        data: plotData,
+          // The data for our dataset
+          data: plotData,
 
-        // Configuration options go here
-        options: {
-          legend: {
-            display: false
-          },
-          title: {
-            text: this.crowdingData.name,
-            display: true
-          },
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  display: false
+          // Configuration options go here
+          options: {
+            legend: {
+              display: false
+            },
+            title: {
+              text: this.crowdingData.name,
+              display: true
+            },
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    display: false
+                  }
+                }
+              ]
+            },
+            tooltips: {
+              mode: "point",
+              callbacks: {
+                label: function(tooltipItem, data) {
+                  var label =
+                    data.datasets[tooltipItem.datasetIndex].label || "";
+                  var riskLabels = [
+                    "1 - Low Risk",
+                    "2 - Moderate Risk",
+                    "3 - Elevated Risk",
+                    "4 - High Risk",
+                    "5 - Critical Risk"
+                  ];
+                  if (label) {
+                    switch (true) {
+                      case tooltipItem.yLabel <= 20:
+                        label = riskLabels[0];
+                        break;
+                      case tooltipItem.yLabel <= 40:
+                        label = riskLabels[1];
+                        break;
+                      case tooltipItem.yLabel <= 60:
+                        label = riskLabels[2];
+                        break;
+                      case tooltipItem.yLabel <= 80:
+                        label = riskLabels[3];
+                        break;
+                      default:
+                        label = riskLabels[4];
+                    }
+                    label += ": ";
+                  }
+                  label += Math.round(tooltipItem.yLabel * 100) / 100;
+                  return label;
                 }
               }
-            ]
-          },
-          tooltips: {
-            mode: "point",
-            callbacks: {
-              label: function(tooltipItem, data) {
-                var label = data.datasets[tooltipItem.datasetIndex].label || "";
-                var riskLabels = [
-                  "1 - Low Risk",
-                  "2 - Moderate Risk",
-                  "3 - Elevated Risk",
-                  "4 - High Risk",
-                  "5 - Critical Risk"
-                ];
-                if (label) {
-                  switch (true) {
-                    case tooltipItem.yLabel <= 20:
-                      label = riskLabels[0];
-                      break;
-                    case tooltipItem.yLabel <= 40:
-                      label = riskLabels[1];
-                      break;
-                    case tooltipItem.yLabel <= 60:
-                      label = riskLabels[2];
-                      break;
-                    case tooltipItem.yLabel <= 80:
-                      label = riskLabels[3];
-                      break;
-                    default:
-                      label = riskLabels[4];
-                  }
-                  label += ": ";
-                }
-                label += Math.round(tooltipItem.yLabel * 100) / 100;
-                return label;
+            },
+            onClick: (evt, item) => {
+              //console.log(evt, item);
+              if (!this.daily) {
+                this.drillDown(item[0]["_index"]);
+              } else {
+                this.createPlot({
+                  labels: this.days,
+                  datasets: [
+                    {
+                      label: "busy hours",
+                      backgroundColor: this.gradient,
+                      hoverBackgroundColor: this.hoverGradient,
+                      borderColor: this.gradient,
+                      data: this.weeklyData
+                    }
+                  ]
+                });
+                this.daily = false;
               }
-            }
-          },
-          onClick: (evt, item) => {
-            //console.log(evt, item);
-            if (!this.daily) {
-              this.drillDown(item[0]["_index"]);
-            } else {
-              this.createPlot({
-                labels: this.days,
-                datasets: [
-                  {
-                    label: "busy hours",
-                    backgroundColor: this.gradient,
-                    hoverBackgroundColor: this.hoverGradient,
-                    borderColor: this.gradient,
-                    data: this.weeklyData
-                  }
-                ]
-              });
-              this.daily = false;
-            }
-          },
-          onHover: (evt, items) => {
-            if (items.length === 0) {
-              document.getElementById("myChart").style.cursor = "default";
-            } else {
-              document.getElementById("myChart").style.cursor = "pointer";
-            }
-            //console.log("hovering",evt,item);
-          },
-          // This chart will not respond to mousemove, etc
-          events: ["click", "mousemove", "mouseout"]
-        }
-      });
-      var bars = this.chart.config.data.datasets[0];
-      bars.backgroundColor = [];
-      bars.borderColor = [];
-      bars.hoverBackgroundColor = [];
-      console.log("bars");
-      console.log(bars);
-      for (var i = 0; i < bars.data.length; i++) {
-        const x = bars.data[i];
-        //there's probably a better way to get our colors for risk 1-5 here but I'm no sure where they're saved
-        switch (true) {
-          case x <= 20:
-            var color = "#339900";
-            break;
-          case x <= 40:
-            var color = "#99cc33";
-            break;
-          case x <= 60:
-            var color = "#ffcc00";
-            break;
-          case x <= 80:
-            var color = "#ff9966";
-            break;
-          default:
-            var color = "#cc3300";
-        }
+            },
+            onHover: (evt, items) => {
+              if (items.length === 0) {
+                document.getElementById("myChart").style.cursor = "default";
+              } else {
+                document.getElementById("myChart").style.cursor = "pointer";
+              }
+              //console.log("hovering",evt,item);
+            },
+            // This chart will not respond to mousemove, etc
+            events: ["click", "mousemove", "mouseout"]
+          }
+        });
+        var bars = this.chart.config.data.datasets[0];
+        bars.backgroundColor = [];
+        bars.borderColor = [];
+        bars.hoverBackgroundColor = [];
+        console.log("bars");
+        console.log(bars);
+        for (var i = 0; i < bars.data.length; i++) {
+          const x = bars.data[i];
+          //there's probably a better way to get our colors for risk 1-5 here but I'm no sure where they're saved
+          switch (true) {
+            case x <= 20:
+              var color = "#339900";
+              break;
+            case x <= 40:
+              var color = "#99cc33";
+              break;
+            case x <= 60:
+              var color = "#ffcc00";
+              break;
+            case x <= 80:
+              var color = "#ff9966";
+              break;
+            default:
+              var color = "#cc3300";
+          }
 
-        //You can check for bars[i].value and put your conditions here
-        bars.backgroundColor.push(color);
-        bars.hoverBackgroundColor.push(color);
-        bars.borderColor.push(color);
+          //You can check for bars[i].value and put your conditions here
+          bars.backgroundColor.push(color);
+          bars.hoverBackgroundColor.push(color);
+          bars.borderColor.push(color);
+        }
+        this.chart.update();
       }
-      this.chart.update();
     },
     drillDown(index) {
       let day = this.days[index];
