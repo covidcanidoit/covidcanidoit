@@ -62,12 +62,24 @@
               <td>{{ activity.riskOver70 }}</td>
               <td>{{ activity.showLocation }}</td>
               <td><v-btn text icon @click="toggleActivityIsDisabled(activity.slug,activity.disabled)"><v-icon>{{ activityIsActive(activity.disabled)  }}</v-icon></v-btn></td>
-              <td><v-btn text icon @click="deleteActivity(activity.slug)"><v-icon>mdi-trash-can</v-icon></v-btn></td>
+              <td><v-btn text icon @click="showConfirmActivityDelete(activity.slug)"><v-icon>mdi-trash-can</v-icon></v-btn></td>
             </tr>
           </tbody>
         </table>
+        <v-dialog v-model="confirmActivityDelete" max-width="500">
+          <v-card>
+            <v-card-title>Are you sure you want to delete this activity?</v-card-title>
+            <v-card-text>{{this.activitySlugToDelete}}</v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="secondary darken-1" text @click="deleteActivity">Yes</v-btn>
+              <v-btn color="primary darken-1" text @click="confirmActivityDelete = false">No</v-btn>
+            </v-card-actions>
+          </v-card>
+          
+        </v-dialog>
         <div class="utilityShelf" v-show="showActivities">
-          <v-dialog v-model="showNewActivityPrompt" persistent max-width="500">
+          <v-dialog v-model="showNewActivityPrompt" max-width="500">
             <template v-slot:activator="{ on }">
               <v-btn class="buttonNew" color="dark" dark v-on="on">&#x2b; New</v-btn>
             </template>
@@ -299,6 +311,8 @@ export default {
       showNewActivityPrompt: false,
       newActivityName: "",
       activityAlreadyExistsError: false,
+      activitySlugToDelete: "",
+      confirmActivityDelete: false,
       currentUser: undefined,
       currentUserSettings: undefined
     };
@@ -440,12 +454,17 @@ export default {
           .child("disabled")
           .set(state);
     },
-    deleteActivity(activitySlug) {
+    deleteActivity() {
       db.ref("content")
         .child(this.currentCountry)
         .child("activities")
-        .child(activitySlug)
+        .child(this.activitySlugToDelete)
         .remove();
+        this.confirmActivityDelete = false;
+    },
+    showConfirmActivityDelete(activitySlug) {
+      this.activitySlugToDelete = activitySlug;
+      this.confirmActivityDelete = true;
     },
     deleteUser(userId) {
       db.ref("userSettings")
