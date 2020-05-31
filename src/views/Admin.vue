@@ -61,7 +61,11 @@
               <td>{{ activity.risk50To69 }}</td>
               <td>{{ activity.riskOver70 }}</td>
               <td>{{ activity.showLocation }}</td>
-              <td><v-btn text icon @click="toggleActivityIsDisabled(activity.slug,activity.disabled)"><v-icon>{{ activityIsActive(activity.disabled)  }}</v-icon></v-btn></td>
+              <td>
+                <v-btn text icon @click="toggleActivityIsDisabled(activity.slug,activity.disabled)">
+                  <v-icon>{{ activityIsActive(activity.disabled)  }}</v-icon>  
+                </v-btn>
+              </td>
               <td><v-btn text icon @click="showConfirmActivityDelete(activity.slug)"><v-icon>mdi-trash-can</v-icon></v-btn></td>
             </tr>
           </tbody>
@@ -100,7 +104,7 @@
                 <v-btn color="primary darken-1" text @click="newActivityOk">Ok</v-btn>
               </v-card-actions>
             </v-card>
-            <v-alert v-model="activityAlreadyExistsError" type="error" dismissible="true">Activity already exists!</v-alert>
+            <v-alert v-model="activityAlreadyExistsError" type="error" dismissible=true>Activity already exists!</v-alert>
           </v-dialog>
         </div>
       </div>
@@ -277,6 +281,7 @@
             <tr>
               <th>Area</th>
               <th>Count</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -286,6 +291,9 @@
               </td>
               <td>
                 {{ topic.count }}
+              </td>
+              <td>
+                <v-btn text icon @click="newActivity(topicName)"><v-icon>mdi-arrow-up-bold-circle</v-icon></v-btn>
               </td>
             </tr>
           </tbody>
@@ -404,8 +412,9 @@ export default {
     toggleSuggestions() {
       this.showSuggestions = !this.showSuggestions;
     },
-    newActivity() {
+    newActivity(activityName) {
       this.showNewActivityPrompt = true;
+      if (activityName) this.newActivityName = activityName;
     },
     newActivityOk() {
       let currentKey = Object.keys(this.activities).find(
@@ -483,7 +492,7 @@ export default {
 
 <style scoped lang="scss">
 table {
-  margin: 0 1em;
+  margin: 0;
 }
 
 .buttonNew {
