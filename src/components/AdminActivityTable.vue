@@ -1,23 +1,18 @@
 <template>
   <div>
-    <v-data-table :headers="headers" :items="activityList">
-      <template v-slot:items="props">
-        <tr>
-          <td>{{props.item.slug}}</td>
-          <td>{{props.item.activityName}}</td>
-          <td>{{props.item.category}}</td>
-          <td>{{props.item.generalRiskScore}}</td>
-          <td>{{props.item.risk50To69}}</td>
-          <td>{{props.item.riskOver70}}</td>
-          <td>{{props.item.showLocation}}</td>
-          <td>
-            <v-icon @click="toggleActivityIsDisabled(props.item.slug,props.item.disabled)">{{ activityIsActive(props.item.disabled) }}</v-icon>
-            <v-icon @click="showConfirmActivityDelete(props.item.slug)">mdi-trash-can</v-icon>
-          </td>
-        </tr>
-      </template>
-    </v-data-table>
-    <v-dialog v-model="showNewActivityPrompt" max-width="500">
+    <v-card>
+      <v-card-title>
+        Activities<v-icon>mdi-run</v-icon>
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="activitySearch"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line=""
+          hide-details=""
+        ></v-text-field>
+        <v-spacer></v-spacer>
+        <v-dialog v-model="showNewActivityPrompt" max-width="500">
         <template v-slot:activator="{ on }">
           <v-btn class="buttonNew" color="dark" dark v-on="on">&#x2b; New</v-btn>
         </template>
@@ -40,6 +35,35 @@
         </v-card>
         <v-alert v-model="activityAlreadyExistsError" type="error">Activity already exists!</v-alert>
     </v-dialog>
+      </v-card-title>
+    <v-data-table :headers="headers" :items="activityList" :search="activitySearch">
+      <template v-slot:item.actions="{ item }">
+        <router-link
+                  :to="{
+                    name: 'AdminActivityEdit',
+                    params: {
+                      activityName: item.activityName,
+                      slug: item.slug
+                    }
+                  }"
+                ><v-icon>mdi-lead-pencil</v-icon></router-link>
+        <v-icon @click="toggleActivityIsDisabled(item.slug,item.disabled)">{{ activityIsActive(item.disabled) }}</v-icon>
+        <v-icon @click="showConfirmActivityDelete(item.slug)">mdi-trash-can</v-icon>
+        <v-dialog v-model="confirmActivityDelete" max-width="500">
+          <v-card>
+            <v-card-title>Are you sure you want to delete this activity?</v-card-title>
+            <v-card-text>{{activitySlugToDelete}}</v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="secondary darken-1" text @click="deleteActivity">Yes</v-btn>
+              <v-btn color="primary darken-1" text @click="confirmActivityDelete = false">No</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </template>
+    </v-data-table>
+    </v-card>
+    
   </div>
   
 </template>
@@ -85,22 +109,6 @@ export default {
           width: string*/
         },
         {
-          text: "50-69",
-          value: "risk50To69",
-          align: "left",
-          sortable: "true"
-          /*class: string[] | string,
-          width: string*/
-        },
-        {
-          text: "70+",
-          value: "riskOver70",
-          align: "left",
-          sortable: "true"
-          /*class: string[] | string,
-          width: string*/
-        },
-        {
           text: "Location?",
           value: "showLocation",
           align: "left",
@@ -110,8 +118,9 @@ export default {
         },
         {
           text: "Actions",
+          value: "actions",
           align: "left",
-          sortable: "true"
+          sortable: "false"
           /*class: string[] | string,
           width: string*/
         }
@@ -120,13 +129,14 @@ export default {
       newActivityName: "",
       activityAlreadyExistsError: false,
       activitySlugToDelete: "",
-      confirmActivityDelete: false
+      confirmActivityDelete: false,
+      activitySearch: ""
     };
   },
   created() {},
   computed: {
     ...mapState(["content"]),
-    ...mapGetters(["activities"]),
+    ...mapGetters(["activities", "currentCountry"]),
     activityList() {
       return Object.values(this.activities);
     }
