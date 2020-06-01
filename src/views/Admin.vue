@@ -13,6 +13,7 @@
           class="btn"
           @click="toggleActivities"
         >{{ showActivities ? "&#x25bc;" : "&#x25b6;" }} Activities</h2>
+        <AdminActivityTable ></AdminActivityTable>
         <table
           class="table table-striped"
           v-show="showActivities"
@@ -306,8 +307,12 @@
 <script>
 import { db, firebase } from "@/db.js";
 import { mapState, mapGetters } from "vuex";
+import AdminActivityTable from "@/components/AdminActivityTable.vue";
 
 export default {
+  components : {
+    AdminActivityTable
+  },
   data() {
     return {
       showActivities: false,
