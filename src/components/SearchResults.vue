@@ -59,6 +59,16 @@
         </div>
       </div>
     </div>
+    <v-tabs
+      fixed-tabs
+
+    >
+      <v-tab>Crowding</v-tab>
+      <v-tab>Droplets</v-tab>
+      <v-tab>Time</v-tab>
+      <v-tab>Ventilation</v-tab>
+
+    </v-tabs>
   </div>
 </template>
 
