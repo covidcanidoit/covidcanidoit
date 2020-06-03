@@ -59,16 +59,62 @@
         </div>
       </div>
     </div>
+    <v-spacer></v-spacer>
+    <v-container>
+      <v-row>
+        <v-col>
+
+        </v-col>
+        <v-col>
+
+        </v-col>
+        <v-col>
+
+        </v-col>
+        <v-col>
+          
+        </v-col>
+      </v-row>
+    </v-container>
     <v-tabs
       fixed-tabs
-
+      icons-and-text
     >
-      <v-tab>Crowding</v-tab>
-      <v-tab>Droplets</v-tab>
-      <v-tab>Time</v-tab>
-      <v-tab>Ventilation</v-tab>
+      <v-tab>Crowding   <v-icon>mdi-account-switch</v-icon></v-tab>
+      <v-tab>Droplets <v-icon>mdi-water</v-icon></v-tab>
+      <v-tab>Time <v-icon>mdi-timer-sand-full</v-icon></v-tab>
+      <v-tab>Ventilation <v-icon>mdi-fan</v-icon></v-tab>
 
+      <v-tab-item>
+        <v-card flat tile>
+          <v-card-text>
+            Crowding Crowding Crowding Crowding Crowding Crowding Crowding Crowding Crowding Crowding Crowding Crowding Crowding Crowding Crowding Crowding Crowding Crowding
+          </v-card-text>
+        </v-card>
+      </v-tab-item>
+      <v-tab-item>
+        <v-card flat tile>
+          <v-card-text>
+            Droplets Droplets Droplets Droplets Droplets Droplets Droplets Droplets Droplets Droplets Droplets Droplets Droplets Droplets Droplets Droplets Droplets Droplets 
+          </v-card-text>
+        </v-card>
+      </v-tab-item>
+      <v-tab-item>
+        <v-card flat tile>
+          <v-card-text>
+            Time time Time time Time time Time time Time time Time time Time time Time time Time time Time time Time time Time time Time time Time time Time time Time time Time 
+          </v-card-text>
+        </v-card>
+      </v-tab-item>
+      <v-tab-item>
+        <v-card flat tile>
+          <v-card-text>
+            Ventilation Ventilation Ventilation Ventilation Ventilation Ventilation Ventilation Ventilation Ventilation Ventilation Ventilation Ventilation Ventilation Ventilation
+          </v-card-text>
+        </v-card>
+      </v-tab-item>
     </v-tabs>
+    <v-spacer></v-spacer>
   </div>
 </template>
 
