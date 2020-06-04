@@ -13,28 +13,28 @@
         ></v-text-field>
         <v-spacer></v-spacer>
         <v-dialog v-model="showNewActivityPrompt" max-width="500">
-        <template v-slot:activator="{ on }">
-          <v-btn class="buttonNew" color="dark" dark v-on="on">&#x2b; New</v-btn>
-        </template>
-        <v-card>
-          <v-card-title class="headline">Enter new activity name</v-card-title>
-          <v-text-field
-            class="promptInput"
-            v-model="newActivityName"
-            :counter="50"
-            label="Enter activity name"
-            clearable
-            @keydown="activityAlreadyExistsError = false"
-            @keydown.enter="newActivityOk"
-          ></v-text-field>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="secondary darken-1" text @click="showNewActivityPrompt = false">Cancel</v-btn>
-            <v-btn color="primary darken-1" text @click="newActivityOk">Ok</v-btn>
-          </v-card-actions>
-        </v-card>
-        <v-alert v-model="activityAlreadyExistsError" type="error">Activity already exists!</v-alert>
-    </v-dialog>
+          <template v-slot:activator="{ on }">
+            <v-btn class="buttonNew" color="dark" dark v-on="on">&#x2b; New</v-btn>
+          </template>
+          <v-card>
+            <v-card-title class="headline">Enter new activity name</v-card-title>
+            <v-text-field
+              class="promptInput"
+              v-model="newActivityName"
+              :counter="50"
+              label="Enter activity name"
+              clearable
+              @keydown="activityAlreadyExistsError = false"
+              @keydown.enter="newActivityOk"
+            ></v-text-field>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="secondary darken-1" text @click="showNewActivityPrompt = false">Cancel</v-btn>
+              <v-btn color="primary darken-1" text @click="newActivityOk">Ok</v-btn>
+            </v-card-actions>
+          </v-card>
+          <v-alert v-model="activityAlreadyExistsError" type="error">Activity already exists!</v-alert>
+        </v-dialog>
       </v-card-title>
     <v-data-table :headers="headers" :items="activityList" :search="activitySearch">
       <template v-slot:item.actions="{ item }">
@@ -46,9 +46,9 @@
                       slug: item.slug
                     }
                   }"
-                ><v-icon>mdi-lead-pencil</v-icon></router-link>
-        <v-icon @click="toggleActivityIsDisabled(item.slug,item.disabled)">{{ activityIsActive(item.disabled) }}</v-icon>
-        <v-icon @click="showConfirmActivityDelete(item.slug)">mdi-trash-can</v-icon>
+                ><v-icon title="Edit this activity">mdi-lead-pencil</v-icon></router-link>
+        <v-icon :title="EnableDisableActivityTooltip(item.disabled)" @click="toggleActivityIsDisabled(item.slug,item.disabled)">{{ activityIsActive(item.disabled) }}</v-icon>
+        <v-icon title="Delete this activity" @click="showConfirmActivityDelete(item.slug)">mdi-trash-can</v-icon>
         
       </template>
     </v-data-table>
@@ -60,7 +60,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="secondary darken-1" text @click="deleteActivity">Yes</v-btn>
-              <v-btn color="primary darken-1" text @click="hideActivityDelete">No</v-btn>
+              <v-btn color="primary darken-1" text @click="confirmActivityDelete = false">No</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -80,9 +80,8 @@ export default {
           text: "Slug",
           value: "slug",
           align: "left",
-          sortable: "true"
-          /*class: string[] | string,
-          width: string*/
+          sortable: "true",
+          class: ["tableHeader"]
         },
         {
           text: "Name",
@@ -205,13 +204,11 @@ export default {
       this.activitySlugToDelete = activitySlug;
       this.confirmActivityDelete = true;
     },
-    hideActivityDelete(event) {
-      console.log("hide activity delete: ", event);
-
-      this.confirmActivityDelete = false;
-    },
     slugify(nodeName) {
       return nodeName.split(" ").join("-").toLowerCase();
+    },
+    EnableDisableActivityTooltip(disabled) {
+      return disabled === true ? "Enable this activity" : "Disable this activity";
     }
   }
 };
@@ -227,6 +224,11 @@ export default {
 .promptInput {
   margin-left: 1em;
   margin-right: 1em;
+}
+
+.tableHeader {
+  color: #FAFAFA;
+  background-color: #212121;
 }
 
 </style>
