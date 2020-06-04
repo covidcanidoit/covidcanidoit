@@ -49,21 +49,21 @@
                 ><v-icon>mdi-lead-pencil</v-icon></router-link>
         <v-icon @click="toggleActivityIsDisabled(item.slug,item.disabled)">{{ activityIsActive(item.disabled) }}</v-icon>
         <v-icon @click="showConfirmActivityDelete(item.slug)">mdi-trash-can</v-icon>
-        <v-dialog v-model="confirmActivityDelete" max-width="500">
+        
+      </template>
+    </v-data-table>
+    </v-card>
+    <v-dialog v-model="confirmActivityDelete" max-width="500">
           <v-card>
             <v-card-title>Are you sure you want to delete this activity?</v-card-title>
             <v-card-text>{{activitySlugToDelete}}</v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="secondary darken-1" text @click="deleteActivity">Yes</v-btn>
-              <v-btn color="primary darken-1" text @click="confirmActivityDelete = false">No</v-btn>
+              <v-btn color="primary darken-1" text @click="hideActivityDelete">No</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
-      </template>
-    </v-data-table>
-    </v-card>
-    
   </div>
   
 </template>
@@ -204,6 +204,11 @@ export default {
     showConfirmActivityDelete(activitySlug) {
       this.activitySlugToDelete = activitySlug;
       this.confirmActivityDelete = true;
+    },
+    hideActivityDelete(event) {
+      console.log("hide activity delete: ", event);
+
+      this.confirmActivityDelete = false;
     },
     slugify(nodeName) {
       return nodeName.split(" ").join("-").toLowerCase();
