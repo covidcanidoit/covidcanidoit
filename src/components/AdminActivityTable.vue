@@ -170,6 +170,12 @@ export default {
           .child(activitySlug)
           .child("activityName")
           .set(activityName);
+        db.ref("content")
+          .child(this.currentCountry)
+          .child("activities")
+          .child(activitySlug)
+          .child("disabled")
+          .set(true);
         this.$router.push({
           name: "AdminActivityEdit",
           params: { activityName: activityName, slug: activitySlug }
