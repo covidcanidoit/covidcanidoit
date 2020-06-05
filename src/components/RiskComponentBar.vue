@@ -1,6 +1,7 @@
 <template>
   <div id="barContainer" class="barContainer">
-    <div class="tagContainer">
+    <div class="barWhitespace">
+      <div class="tagWhitespace"></div>
       <div class="tag">{{level}}</div>
     </div>
     <div id="bar" class="bar" :style="barStyle">
@@ -39,24 +40,30 @@ export default {
 .barContainer {
   max-width: 300px;
   height: 100px;
+  display: flex;
+  flex-direction: column;
 }
 
 .bar {
   width: 100%;
-  position: absolute;
-  bottom: 0;
   background-color: black;
   left: 0;
+  flex-grow: 0;
 }
 
 .tag {
-  position: absolute;
-  bottom: 0;  
   text-align: center;
   z-index: 1;
+  position: relative;
+  bottom:0;
 }
 
-.tagContainer {
-  height: auto;
+.tagWhitespace {
+  flex-grow: 10;
+}
+.barWhitespace {
+  flex-grow: 10;
+  display: flex;
+  flex-direction: column;
 }
 </style>
