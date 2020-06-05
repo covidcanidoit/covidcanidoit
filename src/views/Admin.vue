@@ -13,7 +13,7 @@
           class="btn"
           @click="toggleActivities"
         >{{ showActivities ? "&#x25bc;" : "&#x25b6;" }} Activities</h2>
-        <AdminActivityTable v-show="showActivities"></AdminActivityTable>
+        <AdminActivityTable v-show="showActivities" :incomingNewActivityName="newActivityName"></AdminActivityTable>
       </div>
 
       <div>
@@ -227,11 +227,7 @@ export default {
       showRiskLevels: false,
       showUsers: false,
       showSuggestions: false,
-      showNewActivityPrompt: false,
       newActivityName: "",
-      activityAlreadyExistsError: false,
-      activitySlugToDelete: "",
-      confirmActivityDelete: false,
       currentUser: undefined,
       currentUserSettings: undefined
     };
@@ -324,73 +320,7 @@ export default {
       this.showSuggestions = !this.showSuggestions;
     },
     newActivity(activityName) {
-      this.showNewActivityPrompt = true;
-      if (activityName) this.newActivityName = activityName;
-    },
-    newActivityOk() {
-      let currentKey = Object.keys(this.activities).find(
-        key =>
-          this.activities[key].activityName.toLowerCase() ===
-          this.newActivityName.toLowerCase()
-      );
-      console.log("New Activity?", currentKey);
-      if (currentKey) {
-        this.activityAlreadyExistsError = true;
-      } else {
-        let activityName = this.newActivityName;
-        let activitySlug = this.slugify(activityName);
-        this.showNewActivityPrompt = false;
-        db.ref("content")
-          .child(this.currentCountry)
-          .child("activities")
-          .child(activitySlug)
-          .child("slug")
-          .set(activitySlug);
-        db.ref("content")
-          .child(this.currentCountry)
-          .child("activities")
-          .child(activitySlug)
-          .child("activityName")
-          .set(activityName);
-          db.ref("content")
-          .child(this.currentCountry)
-          .child("activities")
-          .child(activitySlug)
-          .child("disabled")
-          .set(true);
-        this.$router.push({
-          name: "AdminActivityEdit",
-          params: { activityName: activityName, slug: activitySlug }
-        });
-      }
-    },
-    activityAlreadyExistsErrorOk() {
-      this.newActivityName = "";
-    },
-    activityIsActive(disabled) {
-      if (disabled) return "mdi-eye-off";
-      else return "mdi-eye";
-    },
-    toggleActivityIsDisabled(activitySlug,state) {
-      state = !state;
-      db.ref("content")
-          .child(this.currentCountry)
-          .child("activities")
-          .child(activitySlug)
-          .child("disabled")
-          .set(state);
-    },
-    deleteActivity() {
-      db.ref("content")
-        .child(this.currentCountry)
-        .child("activities")
-        .child(this.activitySlugToDelete)
-        .remove();
-        this.confirmActivityDelete = false;
-    },
-    showConfirmActivityDelete(activitySlug) {
-      this.activitySlugToDelete = activitySlug;
-      this.confirmActivityDelete = true;
+      this.newActivityName = activityName;
     },
     deleteUser(userId) {
       db.ref("userSettings")
