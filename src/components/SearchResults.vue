@@ -63,16 +63,16 @@
     <v-container>
       <v-row>
         <v-col>
-
+          <RiskComponentBar :value=65 ></RiskComponentBar>
         </v-col>
         <v-col>
-
+          <RiskComponentBar :value=100 ></RiskComponentBar>
         </v-col>
         <v-col>
-
+          <RiskComponentBar :value=17 ></RiskComponentBar>
         </v-col>
         <v-col>
-          
+          <RiskComponentBar :value=53 ></RiskComponentBar>
         </v-col>
       </v-row>
     </v-container>
@@ -122,9 +122,10 @@
 import Markdown from "vue-markdown";
 import { mapGetters } from "vuex";
 import RiskDescription from "@/components/RiskDescription.vue";
+import RiskComponentBar from "@/components/RiskComponentBar.vue";
 
 export default {
-  components: { RiskDescription, Markdown },
+  components: { RiskDescription, Markdown, RiskComponentBar },
   props: {
     searchedTerm: String,
     activity: Object,
