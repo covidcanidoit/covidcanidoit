@@ -18,7 +18,7 @@ export default {
       return `height: ${this.value}px`;
     },
     barStyle() {
-      return `height: ${this.value}px; background-color: ${this.value < 33 ? "green" : (this.value < 66 ? "yellow": "red")};`;
+      return `height: ${this.value}px; background-color: ${this.value < 33 ? "green" : (this.value < 66 ? "gold": "red")};`;
     },
     level() {
       return this.value < 33 ? "Low" : (this.value < 66 ? "Medium" : "High");
