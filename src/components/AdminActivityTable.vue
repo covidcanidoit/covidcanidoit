@@ -73,6 +73,10 @@ import { db } from "@/db.js";
 import { mapState, mapGetters } from "vuex";
 
 export default {
+  props: ["incomingNewActivityName"],
+  watch: {
+    incomingNewActivityName: "newActivity"
+  },
   data() {
     return {
       headers: [
@@ -141,9 +145,9 @@ export default {
     }
   },
   methods: {
-    newActivity(activityName) {
+    newActivity() {
       this.showNewActivityPrompt = true;
-      if (activityName) this.newActivityName = activityName;
+      if (this.incomingNewActivityName) this.newActivityName = this.incomingNewActivityName;
     },
     newActivityOk() {
       let currentKey = Object.keys(this.activities).find(
