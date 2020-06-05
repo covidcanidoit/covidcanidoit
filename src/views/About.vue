@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <!-- <HowItWorks /> -->
-    <div class="info" style="margin:2em">
+    <div class="infoHeader" style="margin:2em">
       <h1>Questions You Might Have</h1>
 
       <div
@@ -612,7 +612,7 @@ export default {
   margin: 0 2em;
   border: 1px solid #ccc;
   background-color: $color-peach;
-  .info {
+  .infoHeader {
     overflow-x: auto;
   }
 }

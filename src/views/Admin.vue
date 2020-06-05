@@ -188,7 +188,7 @@
             <tr>
               <th>Area</th>
               <th>Count</th>
-              <th></th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -200,7 +200,7 @@
                 {{ topic.count }}
               </td>
               <td>
-                <v-btn text icon @click="newActivity(topicName)"><v-icon>mdi-arrow-up-bold-circle</v-icon></v-btn>
+                <v-btn text icon @click="newActivity(topicName)"><v-icon>mdi-arrow-up-bold-box</v-icon></v-btn>
               </td>
             </tr>
           </tbody>
@@ -352,6 +352,12 @@ export default {
           .child(activitySlug)
           .child("activityName")
           .set(activityName);
+          db.ref("content")
+          .child(this.currentCountry)
+          .child("activities")
+          .child(activitySlug)
+          .child("disabled")
+          .set(true);
         this.$router.push({
           name: "AdminActivityEdit",
           params: { activityName: activityName, slug: activitySlug }
