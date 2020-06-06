@@ -8,7 +8,7 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
-    "deploy": "yarn build && yarn run firebase deploy --only hosting",
+    "deploy-staging": "yarn build && yarn run firebase -P ccidi-staging deploy --only hosting",
     "deploy-db-rules": "yarn build && yarn run firebase deploy --only database"
   },
   "dependencies": {
