@@ -2,6 +2,10 @@
 node_modules
 /dist
 
+# Unify on yarn lock
+package-lock.json
+
+# Artifacts from tests
 /tests/e2e/videos/
 /tests/e2e/screenshots/
 
@@ -28,9 +32,6 @@ yarn-error.log*
 
 # VSCode, Python, Flask
 *.code-workspace
-
-# Created by https://www.gitignore.io/api/flask,python
-# Edit at https://www.gitignore.io/?templates=flask,python
 
 ### Flask ###
 instance/*
