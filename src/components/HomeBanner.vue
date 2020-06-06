@@ -1,6 +1,6 @@
 <template>
 <div>
-  <a href="./Protest_V2.pdf" target="_blank">
+  <a href="/Protest_V2.pdf" target="_blank">
   <v-alert 
   class="banner" 
   color="#fd6167" 
