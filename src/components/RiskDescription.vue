@@ -10,7 +10,7 @@
       </div>
       <div class="score">{{ risk && risk.riskScore }}</div>
       <div class="score-title">{{ risk && risk.riskName }}</div>
-      <ScoreScale :score="score" />
+      <ScoreScale :score="riskScore" />
     </div>
     <div class="risk-information">
       <Markdown class="risk-details" :source="risk && risk.longDescription" />
@@ -87,10 +87,7 @@ import axios from "axios";
 export default {
   components: { ScoreScale, Markdown, Chart, VueGoogleAutocomplete },
   props: {
-    score: {
-      type: String,
-      default: "5"
-    },
+    score: String,
     activity: Object,
     isAgeScore: {
       default: false
@@ -109,8 +106,11 @@ export default {
   },
   computed: {
     ...mapGetters(["riskLevels"]),
+    riskScore() {
+      return this.score || this.activity.generalRiskScore;
+    },
     risk() {
-      return this.riskLevels["riskLevel" + this.score];
+      return this.riskLevels["riskLevel" + this.riskScore];
     },
     references: function() {
       var referencePropertyNames = Object.keys(this.activity).filter(
