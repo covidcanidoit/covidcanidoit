@@ -14,14 +14,11 @@
 export default {
   props: ["value"],
   computed: {
-    barHeight() {
-      return `height: ${this.value}px`;
-    },
     barStyle() {
-      return `height: ${this.value}px; background-color: ${this.value < 33 ? "green" : (this.value < 66 ? "gold": "red")};`;
+      return `height: ${this.value * 33}px; background-color: ${this.value === 1 ? "green" : (this.value === 2 ? "gold": "red")};`;
     },
     level() {
-      return this.value < 33 ? "Low" : (this.value < 66 ? "Medium" : "High");
+      return this.value === 1 ? "Low" : (this.value === 2 ? "Medium" : "High");
     }
   },
   methods: {

@@ -59,62 +59,64 @@
         </div>
       </div>
     </div>
+    <div v-show="activity.activityName">
     <v-spacer></v-spacer>
-    <v-container>
-      <v-row>
-        <v-col>
-          <RiskComponentBar :value=65 ></RiskComponentBar>
-        </v-col>
-        <v-col>
-          <RiskComponentBar :value=100 ></RiskComponentBar>
-        </v-col>
-        <v-col>
-          <RiskComponentBar :value=17 ></RiskComponentBar>
-        </v-col>
-        <v-col>
-          <RiskComponentBar :value=53 ></RiskComponentBar>
-        </v-col>
-      </v-row>
-    </v-container>
-    <v-tabs
-      fixed-tabs
-      icons-and-text
-    >
-      <v-tab>Crowding   <v-icon>mdi-account-switch</v-icon></v-tab>
-      <v-tab>Droplets <v-icon>mdi-water</v-icon></v-tab>
-      <v-tab>Time <v-icon>mdi-timer-sand-full</v-icon></v-tab>
-      <v-tab>Ventilation <v-icon>mdi-fan</v-icon></v-tab>
+      <v-container>
+        <v-row>
+          <v-col>
+            <RiskComponentBar :value=activity.crowding ></RiskComponentBar>
+          </v-col>
+          <v-col>
+            <RiskComponentBar :value=activity.droplets ></RiskComponentBar>
+          </v-col>
+          <v-col>
+            <RiskComponentBar :value=activity.exposureTime ></RiskComponentBar>
+          </v-col>
+          <v-col>
+            <RiskComponentBar :value=activity.ventilation ></RiskComponentBar>
+          </v-col>
+        </v-row>
+      </v-container>
+      <v-tabs
+        fixed-tabs
+        icons-and-text
+      >
+        <v-tab>Crowding   <v-icon>mdi-account-switch</v-icon></v-tab>
+        <v-tab>Droplets <v-icon>mdi-water</v-icon></v-tab>
+        <v-tab>Time <v-icon>mdi-timer-sand-full</v-icon></v-tab>
+        <v-tab>Ventilation <v-icon>mdi-fan</v-icon></v-tab>
 
-      <v-tab-item>
-        <v-card flat tile>
-          <v-card-text>
-            Crowding Crowding Crowding Crowding Crowding Crowding Crowding Crowding Crowding Crowding Crowding Crowding Crowding Crowding Crowding Crowding Crowding Crowding
-          </v-card-text>
-        </v-card>
-      </v-tab-item>
-      <v-tab-item>
-        <v-card flat tile>
-          <v-card-text>
-            Droplets Droplets Droplets Droplets Droplets Droplets Droplets Droplets Droplets Droplets Droplets Droplets Droplets Droplets Droplets Droplets Droplets Droplets 
-          </v-card-text>
-        </v-card>
-      </v-tab-item>
-      <v-tab-item>
-        <v-card flat tile>
-          <v-card-text>
-            Time time Time time Time time Time time Time time Time time Time time Time time Time time Time time Time time Time time Time time Time time Time time Time time Time 
-          </v-card-text>
-        </v-card>
-      </v-tab-item>
-      <v-tab-item>
-        <v-card flat tile>
-          <v-card-text>
-            Ventilation Ventilation Ventilation Ventilation Ventilation Ventilation Ventilation Ventilation Ventilation Ventilation Ventilation Ventilation Ventilation Ventilation
-          </v-card-text>
-        </v-card>
-      </v-tab-item>
-    </v-tabs>
-    <v-spacer></v-spacer>
+        <v-tab-item>
+          <v-card flat tile>
+            <v-card-text>
+              {{activity.crowdingNotes}}
+            </v-card-text>
+          </v-card>
+        </v-tab-item>
+        <v-tab-item>
+          <v-card flat tile>
+            <v-card-text>
+              {{activity.dropletsNotes}}
+            </v-card-text>
+          </v-card>
+        </v-tab-item>
+        <v-tab-item>
+          <v-card flat tile>
+            <v-card-text>
+              {{activity.exposureTimeNotes}}
+            </v-card-text>
+          </v-card>
+        </v-tab-item>
+        <v-tab-item>
+          <v-card flat tile>
+            <v-card-text>
+              {{activity.ventilationNotes}}
+            </v-card-text>
+          </v-card>
+        </v-tab-item>
+      </v-tabs>
+      <v-spacer></v-spacer>
+    </div>
   </div>
 </template>
 
