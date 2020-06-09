@@ -13,99 +13,7 @@
           class="btn"
           @click="toggleActivities"
         >{{ showActivities ? "&#x25bc;" : "&#x25b6;" }} Activities</h2>
-        <table
-          class="table table-striped"
-          v-show="showActivities"
-          cellspacing="0"
-          cellpadding="2px"
-          border="1"
-        >
-          <thead class="thead-dark">
-            <tr>
-              <th>Action</th>
-              <th>slug</th>
-              <th>Name</th>
-              <th>category</th>
-              <th>general</th>
-              <th>50-69</th>
-              <th>70+</th>
-              <th>location?</th>
-              <th colspan="2">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="activity in activities" :key="activity.activityName">
-              <td>
-                <router-link
-                  :to="{
-                    name: 'AdminActivityEdit',
-                    params: {
-                      activityName: activity.activityName,
-                      slug: activity.slug
-                    }
-                  }"
-                >Edit</router-link>
-              </td>
-              <td>{{ activity.slug }}</td>
-              <td>
-                <router-link
-                  :to="{
-                    name: 'Home',
-                    params: { search: activity.activityName }
-                  }"
-                >{{ activity.activityName }}</router-link>
-              </td>
-              <td>{{ activity.category }}</td>
-              <td>{{ activity.generalRiskScore }}</td>
-              <td>{{ activity.risk50To69 }}</td>
-              <td>{{ activity.riskOver70 }}</td>
-              <td>{{ activity.showLocation }}</td>
-              <td>
-                <v-btn text icon @click="toggleActivityIsDisabled(activity.slug,activity.disabled)">
-                  <v-icon>{{ activityIsActive(activity.disabled)  }}</v-icon>  
-                </v-btn>
-              </td>
-              <td><v-btn text icon @click="showConfirmActivityDelete(activity.slug)"><v-icon>mdi-trash-can</v-icon></v-btn></td>
-            </tr>
-          </tbody>
-        </table>
-        <v-dialog v-model="confirmActivityDelete" max-width="500">
-          <v-card>
-            <v-card-title>Are you sure you want to delete this activity?</v-card-title>
-            <v-card-text>{{this.activitySlugToDelete}}</v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="secondary darken-1" text @click="deleteActivity">Yes</v-btn>
-              <v-btn color="primary darken-1" text @click="confirmActivityDelete = false">No</v-btn>
-            </v-card-actions>
-          </v-card>
-          
-        </v-dialog>
-        <div class="utilityShelf" v-show="showActivities">
-          <v-dialog v-model="showNewActivityPrompt" max-width="500">
-            <template v-slot:activator="{ on }">
-              <v-btn class="buttonNew" color="dark" dark v-on="on">&#x2b; New</v-btn>
-            </template>
-            <v-card>
-              <v-card-title class="headline">Enter new activity name</v-card-title>
-              <v-text-field
-                class="promptInput"
-                v-model="newActivityName"
-                :counter="50"
-                label="Enter activity name"
-                clearable
-                @keydown="activityAlreadyExistsError = false"
-                @keydown.enter="newActivityOk"
-              ></v-text-field>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="secondary darken-1" text @click="showNewActivityPrompt = false">Cancel</v-btn>
-                <v-btn color="primary darken-1" text @click="newActivityOk">Ok</v-btn>
-              </v-card-actions>
-            </v-card>
-            <v-alert v-model="activityAlreadyExistsError" type="error" dismissible=true>Activity already exists!</v-alert>
-          </v-dialog>
-        </div>
+        <AdminActivityTable v-show="showActivities" :incomingNewActivityName="newActivityName"></AdminActivityTable>
       </div>
 
       <div>
@@ -305,8 +213,12 @@
 <script>
 import { db, firebase } from "@/db.js";
 import { mapState, mapGetters } from "vuex";
+import AdminActivityTable from "@/components/AdminActivityTable.vue";
 
 export default {
+  components : {
+    AdminActivityTable
+  },
   data() {
     return {
       showActivities: false,
@@ -315,11 +227,7 @@ export default {
       showRiskLevels: false,
       showUsers: false,
       showSuggestions: false,
-      showNewActivityPrompt: false,
       newActivityName: "",
-      activityAlreadyExistsError: false,
-      activitySlugToDelete: "",
-      confirmActivityDelete: false,
       currentUser: undefined,
       currentUserSettings: undefined
     };
@@ -412,73 +320,7 @@ export default {
       this.showSuggestions = !this.showSuggestions;
     },
     newActivity(activityName) {
-      this.showNewActivityPrompt = true;
-      if (activityName) this.newActivityName = activityName;
-    },
-    newActivityOk() {
-      let currentKey = Object.keys(this.activities).find(
-        key =>
-          this.activities[key].activityName.toLowerCase() ===
-          this.newActivityName.toLowerCase()
-      );
-      console.log("New Activity?", currentKey);
-      if (currentKey) {
-        this.activityAlreadyExistsError = true;
-      } else {
-        let activityName = this.newActivityName;
-        let activitySlug = this.slugify(activityName);
-        this.showNewActivityPrompt = false;
-        db.ref("content")
-          .child(this.currentCountry)
-          .child("activities")
-          .child(activitySlug)
-          .child("slug")
-          .set(activitySlug);
-        db.ref("content")
-          .child(this.currentCountry)
-          .child("activities")
-          .child(activitySlug)
-          .child("activityName")
-          .set(activityName);
-          db.ref("content")
-          .child(this.currentCountry)
-          .child("activities")
-          .child(activitySlug)
-          .child("disabled")
-          .set(true);
-        this.$router.push({
-          name: "AdminActivityEdit",
-          params: { activityName: activityName, slug: activitySlug }
-        });
-      }
-    },
-    activityAlreadyExistsErrorOk() {
-      this.newActivityName = "";
-    },
-    activityIsActive(disabled) {
-      if (disabled) return "mdi-eye-off";
-      else return "mdi-eye";
-    },
-    toggleActivityIsDisabled(activitySlug,state) {
-      state = !state;
-      db.ref("content")
-          .child(this.currentCountry)
-          .child("activities")
-          .child(activitySlug)
-          .child("disabled")
-          .set(state);
-    },
-    deleteActivity() {
-      db.ref("content")
-        .child(this.currentCountry)
-        .child("activities")
-        .child(this.activitySlugToDelete)
-        .remove();
-        this.confirmActivityDelete = false;
-    },
-    showConfirmActivityDelete(activitySlug) {
-      this.activitySlugToDelete = activitySlug;
-      this.confirmActivityDelete = true;
+      this.newActivityName = activityName;
     },
     deleteUser(userId) {
       db.ref("userSettings")
