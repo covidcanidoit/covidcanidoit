@@ -317,7 +317,7 @@ export default {
       return this.activities[this.currentKey];
     },
     keywords() {
-      return this.activity.activityKeywords.split(",");
+      return this.activity.activityKeywords ? this.activity.activityKeywords.split(",") : [];
     }
   },
   methods: {
