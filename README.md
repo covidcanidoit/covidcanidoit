@@ -58,8 +58,9 @@ can skip those parts.
 # Install brew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
-# Install asdf
+# Install asdf and gnupg
 brew install asdf
+brew install gnupg
 echo '. $(brew --prefix asdf)/asdf.sh' >> ~/.zshrc # Add asdf to path
 source ~/.zshrc # Load Zsh config to get path (new terminals get it too)
 
