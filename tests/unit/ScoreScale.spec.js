@@ -2,6 +2,7 @@ import { shallowMount } from "@vue/test-utils";
 import ScoreScale from "@/components/ScoreScale.vue";
 
 describe("ScoreScale", () => {
+
   test("returns with class `connector`", () => {
     const wrapper = shallowMount(ScoreScale);
     expect(wrapper.findAll(".connector").length).toEqual(4);
