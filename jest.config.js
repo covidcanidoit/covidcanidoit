@@ -6,9 +6,8 @@ module.exports = {
       "json",
       "vue"
   ], 
-  collectCoverage: true,
   collectCoverageFrom: [
-      "src/components/*.{js,vue}",
-      "!**/node_modules/**"
+      "src/components/*.spec.{js,vue}",
+      "!**/node_modules/**",
   ],
 };
