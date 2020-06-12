@@ -1,6 +1,7 @@
 <template>
   <div>
     <router-link :to="{ name: 'Admin' }">Back</router-link>
+    <h1 class="display-2">Editing {{this.activity.activityName}}</h1>
     <v-form>
       <v-container fluid>
         <v-layout>
