@@ -11,7 +11,65 @@
       <div class="score">{{ risk && risk.riskScore }}</div>
       <div class="score-title">{{ risk && risk.riskName }}</div>
       <ScoreScale :score="score" />
-    </div>
+      <v-spacer></v-spacer>
+      <div v-show="activity.activityName" mt-1>
+          <v-container class="riskComponentsContainer">
+            <v-row>
+              <v-col>
+                <RiskComponentBar :value=activity.crowding ></RiskComponentBar>
+              </v-col>
+              <v-col>
+                <RiskComponentBar :value=activity.droplets ></RiskComponentBar>
+              </v-col>
+              <v-col>
+                <RiskComponentBar :value=activity.exposureTime ></RiskComponentBar>
+              </v-col>
+              <v-col>
+                <RiskComponentBar :value=activity.ventilation ></RiskComponentBar>
+              </v-col>
+            </v-row>
+          </v-container>
+          <v-tabs
+            fixed-tabs
+            icons-and-text
+          >
+            <v-tab>Crowding   <v-icon>mdi-account-switch</v-icon></v-tab>
+            <v-tab>Droplets <v-icon>mdi-water</v-icon></v-tab>
+            <v-tab>Time <v-icon>mdi-timer-sand-full</v-icon></v-tab>
+            <v-tab>Ventilation <v-icon>mdi-fan</v-icon></v-tab>
+
+            <v-tab-item>
+              <v-card flat tile class="tabCard">
+                <v-card-text>
+                  <Markdown :source="activity.crowdingNotes" />
+                </v-card-text>
+              </v-card>
+            </v-tab-item>
+            <v-tab-item>
+              <v-card flat tile class="tabCard">
+                <v-card-text>
+                  <Markdown :source="activity.dropletsNotes" />
+                </v-card-text>
+              </v-card>
+            </v-tab-item>
+            <v-tab-item>
+              <v-card flat tile class="tabCard">
+                <v-card-text>
+                  <Markdown :source="activity.exposureTimeNotes" />
+                </v-card-text>
+              </v-card>
+            </v-tab-item>
+            <v-tab-item>
+              <v-card flat tile class="tabCard">
+                <v-card-text>
+                  <Markdown :source="activity.ventilationNotes" />
+                </v-card-text>
+              </v-card>
+            </v-tab-item>
+          </v-tabs>
+          <v-spacer></v-spacer>
+          </div>
+        </div>
     <div class="risk-information">
       <Markdown class="risk-details" :source="risk && risk.longDescription" />
       <br />
@@ -81,11 +139,12 @@ import Markdown from "vue-markdown";
 import ScoreScale from "@/components/ScoreScale.vue";
 import Chart from "@/components/PopularTimesChart";
 import VueGoogleAutocomplete from "vue-google-autocomplete";
+import RiskComponentBar from "@/components/RiskComponentBar.vue";
 
 import axios from "axios";
 
 export default {
-  components: { ScoreScale, Markdown, Chart, VueGoogleAutocomplete },
+  components: { ScoreScale, Markdown, Chart, VueGoogleAutocomplete, RiskComponentBar },
   props: {
     score: {
       type: String,
@@ -210,5 +269,18 @@ export default {
     margin: auto;
     padding: 1em;
   }
+
+  .riskComponentsContainer {
+    background-color: white;
+  }
+
+  .v-tab--active {
+    background-color: #F1F8E9;
+  }
+
+  .tabCard {
+    text-align: left;
+    background-color:#F1F8E9;
+  }  
 }
 </style>

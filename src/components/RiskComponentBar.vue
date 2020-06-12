@@ -39,13 +39,15 @@ export default {
   height: 100px;
   display: flex;
   flex-direction: column;
+  text-align: center;
 }
 
 .bar {
-  width: 100%;
+  width: 40%;
   background-color: black;
   left: 0;
   flex-grow: 0;
+  margin: 0 auto;
 }
 
 .tag {

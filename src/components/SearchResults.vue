@@ -59,7 +59,7 @@
         </div>
       </div>
     </div>
-    <div v-show="activity.activityName">
+    <!--<div v-show="activity.activityName">
     <v-spacer></v-spacer>
       <v-container>
         <v-row>
@@ -116,7 +116,7 @@
         </v-tab-item>
       </v-tabs>
       <v-spacer></v-spacer>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -124,10 +124,10 @@
 import Markdown from "vue-markdown";
 import { mapGetters } from "vuex";
 import RiskDescription from "@/components/RiskDescription.vue";
-import RiskComponentBar from "@/components/RiskComponentBar.vue";
+//import RiskComponentBar from "@/components/RiskComponentBar.vue";
 
 export default {
-  components: { RiskDescription, Markdown, RiskComponentBar },
+  components: { RiskDescription, Markdown},//, RiskComponentBar },
   props: {
     searchedTerm: String,
     activity: Object,
