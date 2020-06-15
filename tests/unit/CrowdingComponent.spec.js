@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import CrowdingComponent from "@/components/CrowdingComponent.vue";
+import CrowdingComponent from "@/components/crowdingComponent.vue";
 
 describe("CrowdingComponent", () => {
   describe("Methods", () => {
