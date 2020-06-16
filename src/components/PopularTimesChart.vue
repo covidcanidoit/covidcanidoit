@@ -118,10 +118,10 @@ export default {
       this.clearPlot();
       if (this.crowdingData == "error") {
         //if no crowding data, display "No data available"
-        console.log("no data")
-        this.displayChart = false
+        console.log("no data");
+        this.displayChart = false;
       } else {
-        this.displayChart = true
+        this.displayChart = true;
         var ctx = document.getElementById("myChart").getContext("2d");
 
         this.chart = new Chart(ctx, {

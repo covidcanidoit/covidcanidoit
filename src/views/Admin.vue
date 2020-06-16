@@ -2,25 +2,31 @@
   <div class="admin-view">
     <h1>Admin!</h1>
 
-    <button class="btn btn-primary" v-if="!currentUser" @click="login">Sign in with Google</button>
-    <button class="btn btn-secondary" v-if="currentUser" @click="logout">Sign out</button>
+    <button class="btn btn-primary" v-if="!currentUser" @click="login">
+      Sign in with Google
+    </button>
+    <button class="btn btn-secondary" v-if="currentUser" @click="logout">
+      Sign out
+    </button>
     Current User: {{ currentUser && currentUser.email }} isAdmin: {{ isAdmin }}
     <br />
 
     <div v-if="isAdmin && users && userSettings">
       <div>
-        <h2
-          class="btn"
-          @click="toggleActivities"
-        >{{ showActivities ? "&#x25bc;" : "&#x25b6;" }} Activities</h2>
-        <AdminActivityTable v-show="showActivities" :incomingNewActivityName="newActivityName" :currentUserSettings="currentUserSettings"></AdminActivityTable>
+        <h2 class="btn" @click="toggleActivities">
+          {{ showActivities ? "&#x25bc;" : "&#x25b6;" }} Activities
+        </h2>
+        <AdminActivityTable
+          v-show="showActivities"
+          :incomingNewActivityName="newActivityName"
+          :currentUserSettings="currentUserSettings"
+        ></AdminActivityTable>
       </div>
 
       <div>
-        <h2
-          class="btn"
-          @click="toggleRiskLevels"
-        >{{ showRiskLevels ? "&#x25bc;" : "&#x25b6;" }} Risk Levels</h2>
+        <h2 class="btn" @click="toggleRiskLevels">
+          {{ showRiskLevels ? "&#x25bc;" : "&#x25b6;" }} Risk Levels
+        </h2>
         <table
           class="table table-striped"
           v-show="showRiskLevels"
@@ -43,7 +49,8 @@
                     name: 'AdminRiskLevelEdit',
                     params: { riskScore: riskLevel.riskScore }
                   }"
-                >Edit</router-link>
+                  >Edit</router-link
+                >
               </td>
               <td>{{ riskLevel.riskScore }}</td>
               <td>{{ riskLevel.riskName }}</td>
@@ -53,10 +60,9 @@
       </div>
 
       <div>
-        <h2
-          class="btn"
-          @click="toggleRiskFactors"
-        >{{ showRiskFactors ? "&#x25bc;" : "&#x25b6;" }} Risk Factors</h2>
+        <h2 class="btn" @click="toggleRiskFactors">
+          {{ showRiskFactors ? "&#x25bc;" : "&#x25b6;" }} Risk Factors
+        </h2>
         <table
           class="table table-striped"
           v-show="showRiskFactors"
@@ -83,7 +89,8 @@
                     name: 'AdminRiskFactorEdit',
                     params: { name: riskFactor.name }
                   }"
-                >Edit</router-link>
+                  >Edit</router-link
+                >
               </td>
               <td>{{ riskFactor.description }}</td>
               <td>
@@ -99,10 +106,9 @@
       </div>
 
       <div>
-        <h2
-          class="btn"
-          @click="toggleCategories"
-        >{{ showCategories ? "&#x25bc;" : "&#x25b6;" }} Categories</h2>
+        <h2 class="btn" @click="toggleCategories">
+          {{ showCategories ? "&#x25bc;" : "&#x25b6;" }} Categories
+        </h2>
         <table
           class="table table-striped"
           v-show="showCategories"
@@ -127,7 +133,8 @@
                     name: 'AdminCategoryEdit',
                     params: { categoryName: category.name }
                   }"
-                >Edit</router-link>
+                  >Edit</router-link
+                >
               </td>
               <td>{{ category.name }}</td>
               <td>
@@ -141,7 +148,9 @@
       </div>
 
       <div>
-        <h2 class="btn" @click="toggleUsers">{{ showUsers ? "&#x25bc;" : "&#x25b6;" }} Users</h2>
+        <h2 class="btn" @click="toggleUsers">
+          {{ showUsers ? "&#x25bc;" : "&#x25b6;" }} Users
+        </h2>
         <table
           class="table table-striped"
           v-show="showUsers"
@@ -164,11 +173,14 @@
                     name: 'AdminUserEdit',
                     params: { userId: userId }
                   }"
-                >Edit</router-link>
+                  >Edit</router-link
+                >
                 <button @click="deleteUser(userId)">Delete</button>
               </td>
               <td>{{ users[userId].email }}</td>
-              <td>{{ userSettings[userId] && userSettings[userId].isAdmin }}</td>
+              <td>
+                {{ userSettings[userId] && userSettings[userId].isAdmin }}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -192,7 +204,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(topic,topicName) in activitySuggestions" :key="topic.key">
+            <tr
+              v-for="(topic, topicName) in activitySuggestions"
+              :key="topic.key"
+            >
               <td>
                 {{ topicName }}
               </td>
@@ -200,7 +215,9 @@
                 {{ topic.count }}
               </td>
               <td>
-                <v-btn text icon @click="newActivity(topicName)"><v-icon>mdi-arrow-up-bold-box</v-icon></v-btn>
+                <v-btn text icon @click="newActivity(topicName)"
+                  ><v-icon>mdi-arrow-up-bold-box</v-icon></v-btn
+                >
               </td>
             </tr>
           </tbody>
@@ -216,7 +233,7 @@ import { mapState, mapGetters } from "vuex";
 import AdminActivityTable from "@/components/AdminActivityTable.vue";
 
 export default {
-  components : {
+  components: {
     AdminActivityTable
   },
   data() {
@@ -275,7 +292,14 @@ export default {
   },
   computed: {
     ...mapState(["content", "users", "userSettings", "currentUserUid"]),
-    ...mapGetters(["activities", "riskLevels", "riskFactors", "categories", "currentCountry","activitySuggestions"]),
+    ...mapGetters([
+      "activities",
+      "riskLevels",
+      "riskFactors",
+      "categories",
+      "currentCountry",
+      "activitySuggestions"
+    ]),
     isAdmin() {
       return !!this.currentUserSettings?.isAdmin;
     },
@@ -331,7 +355,10 @@ export default {
         .remove();
     },
     slugify(nodeName) {
-      return nodeName.split(" ").join("-").toLowerCase();
+      return nodeName
+        .split(" ")
+        .join("-")
+        .toLowerCase();
     }
   }
 };

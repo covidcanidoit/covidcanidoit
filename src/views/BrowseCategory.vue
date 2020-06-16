@@ -29,9 +29,9 @@ export default {
   computed: {
     ...mapGetters(["activities"]),
     categoryActivities() {
-      return Object.values(this.activities).filter(
-        activity => activity.category === this.name
-      ).filter(activity => !activity.disabled);
+      return Object.values(this.activities)
+        .filter(activity => activity.category === this.name)
+        .filter(activity => !activity.disabled);
     }
   }
 };

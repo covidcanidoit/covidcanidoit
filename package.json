@@ -8,7 +8,7 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
-    "deploy": "yarn build && yarn run firebase deploy --only hosting",
+    "deploy-staging": "yarn build && yarn run firebase -P ccidi-staging deploy --only hosting",
     "deploy-db-rules": "yarn build && yarn run firebase deploy --only database"
   },
   "dependencies": {
@@ -53,6 +53,7 @@
     "eslint-plugin-prettier": "^3.1.3",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-vue": "^6.2.2",
+    "firebase-tools": "^8.4.2",
     "prettier": "^1.19.1",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
