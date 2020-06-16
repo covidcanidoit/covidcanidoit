@@ -8,7 +8,7 @@ describe("CrowdingComponent", () => {
 
     test("searchLocation should return the search location and set haveSearched to true", () => {
       const data = {
-        haveSearched: false,
+        hasSearched: false,
         selectedTime: 0,
         selectedLocation: "391 Amsterdam Ave",
         time: null
@@ -18,7 +18,7 @@ describe("CrowdingComponent", () => {
         propsData: data
       });
 
-      documentSpy.mockReturnValueOnce("something");
+      documentSpy.mockReturnValueOnce({ value: "someValueForLocation" });
       wrapper.vm.searchLocation();
       expect(data.selectedLocation).toMatchInlineSnapshot(
         `"391 Amsterdam Ave"`
@@ -29,7 +29,7 @@ describe("CrowdingComponent", () => {
           "calls": Array [
             Array [
               "searched: ",
-              undefined,
+              "someValueForLocation",
               " at ",
               "1:00 AM",
             ],
@@ -42,7 +42,7 @@ describe("CrowdingComponent", () => {
           ],
         }
       `);
-      // expect(data.haveSearched).toReturnWith(true);
+      expect(wrapper.vm.$data.haveSearched).toBe(true)
     });
   });
 
