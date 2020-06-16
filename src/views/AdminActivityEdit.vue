@@ -2,7 +2,7 @@
   <div>
     <router-link :to="{ name: 'Admin' }">Back</router-link>
     <h1 class="display-2">Editing {{this.activity.activityName}}</h1>
-    <v-form>
+    <v-form v-show="hasBetaAccess">
       <v-container fluid>
         <v-layout>
           <v-flex lg12 md12 sm12 xs12>
@@ -293,7 +293,7 @@ import Markdown from "vue-markdown";
 
 export default {
   components: {Markdown},
-  props: ["slug", "activityName"],
+  props: ["slug", "activityName","currentUserSettings"],
   data() {
     return {
       currentKey: undefined,
@@ -318,6 +318,9 @@ export default {
     },
     keywords() {
       return this.activity.activityKeywords ? this.activity.activityKeywords.split(",") : [];
+    },
+    hasBetaAccess() {
+      return !!this.currentUserSettings?.hasBetaAccess;
     }
   },
   methods: {

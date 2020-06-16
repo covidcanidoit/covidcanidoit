@@ -43,7 +43,8 @@
                     name: 'AdminActivityEdit',
                     params: {
                       activityName: item.activityName,
-                      slug: item.slug
+                      slug: item.slug,
+                      currentUserSettings: currentUserSettings
                     }
                   }"
                 ><v-icon title="Edit this activity">mdi-lead-pencil</v-icon></router-link>
@@ -73,7 +74,7 @@ import { db } from "@/db.js";
 import { mapState, mapGetters } from "vuex";
 
 export default {
-  props: ["incomingNewActivityName"],
+  props: ["incomingNewActivityName","currentUserSettings"],
   watch: {
     incomingNewActivityName: "newActivity"
   },

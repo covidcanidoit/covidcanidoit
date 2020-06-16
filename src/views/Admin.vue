@@ -13,7 +13,7 @@
           class="btn"
           @click="toggleActivities"
         >{{ showActivities ? "&#x25bc;" : "&#x25b6;" }} Activities</h2>
-        <AdminActivityTable v-show="showActivities" :incomingNewActivityName="newActivityName"></AdminActivityTable>
+        <AdminActivityTable v-show="showActivities" :incomingNewActivityName="newActivityName" :currentUserSettings="currentUserSettings"></AdminActivityTable>
       </div>
 
       <div>
