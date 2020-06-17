@@ -42,7 +42,7 @@ describe("CrowdingComponent", () => {
           ],
         }
       `);
-      expect(wrapper.vm.$data.haveSearched).toBe(true)
+      expect(wrapper.vm.$data.haveSearched).toBe(true);
     });
   });
 
