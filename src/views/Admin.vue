@@ -19,6 +19,7 @@
         <AdminActivityTable
           v-show="showActivities"
           :incomingNewActivityName="newActivityName"
+          :currentUserSettings="currentUserSettings"
         ></AdminActivityTable>
       </div>
 
