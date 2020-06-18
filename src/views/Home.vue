@@ -88,10 +88,12 @@ export default {
               params: { search: searchValue }
             });
           } else {
-            this.$router.replace({
-              name: "ActivitySearch",
-              params: { slug: activity.slug }
-            });
+            if (this.$route.params.slug != activity.slug) {
+              this.$router.replace({
+                name: "ActivitySearch",
+                params: { slug: activity.slug }
+              });
+            }
             VueScrollTo.scrollTo("#search-results");
           }
         }
