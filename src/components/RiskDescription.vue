@@ -12,7 +12,8 @@
       <div class="score-title">{{ risk && risk.riskName }}</div>
       <ScoreScale :score="score" />
       <v-spacer></v-spacer>
-      <div v-show="activity.activityName" mt-1>
+      <div v-show="showRiskComponents" mt-1>
+        <v-spacer></v-spacer>
           <v-container class="riskComponentsContainer">
             <v-row>
               <v-col>
@@ -167,7 +168,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["riskLevels"]),
+    ...mapGetters(["riskLevels","currentUserSettings"]),
     risk() {
       return this.riskLevels["riskLevel" + this.score];
     },
@@ -186,6 +187,11 @@ export default {
           ];
       }
       return referencesArray;
+    },
+    showRiskComponents: function() {
+      console.log("this.activity.activityname",this.activity.activityName);
+      console.log("this.currentUserSettings.hasBetaAccess",this.currentUserSettings.hasBetaAccess)
+      return this.activity.activityName && this.currentUserSettings.hasBetaAccess;
     }
   },
   methods: {
