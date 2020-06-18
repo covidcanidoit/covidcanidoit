@@ -49,7 +49,7 @@
         <v-layout>
           <v-row>
             <v-col lg12>
-              <v-select :items="categories" label="Activity Category" :value="activity.category" @input='saveValue("category",$event)'></v-select>
+              <v-select :items="categoryNames" label="Activity Category" :value="activity.category" @input='saveValue("category",$event)'></v-select>
             </v-col>
           </v-row>
           <v-row>
@@ -297,14 +297,6 @@ export default {
   data() {
     return {
       currentKey: undefined,
-      categories: [
-        "Errand",
-        "Essentials",
-        "Exercise",
-        "Social",
-        "Sports",
-        "Travel"
-      ],
       newKeyword: ""
     };
   },
@@ -312,7 +304,7 @@ export default {
     this.lookupActivity();
   },
   computed: {
-    ...mapGetters(["activities", "currentCountry"]),
+    ...mapGetters(["activities", "currentCountry","categories"]),
     activity() {
       return this.activities[this.currentKey];
     },
@@ -321,6 +313,9 @@ export default {
     },
     hasBetaAccess() {
       return !!this.currentUserSettings?.hasBetaAccess;
+    },
+    categoryNames() {
+      return Object.keys(this.categories);
     }
   },
   methods: {
@@ -345,9 +340,6 @@ export default {
         .set(value);
       console.log("activity.inside", this.activity.inside);
     },
-    // saveField(field, event) {
-    //
-    // },
     lookupActivity() {
       console.log({ activities: this.activities });
       console.log({ keys: Object.keys(this.activities) });
