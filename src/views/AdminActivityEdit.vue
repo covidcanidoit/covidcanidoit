@@ -293,7 +293,7 @@ import Markdown from "vue-markdown";
 
 export default {
   components: {Markdown},
-  props: ["slug", "activityName","currentUserSettings"],
+  props: ["slug", "activityName"],
   data() {
     return {
       currentKey: undefined,
@@ -304,7 +304,7 @@ export default {
     this.lookupActivity();
   },
   computed: {
-    ...mapGetters(["activities", "currentCountry","categories"]),
+    ...mapGetters(["activities", "currentCountry","categories","currentUserSettings"]),
     activity() {
       return this.activities[this.currentKey];
     },
