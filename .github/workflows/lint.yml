@@ -1,11 +1,22 @@
 name: Linter
+
 on: push
+
 jobs:
-  build:
+  run-linters:
+    name: Run linters
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v2
-    - name: Install modules
-      run: yarn
-    - name: Run linter
-      run: yarn lint
+      - name: Check out Git Repo
+      - uses: actions/checkout@v2
+
+      - name: Install modules
+        run: yarn
+
+      - name: Run linter
+        uses: samuelmeuli/lint-action@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          eslint: true
+          prettier: true
