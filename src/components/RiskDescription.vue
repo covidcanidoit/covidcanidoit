@@ -189,8 +189,6 @@ export default {
       return referencesArray;
     },
     showRiskComponents: function() {
-      console.log("this.activity.activityname",this.activity.activityName);
-      console.log("this.currentUserSettings.hasBetaAccess",this.currentUserSettings.hasBetaAccess)
       return this.activity.activityName && this.currentUserSettings.hasBetaAccess;
     }
   },
