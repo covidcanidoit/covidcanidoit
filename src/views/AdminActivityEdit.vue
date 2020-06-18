@@ -54,7 +54,7 @@
           </v-row>
           <v-row>
             <v-col lg12>
-              <v-switch label="Inside?" input-value="activity.inside" @change='saveValue("inside",!activity.inside,$event)'></v-switch>
+              <v-switch label="Inside?" input-value="activity.inside" @change='saveValue("inside",!activity.inside)'></v-switch>
               <!--<v-checkbox label="Inside?" input-value="activity.inside" @click='saveValue("inside",!activity.inside,$event)'></v-checkbox>-->
               <!-- uncommment line above if we want to use a checkbox instead of a switch -->
             </v-col>
@@ -330,8 +330,8 @@ export default {
         .child(name)
         .set(event.target.value);
     },
-    saveValue(name, value,event) {
-      console.log("So... you want to save...", { name, value, event});
+    saveValue(name, value) {
+      console.log("So... you want to save...", { name, value});
       db.ref("content")
         .child(this.currentCountry)
         .child("activities")
@@ -349,7 +349,8 @@ export default {
       console.log({ key: this.currentKey });
     },
     removeKeyword(deleteKeyword) {
-      this.activity.activityKeywords = this.activity.activityKeywords.split(",").filter((keyword) => keyword !== deleteKeyword).join(",");
+      this.activity.activityKeywords = this.keywords.filter((keyword) => keyword !== deleteKeyword).join(",");
+      this.saveValue("activityKeywords",this.activity.activityKeywords);
     }
   }
 };
