@@ -109,7 +109,7 @@ import { db } from "@/db.js";
 import { mapState, mapGetters } from "vuex";
 
 export default {
-  props: ["incomingNewActivityName","currentUserSettings"],
+  props: ["incomingNewActivityName", "currentUserSettings"],
   watch: {
     incomingNewActivityName: "newActivity"
   },

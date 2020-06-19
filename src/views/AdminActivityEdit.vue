@@ -1,7 +1,7 @@
 <template>
   <div>
     <router-link :to="{ name: 'Admin' }">Back</router-link>
-    <h1 class="display-2">Editing {{this.activity.activityName}}</h1>
+    <h1 class="display-2">Editing {{ this.activity.activityName }}</h1>
     <v-form v-show="hasBetaAccess">
       <v-container fluid>
         <v-layout>
@@ -12,16 +12,28 @@
 
         <v-layout>
           <v-flex xs12 md4 m-1>
-            <v-text-field label="Activity Slug" :value="activity.slug" @input='saveValue("slug",$event)'></v-text-field>
+            <v-text-field
+              label="Activity Slug"
+              :value="activity.slug"
+              @input="saveValue('slug', $event)"
+            ></v-text-field>
           </v-flex>
           <v-flex xs12 md4 m-1>
-            <v-text-field label="Activity Name" :value="activity.activityName" @input='saveValue("activityName",$event)'></v-text-field>
+            <v-text-field
+              label="Activity Name"
+              :value="activity.activityName"
+              @input="saveValue('activityName', $event)"
+            ></v-text-field>
           </v-flex>
           <v-flex xs12 md4 m-1>
-            <v-text-field label="Activity Search name" :value="activity.searchActivityName" @input='saveValue("searchActivityName",$event)'></v-text-field>
+            <v-text-field
+              label="Activity Search name"
+              :value="activity.searchActivityName"
+              @input="saveValue('searchActivityName', $event)"
+            ></v-text-field>
           </v-flex>
         </v-layout>
-<v-divider></v-divider>
+        <v-divider></v-divider>
         <v-layout>
           <v-flex>
             <h2 class="headline">Scores</h2>
@@ -30,16 +42,37 @@
 
         <v-layout justify-space-around>
           <v-flex xs12 md3>
-            <v-text-field type="number" label="Trending Bad Risk Score" min="1" max="5" :value="activity.TrendBadRiskScore" @input='saveValue("TrendBadRiskScore",$event)'></v-text-field>
+            <v-text-field
+              type="number"
+              label="Trending Bad Risk Score"
+              min="1"
+              max="5"
+              :value="activity.TrendBadRiskScore"
+              @input="saveValue('TrendBadRiskScore', $event)"
+            ></v-text-field>
           </v-flex>
           <v-flex xs12 md3>
-            <v-text-field type="number" label="Trending Medium Risk Score" min="1" max="5" :value="activity.TrendMediumRiskScore" @input='saveValue("TrendMediumRiskScore",$event)'></v-text-field>
+            <v-text-field
+              type="number"
+              label="Trending Medium Risk Score"
+              min="1"
+              max="5"
+              :value="activity.TrendMediumRiskScore"
+              @input="saveValue('TrendMediumRiskScore', $event)"
+            ></v-text-field>
           </v-flex>
           <v-flex xs12 md3>
-            <v-text-field type="number" label="Trending Good Risk Score" min="1" max="5"  :value="activity.TrendGoodRiskScore" @input='saveValue("TrendGoodRiskScore",$event)'></v-text-field>
+            <v-text-field
+              type="number"
+              label="Trending Good Risk Score"
+              min="1"
+              max="5"
+              :value="activity.TrendGoodRiskScore"
+              @input="saveValue('TrendGoodRiskScore', $event)"
+            ></v-text-field>
           </v-flex>
         </v-layout>
-<v-divider></v-divider>
+        <v-divider></v-divider>
         <v-layout>
           <v-flex>
             <h2 class="headline">Categorization</h2>
@@ -49,12 +82,21 @@
         <v-layout>
           <v-row>
             <v-col lg12>
-              <v-select :items="categoryNames" label="Activity Category" :value="activity.category" @input='saveValue("category",$event)'></v-select>
+              <v-select
+                :items="categoryNames"
+                label="Activity Category"
+                :value="activity.category"
+                @input="saveValue('category', $event)"
+              ></v-select>
             </v-col>
           </v-row>
           <v-row>
             <v-col lg12>
-              <v-switch label="Inside?" input-value="activity.inside" @change='saveValue("inside",!activity.inside)'></v-switch>
+              <v-switch
+                label="Inside?"
+                input-value="activity.inside"
+                @change="saveValue('inside', !activity.inside)"
+              ></v-switch>
               <!--<v-checkbox label="Inside?" input-value="activity.inside" @click='saveValue("inside",!activity.inside,$event)'></v-checkbox>-->
               <!-- uncommment line above if we want to use a checkbox instead of a switch -->
             </v-col>
@@ -63,13 +105,28 @@
 
         <v-layout row>
           <v-flex col lg8>
-            <v-text-field label="Add a keyword" v-model="newKeyword" @keydown.enter='saveValue("activityKeywords",activity.activityKeywords + "," + newKeyword)'></v-text-field>
+            <v-text-field
+              label="Add a keyword"
+              v-model="newKeyword"
+              @keydown.enter="
+                saveValue(
+                  'activityKeywords',
+                  activity.activityKeywords + ',' + newKeyword
+                )
+              "
+            ></v-text-field>
           </v-flex>
           <v-flex col lg4></v-flex>
           <v-flex lg1></v-flex>
           <v-flex lg10>
             <v-layout row wrap justify-start>
-              <v-chip close v-for="keyword in keywords" :key="keyword" @click:close="removeKeyword(keyword)" >{{keyword}}</v-chip>
+              <v-chip
+                close
+                v-for="keyword in keywords"
+                :key="keyword"
+                @click:close="removeKeyword(keyword)"
+                >{{ keyword }}</v-chip
+              >
             </v-layout>
           </v-flex>
           <v-flex lg1></v-flex>
@@ -102,8 +159,12 @@
             <v-tab-item>
               <v-card flat tile>
                 <v-card-text>
-                  <v-textarea label="Crowding Notes" :value="activity.crowdingNotes" @input='saveValue("crowdingNotes",$event)'></v-textarea>
-                  <v-label >Crowding Notes Preview</v-label>
+                  <v-textarea
+                    label="Crowding Notes"
+                    :value="activity.crowdingNotes"
+                    @input="saveValue('crowdingNotes', $event)"
+                  ></v-textarea>
+                  <v-label>Crowding Notes Preview</v-label>
                   <v-card outlined>
                     <Markdown :source="activity.crowdingNotes" />
                   </v-card>
@@ -114,8 +175,12 @@
             <v-tab-item>
               <v-card flat tile>
                 <v-card-text>
-                  <v-textarea label="Droplets Notes" :value="activity.dropletsNotes" @input='saveValue("dropletsNotes",$event)'></v-textarea>
-                  <v-label >Droplets Notes Preview</v-label>
+                  <v-textarea
+                    label="Droplets Notes"
+                    :value="activity.dropletsNotes"
+                    @input="saveValue('dropletsNotes', $event)"
+                  ></v-textarea>
+                  <v-label>Droplets Notes Preview</v-label>
                   <v-card outlined>
                     <Markdown :source="activity.dropletsNotes" />
                   </v-card>
@@ -126,8 +191,12 @@
             <v-tab-item>
               <v-card flat tile>
                 <v-card-text>
-                  <v-textarea label="Exposure Time Notes" :value="activity.exposureTimeNotes" @input='saveValue("exposureTimeNotes",$event)'></v-textarea>
-                  <v-label > Exposure Time Notes Preview</v-label>
+                  <v-textarea
+                    label="Exposure Time Notes"
+                    :value="activity.exposureTimeNotes"
+                    @input="saveValue('exposureTimeNotes', $event)"
+                  ></v-textarea>
+                  <v-label> Exposure Time Notes Preview</v-label>
                   <v-card outlined>
                     <Markdown :source="activity.exposureTimeNotes" />
                   </v-card>
@@ -138,8 +207,12 @@
             <v-tab-item>
               <v-card flat tile>
                 <v-card-text>
-                  <v-textarea label="Ventilation Notes" :value="activity.ventilationNotes" @input='saveValue("ventilationNotes",$event)'></v-textarea>
-                  <v-label >Ventilation Notes Preview</v-label>
+                  <v-textarea
+                    label="Ventilation Notes"
+                    :value="activity.ventilationNotes"
+                    @input="saveValue('ventilationNotes', $event)"
+                  ></v-textarea>
+                  <v-label>Ventilation Notes Preview</v-label>
                   <v-card outlined>
                     <Markdown :source="activity.ventilationNotes" />
                   </v-card>
@@ -292,7 +365,7 @@ import { mapGetters } from "vuex";
 import Markdown from "vue-markdown";
 
 export default {
-  components: {Markdown},
+  components: { Markdown },
   props: ["slug", "activityName"],
   data() {
     return {
@@ -304,12 +377,19 @@ export default {
     this.lookupActivity();
   },
   computed: {
-    ...mapGetters(["activities", "currentCountry","categories","currentUserSettings"]),
+    ...mapGetters([
+      "activities",
+      "currentCountry",
+      "categories",
+      "currentUserSettings"
+    ]),
     activity() {
       return this.activities[this.currentKey];
     },
     keywords() {
-      return this.activity.activityKeywords ? this.activity.activityKeywords.split(",") : [];
+      return this.activity.activityKeywords
+        ? this.activity.activityKeywords.split(",")
+        : [];
     },
     hasBetaAccess() {
       return !!this.currentUserSettings?.hasBetaAccess;
@@ -331,7 +411,7 @@ export default {
         .set(event.target.value);
     },
     saveValue(name, value) {
-      console.log("So... you want to save...", { name, value});
+      console.log("So... you want to save...", { name, value });
       db.ref("content")
         .child(this.currentCountry)
         .child("activities")
@@ -349,8 +429,10 @@ export default {
       console.log({ key: this.currentKey });
     },
     removeKeyword(deleteKeyword) {
-      this.activity.activityKeywords = this.keywords.filter((keyword) => keyword !== deleteKeyword).join(",");
-      this.saveValue("activityKeywords",this.activity.activityKeywords);
+      this.activity.activityKeywords = this.keywords
+        .filter(keyword => keyword !== deleteKeyword)
+        .join(",");
+      this.saveValue("activityKeywords", this.activity.activityKeywords);
     }
   }
 };
