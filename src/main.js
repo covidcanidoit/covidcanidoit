@@ -14,11 +14,11 @@ import "@mdi/font/css/materialdesignicons.css";
 import { rtdbPlugin } from "vuefire";
 Vue.use(rtdbPlugin);
 
-import Bugsnag from '@bugsnag/js';
-import BugsnagPluginVue from '@bugsnag/plugin-vue';
+import Bugsnag from "@bugsnag/js";
+import BugsnagPluginVue from "@bugsnag/plugin-vue";
 
 Bugsnag.start({
-  apiKey: '229b7b7efcfa23d9e579dc97606658d8',
+  apiKey: "229b7b7efcfa23d9e579dc97606658d8",
   plugins: [new BugsnagPluginVue()]
 });
 
