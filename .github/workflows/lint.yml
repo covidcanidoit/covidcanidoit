@@ -1,18 +1,15 @@
+---
 name: Linter
 on: push
-
 jobs:
   build:
     name: Lint Code
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
     - name: Install modules
       run: yarn
-
     - name: Run linter
       uses: github/super-linter@v2.0.0
       env:
@@ -20,4 +17,3 @@ jobs:
         VALIDATE_JSON: true
         VALIDATE_JAVASCRIPT_ES: true
         VALIDATE_ALL_CODEBASE: false	
-
