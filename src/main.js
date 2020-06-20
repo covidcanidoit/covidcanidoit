@@ -32,9 +32,21 @@ Vue.use(
   router
 );
 
-new Vue({
-  router,
-  store,
-  vuetify,
-  render: h => h(App)
-}).$mount("#app");
+function loadFirebaseContent() {
+  return Promise.all([
+    store.dispatch("bindSuggestions"),
+    store.dispatch("bindContent")
+  ]);
+}
+
+loadFirebaseContent().then(() => {
+  new Vue({
+    router,
+    store,
+    vuetify,
+    created() {
+      console.log("VUE APP CREATED");
+    },
+    render: h => h(App)
+  }).$mount("#app");
+});

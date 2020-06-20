@@ -85,4 +85,9 @@ describe("Change Country", () => {
     cy.contains("Prayer congregations");
     cy.visit("/US/");
   });
+  it("Direct link to a non-US country", () => {
+    cy.visit("/UG/");
+    cy.get(".v-select").click();
+    cy.contains("Prayer congregations");
+  });
 });
