@@ -40,7 +40,8 @@ export default new Vuex.Store({
       pregnant: undefined,
       feelSick: undefined,
       familySick: undefined,
-      COVIDpositive: undefined
+      COVIDpositive: undefined,
+      promptedForProfile: false
     },
     suggestions: {}
   },
@@ -91,18 +92,8 @@ export default new Vuex.Store({
       return "unknown";
     },
     // Deprecated for phase2
-    hasEnteredProfileData(state) {
-      const profile = state.userProfile;
-      return (
-        profile.age ||
-        profile.gender ||
-        profile.smoking ||
-        profile.comorbidity ||
-        profile.pregnant ||
-        profile.feelSick ||
-        profile.familySick ||
-        profile.COVIDpositive
-      );
+    havePromptedForProfile(state) {
+      return state.userProfile.promptedForProfile;
     },
     activities(state, getters) {
       if (!getters.currentCountry) {
