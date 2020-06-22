@@ -67,7 +67,6 @@
             />
           </v-flex>
         </v-layout>
-
       </v-container>
     </v-form>
   </div>
@@ -92,7 +91,7 @@ export default {
   },
   methods: {
     saveValue(name, value) {
-      console.log("saveValue", {name, value});
+      console.log("saveValue", { name, value });
       db.ref("regions")
         .child(this.slug)
         .child(name)

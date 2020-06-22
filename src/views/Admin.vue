@@ -13,18 +13,12 @@
 
     <div v-if="isAdmin && users && userSettings">
       <v-tabs v-model="tab">
-
         <v-tab>Regions</v-tab>
         <v-tab-item>
           <v-card>
             <v-dialog v-model="newRegionDialog">
               <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  color="primary"
-                  dark
-                  v-bind="attrs"
-                  v-on="on"
-                >
+                <v-btn color="primary" dark v-bind="attrs" v-on="on">
                   New Region
                 </v-btn>
               </template>
@@ -34,10 +28,7 @@
                 </v-card-title>
                 <v-card-text>
                   <v-container>
-                    <v-text-field
-                      v-model="newRegionSlug"
-                      label="Slug"
-                    />
+                    <v-text-field v-model="newRegionSlug" label="Slug" />
                     <v-btn @click="addNewRegion">
                       Add
                     </v-btn>
@@ -46,42 +37,43 @@
               </v-card>
             </v-dialog>
 
-          <table
-            class="table table-striped"
-            cellspacing="0"
-            cellpadding="2px"
-            border="1"
-          >
-            <thead class="thead-dark">
-              <tr>
-                <th>Action</th>
-                <th>slug</th>
-                <th>Short Name</th>
-                <th>Long Name</th>
-                <th>Country</th>
-                <th>Trending</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="region in regions" :key="region.slug">
-                <td>
-                  <router-link
-                    :to="{
-                      name: 'AdminRegionEdit',
-                      params: { slug: region.slug }
-                    }"
-                  ><v-icon title="Edit this activity"
-                    >mdi-lead-pencil</v-icon
-                  ></router-link>
-                </td>
-                <td>{{ region.slug }}</td>
-                <td>{{ region.shortName }}</td>
-                <td>{{ region.longName }}</td>
-                <td>{{ region.country }}</td>
-                <td>{{ region.trending }}</td>
-              </tr>
-            </tbody>
-          </table>
+            <table
+              class="table table-striped"
+              cellspacing="0"
+              cellpadding="2px"
+              border="1"
+            >
+              <thead class="thead-dark">
+                <tr>
+                  <th>Action</th>
+                  <th>slug</th>
+                  <th>Short Name</th>
+                  <th>Long Name</th>
+                  <th>Country</th>
+                  <th>Trending</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="region in regions" :key="region.slug">
+                  <td>
+                    <router-link
+                      :to="{
+                        name: 'AdminRegionEdit',
+                        params: { slug: region.slug }
+                      }"
+                      ><v-icon title="Edit this activity"
+                        >mdi-lead-pencil</v-icon
+                      ></router-link
+                    >
+                  </td>
+                  <td>{{ region.slug }}</td>
+                  <td>{{ region.shortName }}</td>
+                  <td>{{ region.longName }}</td>
+                  <td>{{ region.country }}</td>
+                  <td>{{ region.trending }}</td>
+                </tr>
+              </tbody>
+            </table>
           </v-card>
         </v-tab-item>
 
@@ -96,38 +88,38 @@
         <v-tab>Risk Scores</v-tab>
         <v-tab-item>
           <v-card>
-          <table
-            class="table table-striped"
-            cellspacing="0"
-            cellpadding="2px"
-            border="1"
-          >
-            <thead class="thead-dark">
-              <tr>
-                <th>Action</th>
-                <th>Level</th>
-                <th>Name</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="riskLevel in riskLevels" :key="riskLevel.riskScore">
-                <td>
-                  <router-link
-                    :to="{
-                      name: 'AdminRiskLevelEdit',
-                      params: { riskScore: riskLevel.riskScore }
-                    }"
-                  >
-                    <v-icon title="Edit this activity">
-                      mdi-lead-pencil
-                    </v-icon>
-                  </router-link>
-                </td>
-                <td>{{ riskLevel.riskScore }}</td>
-                <td>{{ riskLevel.riskName }}</td>
-              </tr>
-            </tbody>
-          </table>
+            <table
+              class="table table-striped"
+              cellspacing="0"
+              cellpadding="2px"
+              border="1"
+            >
+              <thead class="thead-dark">
+                <tr>
+                  <th>Action</th>
+                  <th>Level</th>
+                  <th>Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="riskLevel in riskLevels" :key="riskLevel.riskScore">
+                  <td>
+                    <router-link
+                      :to="{
+                        name: 'AdminRiskLevelEdit',
+                        params: { riskScore: riskLevel.riskScore }
+                      }"
+                    >
+                      <v-icon title="Edit this activity">
+                        mdi-lead-pencil
+                      </v-icon>
+                    </router-link>
+                  </td>
+                  <td>{{ riskLevel.riskScore }}</td>
+                  <td>{{ riskLevel.riskName }}</td>
+                </tr>
+              </tbody>
+            </table>
           </v-card>
         </v-tab-item>
 
@@ -406,7 +398,7 @@ export default {
         .toLowerCase();
     },
     addNewRegion() {
-      if(this.newRegionSlug) {
+      if (this.newRegionSlug) {
         db.ref("regions")
           .child(this.newRegionSlug)
           .set({
