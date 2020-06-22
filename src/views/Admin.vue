@@ -16,27 +16,6 @@
         <v-tab>Regions</v-tab>
         <v-tab-item>
           <v-card>
-            <v-dialog v-model="newRegionDialog">
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn color="primary" dark v-bind="attrs" v-on="on">
-                  New Region
-                </v-btn>
-              </template>
-              <v-card>
-                <v-card-title>
-                  <span class="headline">New Region</span>
-                </v-card-title>
-                <v-card-text>
-                  <v-container>
-                    <v-text-field v-model="newRegionSlug" label="Slug" />
-                    <v-btn @click="addNewRegion">
-                      Add
-                    </v-btn>
-                  </v-container>
-                </v-card-text>
-              </v-card>
-            </v-dialog>
-
             <table
               class="table table-striped"
               cellspacing="0"
@@ -61,10 +40,13 @@
                         name: 'AdminRegionEdit',
                         params: { slug: region.slug }
                       }"
-                      ><v-icon title="Edit this activity"
+                      ><v-icon title="Edit this region"
                         >mdi-lead-pencil</v-icon
                       ></router-link
                     >
+                    <v-btn icon @click="deleteRegion(region)">
+                      <v-icon title="Delete region">mdi-trash-can</v-icon>
+                    </v-btn>
                   </td>
                   <td>{{ region.slug }}</td>
                   <td>{{ region.shortName }}</td>
@@ -74,6 +56,27 @@
                 </tr>
               </tbody>
             </table>
+
+            <v-dialog v-model="newRegionDialog">
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn color="primary" dark v-bind="attrs" v-on="on">
+                  Add New Region
+                </v-btn>
+              </template>
+              <v-card>
+                <v-card-title>
+                  <span class="headline">New Region</span>
+                </v-card-title>
+                <v-card-text>
+                  <v-container>
+                    <v-text-field v-model="newRegionSlug" label="Slug" />
+                    <v-btn @click="addNewRegion">
+                      Add
+                    </v-btn>
+                  </v-container>
+                </v-card-text>
+              </v-card>
+            </v-dialog>
           </v-card>
         </v-tab-item>
 
@@ -411,6 +414,11 @@ export default {
         this.newRegionDialog = false;
         this.newRegionSlug = undefined;
       }
+    },
+    deleteRegion(region) {
+      db.ref("regions")
+        .child(region.slug)
+        .remove();
     }
   }
 };
