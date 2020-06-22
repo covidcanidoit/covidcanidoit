@@ -16,6 +16,36 @@
 
         <v-tab>Regions</v-tab>
         <v-tab-item>
+          <v-card>
+            <v-dialog v-model="newRegionDialog">
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  color="primary"
+                  dark
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  New Region
+                </v-btn>
+              </template>
+              <v-card>
+                <v-card-title>
+                  <span class="headline">New Region</span>
+                </v-card-title>
+                <v-card-text>
+                  <v-container>
+                    <v-text-field
+                      v-model="newRegionSlug"
+                      label="Slug"
+                    />
+                    <v-btn @click="addNewRegion">
+                      Add
+                    </v-btn>
+                  </v-container>
+                </v-card-text>
+              </v-card>
+            </v-dialog>
+
           <table
             class="table table-striped"
             cellspacing="0"
@@ -40,8 +70,9 @@
                       name: 'AdminRegionEdit',
                       params: { slug: region.slug }
                     }"
-                    >Edit</router-link
-                  >
+                  ><v-icon title="Edit this activity"
+                    >mdi-lead-pencil</v-icon
+                  ></router-link>
                 </td>
                 <td>{{ region.slug }}</td>
                 <td>{{ region.shortName }}</td>
@@ -51,6 +82,7 @@
               </tr>
             </tbody>
           </table>
+          </v-card>
         </v-tab-item>
 
         <v-tab>Activities</v-tab>
@@ -63,6 +95,7 @@
 
         <v-tab>Risk Scores</v-tab>
         <v-tab-item>
+          <v-card>
           <table
             class="table table-striped"
             cellspacing="0"
@@ -84,14 +117,18 @@
                       name: 'AdminRiskLevelEdit',
                       params: { riskScore: riskLevel.riskScore }
                     }"
-                    >Edit</router-link
                   >
+                    <v-icon title="Edit this activity">
+                      mdi-lead-pencil
+                    </v-icon>
+                  </router-link>
                 </td>
                 <td>{{ riskLevel.riskScore }}</td>
                 <td>{{ riskLevel.riskName }}</td>
               </tr>
             </tbody>
           </table>
+          </v-card>
         </v-tab-item>
 
         <v-tab>Other Factors</v-tab>
@@ -107,7 +144,6 @@
                 <th>Action</th>
                 <th>description</th>
                 <th>icon</th>
-                <th>longDescription</th>
                 <th>name</th>
                 <th>shortDescription</th>
                 <th>showWhen</th>
@@ -121,14 +157,16 @@
                       name: 'AdminRiskFactorEdit',
                       params: { name: riskFactor.name }
                     }"
-                    >Edit</router-link
                   >
+                    <v-icon title="Edit this activity">
+                      mdi-lead-pencil
+                    </v-icon>
+                  </router-link>
                 </td>
                 <td>{{ riskFactor.description }}</td>
                 <td>
                   <i class="icon" :class="riskFactor.icon"></i>
                 </td>
-                <td><Markdown :source="riskFactor.longDescription" /></td>
                 <td>{{ riskFactor.name }}</td>
                 <td>{{ riskFactor.shortDescription }}</td>
                 <td>{{ riskFactor.showWhen }}</td>
@@ -151,7 +189,6 @@
                 <th>name</th>
                 <th>icon</th>
                 <th>shortDescription</th>
-                <th>longDescription</th>
               </tr>
             </thead>
             <tbody>
@@ -162,15 +199,17 @@
                       name: 'AdminCategoryEdit',
                       params: { categoryName: category.name }
                     }"
-                    >Edit</router-link
                   >
+                    <v-icon title="Edit this activity">
+                      mdi-lead-pencil
+                    </v-icon>
+                  </router-link>
                 </td>
                 <td>{{ category.name }}</td>
                 <td>
                   <i class="icon" :class="category.icon"></i>
                 </td>
                 <td>{{ category.shortDescription }}</td>
-                <td>{{ category.longDescription }}</td>
               </tr>
             </tbody>
           </table>
@@ -199,8 +238,11 @@
                       name: 'AdminUserEdit',
                       params: { userId: userId }
                     }"
-                    >Edit</router-link
                   >
+                    <v-icon title="Edit this activity">
+                      mdi-lead-pencil
+                    </v-icon>
+                  </router-link>
                   <button @click="deleteUser(userId)">Delete</button>
                 </td>
                 <td>{{ users[userId].email }}</td>
@@ -256,19 +298,19 @@
 import { db, firebase } from "@/db.js";
 import { mapState, mapGetters } from "vuex";
 import AdminActivityTable from "@/components/AdminActivityTable.vue";
-import Markdown from "vue-markdown";
 
 export default {
   components: {
-    AdminActivityTable,
-    Markdown
+    AdminActivityTable
   },
   data() {
     return {
       newActivityName: "",
       currentUser: undefined,
       currentUserSettings: undefined,
-      tab: undefined
+      tab: undefined,
+      newRegionSlug: undefined,
+      newRegionDialog: false
     };
   },
   created() {
@@ -286,7 +328,6 @@ export default {
         });
 
         // Look up current user settings, and if they are an admin load other stuff
-        // retrieve a document
         console.log("Going to look up user");
         db.ref(`users/${user.uid}`)
           .once("value")
@@ -295,8 +336,6 @@ export default {
             this.currentUser = snapshot.val();
           });
 
-        // Look up current user settings, and if they are an admin load other stuff
-        // retrieve a document
         console.log("Going to look up userSettings");
         db.ref(`userSettings/${user.uid}`)
           .once("value")
@@ -349,24 +388,6 @@ export default {
           console.log("Error signing out!", { error });
         });
     },
-    toggleActivities() {
-      this.showActivities = !this.showActivities;
-    },
-    toggleRiskLevels() {
-      this.showRiskLevels = !this.showRiskLevels;
-    },
-    toggleRiskFactors() {
-      this.showRiskFactors = !this.showRiskFactors;
-    },
-    toggleCategories() {
-      this.showCategories = !this.showCategories;
-    },
-    toggleUsers() {
-      this.showUsers = !this.showUsers;
-    },
-    toggleSuggestions() {
-      this.showSuggestions = !this.showSuggestions;
-    },
     newActivity(activityName) {
       this.newActivityName = activityName;
     },
@@ -383,6 +404,21 @@ export default {
         .split(" ")
         .join("-")
         .toLowerCase();
+    },
+    addNewRegion() {
+      if(this.newRegionSlug) {
+        db.ref("regions")
+          .child(this.newRegionSlug)
+          .set({
+            slug: this.newRegionSlug,
+            shortName: this.newRegionSlug,
+            longName: this.newRegionSlug,
+            country: this.currentCountry,
+            trending: "bad"
+          });
+        this.newRegionDialog = false;
+        this.newRegionSlug = undefined;
+      }
     }
   }
 };

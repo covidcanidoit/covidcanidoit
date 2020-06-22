@@ -47,7 +47,7 @@
               :items="countries"
               :value="region.country"
               @input="saveValue('country', $event)"
-              />
+            />
           </v-flex>
         </v-layout>
 
