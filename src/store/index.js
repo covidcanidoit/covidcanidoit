@@ -134,6 +134,9 @@ export default new Vuex.Store({
     countries(state) {
       return Object.keys(state.content || {});
     },
+    regions(state) {
+      return state.regions;
+    },
     currentUserSettings(state) {
       if (
         state.currentUserUid &&

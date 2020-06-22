@@ -12,217 +12,242 @@
     <br />
 
     <div v-if="isAdmin && users && userSettings">
-      <div>
-        <h2 class="btn" @click="toggleActivities">
-          {{ showActivities ? "&#x25bc;" : "&#x25b6;" }} Activities
-        </h2>
-        <AdminActivityTable
-          v-show="showActivities"
-          :incomingNewActivityName="newActivityName"
-          :currentUserSettings="currentUserSettings"
-        ></AdminActivityTable>
-      </div>
+      <v-tabs v-model="tab">
 
-      <div>
-        <h2 class="btn" @click="toggleRiskLevels">
-          {{ showRiskLevels ? "&#x25bc;" : "&#x25b6;" }} Risk Levels
-        </h2>
-        <table
-          class="table table-striped"
-          v-show="showRiskLevels"
-          cellspacing="0"
-          cellpadding="2px"
-          border="1"
-        >
-          <thead class="thead-dark">
-            <tr>
-              <th>Action</th>
-              <th>Level</th>
-              <th>Name</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="riskLevel in riskLevels" :key="riskLevel.riskScore">
-              <td>
-                <router-link
-                  :to="{
-                    name: 'AdminRiskLevelEdit',
-                    params: { riskScore: riskLevel.riskScore }
-                  }"
-                  >Edit</router-link
-                >
-              </td>
-              <td>{{ riskLevel.riskScore }}</td>
-              <td>{{ riskLevel.riskName }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+        <v-tab>Regions</v-tab>
+        <v-tab-item>
+          <table
+            class="table table-striped"
+            cellspacing="0"
+            cellpadding="2px"
+            border="1"
+          >
+            <thead class="thead-dark">
+              <tr>
+                <th>Action</th>
+                <th>slug</th>
+                <th>Short Name</th>
+                <th>Long Name</th>
+                <th>Country</th>
+                <th>Trending</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="region in regions" :key="region.slug">
+                <td>
+                  <router-link
+                    :to="{
+                      name: 'AdminRegionEdit',
+                      params: { slug: region.slug }
+                    }"
+                    >Edit</router-link
+                  >
+                </td>
+                <td>{{ region.slug }}</td>
+                <td>{{ region.shortName }}</td>
+                <td>{{ region.longName }}</td>
+                <td>{{ region.country }}</td>
+                <td>{{ region.trending }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </v-tab-item>
 
-      <div>
-        <h2 class="btn" @click="toggleRiskFactors">
-          {{ showRiskFactors ? "&#x25bc;" : "&#x25b6;" }} Risk Factors
-        </h2>
-        <table
-          class="table table-striped"
-          v-show="showRiskFactors"
-          cellspacing="0"
-          cellpadding="2px"
-          border="1"
-        >
-          <thead class="thead-dark">
-            <tr>
-              <th>Action</th>
-              <th>description</th>
-              <th>icon</th>
-              <th>longDescription</th>
-              <th>name</th>
-              <th>shortDescription</th>
-              <th>showWhen</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="riskFactor in riskFactors" :key="riskFactor.name">
-              <td>
-                <router-link
-                  :to="{
-                    name: 'AdminRiskFactorEdit',
-                    params: { name: riskFactor.name }
-                  }"
-                  >Edit</router-link
-                >
-              </td>
-              <td>{{ riskFactor.description }}</td>
-              <td>
-                <i class="icon" :class="riskFactor.icon"></i>
-              </td>
-              <td>{{ riskFactor.longDescription }}</td>
-              <td>{{ riskFactor.name }}</td>
-              <td>{{ riskFactor.shortDescription }}</td>
-              <td>{{ riskFactor.showWhen }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+        <v-tab>Activities</v-tab>
+        <v-tab-item>
+          <AdminActivityTable
+            :incomingNewActivityName="newActivityName"
+            :currentUserSettings="currentUserSettings"
+          />
+        </v-tab-item>
 
-      <div>
-        <h2 class="btn" @click="toggleCategories">
-          {{ showCategories ? "&#x25bc;" : "&#x25b6;" }} Categories
-        </h2>
-        <table
-          class="table table-striped"
-          v-show="showCategories"
-          cellspacing="0"
-          cellpadding="2px"
-          border="1"
-        >
-          <thead class="thead-dark">
-            <tr>
-              <th>Action</th>
-              <th>name</th>
-              <th>icon</th>
-              <th>shortDescription</th>
-              <th>longDescription</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="category in categories" :key="category.name">
-              <td>
-                <router-link
-                  :to="{
-                    name: 'AdminCategoryEdit',
-                    params: { categoryName: category.name }
-                  }"
-                  >Edit</router-link
-                >
-              </td>
-              <td>{{ category.name }}</td>
-              <td>
-                <i class="icon" :class="category.icon"></i>
-              </td>
-              <td>{{ category.shortDescription }}</td>
-              <td>{{ category.longDescription }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+        <v-tab>Risk Scores</v-tab>
+        <v-tab-item>
+          <table
+            class="table table-striped"
+            cellspacing="0"
+            cellpadding="2px"
+            border="1"
+          >
+            <thead class="thead-dark">
+              <tr>
+                <th>Action</th>
+                <th>Level</th>
+                <th>Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="riskLevel in riskLevels" :key="riskLevel.riskScore">
+                <td>
+                  <router-link
+                    :to="{
+                      name: 'AdminRiskLevelEdit',
+                      params: { riskScore: riskLevel.riskScore }
+                    }"
+                    >Edit</router-link
+                  >
+                </td>
+                <td>{{ riskLevel.riskScore }}</td>
+                <td>{{ riskLevel.riskName }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </v-tab-item>
 
-      <div>
-        <h2 class="btn" @click="toggleUsers">
-          {{ showUsers ? "&#x25bc;" : "&#x25b6;" }} Users
-        </h2>
-        <table
-          class="table table-striped"
-          v-show="showUsers"
-          cellspacing="0"
-          cellpadding="2px"
-          border="1"
-        >
-          <thead class="thead-dark">
-            <tr>
-              <th>Action</th>
-              <th>email</th>
-              <th>isAdmin?</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="userId in userIds" :key="userId">
-              <td>
-                <router-link
-                  :to="{
-                    name: 'AdminUserEdit',
-                    params: { userId: userId }
-                  }"
-                  >Edit</router-link
-                >
-                <button @click="deleteUser(userId)">Delete</button>
-              </td>
-              <td>{{ users[userId].email }}</td>
-              <td>
-                {{ userSettings[userId] && userSettings[userId].isAdmin }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div>
-        <h2 class="btn" @click="toggleSuggestions">
-          {{ showSuggestions ? "&#x25bc;" : "&#x25b6;" }} Suggestions
-        </h2>
-        <table
-          class="table table-striped"
-          v-show="showSuggestions"
-          cellspacing="0"
-          cellpadding="2px"
-          border="1"
-        >
-          <thead class="thead-dark">
-            <tr>
-              <th>Area</th>
-              <th>Count</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="(topic, topicName) in activitySuggestions"
-              :key="topic.key"
-            >
-              <td>
-                {{ topicName }}
-              </td>
-              <td>
-                {{ topic.count }}
-              </td>
-              <td>
-                <v-btn text icon @click="newActivity(topicName)"
-                  ><v-icon>mdi-arrow-up-bold-box</v-icon></v-btn
-                >
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+        <v-tab>Other Factors</v-tab>
+        <v-tab-item>
+          <table
+            class="table table-striped"
+            cellspacing="0"
+            cellpadding="2px"
+            border="1"
+          >
+            <thead class="thead-dark">
+              <tr>
+                <th>Action</th>
+                <th>description</th>
+                <th>icon</th>
+                <th>longDescription</th>
+                <th>name</th>
+                <th>shortDescription</th>
+                <th>showWhen</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="riskFactor in riskFactors" :key="riskFactor.name">
+                <td>
+                  <router-link
+                    :to="{
+                      name: 'AdminRiskFactorEdit',
+                      params: { name: riskFactor.name }
+                    }"
+                    >Edit</router-link
+                  >
+                </td>
+                <td>{{ riskFactor.description }}</td>
+                <td>
+                  <i class="icon" :class="riskFactor.icon"></i>
+                </td>
+                <td><Markdown :source="riskFactor.longDescription" /></td>
+                <td>{{ riskFactor.name }}</td>
+                <td>{{ riskFactor.shortDescription }}</td>
+                <td>{{ riskFactor.showWhen }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </v-tab-item>
+
+        <v-tab>Categories</v-tab>
+        <v-tab-item>
+          <table
+            class="table table-striped"
+            cellspacing="0"
+            cellpadding="2px"
+            border="1"
+          >
+            <thead class="thead-dark">
+              <tr>
+                <th>Action</th>
+                <th>name</th>
+                <th>icon</th>
+                <th>shortDescription</th>
+                <th>longDescription</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="category in categories" :key="category.name">
+                <td>
+                  <router-link
+                    :to="{
+                      name: 'AdminCategoryEdit',
+                      params: { categoryName: category.name }
+                    }"
+                    >Edit</router-link
+                  >
+                </td>
+                <td>{{ category.name }}</td>
+                <td>
+                  <i class="icon" :class="category.icon"></i>
+                </td>
+                <td>{{ category.shortDescription }}</td>
+                <td>{{ category.longDescription }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </v-tab-item>
+
+        <v-tab>Users</v-tab>
+        <v-tab-item>
+          <table
+            class="table table-striped"
+            cellspacing="0"
+            cellpadding="2px"
+            border="1"
+          >
+            <thead class="thead-dark">
+              <tr>
+                <th>Action</th>
+                <th>email</th>
+                <th>isAdmin?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="userId in userIds" :key="userId">
+                <td>
+                  <router-link
+                    :to="{
+                      name: 'AdminUserEdit',
+                      params: { userId: userId }
+                    }"
+                    >Edit</router-link
+                  >
+                  <button @click="deleteUser(userId)">Delete</button>
+                </td>
+                <td>{{ users[userId].email }}</td>
+                <td>
+                  {{ userSettings[userId] && userSettings[userId].isAdmin }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </v-tab-item>
+
+        <v-tab>Suggestions</v-tab>
+        <v-tab-item>
+          <table
+            class="table table-striped"
+            cellspacing="0"
+            cellpadding="2px"
+            border="1"
+          >
+            <thead class="thead-dark">
+              <tr>
+                <th>Area</th>
+                <th>Count</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="(topic, topicName) in activitySuggestions"
+                :key="topic.key"
+              >
+                <td>
+                  {{ topicName }}
+                </td>
+                <td>
+                  {{ topic.count }}
+                </td>
+                <td>
+                  <v-btn text icon @click="newActivity(topicName)"
+                    ><v-icon>mdi-arrow-up-bold-box</v-icon></v-btn
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </v-tab-item>
+      </v-tabs>
     </div>
   </div>
 </template>
@@ -231,22 +256,19 @@
 import { db, firebase } from "@/db.js";
 import { mapState, mapGetters } from "vuex";
 import AdminActivityTable from "@/components/AdminActivityTable.vue";
+import Markdown from "vue-markdown";
 
 export default {
   components: {
-    AdminActivityTable
+    AdminActivityTable,
+    Markdown
   },
   data() {
     return {
-      showActivities: false,
-      showCategories: false,
-      showRiskFactors: false,
-      showRiskLevels: false,
-      showUsers: false,
-      showSuggestions: false,
       newActivityName: "",
       currentUser: undefined,
-      currentUserSettings: undefined
+      currentUserSettings: undefined,
+      tab: undefined
     };
   },
   created() {
@@ -285,6 +307,7 @@ export default {
               console.log("User is an admin!");
               this.$store.dispatch("bindUsers");
               this.$store.dispatch("bindUserSettings");
+              this.$store.dispatch("bindRegions");
             }
           });
       }
@@ -298,7 +321,8 @@ export default {
       "riskFactors",
       "categories",
       "currentCountry",
-      "activitySuggestions"
+      "activitySuggestions",
+      "regions"
     ]),
     isAdmin() {
       return !!this.currentUserSettings?.isAdmin;
