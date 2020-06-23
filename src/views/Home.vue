@@ -49,8 +49,8 @@ export default {
     };
   },
   computed: {
-    ...mapState(["userProfile", "currentCountry"]),
-    ...mapGetters(["hasEnteredProfileData", "activities"]),
+    ...mapState(["userProfile"]),
+    ...mapGetters(["havePromptedForProfile", "activities", "currentCountry"]),
     activityList() {
       return Object.values(this.activities || {})
         .filter(activity => !activity.disabled)
@@ -82,7 +82,7 @@ export default {
         ) {
           this.result = activity;
           // Update URL
-          if (!this.hasEnteredProfileData && !this.skipProfile) {
+          if (!this.havePromptedForProfile) {
             this.$router.push({
               name: "CreateUserProfile",
               params: { search: searchValue }
