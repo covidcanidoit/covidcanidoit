@@ -2,6 +2,7 @@
   <div>
     <router-link :to="{ name: 'Admin' }">Back</router-link>
     <h1 class="display-2">Editing {{this.activity.activityName}}</h1>
+    <h6><small class="lastEdited">{{lastEdited}}</small></h6>
     <v-form v-show="hasBetaAccess">
       <v-container fluid>
         <v-layout>
@@ -304,7 +305,7 @@ export default {
     this.lookupActivity();
   },
   computed: {
-    ...mapGetters(["activities", "currentCountry","categories","currentUserSettings"]),
+    ...mapGetters(["activities", "currentCountry","categories","currentUserSettings","currentUserUid","users"]),
     activity() {
       return this.activities[this.currentKey];
     },
@@ -316,42 +317,63 @@ export default {
     },
     categoryNames() {
       return Object.keys(this.categories);
+    },
+    lastEdited() {
+      if (!(this.activity.lastEditedBy && this.activity.lastEditedOn)) return "Last edit was before timestamps feature was introduced"
+      return `Last edited by ${this.readableUser(this.activity.lastEditedBy)} on ${this.readableTimestamp(this.activity.lastEditedOn)}`
     }
+
   },
   methods: {
     saveField(name, event) {
-      console.log("So... you want to save...", { name, event });
-      console.log("New value", event.target.value);
-      console.log("event", event);
       db.ref("content")
         .child(this.currentCountry)
         .child("activities")
         .child(this.currentKey)
         .child(name)
         .set(event.target.value);
+        this.updateTimestamp();
     },
     saveValue(name, value) {
-      console.log("So... you want to save...", { name, value});
       db.ref("content")
         .child(this.currentCountry)
         .child("activities")
         .child(this.currentKey)
         .child(name)
         .set(value);
-      console.log("activity.inside", this.activity.inside);
+      this.updateTimestamp();
+    },
+    updateTimestamp() {
+      var now = new Date();
+      db.ref("content")
+        .child(this.currentCountry)
+        .child("activities")
+        .child(this.currentKey)
+        .child("lastEditedBy")
+        .set(this.currentUserUid);
+      db.ref("content")
+        .child(this.currentCountry)
+        .child("activities")
+        .child(this.currentKey)
+        .child("lastEditedOn")
+        .set(Date.parse(now.toUTCString()));
     },
     lookupActivity() {
-      console.log({ activities: this.activities });
-      console.log({ keys: Object.keys(this.activities) });
       this.currentKey = Object.keys(this.activities).find(
         key => this.activities[key].activityName === this.activityName
       );
-      console.log({ key: this.currentKey });
     },
     removeKeyword(deleteKeyword) {
       this.activity.activityKeywords = this.keywords.filter((keyword) => keyword !== deleteKeyword).join(",");
       this.saveValue("activityKeywords",this.activity.activityKeywords);
-    }
+    },
+    readableTimestamp(milliseconds) {
+      return new Date(milliseconds).toLocaleString();
+    },
+    readableUser(uid) {
+      const email = this.users[uid].email;
+      return email;
+    },
   }
 };
 </script>
@@ -359,5 +381,8 @@ export default {
 <style scoped lang="scss">
 .edit-form {
   margin: 0 2em;
+}
+.lastEdited {
+  font-size: 0.75em;
 }
 </style>

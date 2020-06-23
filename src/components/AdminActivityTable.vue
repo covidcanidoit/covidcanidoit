@@ -55,6 +55,11 @@
         :search="activitySearch"
       >
         <template v-slot:item.actions="{ item }">
+          <v-icon
+            :title=timestampTooltip(item.verifiedOn,item.verifiedBy)
+            @click="VerifyWithTimestamp(item.slug)"
+            >mdi-stamper</v-icon
+          >
           <router-link
             :to="{
               name: 'AdminActivityEdit',
@@ -173,9 +178,10 @@ export default {
     };
   },
   created() {},
+  mounted() {},
   computed: {
     ...mapState(["content"]),
-    ...mapGetters(["activities", "currentCountry"]),
+    ...mapGetters(["activities", "currentCountry","currentUserUid","users"]),
     activityList() {
       return Object.values(this.activities);
     }
@@ -261,7 +267,53 @@ export default {
       return disabled === true
         ? "Enable this activity"
         : "Disable this activity";
-    }
+    },
+    VerifyWithTimestamp(activitySlug) {
+      // Dates
+      var now = new Date(); // only important line
+
+      // ### How to use Dates ###
+      //
+      // console.log(activitySlug,"verified on ",now.toUTCString()); // to access UTC date string
+      // console.log(activitySlug,"verified on ",now.toLocaleString()); // to access local date string
+      //
+      // var nowMillis = Date.parse(now.toUTCString()); // to compress Date to milliseconds since 1 Jan 1970 UTC
+      // console.log("now in UTC milliseconds",nowMillis,typeof nowMillis);
+      //
+      // var fromMillis = new Date(nowMillis); // to expand a date from milliseconds representation
+      // console.log("new date from millis",fromMillis.toUTCString());
+      // console.log("new date from millis",fromMillis.toLocaleString());
+
+
+      // set verifiedOn
+      console.log("verified by ",this.currentUserUid);
+      db.ref("content")
+        .child(this.currentCountry)
+        .child("activities")
+        .child(activitySlug)
+        .child("verifiedOn")
+        .set(Date.parse(now.toUTCString()));
+      // set verifiedBy
+      db.ref("content")
+        .child(this.currentCountry)
+        .child("activities")
+        .child(activitySlug)
+        .child("verifiedBy")
+        .set(this.currentUserUid);
+    },
+    timestampTooltip(milliseconds,uid) {
+      if (!(milliseconds && uid)) return "Verify with timestamp";
+      const date = this.readableTimestamp(milliseconds);
+      const email = this.readableUser(uid);
+      return `Last verified by ${email} on ${date}`
+    },
+    readableTimestamp(milliseconds) {
+      return new Date(milliseconds).toLocaleString();
+    },
+    readableUser(uid) {
+      const email = this.users[uid].email;
+      return email;
+    },
   }
 };
 </script>
