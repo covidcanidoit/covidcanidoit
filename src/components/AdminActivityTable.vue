@@ -56,7 +56,7 @@
       >
         <template v-slot:item.actions="{ item }">
           <v-icon
-            :title=timestampTooltip(item.verifiedOn,item.verifiedBy)
+            :title=timestampTooltip(item.lastVerifiedOn,item.lastVerifiedBy)
             @click="VerifyWithTimestamp(item.slug)"
             >mdi-stamper</v-icon
           >
@@ -291,14 +291,14 @@ export default {
         .child(this.currentCountry)
         .child("activities")
         .child(activitySlug)
-        .child("verifiedOn")
+        .child("lastVerifiedOn")
         .set(Date.parse(now.toUTCString()));
       // set verifiedBy
       db.ref("content")
         .child(this.currentCountry)
         .child("activities")
         .child(activitySlug)
-        .child("verifiedBy")
+        .child("lastVerifiedBy")
         .set(this.currentUserUid);
     },
     timestampTooltip(milliseconds,uid) {
