@@ -137,6 +137,12 @@ export default new Vuex.Store({
     regions(state) {
       return state.regions;
     },
+    currentUserUid(state) {
+      return state.currentUserUid;
+    },
+    users(state) {
+      return state.users;
+    },
     currentUserSettings(state) {
       if (
         state.currentUserUid &&
