@@ -2,7 +2,9 @@
   <div>
     <router-link :to="{ name: 'Admin' }">Back</router-link>
     <h1 class="display-2">Editing {{ this.activity.activityName }}</h1>
-    <h6><small class="lastEdited">{{lastEdited}}</small></h6>
+    <h6>
+      <small class="lastEdited">{{ lastEdited }}</small>
+    </h6>
     <v-form v-show="hasBetaAccess">
       <v-container fluid>
         <v-layout>
@@ -378,7 +380,14 @@ export default {
     this.lookupActivity();
   },
   computed: {
-    ...mapGetters(["activities", "currentCountry","categories","currentUserSettings","currentUserUid","users"]),
+    ...mapGetters([
+      "activities",
+      "currentCountry",
+      "categories",
+      "currentUserSettings",
+      "currentUserUid",
+      "users"
+    ]),
     activity() {
       return this.activities[this.currentKey];
     },
@@ -394,10 +403,12 @@ export default {
       return Object.keys(this.categories);
     },
     lastEdited() {
-      if (!(this.activity.lastEditedBy && this.activity.lastEditedOn)) return "Last edit was before timestamps feature was introduced"
-      return `Last edited by ${this.readableUser(this.activity.lastEditedBy)} on ${this.readableTimestamp(this.activity.lastEditedOn)}`
+      if (!(this.activity.lastEditedBy && this.activity.lastEditedOn))
+        return "Last edit was before timestamps feature was introduced";
+      return `Last edited by ${this.readableUser(
+        this.activity.lastEditedBy
+      )} on ${this.readableTimestamp(this.activity.lastEditedOn)}`;
     }
-
   },
   methods: {
     saveField(name, event) {
@@ -407,7 +418,7 @@ export default {
         .child(this.currentKey)
         .child(name)
         .set(event.target.value);
-        this.updateTimestamp();
+      this.updateTimestamp();
     },
     saveValue(name, value) {
       db.ref("content")
@@ -439,8 +450,10 @@ export default {
       );
     },
     removeKeyword(deleteKeyword) {
-      this.activity.activityKeywords = this.keywords.filter((keyword) => keyword !== deleteKeyword).join(",");
-      this.saveValue("activityKeywords",this.activity.activityKeywords);
+      this.activity.activityKeywords = this.keywords
+        .filter(keyword => keyword !== deleteKeyword)
+        .join(",");
+      this.saveValue("activityKeywords", this.activity.activityKeywords);
     },
     readableTimestamp(milliseconds) {
       return new Date(milliseconds).toLocaleString();
