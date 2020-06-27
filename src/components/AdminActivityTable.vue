@@ -56,7 +56,7 @@
       >
         <template v-slot:item.actions="{ item }">
           <v-icon
-            :title=timestampTooltip(item.lastVerifiedOn,item.lastVerifiedBy)
+            :title="timestampTooltip(item.lastVerifiedOn, item.lastVerifiedBy)"
             @click="VerifyWithTimestamp(item.slug)"
             >mdi-stamper</v-icon
           >
@@ -181,7 +181,7 @@ export default {
   mounted() {},
   computed: {
     ...mapState(["content"]),
-    ...mapGetters(["activities", "currentCountry","currentUserUid","users"]),
+    ...mapGetters(["activities", "currentCountry", "currentUserUid", "users"]),
     activityList() {
       return Object.values(this.activities);
     }
@@ -284,9 +284,8 @@ export default {
       // console.log("new date from millis",fromMillis.toUTCString());
       // console.log("new date from millis",fromMillis.toLocaleString());
 
-
       // set verifiedOn
-      console.log("verified by ",this.currentUserUid);
+      console.log("verified by ", this.currentUserUid);
       db.ref("content")
         .child(this.currentCountry)
         .child("activities")
@@ -301,11 +300,11 @@ export default {
         .child("lastVerifiedBy")
         .set(this.currentUserUid);
     },
-    timestampTooltip(milliseconds,uid) {
+    timestampTooltip(milliseconds, uid) {
       if (!(milliseconds && uid)) return "Verify with timestamp";
       const date = this.readableTimestamp(milliseconds);
       const email = this.readableUser(uid);
-      return `Last verified by ${email} on ${date}`
+      return `Last verified by ${email} on ${date}`;
     },
     readableTimestamp(milliseconds) {
       return new Date(milliseconds).toLocaleString();
@@ -313,7 +312,7 @@ export default {
     readableUser(uid) {
       const email = this.users[uid].email;
       return email;
-    },
+    }
   }
 };
 </script>
