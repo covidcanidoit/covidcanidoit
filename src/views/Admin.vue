@@ -28,7 +28,6 @@
                   <th>slug</th>
                   <th>Short Name</th>
                   <th>Long Name</th>
-                  <th>Country</th>
                   <th>Trending</th>
                 </tr>
               </thead>
@@ -51,7 +50,6 @@
                   <td>{{ region.slug }}</td>
                   <td>{{ region.shortName }}</td>
                   <td>{{ region.longName }}</td>
-                  <td>{{ region.country }}</td>
                   <td>{{ region.trending }}</td>
                 </tr>
               </tbody>
@@ -291,7 +289,7 @@
 
 <script>
 import { db, firebase } from "@/db.js";
-import { mapState, mapGetters } from "vuex";
+import { mapActions, mapState, mapGetters } from "vuex";
 import AdminActivityTable from "@/components/AdminActivityTable.vue";
 
 export default {
@@ -341,7 +339,6 @@ export default {
               console.log("User is an admin!");
               this.$store.dispatch("bindUsers");
               this.$store.dispatch("bindUserSettings");
-              this.$store.dispatch("bindRegions");
             }
           });
       }
@@ -366,6 +363,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(["setRegion", "deleteRegion"]),
     login() {
       const provider = new firebase.auth.GoogleAuthProvider();
       firebase.auth().signInWithRedirect(provider);
@@ -402,23 +400,15 @@ export default {
     },
     addNewRegion() {
       if (this.newRegionSlug) {
-        db.ref("regions")
-          .child(this.newRegionSlug)
-          .set({
-            slug: this.newRegionSlug,
-            shortName: this.newRegionSlug,
-            longName: this.newRegionSlug,
-            country: this.currentCountry,
-            trending: "bad"
-          });
+        this.setRegion({
+          slug: this.newRegionSlug,
+          shortName: this.newRegionSlug,
+          longName: this.newRegionSlug,
+          trending: "bad"
+        });
         this.newRegionDialog = false;
         this.newRegionSlug = undefined;
       }
-    },
-    deleteRegion(region) {
-      db.ref("regions")
-        .child(region.slug)
-        .remove();
     }
   }
 };

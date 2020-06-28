@@ -19,7 +19,7 @@
         </template>
         <v-list>
           <v-list-item
-            v-for="country in countries"
+            v-for="country in countryNames"
             :key="country"
             @click="setCurrentCountry(country)"
           >
@@ -43,7 +43,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["countries", "activitySuggestions", "currentCountry"])
+    ...mapGetters(["countryNames", "activitySuggestions", "currentCountry"])
   },
   methods: {
     setCurrentCountry(country) {

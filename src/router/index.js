@@ -32,7 +32,7 @@ const routes = [
     beforeEnter(to, from, next) {
       const country = to.params.country;
       console.log("Router /:country", { country });
-      if (store.getters.countries.includes(country) || country == "US") {
+      if (store.getters.countryNames.includes(country) || country == "US") {
         console.log("We do have that country");
         if (store.getters.currentCountry !== country) {
           console.log(
