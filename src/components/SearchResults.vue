@@ -21,8 +21,14 @@
           <v-col cols="6">
             <h5>You are at more risk than others if</h5>
             <v-expansion-panels focusable="true" flat="true">
-              <v-expansion-panel v-for="riskFactor in riskFactors" :key="riskFactor.name">
-                <v-expansion-panel-header><i class="icon" :class="riskFactor.icon"></i>{{riskFactor.shortDescription}}</v-expansion-panel-header>
+              <v-expansion-panel
+                v-for="riskFactor in riskFactors"
+                :key="riskFactor.name"
+              >
+                <v-expansion-panel-header
+                  ><i class="icon" :class="riskFactor.icon"></i
+                  >{{ riskFactor.shortDescription }}</v-expansion-panel-header
+                >
                 <v-expansion-panel-content>
                   <Markdown :source="riskFactor.longDescription" />
                 </v-expansion-panel-content>
@@ -31,7 +37,10 @@
           </v-col>
           <v-col cols="6">
             <h5>Things to consider</h5>
-            <Markdown class="risk-details" :source="risk && risk.longDescription" />
+            <Markdown
+              class="risk-details"
+              :source="risk && risk.longDescription"
+            />
           </v-col>
         </v-row>
       </v-container>
@@ -85,10 +94,9 @@
 import Markdown from "vue-markdown";
 import { mapGetters } from "vuex";
 import RiskDescription from "@/components/RiskDescription.vue";
-//import RiskComponentBar from "@/components/RiskComponentBar.vue";
 
 export default {
-  components: { RiskDescription, Markdown},//, RiskComponentBar },
+  components: { RiskDescription, Markdown }, 
   props: {
     searchedTerm: String,
     activity: Object,
@@ -100,7 +108,7 @@ export default {
     return {};
   },
   computed: {
-    ...mapGetters(["riskFactors","riskLevels"]),
+    ...mapGetters(["riskFactors", "riskLevels"]),
     isAgeSet() {
       return this.profile.age && this.activity[this.profile.age];
     },

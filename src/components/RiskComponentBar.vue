@@ -2,31 +2,27 @@
   <div id="barContainer" class="barContainer">
     <div class="barWhitespace">
       <div class="tagWhitespace"></div>
-      <div class="tag">{{level}}</div>
+      <div class="tag">{{ level }}</div>
     </div>
-    <div id="bar" class="bar" :style="barStyle">
-    </div>
+    <div id="bar" class="bar" :style="barStyle"></div>
   </div>
 </template>
 
 <script>
-
 export default {
   props: ["value"],
   computed: {
     barStyle() {
-      return `height: ${this.value * 33}px; background-color: ${this.value === 1 ? "green" : (this.value === 2 ? "gold": "red")};`;
+      return `height: ${this.value * 33}px; background-color: ${
+        this.value === 1 ? "green" : this.value === 2 ? "gold" : "red"
+      };`;
     },
     level() {
-      return this.value === 1 ? "Low" : (this.value === 2 ? "Medium" : "High");
+      return this.value === 1 ? "Low" : this.value === 2 ? "Medium" : "High";
     }
   },
-  methods: {
-
-  },
-  watch: {
-
-  },
+  methods: {},
+  watch: {},
   mounted() {
     //document.querySelector("#bar").style.height = this.value + "px";
   }
@@ -54,7 +50,7 @@ export default {
   text-align: center;
   z-index: 1;
   position: relative;
-  bottom:0;
+  bottom: 0;
 }
 
 .tagWhitespace {

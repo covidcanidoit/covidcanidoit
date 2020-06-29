@@ -14,71 +14,74 @@
       <v-spacer></v-spacer>
       <div v-show="showRiskComponents" mt-1>
         <v-spacer></v-spacer>
-          <v-container class="riskComponentsContainer">
-            <v-row>
-              <v-col>
-                <RiskComponentBar :value=activity.crowding ></RiskComponentBar>
-              </v-col>
-              <v-col>
-                <RiskComponentBar :value=activity.droplets ></RiskComponentBar>
-              </v-col>
-              <v-col>
-                <RiskComponentBar :value=activity.exposureTime ></RiskComponentBar>
-              </v-col>
-              <v-col>
-                <RiskComponentBar :value=activity.ventilation ></RiskComponentBar>
-              </v-col>
-            </v-row>
-          </v-container>
-          <v-tabs
-            fixed-tabs
-            icons-and-text
-          >
-            <v-tab>Crowding   <v-icon>mdi-account-switch</v-icon></v-tab>
-            <v-tab>Droplets <v-icon>mdi-water</v-icon></v-tab>
-            <v-tab>Time <v-icon>mdi-timer-sand-full</v-icon></v-tab>
-            <v-tab>Ventilation <v-icon>mdi-fan</v-icon></v-tab>
+        <v-container class="riskComponentsContainer">
+          <v-row>
+            <v-col>
+              <RiskComponentBar :value="activity.crowding"></RiskComponentBar>
+            </v-col>
+            <v-col>
+              <RiskComponentBar :value="activity.droplets"></RiskComponentBar>
+            </v-col>
+            <v-col>
+              <RiskComponentBar
+                :value="activity.exposureTime"
+              ></RiskComponentBar>
+            </v-col>
+            <v-col>
+              <RiskComponentBar
+                :value="activity.ventilation"
+              ></RiskComponentBar>
+            </v-col>
+          </v-row>
+        </v-container>
+        <v-tabs fixed-tabs icons-and-text>
+          <v-tab>Crowding <v-icon>mdi-account-switch</v-icon></v-tab>
+          <v-tab>Droplets <v-icon>mdi-water</v-icon></v-tab>
+          <v-tab>Time <v-icon>mdi-timer-sand-full</v-icon></v-tab>
+          <v-tab>Ventilation <v-icon>mdi-fan</v-icon></v-tab>
 
-            <v-tab-item>
-              <v-card flat tile class="tabCard">
-                <v-card-text>
-                  <Markdown :source="activity.crowdingNotes" />
-                </v-card-text>
-              </v-card>
-            </v-tab-item>
-            <v-tab-item>
-              <v-card flat tile class="tabCard">
-                <v-card-text>
-                  <Markdown :source="activity.dropletsNotes" />
-                </v-card-text>
-              </v-card>
-            </v-tab-item>
-            <v-tab-item>
-              <v-card flat tile class="tabCard">
-                <v-card-text>
-                  <Markdown :source="activity.exposureTimeNotes" />
-                </v-card-text>
-              </v-card>
-            </v-tab-item>
-            <v-tab-item>
-              <v-card flat tile class="tabCard">
-                <v-card-text>
-                  <Markdown :source="activity.ventilationNotes" />
-                </v-card-text>
-              </v-card>
-            </v-tab-item>
-          </v-tabs>
-          <v-spacer></v-spacer>
-          </div>
-        </div>
+          <v-tab-item>
+            <v-card flat tile class="tabCard">
+              <v-card-text>
+                <Markdown :source="activity.crowdingNotes" />
+              </v-card-text>
+            </v-card>
+          </v-tab-item>
+          <v-tab-item>
+            <v-card flat tile class="tabCard">
+              <v-card-text>
+                <Markdown :source="activity.dropletsNotes" />
+              </v-card-text>
+            </v-card>
+          </v-tab-item>
+          <v-tab-item>
+            <v-card flat tile class="tabCard">
+              <v-card-text>
+                <Markdown :source="activity.exposureTimeNotes" />
+              </v-card-text>
+            </v-card>
+          </v-tab-item>
+          <v-tab-item>
+            <v-card flat tile class="tabCard">
+              <v-card-text>
+                <Markdown :source="activity.ventilationNotes" />
+              </v-card-text>
+            </v-card>
+          </v-tab-item>
+        </v-tabs>
+        <v-spacer></v-spacer>
+      </div>
+    </div>
     <div class="risk-information">
       <!--<Markdown class="risk-details" :source="risk && risk.longDescription" />-->
       <br />
-      <v-container fluid="true">
+      <v-container fluid="true" class="crowdingComponent">
         <v-row>
-            <v-col cols="12">
+          <v-col cols="12">
             <div v-show="activity.showLocation == 'TRUE'">
-              <p>Check to see if it's going to be crowded when and where you are</p>
+              <p>
+                Check to see if it's going to be crowded when and where you are
+              </p>
               <VueGoogleAutocomplete
                 classname="form-control"
                 id="map"
@@ -151,7 +154,13 @@ import RiskComponentBar from "@/components/RiskComponentBar.vue";
 import axios from "axios";
 
 export default {
-  components: { ScoreScale, Markdown, Chart, VueGoogleAutocomplete, RiskComponentBar },
+  components: {
+    ScoreScale,
+    Markdown,
+    Chart,
+    VueGoogleAutocomplete,
+    RiskComponentBar
+  },
   props: {
     score: {
       type: String,
@@ -174,7 +183,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["riskLevels","currentUserSettings"]),
+    ...mapGetters(["riskLevels", "currentUserSettings"]),
     risk() {
       return this.riskLevels["riskLevel" + this.score];
     },
@@ -195,7 +204,9 @@ export default {
       return referencesArray;
     },
     showRiskComponents: function() {
-      return this.activity.activityName && this.currentUserSettings.hasBetaAccess;
+      return (
+        this.activity.activityName && this.currentUserSettings.hasBetaAccess
+      );
     }
   },
   methods: {
@@ -285,12 +296,20 @@ export default {
   }
 
   .v-tab--active {
-    background-color: #F1F8E9;
+    background-color: #f1f8e9;
   }
 
   .tabCard {
     text-align: left;
-    background-color:#F1F8E9;
-  }  
+    background-color: #f1f8e9;
+  }
+
+  .crowdingComponent {
+    background-color: teal;
+    width: 100vw;
+    position: absolute;
+    left: -570px;
+  }
+
 }
 </style>
