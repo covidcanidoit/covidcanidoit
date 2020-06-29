@@ -72,33 +72,39 @@
           </div>
         </div>
     <div class="risk-information">
-      <Markdown class="risk-details" :source="risk && risk.longDescription" />
+      <!--<Markdown class="risk-details" :source="risk && risk.longDescription" />-->
       <br />
-      <div v-show="activity.showLocation == 'TRUE'">
-        <p>Check to see if it's going to be crowded when and where you are</p>
-        <VueGoogleAutocomplete
-          classname="form-control"
-          id="map"
-          placeholder="Please enter the activity location"
-          @placechanged="getAddressData"
-          :enableGeolocation="true"
-          :geolocationOptions="{ enableHighAccuracy: false }"
-          types="establishment"
-        />
-        <button class="form-control btn-primary" @click="getBusyInfo">
-          How Busy Will It Be?
-        </button>
-        <!-- <div>{{ busyResults }}</div> -->
-        <div v-if="loadingBusyResults">Loading...</div>
-        <div v-else>
-          <div v-if="busyResults">
-            <div v-if="busyResults == 'error'">Data not available</div>
-            <Chart v-else :crowdingData="busyResults" />
-          </div>
-        </div>
-      </div>
+      <v-container fluid="true">
+        <v-row>
+            <v-col cols="12">
+            <div v-show="activity.showLocation == 'TRUE'">
+              <p>Check to see if it's going to be crowded when and where you are</p>
+              <VueGoogleAutocomplete
+                classname="form-control"
+                id="map"
+                placeholder="Please enter the activity location"
+                @placechanged="getAddressData"
+                :enableGeolocation="true"
+                :geolocationOptions="{ enableHighAccuracy: false }"
+                types="establishment"
+              />
+              <button class="form-control btn-primary" @click="getBusyInfo">
+                How Busy Will It Be?
+              </button>
+              <!-- <div>{{ busyResults }}</div> -->
+              <div v-if="loadingBusyResults">Loading...</div>
+              <div v-else>
+                <div v-if="busyResults">
+                  <div v-if="busyResults == 'error'">Data not available</div>
+                  <Chart v-else :crowdingData="busyResults" />
+                </div>
+              </div>
+            </div>
+          </v-col>
+        </v-row>
+      </v-container>
       <br />
-      <a
+      <!--<a
         v-show="hideMoreInfo"
         href="#divMoreInfo"
         data-toggle="collapse"
@@ -129,7 +135,7 @@
             <a :href="reference">{{ reference }}</a>
           </li>
         </ol>
-      </div>
+      </div>-->
     </div>
   </div>
 </template>

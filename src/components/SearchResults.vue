@@ -16,6 +16,25 @@
         v-show="profile.COVIDpositive !== 'yes'"
       />
 
+      <v-container>
+        <v-row>
+          <v-col cols="6">
+            <h5>You are at more risk than others if</h5>
+            <v-expansion-panels focusable="true" flat="true">
+              <v-expansion-panel v-for="riskFactor in riskFactors" :key="riskFactor.name">
+                <v-expansion-panel-header><i class="icon" :class="riskFactor.icon"></i>{{riskFactor.shortDescription}}</v-expansion-panel-header>
+                <v-expansion-panel-content>
+                  <Markdown :source="riskFactor.longDescription" />
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
+          </v-col>
+          <v-col cols="6">
+            <h5>Things to consider</h5>
+            <Markdown class="risk-details" :source="risk && risk.longDescription" />
+          </v-col>
+        </v-row>
+      </v-container>
       <div
         v-show="
           additionalRiskFactors.length > 0 || activity.showLocation == 'TRUE'
@@ -81,7 +100,7 @@ export default {
     return {};
   },
   computed: {
-    ...mapGetters(["riskFactors"]),
+    ...mapGetters(["riskFactors","riskLevels"]),
     isAgeSet() {
       return this.profile.age && this.activity[this.profile.age];
     },
@@ -101,6 +120,9 @@ export default {
         const lookFor = riskFactor.showWhen.split(",");
         return lookFor.includes(this.profile[riskFactor.name]);
       });
+    },
+    risk() {
+      return this.riskLevels["riskLevel" + this.maybeAgeScore];
     }
   },
   methods: {}
