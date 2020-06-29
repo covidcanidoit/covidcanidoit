@@ -1,10 +1,21 @@
 import Vue from "vue";
+
 import Vuex from "vuex";
-import VuexPersistence from "vuex-persist";
+Vue.use(Vuex);
+
 import { vuexfireMutations, firebaseAction } from "vuexfire";
 import { db } from "@/db.js";
 
-Vue.use(Vuex);
+// Persist vuex into localStorage between page loads
+import VuexPersistence from "vuex-persist";
+
+// This helper makes for much shorter action-bindings
+function bindFirebase(key) {
+  return firebaseAction(({ bindFirebaseRef }) => {
+    console.log("Binding:", key);
+    return bindFirebaseRef(key, db.ref(key));
+  });
+}
 
 export default new Vuex.Store({
   plugins: [new VuexPersistence().plugin],
@@ -15,6 +26,12 @@ export default new Vuex.Store({
     userSettings: {},
     currentCountry: "US",
     currentUserUid: undefined,
+
+    // Phase2
+    currentRegion: undefined,
+    regions: {},
+
+    // Deprecated for phase2
     userProfile: {
       age: undefined,
       gender: undefined,
@@ -23,12 +40,14 @@ export default new Vuex.Store({
       pregnant: undefined,
       feelSick: undefined,
       familySick: undefined,
-      COVIDpositive: undefined
+      COVIDpositive: undefined,
+      promptedForProfile: false
     },
     suggestions: {}
   },
   mutations: {
     ...vuexfireMutations,
+    // Deprecated for phase2
     setProfile(state, profile) {
       state.userProfile = profile;
     },
@@ -37,12 +56,17 @@ export default new Vuex.Store({
     },
     setCurrentCountry(state, currentCountry) {
       state.currentCountry = currentCountry;
+    },
+    setCurrentRegion(state, currentRegion) {
+      state.currentRegion = currentRegion;
     }
   },
   getters: {
+    // Deprecated for phase2
     getProfile(state) {
       return state.userProfile;
     },
+    // Deprecated for phase2
     ageDescription(state) {
       if (state.userProfile.age == "riskUnder10") {
         return "Under 10";
@@ -67,57 +91,57 @@ export default new Vuex.Store({
       }
       return "unknown";
     },
-    hasEnteredProfileData(state) {
-      const profile = state.userProfile;
-      return (
-        profile.age ||
-        profile.gender ||
-        profile.smoking ||
-        profile.comorbidity ||
-        profile.pregnant ||
-        profile.feelSick ||
-        profile.familySick ||
-        profile.COVIDpositive
-      );
+    // Deprecated for phase2
+    havePromptedForProfile(state) {
+      return state.userProfile.promptedForProfile;
     },
-    activities(state) {
-      if (!state.currentCountry) {
+    activities(state, getters) {
+      if (!getters.currentCountry) {
         return [];
       }
-      if (!state.content || !state.content[state.currentCountry]) {
+      if (!state.content || !state.content[getters.currentCountry]) {
         return [];
       }
-      return state.content[state.currentCountry].activities;
+      return state.content[getters.currentCountry].activities;
     },
-    categories(state) {
-      if (!state.currentCountry) {
+    categories(state, getters) {
+      if (!getters.currentCountry) {
         return [];
       }
-      if (!state.content || !state.content[state.currentCountry]) {
+      if (!state.content || !state.content[getters.currentCountry]) {
         return [];
       }
-      return state.content[state.currentCountry].categories;
+      return state.content[getters.currentCountry].categories;
     },
-    riskLevels(state) {
-      if (!state.currentCountry) {
+    riskLevels(state, getters) {
+      if (!getters.currentCountry) {
         return [];
       }
-      if (!state.content || !state.content[state.currentCountry]) {
+      if (!state.content || !state.content[getters.currentCountry]) {
         return [];
       }
-      return state.content[state.currentCountry].riskLevels;
+      return state.content[getters.currentCountry].riskLevels;
     },
-    riskFactors(state) {
-      if (!state.currentCountry) {
+    riskFactors(state, getters) {
+      if (!getters.currentCountry) {
         return [];
       }
-      if (!state.content || !state.content[state.currentCountry]) {
+      if (!state.content || !state.content[getters.currentCountry]) {
         return [];
       }
-      return state.content[state.currentCountry].riskFactors;
+      return state.content[getters.currentCountry].riskFactors;
     },
     countries(state) {
       return Object.keys(state.content || {});
+    },
+    regions(state) {
+      return state.regions;
+    },
+    currentUserUid(state) {
+      return state.currentUserUid;
+    },
+    users(state) {
+      return state.users;
     },
     currentUserSettings(state) {
       if (
@@ -130,39 +154,31 @@ export default new Vuex.Store({
         return {};
       }
     },
-    activitySuggestions(state) {
-      if (!state.currentCountry) {
+    activitySuggestions(state, getters) {
+      if (!getters.currentCountry) {
         return {};
       }
-      if (state.suggestions && state.suggestions[state.currentCountry]) {
-        return state.suggestions[state.currentCountry].activitySuggestions;
+      if (state.suggestions && state.suggestions[getters.currentCountry]) {
+        return state.suggestions[getters.currentCountry].activitySuggestions;
       } else {
         return {};
       }
     },
     currentCountry(state) {
-      return state.currentCountry;
+      if (state.currentRegion) {
+        return state.regions[state.currentRegion].country;
+      } else {
+        return state.currentCountry;
+      }
     }
   },
   actions: {
-    bindContent: firebaseAction(({ bindFirebaseRef }) => {
-      console.log("Binding content");
-      return bindFirebaseRef("content", db.ref("content"));
-    }),
-    bindUsers: firebaseAction(({ bindFirebaseRef }) => {
-      console.log("Binding users");
-      return bindFirebaseRef("users", db.ref("users"));
-    }),
-    bindUserSettings: firebaseAction(({ bindFirebaseRef }) => {
-      console.log("Binding userSettings");
-      return bindFirebaseRef("userSettings", db.ref("userSettings"));
-    }),
-    bindSuggestions: firebaseAction(({ bindFirebaseRef }) => {
-      console.log("Binding suggestions");
-      return bindFirebaseRef("suggestions", db.ref("suggestions"));
-    }),
+    bindRegions: bindFirebase("regions"),
+    bindContent: bindFirebase("content"),
+    bindUsers: bindFirebase("users"),
+    bindUserSettings: bindFirebase("userSettings"),
+    bindSuggestions: bindFirebase("suggestions"),
     changeCountry({ commit }, newCountry) {
-      // i18n.locale = newLocale
       commit("setCurrentCountry", newCountry);
     }
   },

@@ -176,12 +176,14 @@ export default {
         pregnant: "no",
         feelSick: "no",
         familySick: "no",
-        COVIDpositive: "no"
+        COVIDpositive: "no",
+        promptedForProfile: true
       }
     };
   },
   mounted() {
     this.userProfile = this.$store.getters.getProfile;
+    this.userProfile.promptedForProfile = true;
   },
   methods: {
     profileEdited() {

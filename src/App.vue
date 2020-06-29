@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   data() {
@@ -43,14 +43,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["currentCountry"]),
-    ...mapGetters(["countries","activitySuggestions"])
-  },
-  async created() {
-    console.log("Loading content from Firebase");
-    this.$store.dispatch("bindContent");
-    this.$store.dispatch("bindSuggestions");
-    this.$store.dispatch("changeCountry", this.$store.state.currentCountry);
+    ...mapGetters(["countries", "activitySuggestions", "currentCountry"])
   },
   methods: {
     setCurrentCountry(country) {

@@ -49,12 +49,12 @@ export default {
     };
   },
   computed: {
-    ...mapState(["userProfile", "currentCountry"]),
-    ...mapGetters(["hasEnteredProfileData", "activities"]),
+    ...mapState(["userProfile"]),
+    ...mapGetters(["havePromptedForProfile", "activities", "currentCountry"]),
     activityList() {
-      return Object.values(this.activities || {}).filter(activity => !activity.disabled).map(
-        activity => activity.activityName
-      );
+      return Object.values(this.activities || {})
+        .filter(activity => !activity.disabled)
+        .map(activity => activity.activityName);
     }
   },
   created() {
@@ -82,16 +82,18 @@ export default {
         ) {
           this.result = activity;
           // Update URL
-          if (!this.hasEnteredProfileData && !this.skipProfile) {
+          if (!this.havePromptedForProfile) {
             this.$router.push({
               name: "CreateUserProfile",
               params: { search: searchValue }
             });
           } else {
-            this.$router.replace({
-              name: "ActivitySearch",
-              params: { slug: activity.slug }
-            });
+            if (this.$route.params.slug != activity.slug) {
+              this.$router.replace({
+                name: "ActivitySearch",
+                params: { slug: activity.slug }
+              });
+            }
             VueScrollTo.scrollTo("#search-results");
           }
         }

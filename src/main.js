@@ -14,6 +14,14 @@ import "@mdi/font/css/materialdesignicons.css";
 import { rtdbPlugin } from "vuefire";
 Vue.use(rtdbPlugin);
 
+import Bugsnag from "@bugsnag/js";
+import BugsnagPluginVue from "@bugsnag/plugin-vue";
+
+Bugsnag.start({
+  apiKey: "229b7b7efcfa23d9e579dc97606658d8",
+  plugins: [new BugsnagPluginVue()]
+});
+
 Vue.config.productionTip = false;
 
 Vue.use(
@@ -24,9 +32,21 @@ Vue.use(
   router
 );
 
-new Vue({
-  router,
-  store,
-  vuetify,
-  render: h => h(App)
-}).$mount("#app");
+function loadFirebaseContent() {
+  return Promise.all([
+    store.dispatch("bindSuggestions"),
+    store.dispatch("bindContent")
+  ]);
+}
+
+loadFirebaseContent().then(() => {
+  new Vue({
+    router,
+    store,
+    vuetify,
+    created() {
+      console.log("VUE APP CREATED");
+    },
+    render: h => h(App)
+  }).$mount("#app");
+});

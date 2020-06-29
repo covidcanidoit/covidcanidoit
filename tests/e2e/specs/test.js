@@ -78,9 +78,16 @@ describe("Change Country", () => {
     cy.get('button[aria-label="Select country"]').click();
     cy.contains("US");
     cy.contains("UG");
-    cy.get('.v-list-item').contains("UG").click();
+    cy.get(".v-list-item")
+      .contains("UG")
+      .click();
     cy.get(".v-select").click();
     cy.contains("Prayer congregations");
     cy.visit("/US/");
+  });
+  it("Direct link to a non-US country", () => {
+    cy.visit("/UG/");
+    cy.get(".v-select").click();
+    cy.contains("Prayer congregations");
   });
 });

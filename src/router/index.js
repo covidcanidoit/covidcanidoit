@@ -8,6 +8,7 @@ import BrowseCategory from "@/views/BrowseCategory.vue";
 import About from "@/views/About.vue";
 import CreateUserProfile from "@/views/CreateUserProfile.vue";
 import Admin from "@/views/Admin.vue";
+import AdminRegionEdit from "@/views/AdminRegionEdit.vue";
 import AdminActivityEdit from "@/views/AdminActivityEdit.vue";
 import AdminRiskLevelEdit from "@/views/AdminRiskLevelEdit.vue";
 import AdminRiskFactorEdit from "@/views/AdminRiskFactorEdit.vue";
@@ -21,8 +22,8 @@ const routes = [
     path: "/",
     name: "root",
     beforeEnter(to, from, next) {
-      console.log(`Router / -> next(${store.state.currentCountry})`);
-      next(store.state.currentCountry);
+      console.log(`Router / -> next(${store.getters.currentCountry})`);
+      next(store.getters.currentCountry);
     }
   },
   {
@@ -33,7 +34,7 @@ const routes = [
       console.log("Router /:country", { country });
       if (store.getters.countries.includes(country) || country == "US") {
         console.log("We do have that country");
-        if (store.state.currentCountry !== country) {
+        if (store.getters.currentCountry !== country) {
           console.log(
             "We are not already on that as the currentCountry, dispatching"
           );
@@ -42,7 +43,7 @@ const routes = [
         return next();
       } else {
         console.log("Not a real country, going with currentCountry instead");
-        return next({ path: store.state.currentCountry });
+        return next({ path: store.getters.currentCountry });
       }
     },
     children: [
@@ -84,6 +85,12 @@ const routes = [
         path: "admin",
         name: "Admin",
         component: Admin,
+        props: true
+      },
+      {
+        path: "admin/region/:slug",
+        name: "AdminRegionEdit",
+        component: AdminRegionEdit,
         props: true
       },
       {
