@@ -315,4 +315,9 @@ a {
   float: left;
   font-weight: italic;
 }
+
+#canvasContainer {
+  width: 35vw;
+  height: 20vw; 
+}
 </style>

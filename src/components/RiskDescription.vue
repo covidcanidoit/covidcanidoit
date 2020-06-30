@@ -75,36 +75,34 @@
     <div class="risk-information">
       <!--<Markdown class="risk-details" :source="risk && risk.longDescription" />-->
       <br />
-      <v-container fluid="true" class="crowdingComponent">
-        <v-row>
-          <v-col cols="12">
-            <div v-show="activity.showLocation == 'TRUE'">
-              <p>
-                Check to see if it's going to be crowded when and where you are
-              </p>
-              <VueGoogleAutocomplete
-                classname="form-control"
-                id="map"
-                placeholder="Please enter the activity location"
-                @placechanged="getAddressData"
-                :enableGeolocation="true"
-                :geolocationOptions="{ enableHighAccuracy: false }"
-                types="establishment"
-              />
-              <button class="form-control btn-primary" @click="getBusyInfo">
-                How Busy Will It Be?
-              </button>
-              <!-- <div>{{ busyResults }}</div> -->
-              <div v-if="loadingBusyResults">Loading...</div>
-              <div v-else>
-                <div v-if="busyResults">
-                  <div v-if="busyResults == 'error'">Data not available</div>
-                  <Chart v-else :crowdingData="busyResults" />
-                </div>
-              </div>
+      <v-container fluid class="crowdingBar">
+        <div v-show="activity.showLocation == 'TRUE'">
+          <div class="d-flex justify-center align-center">
+            <span>
+              Specify your location
+            </span>
+            <VueGoogleAutocomplete
+              classname="busyLocation"
+              id="map"
+              placeholder="Please enter the activity location"
+              @placechanged="getAddressData"
+              :enableGeolocation="true"
+              :geolocationOptions="{ enableHighAccuracy: false }"
+              types="establishment"
+            />
+            <button class="busyCheckButton btn-primary" @click="getBusyInfo">
+              Check your location
+            </button>
+          </div>
+          <!-- <div>{{ busyResults }}</div> -->
+          <div v-if="loadingBusyResults">Loading...</div>
+          <div v-else>
+            <div v-if="busyResults" class="d-flex justify-center">
+              <div v-if="busyResults == 'error'">Data not available</div>
+              <Chart v-else :crowdingData="busyResults" class="busyChart" />
             </div>
-          </v-col>
-        </v-row>
+          </div>
+        </div>
       </v-container>
       <br />
       <!--<a
@@ -304,11 +302,33 @@ export default {
     background-color: #f1f8e9;
   }
 
-  .crowdingComponent {
+  .crowdingBar {
     background-color: teal;
+    position: relative;
     width: 100vw;
-    position: absolute;
-    left: -570px;
+    max-width:100vw;
+    left: -457px;
+    color: white;
+  }
+
+  .busyChart {
+    background-color: white;
+  }
+
+  .busyLocation {
+    background-color: white;
+    color: black;
+    border-radius: 2em;
+    width: 30vw;
+    padding-left: 1em;
+    margin: 1em 1em;
+  }
+
+  .busyCheckButton {
+    background-color: lightgreen;
+    color: darkslategray;
+    padding: 0.5em;
+    border-radius: 2em;
   }
 
 }

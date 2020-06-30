@@ -20,7 +20,7 @@
         <v-row>
           <v-col cols="6">
             <h5>You are at more risk than others if</h5>
-            <v-expansion-panels focusable="true" flat="true">
+            <v-expansion-panels focusable flat>
               <v-expansion-panel
                 v-for="riskFactor in riskFactors"
                 :key="riskFactor.name"
@@ -96,7 +96,7 @@ import { mapGetters } from "vuex";
 import RiskDescription from "@/components/RiskDescription.vue";
 
 export default {
-  components: { RiskDescription, Markdown }, 
+  components: { RiskDescription, Markdown },
   props: {
     searchedTerm: String,
     activity: Object,
