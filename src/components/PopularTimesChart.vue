@@ -318,6 +318,6 @@ a {
 
 #canvasContainer {
   width: 35vw;
-  height: 20vw; 
+  height: 20vw;
 }
 </style>

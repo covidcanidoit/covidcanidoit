@@ -14,6 +14,7 @@ import AdminRiskLevelEdit from "@/views/AdminRiskLevelEdit.vue";
 import AdminRiskFactorEdit from "@/views/AdminRiskFactorEdit.vue";
 import AdminCategoryEdit from "@/views/AdminCategoryEdit.vue";
 import AdminUserEdit from "@/views/AdminUserEdit.vue";
+import SearchResults from "@/views/SearchResults.vue";
 
 Vue.use(VueRouter);
 
@@ -56,7 +57,7 @@ const routes = [
       {
         path: "activity/:slug",
         name: "ActivitySearch",
-        component: Home,
+        component: SearchResults,
         props: true
       },
       {

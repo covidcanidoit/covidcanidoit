@@ -12,65 +12,8 @@
       <div class="score-title">{{ risk && risk.riskName }}</div>
       <ScoreScale :score="score" />
       <v-spacer></v-spacer>
-      <div v-show="showRiskComponents" mt-1>
-        <v-spacer></v-spacer>
-        <v-container class="riskComponentsContainer">
-          <v-row>
-            <v-col>
-              <RiskComponentBar :value="activity.crowding"></RiskComponentBar>
-            </v-col>
-            <v-col>
-              <RiskComponentBar :value="activity.droplets"></RiskComponentBar>
-            </v-col>
-            <v-col>
-              <RiskComponentBar
-                :value="activity.exposureTime"
-              ></RiskComponentBar>
-            </v-col>
-            <v-col>
-              <RiskComponentBar
-                :value="activity.ventilation"
-              ></RiskComponentBar>
-            </v-col>
-          </v-row>
-        </v-container>
-        <v-tabs fixed-tabs icons-and-text>
-          <v-tab>Crowding <v-icon>mdi-account-switch</v-icon></v-tab>
-          <v-tab>Droplets <v-icon>mdi-water</v-icon></v-tab>
-          <v-tab>Time <v-icon>mdi-timer-sand-full</v-icon></v-tab>
-          <v-tab>Ventilation <v-icon>mdi-fan</v-icon></v-tab>
-
-          <v-tab-item>
-            <v-card flat tile class="tabCard">
-              <v-card-text>
-                <Markdown :source="activity.crowdingNotes" />
-              </v-card-text>
-            </v-card>
-          </v-tab-item>
-          <v-tab-item>
-            <v-card flat tile class="tabCard">
-              <v-card-text>
-                <Markdown :source="activity.dropletsNotes" />
-              </v-card-text>
-            </v-card>
-          </v-tab-item>
-          <v-tab-item>
-            <v-card flat tile class="tabCard">
-              <v-card-text>
-                <Markdown :source="activity.exposureTimeNotes" />
-              </v-card-text>
-            </v-card>
-          </v-tab-item>
-          <v-tab-item>
-            <v-card flat tile class="tabCard">
-              <v-card-text>
-                <Markdown :source="activity.ventilationNotes" />
-              </v-card-text>
-            </v-card>
-          </v-tab-item>
-        </v-tabs>
-        <v-spacer></v-spacer>
-      </div>
+      
+      <RiskComponents :activity="activity" ></RiskComponents>
     </div>
     <div class="risk-information">
       <!--<Markdown class="risk-details" :source="risk && risk.longDescription" />-->
@@ -143,21 +86,19 @@
 
 <script>
 import { mapGetters } from "vuex";
-import Markdown from "vue-markdown";
 import ScoreScale from "@/components/ScoreScale.vue";
 import Chart from "@/components/PopularTimesChart";
 import VueGoogleAutocomplete from "vue-google-autocomplete";
-import RiskComponentBar from "@/components/RiskComponentBar.vue";
+import RiskComponents from "@/components/RiskComponents.vue";
 
 import axios from "axios";
 
 export default {
   components: {
     ScoreScale,
-    Markdown,
     Chart,
     VueGoogleAutocomplete,
-    RiskComponentBar
+    RiskComponents
   },
   props: {
     score: {
@@ -303,10 +244,10 @@ export default {
   }
 
   .crowdingBar {
-    background-color: teal;
+    background-color: $selectorgray;
     position: relative;
     width: 100vw;
-    max-width:100vw;
+    max-width: 100vw;
     left: -457px;
     color: white;
   }
@@ -325,11 +266,12 @@ export default {
   }
 
   .busyCheckButton {
-    background-color: lightgreen;
-    color: darkslategray;
+    background-color: $primary;
+    color: $selectorgray;
     padding: 0.5em;
+    padding-left: 1em;
+    padding-right: 1em;
     border-radius: 2em;
   }
-
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="search-bar">
-    <p class="header">Can I...</p>
+    <p class="header">What's the risk?</p>
     <div class="dropdown search-fields">
       <VueSelect
         label="activityName"

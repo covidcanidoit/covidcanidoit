@@ -1,14 +1,11 @@
 <template>
   <div class="home">
-    <SearchBar
-      :initialSearchTerm="search"
-      @searched="onSearch"
-      @suggested="onSuggest"
-      :activityList="activityList"
-      :perPage="5"
-    />
-    <HomeBanner v-if="currentCountry === 'US'" />
     <ThanksForSuggesting v-if="noResults" :suggested="suggested" />
+    <SearchResults
+      :activity="result"
+      :searched="searched"
+      :profile="userProfile"
+    />
     <!-- will pass in data as crowdingData based on the example data Brock sent me -->
     <!-- <Chart crowdingData= /> -->
     <HowItWorks />
@@ -16,8 +13,7 @@
 </template>
 
 <script>
-import SearchBar from "@/components/SearchBar.vue";
-import HomeBanner from "@/components/HomeBanner.vue";
+import SearchResults from "@/components/SearchResults.vue";
 import HowItWorks from "@/components/HowItWorks.vue";
 import ThanksForSuggesting from "@/components/ThanksForSuggesting.vue";
 import { mapState, mapGetters } from "vuex";
@@ -27,10 +23,9 @@ import VueScrollTo from "vue-scrollto";
 export default {
   props: ["search", "skipProfile", "slug"],
   components: {
-    SearchBar,
+    SearchResults,
     HowItWorks,
-    ThanksForSuggesting,
-    HomeBanner
+    ThanksForSuggesting
     // Chart
   },
   data: function() {

@@ -1,14 +1,9 @@
 <template>
   <v-app>
     <div id="nav" class="navigation">
-      <router-link class="router" :to="{ name: 'Home' }">
-        <img src="@/assets/logo.png" class="logo" align="left" />
-      </router-link>
-      <router-link class="router" :to="{ name: 'Home' }">Home</router-link> |
-      <router-link class="router" :to="{ name: 'Browse' }"
-        >Find An Activity</router-link
-      >
-      | <router-link :to="{ name: 'CreateUserProfile' }">Profile</router-link> |
+      <router-link class="router" :to="{ name: 'Home' }">Home</router-link>|
+      <router-link class="router" :to="{ name: 'Browse' }">Find An Activity</router-link>|
+      <router-link :to="{ name: 'CreateUserProfile' }">Profile</router-link>|
       <router-link :to="{ name: 'About' }">Learn More</router-link>
       <v-menu>
         <template v-slot:activator="{ on }">
@@ -29,14 +24,25 @@
         </v-list>
       </v-menu>
     </div>
-    <div><router-view /></div>
+    <div class="hero">
+      <router-link class="router" :to="{ name: 'Home' }">
+        <Logo class="logo" />
+      </router-link>
+    </div>
+    <div>
+      <router-view />
+    </div>
   </v-app>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import Logo from "@/assets/ccidi-logo-full.svg";
 
 export default {
+  components: {
+    Logo
+  },
   data() {
     return {
       publicPath: process.env.BASE_URL
@@ -62,13 +68,13 @@ export default {
 
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&display=swap");
 body {
   background-color: #ccc;
 }
 
 #app {
-  font-family: "Roboto", sans-serif;
+  font-family: "Comfortaa", cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
@@ -80,9 +86,10 @@ body {
 }
 
 .logo {
-  width: 200px;
-  height: 100px;
-  margin: 0;
+  width: 400px;
+}
+.hero {
+  text-align: center;
 }
 
 .navigation {
