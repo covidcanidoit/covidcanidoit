@@ -19,12 +19,28 @@
         </template>
         <v-list>
           <v-list-item
-            v-for="country in countryNames"
+            v-for="country in countrySlugs"
             :key="country"
             @click="setCurrentCountry(country)"
           >
             <img :src="`${publicPath}images/flag/${country}.png`" />
             {{ country }}
+          </v-list-item>
+        </v-list>
+      </v-menu>
+      <v-menu>
+        <template v-slot:activator="{ on }">
+          <v-btn text v-on="on" aria-label="Select region">
+            {{ currentRegion }}
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="region in regionSlugs"
+            :key="region"
+            @click="setCurrentRegion(region)"
+          >
+            {{ region }}
           </v-list-item>
         </v-list>
       </v-menu>
@@ -43,11 +59,20 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["countryNames", "activitySuggestions", "currentCountry"])
+    ...mapGetters([
+      "countrySlugs",
+      "activitySuggestions",
+      "currentCountry",
+      "currentRegion",
+      "regionSlugs"
+    ])
   },
   methods: {
     setCurrentCountry(country) {
       this.$store.dispatch("changeCountry", country);
+    },
+    setCurrentRegion(region) {
+      this.$store.dispatch("changeRegion", region);
     }
   },
   watch: {

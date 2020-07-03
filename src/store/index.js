@@ -28,7 +28,7 @@ export default new Vuex.Store({
     currentUserUid: undefined,
 
     // Phase2
-    currentRegion: undefined,
+    currentRegion: "all",
 
     // Deprecated for phase2
     userProfile: {
@@ -102,6 +102,9 @@ export default new Vuex.Store({
     currentContent(state, getters) {
       return state.content[getters.currentCountry] || {};
     },
+    currentRegion(state) {
+      return state.currentRegion;
+    },
 
     activities(_state, getters) {
       return getters.currentContent.activities || {};
@@ -116,18 +119,23 @@ export default new Vuex.Store({
       return getters.currentContent.riskFactors || {};
     },
     regions(_state, getters) {
-      return getters.currentContent.regions || {
-        all: {
-          slug: "all",
-          shortName: "all",
-          longName: "all",
-          trending: "bad"
+      return (
+        getters.currentContent.regions || {
+          all: {
+            slug: "all",
+            shortName: "all",
+            longName: "all",
+            trending: "bad"
+          }
         }
-      };
+      );
     },
 
-    countryNames(state) {
+    countrySlugs(state) {
       return Object.keys(state.content || {});
+    },
+    regionSlugs(_state, getters) {
+      return Object.keys(getters.regions) || [];
     },
 
     currentUserUid(state) {
@@ -159,7 +167,6 @@ export default new Vuex.Store({
     }
   },
   actions: {
-
     // Bind via websocket for firebase content & updates
     bindContent: bindFirebase("content"),
     bindUsers: bindFirebase("users"),
@@ -189,11 +196,20 @@ export default new Vuex.Store({
 
     // Other app actions
     // -----------------
-    changeCountry({ commit }, newCountry) {
-      commit("setCurrentCountry", newCountry);
+    changeCountry({ commit, getters }, newCountry) {
+      if (getters.countrySlugs.includes(newCountry)) {
+        commit("setCurrentCountry", newCountry);
+      } else {
+        commit("setCurrentCountry", "US");
+      }
     },
-    changeRegion({ commit }, newRegion) {
+    changeRegion({ commit, getters }, newRegion) {
       commit("setCurrentRegion", newRegion);
-    },
-  },
+      if (getters.regionSlugs.includes(newRegion)) {
+        commit("setCurrentRegion", newRegion);
+      } else {
+        commit("setCurrentRegion", "all");
+      }
+    }
+  }
 });

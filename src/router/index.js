@@ -21,29 +21,44 @@ const routes = [
   {
     path: "/",
     name: "root",
+
     beforeEnter(to, from, next) {
       console.log(`Router / -> next(${store.getters.currentCountry})`);
-      next(store.getters.currentCountry);
+      return next(
+        store.getters.currentCountry + "/" + store.getters.currentRegion
+      );
     }
   },
   {
     path: "/:country",
-    component: AppBody,
-    beforeEnter(to, from, next) {
+    async beforeEnter(to, from, next) {
       const country = to.params.country;
       console.log("Router /:country", { country });
-      if (store.getters.countryNames.includes(country) || country == "US") {
-        console.log("We do have that country");
-        if (store.getters.currentCountry !== country) {
-          console.log(
-            "We are not already on that as the currentCountry, dispatching"
-          );
-          store.dispatch("changeCountry", country);
-        }
-        return next();
+      await store.dispatch("changeCountry", country);
+      if (country !== store.getters.currentCountry) {
+        return next(
+          store.getters.currentCountry + "/" + store.getters.currentRegion
+        );
       } else {
-        console.log("Not a real country, going with currentCountry instead");
-        return next({ path: store.getters.currentCountry });
+        return next();
+      }
+    }
+  },
+  {
+    path: "/:country/:region",
+    component: AppBody,
+    async beforeEnter(to, from, next) {
+      const country = to.params.country;
+      const region = to.params.region;
+      console.log("Router /:country/:region", { country, region });
+      await store.dispatch("changeCountry", country);
+      await store.dispatch("changeRegion", region);
+      if (country !== store.getters.currentCountry || region !== store.getters.currentRegion) {
+        return next(
+          store.getters.currentCountry + "/" + store.getters.currentRegion
+        );
+      } else {
+        return next();
       }
     },
     children: [
@@ -80,50 +95,56 @@ const routes = [
         name: "CreateUserProfile",
         component: CreateUserProfile,
         props: true
-      },
-      {
-        path: "admin",
-        name: "Admin",
-        component: Admin,
-        props: true
-      },
-      {
-        path: "admin/region/:slug",
-        name: "AdminRegionEdit",
-        component: AdminRegionEdit,
-        props: true
-      },
-      {
-        path: "admin/activity/:slug",
-        name: "AdminActivityEdit",
-        component: AdminActivityEdit,
-        props: true
-      },
-      {
-        path: "admin/risk-level/:riskScore",
-        name: "AdminRiskLevelEdit",
-        component: AdminRiskLevelEdit,
-        props: true
-      },
-      {
-        path: "admin/risk-factor/:name",
-        name: "AdminRiskFactorEdit",
-        component: AdminRiskFactorEdit,
-        props: true
-      },
-      {
-        path: "admin/category/:categoryName",
-        name: "AdminCategoryEdit",
-        component: AdminCategoryEdit,
-        props: true
-      },
-      {
-        path: "admin/user/:userId",
-        name: "AdminUserEdit",
-        component: AdminUserEdit,
-        props: true
       }
     ]
+  },
+  {
+    path: "/admin",
+    name: "Admin",
+    component: Admin,
+    props: true
+  },
+  {
+    path: "/admin/region/:slug",
+    name: "AdminRegionEdit",
+    component: AdminRegionEdit,
+    props: true
+  },
+  {
+    path: "/admin/activity/:slug",
+    name: "AdminActivityEdit",
+    component: AdminActivityEdit,
+    props: true
+  },
+  {
+    path: "/admin/risk-level/:riskScore",
+    name: "AdminRiskLevelEdit",
+    component: AdminRiskLevelEdit,
+    props: true
+  },
+  {
+    path: "/admin/risk-factor/:name",
+    name: "AdminRiskFactorEdit",
+    component: AdminRiskFactorEdit,
+    props: true
+  },
+  {
+    path: "/admin/category/:categoryName",
+    name: "AdminCategoryEdit",
+    component: AdminCategoryEdit,
+    props: true
+  },
+  {
+    path: "/admin/user/:userId",
+    name: "AdminUserEdit",
+    component: AdminUserEdit,
+    props: true
+  },
+  {
+    path: "*",
+    beforeEnter(to, from, next) {
+      return next("/");
+    }
   }
 ];
 
