@@ -53,7 +53,10 @@ const routes = [
       console.log("Router /:country/:region", { country, region });
       await store.dispatch("changeCountry", country);
       await store.dispatch("changeRegion", region);
-      if (country !== store.getters.currentCountry || region !== store.getters.currentRegion) {
+      if (
+        country !== store.getters.currentCountry ||
+        region !== store.getters.currentRegion
+      ) {
         return next(
           store.getters.currentCountry + "/" + store.getters.currentRegion
         );
