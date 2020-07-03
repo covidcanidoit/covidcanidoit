@@ -28,7 +28,7 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <v-menu>
+      <v-menu v-if="regionSlugs.length > 1">
         <template v-slot:activator="{ on }">
           <v-btn text v-on="on" aria-label="Select region">
             {{ currentRegion }}
