@@ -1,18 +1,18 @@
 <template>
-   <v-container >
+  <v-container>
     <v-row>
-      <!-- Crowding --> 
+      <!-- Crowding -->
       <v-col>
-        <RiskComponent :activity="activity" type="crowding" ></RiskComponent>
+        <RiskComponent :activity="activity" type="crowding"></RiskComponent>
       </v-col>
       <v-col>
-        <RiskComponent :activity="activity" type="droplets" ></RiskComponent>
+        <RiskComponent :activity="activity" type="droplets"></RiskComponent>
       </v-col>
       <v-col>
-        <RiskComponent :activity="activity" type="exposureTime" ></RiskComponent>
+        <RiskComponent :activity="activity" type="exposureTime"></RiskComponent>
       </v-col>
       <v-col>
-        <RiskComponent :activity="activity" type="ventilation" ></RiskComponent>
+        <RiskComponent :activity="activity" type="ventilation"></RiskComponent>
       </v-col>
     </v-row>
   </v-container>
@@ -28,17 +28,12 @@ export default {
   props: {
     activity: Object
   },
-  computed: {
-    
-  },
-  methods: {
-  },
+  computed: {},
+  methods: {},
   mounted() {
     //console.log("MY ACTIVITY: ",this.activity);
   }
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

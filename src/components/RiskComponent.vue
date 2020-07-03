@@ -1,13 +1,13 @@
 <template>
-  <div :id=type :class="riskClass">
+  <div :id="type" :class="riskClass">
     <CrowdingIcon v-if="isCrowding" class="componentIcon" />
     <DropletsIcon v-if="isDroplets" class="componentIcon" />
     <TimeIcon v-if="isTime" class="componentIcon" />
-    <VentIcon  v-if="isVent" class="componentIcon" />
-    <div class="componentTitle" >{{title}}</div>
+    <VentIcon v-if="isVent" class="componentIcon" />
+    <div class="componentTitle">{{ title }}</div>
     <div class="componentRiskLabel">{{ risk }}</div>
     <Markdown :source="notes" />
-    <v-btn>Learn more about {{type}}</v-btn>
+    <v-btn>Learn more about {{ type }}</v-btn>
   </div>
 </template>
 
@@ -15,7 +15,7 @@
 import CrowdingIcon from "@/assets/Risk_Crowding-filled.svg";
 import DropletsIcon from "@/assets/Risk_Droplets-filled.svg";
 import TimeIcon from "@/assets/Risk_Time-filled.svg";
-import VentIcon from "@/assets/Risk_Ventilation-filled.svg"
+import VentIcon from "@/assets/Risk_Ventilation-filled.svg";
 import Markdown from "vue-markdown";
 
 export default {
@@ -44,7 +44,9 @@ export default {
       return this.type === "ventilation";
     },
     title() {
-      return this.type[0].toUpperCase() + this.type.substring(1,this.type.length);
+      return (
+        this.type[0].toUpperCase() + this.type.substring(1, this.type.length)
+      );
     },
     score() {
       return this.activity[this.type];
@@ -53,7 +55,7 @@ export default {
       return this.score === 1 ? "Low" : this.score === 2 ? "Medium" : "High";
     },
     notes() {
-      return this.type !== "" ? this.activity[this.type+"Notes"] : "";
+      return this.type !== "" ? this.activity[this.type + "Notes"] : "";
     },
     riskClass() {
       return "risk" + this.risk;
@@ -64,24 +66,24 @@ export default {
     //const path = document.getElementById(this.type).getElementsByTagName("svg")[0].getElementsByTagName("path")[0];
     //path.style.fill = color;
   }
-}
+};
 </script>
 
 <style lang="scss">
 .componentIcon {
-    width: 75px;
-    height: 75px;
-  }
+  width: 75px;
+  height: 75px;
+}
 div .cls-2 {
   fill: white;
 }
 .riskLow * {
-  fill: #37B34A;
+  fill: #37b34a;
 }
 .riskMedium * {
-  fill: #FAAF40;
+  fill: #faaf40;
 }
 .riskHigh * {
-  fill: #D03727;
+  fill: #d03727;
 }
 </style>

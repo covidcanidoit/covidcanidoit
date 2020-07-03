@@ -2,8 +2,9 @@
   <v-app>
     <div id="nav" class="navigation">
       <router-link class="router" :to="{ name: 'Home' }">Home</router-link>|
-      <router-link class="router" :to="{ name: 'Browse' }">Find An Activity</router-link>|
-      <router-link :to="{ name: 'CreateUserProfile' }">Profile</router-link>|
+      <router-link class="router" :to="{ name: 'Browse' }"
+        >Find An Activity</router-link
+      >| <router-link :to="{ name: 'CreateUserProfile' }">Profile</router-link>|
       <router-link :to="{ name: 'About' }">Learn More</router-link>
       <v-menu>
         <template v-slot:activator="{ on }">

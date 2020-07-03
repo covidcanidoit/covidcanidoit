@@ -19,11 +19,11 @@ module.exports = {
     module: {
       rules: [
         {
-          test: /\.svg$/, 
-          loader: 'vue-svg-loader', 
-        },
-      ],
-    }      
+          test: /\.svg$/,
+          loader: "vue-svg-loader"
+        }
+      ]
+    }
   },
   transpileDependencies: ["vuetify"]
 };

@@ -12,8 +12,8 @@
       <div class="score-title">{{ risk && risk.riskName }}</div>
       <ScoreScale :score="score" />
       <v-spacer></v-spacer>
-      
-      <RiskComponents :activity="activity" ></RiskComponents>
+
+      <RiskComponents :activity="activity"></RiskComponents>
     </div>
     <div class="risk-information">
       <!--<Markdown class="risk-details" :source="risk && risk.longDescription" />-->
