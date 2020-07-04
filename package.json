@@ -13,10 +13,10 @@
   },
   "lint-staged": {
     "*.js": [
-      "lint"
+      "lint", "git add"
     ],
     "*.vue": [
-      "lint"
+      "lint", "git add"
     ]
   },
   "dependencies": {
