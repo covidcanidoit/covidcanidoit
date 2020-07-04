@@ -112,10 +112,8 @@
               label="Add a keyword"
               v-model="newKeyword"
               @keydown.enter="
-                saveValue(
-                  'activityKeywords',
-                  activity.activityKeywords + ',' + newKeyword
-                )
+                saveValue('activityKeywords', existingKeywords + newKeyword);
+                clearValue($event);
               "
             ></v-text-field>
           </v-flex>
@@ -428,6 +426,12 @@ export default {
         ? this.activity.activityKeywords.split(",")
         : [];
     },
+    existingKeywords() {
+      if (!this.activity.activityKeywords) return "";
+      return this.activity.activityKeywords.length > 0
+        ? this.activity.activityKeywords + ","
+        : "";
+    },
     hasBetaAccess() {
       return !!this.currentUserSettings?.hasBetaAccess;
     },
@@ -453,6 +457,7 @@ export default {
       this.updateTimestamp();
     },
     saveValue(name, value) {
+      console.log("saveValue value: ", value);
       db.ref("content")
         .child(this.currentCountry)
         .child("activities")
@@ -491,6 +496,9 @@ export default {
     readableUser(uid) {
       const email = this.users[uid]?.email || "unknown";
       return email;
+    },
+    clearValue(event) {
+      event.target.value = "";
     }
   }
 };
