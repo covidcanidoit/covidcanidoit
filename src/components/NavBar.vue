@@ -7,6 +7,7 @@
     <router-link class="router" :to="{ name: 'Home', params: { country: currentCountry, region: currentRegion } }">Home</router-link>
     <router-link class="router" :to="{ name: 'About', params: { country: currentCountry, region: currentRegion } }">About</router-link>
     <router-link class="router" :to="{ name: 'Browse', params: { country: currentCountry, region: currentRegion } }">Activities</router-link>
+    <router-link class="router" :to="{ name: 'Home', params: { country: currentCountry, region: currentRegion } }"><v-icon>mdi-magnify</v-icon></router-link>
     <v-menu>
       <template v-slot:activator="{ on }">
         <v-btn text v-on="on" aria-label="Select country">
