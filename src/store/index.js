@@ -28,8 +28,7 @@ export default new Vuex.Store({
     currentUserUid: undefined,
 
     // Phase2
-    currentRegion: undefined,
-    regions: {},
+    currentRegion: "all",
 
     // Deprecated for phase2
     userProfile: {
@@ -47,6 +46,7 @@ export default new Vuex.Store({
   },
   mutations: {
     ...vuexfireMutations,
+
     // Deprecated for phase2
     setProfile(state, profile) {
       state.userProfile = profile;
@@ -95,48 +95,49 @@ export default new Vuex.Store({
     havePromptedForProfile(state) {
       return state.userProfile.promptedForProfile;
     },
-    activities(state, getters) {
-      if (!getters.currentCountry) {
-        return [];
-      }
-      if (!state.content || !state.content[getters.currentCountry]) {
-        return [];
-      }
-      return state.content[getters.currentCountry].activities;
+
+    currentCountry(state) {
+      return state.currentCountry;
     },
-    categories(state, getters) {
-      if (!getters.currentCountry) {
-        return [];
-      }
-      if (!state.content || !state.content[getters.currentCountry]) {
-        return [];
-      }
-      return state.content[getters.currentCountry].categories;
+    currentContent(state, getters) {
+      return state.content[getters.currentCountry] || {};
     },
-    riskLevels(state, getters) {
-      if (!getters.currentCountry) {
-        return [];
-      }
-      if (!state.content || !state.content[getters.currentCountry]) {
-        return [];
-      }
-      return state.content[getters.currentCountry].riskLevels;
+    currentRegion(state) {
+      return state.currentRegion;
     },
-    riskFactors(state, getters) {
-      if (!getters.currentCountry) {
-        return [];
-      }
-      if (!state.content || !state.content[getters.currentCountry]) {
-        return [];
-      }
-      return state.content[getters.currentCountry].riskFactors;
+
+    activities(_state, getters) {
+      return getters.currentContent.activities || {};
     },
-    countries(state) {
+    categories(_state, getters) {
+      return getters.currentContent.categories || {};
+    },
+    riskLevels(_state, getters) {
+      return getters.currentContent.riskLevels || {};
+    },
+    riskFactors(_state, getters) {
+      return getters.currentContent.riskFactors || {};
+    },
+    regions(_state, getters) {
+      return (
+        getters.currentContent.regions || {
+          all: {
+            slug: "all",
+            shortName: "all",
+            longName: "all",
+            trending: "bad"
+          }
+        }
+      );
+    },
+
+    countrySlugs(state) {
       return Object.keys(state.content || {});
     },
-    regions(state) {
-      return state.regions;
+    regionSlugs(_state, getters) {
+      return Object.keys(getters.regions) || [];
     },
+
     currentUserUid(state) {
       return state.currentUserUid;
     },
@@ -163,24 +164,52 @@ export default new Vuex.Store({
       } else {
         return {};
       }
-    },
-    currentCountry(state) {
-      if (state.currentRegion) {
-        return state.regions[state.currentRegion].country;
-      } else {
-        return state.currentCountry;
-      }
     }
   },
   actions: {
-    bindRegions: bindFirebase("regions"),
+    // Bind via websocket for firebase content & updates
     bindContent: bindFirebase("content"),
     bindUsers: bindFirebase("users"),
     bindUserSettings: bindFirebase("userSettings"),
     bindSuggestions: bindFirebase("suggestions"),
-    changeCountry({ commit }, newCountry) {
-      commit("setCurrentCountry", newCountry);
+
+    // Firebase modifications
+    // ----------------------
+    setRegion: firebaseAction(({ state }, region) => {
+      console.log("Setting region", { region });
+      console.log(`At: content/${state.currentCountry}/${region.slug}`);
+      return db
+        .ref("content")
+        .child(state.currentCountry)
+        .child("regions")
+        .child(region.slug)
+        .set(region);
+    }),
+    deleteRegion: firebaseAction(({ state }, region) => {
+      return db
+        .ref("content")
+        .child(state.currentCountry)
+        .child("regions")
+        .child(region.slug)
+        .remove();
+    }),
+
+    // Other app actions
+    // -----------------
+    changeCountry({ commit, getters }, newCountry) {
+      if (getters.countrySlugs.includes(newCountry)) {
+        commit("setCurrentCountry", newCountry);
+      } else {
+        commit("setCurrentCountry", "US");
+      }
+    },
+    changeRegion({ commit, getters }, newRegion) {
+      commit("setCurrentRegion", newRegion);
+      if (getters.regionSlugs.includes(newRegion)) {
+        commit("setCurrentRegion", newRegion);
+      } else {
+        commit("setCurrentRegion", "all");
+      }
     }
-  },
-  modules: {}
+  }
 });
