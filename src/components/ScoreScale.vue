@@ -78,11 +78,6 @@ export default {
     font-size: 2em;
     color: white;
   }
-  $gogreen: #37b34a;
-  $pausegreen: #98ca3c;
-  $cautionyellow: #faaf40;
-  $warningorange: #f89961;
-  $stopred: #d03727;
 
   .selected-1 {
     background-color: $gogreen;
