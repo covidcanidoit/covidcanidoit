@@ -49,7 +49,7 @@ export default {
       );
     },
     score() {
-      return this.activity[this.type];
+      return parseInt(this.activity[this.type]);
     },
     risk() {
       return this.score === 1 ? "Low" : this.score === 2 ? "Medium" : "High";

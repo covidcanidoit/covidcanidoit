@@ -162,6 +162,14 @@
             <v-tab-item>
               <v-card flat tile>
                 <v-card-text>
+                  <v-text-field
+                    type="number"
+                    label="Crowding score"
+                    min="1"
+                    max="3"
+                    :value="activity.crowding"
+                    @input="saveValue('crowding', $event)"
+                  />
                   <v-textarea
                     label="Crowding Notes"
                     :value="activity.crowdingNotes"
@@ -178,6 +186,14 @@
             <v-tab-item>
               <v-card flat tile>
                 <v-card-text>
+                  <v-text-field
+                    type="number"
+                    label="Droplets score"
+                    min="1"
+                    max="3"
+                    :value="activity.droplets"
+                    @input="saveValue('droplets', $event)"
+                  />
                   <v-textarea
                     label="Droplets Notes"
                     :value="activity.dropletsNotes"
@@ -194,6 +210,14 @@
             <v-tab-item>
               <v-card flat tile>
                 <v-card-text>
+                  <v-text-field
+                    type="number"
+                    label="Exposure Time score"
+                    min="1"
+                    max="3"
+                    :value="activity.exposureTime"
+                    @input="saveValue('exposureTime', $event)"
+                  />
                   <v-textarea
                     label="Exposure Time Notes"
                     :value="activity.exposureTimeNotes"
@@ -210,6 +234,14 @@
             <v-tab-item>
               <v-card flat tile>
                 <v-card-text>
+                  <v-text-field
+                    type="number"
+                    label="Ventilation score"
+                    min="1"
+                    max="3"
+                    :value="activity.ventilation"
+                    @input="saveValue('ventilation', $event)"
+                  />
                   <v-textarea
                     label="Ventilation Notes"
                     :value="activity.ventilationNotes"
