@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container v-if="hasRiskData">
     <v-row>
       <!-- Crowding -->
       <v-col>
@@ -28,7 +28,11 @@ export default {
   props: {
     activity: Object
   },
-  computed: {},
+  computed: {
+    hasRiskData() {
+      return false;
+    }
+  },
   methods: {},
   mounted() {
     //console.log("MY ACTIVITY: ",this.activity);

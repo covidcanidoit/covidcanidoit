@@ -1,5 +1,11 @@
 <template>
-  <div class="home">
+  <div class="home d-flex flex-column">
+    <HomeBanner v-if="currentCountry === 'US'" />
+    <div class="hero">
+      <router-link class="router" :to="{ name: 'Home' }">
+        <Logo class="logo" />
+      </router-link>
+    </div>
     <SearchBar
       :initialSearchTerm="search"
       @searched="onSearch"
@@ -7,7 +13,6 @@
       :activityList="activityList"
       :perPage="5"
     />
-    <HomeBanner v-if="currentCountry === 'US'" />
     <ThanksForSuggesting v-if="noResults" :suggested="suggested" />
     <!-- will pass in data as crowdingData based on the example data Brock sent me -->
     <!-- <Chart crowdingData= /> -->
@@ -16,6 +21,7 @@
 </template>
 
 <script>
+import Logo from "@/assets/ccidi-logo-full.svg";
 import SearchBar from "@/components/SearchBar.vue";
 import HomeBanner from "@/components/HomeBanner.vue";
 import HowItWorks from "@/components/HowItWorks.vue";
@@ -27,6 +33,7 @@ import VueScrollTo from "vue-scrollto";
 export default {
   props: ["search", "skipProfile", "slug"],
   components: {
+    Logo,
     SearchBar,
     HowItWorks,
     ThanksForSuggesting,
@@ -109,5 +116,13 @@ export default {
   text-align: center;
   margin-left: 20%;
   margin-right: 20%;
+}
+.hero {
+  margin: 0 auto 3em auto;
+
+  svg {
+    height: 200px;
+    width: auto;
+  }
 }
 </style>

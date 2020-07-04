@@ -31,6 +31,48 @@ const routes = [
     }
   },
   {
+    path: "/admin",
+    name: "Admin",
+    component: Admin,
+    props: true
+  },
+  {
+    path: "/admin/region/:slug",
+    name: "AdminRegionEdit",
+    component: AdminRegionEdit,
+    props: true
+  },
+  {
+    path: "/admin/activity/:slug",
+    name: "AdminActivityEdit",
+    component: AdminActivityEdit,
+    props: true
+  },
+  {
+    path: "/admin/risk-level/:riskScore",
+    name: "AdminRiskLevelEdit",
+    component: AdminRiskLevelEdit,
+    props: true
+  },
+  {
+    path: "/admin/risk-factor/:name",
+    name: "AdminRiskFactorEdit",
+    component: AdminRiskFactorEdit,
+    props: true
+  },
+  {
+    path: "/admin/category/:categoryName",
+    name: "AdminCategoryEdit",
+    component: AdminCategoryEdit,
+    props: true
+  },
+  {
+    path: "/admin/user/:userId",
+    name: "AdminUserEdit",
+    component: AdminUserEdit,
+    props: true
+  },
+  {
     path: "/:country",
     async beforeEnter(to, from, next) {
       const country = to.params.country;
@@ -101,48 +143,6 @@ const routes = [
         props: true
       }
     ]
-  },
-  {
-    path: "/admin",
-    name: "Admin",
-    component: Admin,
-    props: true
-  },
-  {
-    path: "/admin/region/:slug",
-    name: "AdminRegionEdit",
-    component: AdminRegionEdit,
-    props: true
-  },
-  {
-    path: "/admin/activity/:slug",
-    name: "AdminActivityEdit",
-    component: AdminActivityEdit,
-    props: true
-  },
-  {
-    path: "/admin/risk-level/:riskScore",
-    name: "AdminRiskLevelEdit",
-    component: AdminRiskLevelEdit,
-    props: true
-  },
-  {
-    path: "/admin/risk-factor/:name",
-    name: "AdminRiskFactorEdit",
-    component: AdminRiskFactorEdit,
-    props: true
-  },
-  {
-    path: "/admin/category/:categoryName",
-    name: "AdminCategoryEdit",
-    component: AdminCategoryEdit,
-    props: true
-  },
-  {
-    path: "/admin/user/:userId",
-    name: "AdminUserEdit",
-    component: AdminUserEdit,
-    props: true
   },
   {
     path: "*",

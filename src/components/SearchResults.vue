@@ -13,23 +13,23 @@
         :score="maybeAgeScore"
         :activity="activity"
         :isAgeScore="isAgeSet"
-        v-show="profile.COVIDpositive !== 'yes'"
       />
 
       <v-container>
         <v-row>
           <v-col cols="6">
             <h5>You are at more risk than others if</h5>
-            <v-expansion-panels focusable flat>
+            <v-expansion-panels focusable>
               <v-expansion-panel
                 v-for="riskFactor in riskFactors"
                 :key="riskFactor.name"
               >
-                <v-expansion-panel-header
-                  ><i class="icon" :class="riskFactor.icon"></i
-                  >{{ riskFactor.shortDescription }}</v-expansion-panel-header
-                >
+                <v-expansion-panel-header>
+                  <i class="icon" :class="riskFactor.icon" />
+                  {{ riskFactor.description }}
+                </v-expansion-panel-header>
                 <v-expansion-panel-content>
+                  <Markdown :source="riskFactor.shortDescription" />
                   <Markdown :source="riskFactor.longDescription" />
                 </v-expansion-panel-content>
               </v-expansion-panel>
@@ -44,48 +44,6 @@
           </v-col>
         </v-row>
       </v-container>
-      <div
-        v-show="
-          additionalRiskFactors.length > 0 || activity.showLocation == 'TRUE'
-        "
-        class="additional-factors"
-      >
-        <h2>Additional Risk Factors</h2>
-        <div class="accordion" id="accordionExample">
-          <!-- risk factor accordians -->
-          <div
-            class="card"
-            v-for="riskFactor in additionalRiskFactors"
-            :key="riskFactor.name"
-          >
-            <div class="card-header" :id="'heading-' + riskFactor.name">
-              <h2 class="mb-0 flex-row">
-                <i class="icon" :class="riskFactor.icon"></i>
-                <button
-                  class="btn btn-link collapsed"
-                  type="button"
-                  data-toggle="collapse"
-                  :data-target="'#collapse-' + riskFactor.name"
-                  aria-expanded="false"
-                  aria-controls="collapseTwo"
-                >
-                  {{ riskFactor.shortDescription }}
-                </button>
-              </h2>
-            </div>
-            <div
-              :id="'collapse-' + riskFactor.name"
-              class="collapse"
-              :aria-labelledby="'heading-' + riskFactor.name"
-              data-parent="#accordionExample"
-            >
-              <div class="card-body">
-                <Markdown :source="riskFactor.longDescription" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>

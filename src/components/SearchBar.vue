@@ -14,13 +14,19 @@
             We don't have information on {{ computedSearch(search) }}. Click
             "Assess my risk!" to suggest it.
           </template>
-        </template> </VueSelect
-      ><button class="run-search" @click="onSearch">Assess my risk!</button>
+        </template>
+      </VueSelect>
+      <button class="run-search" @click="onSearch">Search activities</button>
     </div>
-    <p class="subheader">...safely during the COVID-19 outbreak.</p>
-    <div class="or-others">
-      <button @click="goToProfile">Fill in Profile</button>
-      <button @click="goToBrowse">Browse Activities</button>
+
+    <div class="or-others d-flex flex-wrap justify-center">
+      <button @click="quickSearch('biking-alone')">Biking alone</button>
+      <button @click="quickSearch('biking-alone')">Grocery shopping</button>
+      <button @click="quickSearch('biking-alone')">Walk with a friend</button>
+      <button @click="quickSearch('biking-alone')">Food, takeout</button>
+      <button @click="quickSearch('biking-alone')">Going to barbershop/hair salon</button>
+      <button @click="quickSearch('biking-alone')">Protesting</button>
+      <button @click="quickSearch('biking-alone')">Pumping/Filling gas</button>
     </div>
   </div>
 </template>
@@ -68,6 +74,9 @@ export default {
     computedSearch(search) {
       this.suggested = search;
       return search;
+    },
+    quickSearch(slug) {
+      this.$router.push({ name: "activity", slug });
     }
   },
   computed: {
@@ -116,6 +125,7 @@ export default {
   .v-select {
     width: 50vw;
     background-color: black;
+    margin-right: 2em;
   }
   .v-select .vs__dropdown-menu {
     width: 90vw;
@@ -162,20 +172,16 @@ export default {
     align-items: center;
 
     .v-select {
-      border-radius: 30px 0 0 30px;
+      border-radius: 30px;
       padding: 10px;
-      /*border-top: 1px solid $color-darkgrey;
-      border-right: none;
-      border-bottom: 1px solid $color-darkgrey;
-      border-left: 1px solid $color-darkgrey; */
     }
 
     button.run-search {
-      border-radius: 0 30px 30px 0;
-      border: 1px solid #fd6167;
+      border-radius: 30px;
+      border: 1px solid $selectorgray;
       padding: 9px;
-      background-color: #fd6167;
-      color: black;
+      background-color: $selectorgray;
+      color: white;
       font-size: 1.37em;
     }
   }
@@ -251,11 +257,11 @@ export default {
 .or-others {
   button {
     border-radius: 30px;
-    border: 1px solid $color-navy;
+    border: 1px solid $primary;
     padding: 10px;
-    background-color: $color-navy;
-    color: $color-teal;
-    margin: 1em;
+    background-color: $primary;
+    color: black;
+    margin: 0.2em 1em;
   }
 }
 

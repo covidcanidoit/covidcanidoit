@@ -6,27 +6,20 @@
       :searched="searched"
       :profile="userProfile"
     />
-    <!-- will pass in data as crowdingData based on the example data Brock sent me -->
-    <!-- <Chart crowdingData= /> -->
-    <HowItWorks />
   </div>
 </template>
 
 <script>
 import SearchResults from "@/components/SearchResults.vue";
-import HowItWorks from "@/components/HowItWorks.vue";
 import ThanksForSuggesting from "@/components/ThanksForSuggesting.vue";
 import { mapState, mapGetters } from "vuex";
 import VueScrollTo from "vue-scrollto";
-// import Chart from "@/components/PopularTimesChart.vue"
 
 export default {
   props: ["search", "skipProfile", "slug"],
   components: {
     SearchResults,
-    HowItWorks,
     ThanksForSuggesting
-    // Chart
   },
   data: function() {
     return {

@@ -1,5 +1,6 @@
 <template>
-  <div class="risk-description">
+  <div class="risk-description d-flex flex-column">
+
     <div class="score-panel">
       <div v-if="isAgeScore">
         <b>{{ activity.activityName }}</b> has an Age-Specific risk level of
@@ -15,14 +16,14 @@
 
       <RiskComponents :activity="activity"></RiskComponents>
     </div>
+
+
     <div class="risk-information">
-      <!--<Markdown class="risk-details" :source="risk && risk.longDescription" />-->
-      <br />
       <v-container fluid class="crowdingBar">
         <div v-show="activity.showLocation == 'TRUE'">
           <div class="d-flex justify-center align-center">
             <span>
-              Specify your location
+              How busy will it be?
             </span>
             <VueGoogleAutocomplete
               classname="busyLocation"
@@ -37,7 +38,6 @@
               Check your location
             </button>
           </div>
-          <!-- <div>{{ busyResults }}</div> -->
           <div v-if="loadingBusyResults">Loading...</div>
           <div v-else>
             <div v-if="busyResults" class="d-flex justify-center">
@@ -47,39 +47,6 @@
           </div>
         </div>
       </v-container>
-      <br />
-      <!--<a
-        v-show="hideMoreInfo"
-        href="#divMoreInfo"
-        data-toggle="collapse"
-        class="moreLessInfoLink"
-        @click="toggleMoreInfo"
-        >More info</a
-      >
-      <a
-        v-show="!hideMoreInfo"
-        href="#divMoreInfo"
-        data-toggle="collapse"
-        class="moreLessInfoLink"
-        @click="toggleMoreInfo"
-        >Less info</a
-      >
-      <div
-        v-show="!hideMoreInfo"
-        id="divMoreInfo"
-        class="risk-references-container collapse"
-      >
-        <h5>Learn more:</h5>
-        <ol>
-          <li
-            v-for="(reference, index) in references"
-            :key="index"
-            class="risk-reference"
-          >
-            <a :href="reference">{{ reference }}</a>
-          </li>
-        </ol>
-      </div>-->
     </div>
   </div>
 </template>
@@ -187,11 +154,6 @@ export default {
 
 <style scoped lang="scss">
 .risk-description {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  color: black;
-  background-color: #e8ebf5;
 
   .score-panel {
     padding: 1em;
@@ -224,11 +186,6 @@ export default {
     font-size: 0.8em;
   }
 
-  .risk-information {
-    flex: 70%;
-    margin: auto;
-    padding: 1em;
-  }
 
   .riskComponentsContainer {
     background-color: white;
@@ -245,10 +202,6 @@ export default {
 
   .crowdingBar {
     background-color: $selectorgray;
-    position: relative;
-    width: 100vw;
-    max-width: 100vw;
-    left: -457px;
     color: white;
   }
 
