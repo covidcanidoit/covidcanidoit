@@ -164,7 +164,7 @@
                     type="number"
                     label="Risk"
                     min="1"
-                    max="5"
+                    max="3"
                     :value="activity.crowding"
                     @input="saveValue('crowding', $event)"
                   ></v-text-field>
@@ -188,7 +188,7 @@
                     type="number"
                     label="Risk"
                     min="1"
-                    max="5"
+                    max="3"
                     :value="activity.droplets"
                     @input="saveValue('droplets', $event)"
                   ></v-text-field>
@@ -212,7 +212,7 @@
                     type="number"
                     label="Risk"
                     min="1"
-                    max="5"
+                    max="3"
                     :value="activity.exposureTime"
                     @input="saveValue('exposureTime', $event)"
                   ></v-text-field>
@@ -236,7 +236,7 @@
                     type="number"
                     label="Risk"
                     min="1"
-                    max="5"
+                    max="3"
                     :value="activity.ventilation"
                     @input="saveValue('ventilation', $event)"
                   ></v-text-field>
