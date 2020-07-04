@@ -445,9 +445,7 @@ export default {
         .set(Date.parse(now.toUTCString()));
     },
     lookupActivity() {
-      this.currentKey = Object.keys(this.activities).find(
-        key => this.activities[key].activityName === this.activityName
-      );
+      this.currentKey = this.slug;
     },
     removeKeyword(deleteKeyword) {
       this.activity.activityKeywords = this.keywords
@@ -459,7 +457,7 @@ export default {
       return new Date(milliseconds).toLocaleString();
     },
     readableUser(uid) {
-      const email = this.users[uid].email;
+      const email = this.users[uid]?.email || "unknown";
       return email;
     }
   }
