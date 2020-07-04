@@ -112,10 +112,7 @@
               label="Add a keyword"
               v-model="newKeyword"
               @keydown.enter="
-                saveValue(
-                  'activityKeywords',
-                  activity.activityKeywords + ',' + newKeyword
-                )
+                saveValue('activityKeywords', existingKeywords + newKeyword)
               "
             ></v-text-field>
           </v-flex>
@@ -396,6 +393,12 @@ export default {
         ? this.activity.activityKeywords.split(",")
         : [];
     },
+    existingKeywords() {
+      if (!this.activityKeywords) return "";
+      return this.activityKeywords.length > 0
+        ? this.activityKeywords + ","
+        : "";
+    },
     hasBetaAccess() {
       return !!this.currentUserSettings?.hasBetaAccess;
     },
@@ -421,6 +424,7 @@ export default {
       this.updateTimestamp();
     },
     saveValue(name, value) {
+      console.log("saveValue value: ", value);
       db.ref("content")
         .child(this.currentCountry)
         .child("activities")
