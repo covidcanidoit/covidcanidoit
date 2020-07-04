@@ -112,7 +112,8 @@
               label="Add a keyword"
               v-model="newKeyword"
               @keydown.enter="
-                saveValue('activityKeywords', existingKeywords + newKeyword); clearValue($event);
+                saveValue('activityKeywords', existingKeywords + newKeyword);
+                clearValue($event);
               "
             ></v-text-field>
           </v-flex>
@@ -159,6 +160,14 @@
             <v-tab-item>
               <v-card flat tile>
                 <v-card-text>
+                  <v-text-field
+                    type="number"
+                    label="Risk"
+                    min="1"
+                    max="5"
+                    :value="activity.crowding"
+                    @input="saveValue('crowding', $event)"
+                  ></v-text-field>
                   <v-textarea
                     label="Crowding Notes"
                     :value="activity.crowdingNotes"
@@ -175,6 +184,14 @@
             <v-tab-item>
               <v-card flat tile>
                 <v-card-text>
+                  <v-text-field
+                    type="number"
+                    label="Risk"
+                    min="1"
+                    max="5"
+                    :value="activity.droplets"
+                    @input="saveValue('droplets', $event)"
+                  ></v-text-field>
                   <v-textarea
                     label="Droplets Notes"
                     :value="activity.dropletsNotes"
@@ -191,6 +208,14 @@
             <v-tab-item>
               <v-card flat tile>
                 <v-card-text>
+                  <v-text-field
+                    type="number"
+                    label="Risk"
+                    min="1"
+                    max="5"
+                    :value="activity.exposureTime"
+                    @input="saveValue('exposureTime', $event)"
+                  ></v-text-field>
                   <v-textarea
                     label="Exposure Time Notes"
                     :value="activity.exposureTimeNotes"
@@ -207,6 +232,14 @@
             <v-tab-item>
               <v-card flat tile>
                 <v-card-text>
+                  <v-text-field
+                    type="number"
+                    label="Risk"
+                    min="1"
+                    max="5"
+                    :value="activity.ventilation"
+                    @input="saveValue('ventilation', $event)"
+                  ></v-text-field>
                   <v-textarea
                     label="Ventilation Notes"
                     :value="activity.ventilationNotes"
