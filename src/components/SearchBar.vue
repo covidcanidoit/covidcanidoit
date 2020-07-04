@@ -1,14 +1,26 @@
 <template>
-  <div class="search-bar">
+  <div class="search-bar d-flex flex-column align-stretch">
     <p class="header">What's the risk?</p>
-    <div class="dropdown search-fields">
+    <div class="search-fields">
+      <v-container>
+        <v-row justify="center" align="center">
+          <v-col :cols="6">
       <VueSelect
         label="activityName"
         :options="this.activityList"
         class="v-select"
         v-model="searchTerm"
         v-on:input="onSearch"
+        placeholder="Type your activity here"
       >
+        <template #search="{ attributes, events }">
+          <v-icon>mdi-magnify</v-icon>
+          <input
+            class="vs__search"
+            v-bind="attributes"
+            v-on="events"
+          >
+        </template>
         <template #no-options="{ search, searching}">
           <template v-if="searching">
             We don't have information on {{ computedSearch(search) }}. Click
@@ -16,19 +28,24 @@
           </template>
         </template>
       </VueSelect>
+          </v-col>
+          <v-col :cols="2">
       <button class="run-search" @click="onSearch">Search activities</button>
+          </v-col>
+        </v-row>
+      </v-container>
     </div>
 
     <div class="or-others d-flex flex-wrap justify-center">
-      <button @click="quickSearch('biking-alone')">Biking alone</button>
-      <button @click="quickSearch('biking-alone')">Grocery shopping</button>
-      <button @click="quickSearch('biking-alone')">Walk with a friend</button>
-      <button @click="quickSearch('biking-alone')">Food, takeout</button>
-      <button @click="quickSearch('biking-alone')">
+      <button @click="quickSearch('Biking alone')">Biking alone</button>
+      <button @click="quickSearch('Shopping (Grocery store)')">Grocery shopping</button>
+      <button @click="quickSearch('Walking with a friend')">Walk with a friend</button>
+      <button @click="quickSearch('Food, Takeout')">Food, takeout</button>
+      <button @click="quickSearch('Going to barbershop/hair salon')">
         Going to barbershop/hair salon
       </button>
-      <button @click="quickSearch('biking-alone')">Protesting</button>
-      <button @click="quickSearch('biking-alone')">Pumping/Filling gas</button>
+      <button @click="quickSearch('Protesting')">Protesting</button>
+      <button @click="quickSearch('Pumping/Filling gas')">Pumping/Filling gas</button>
     </div>
   </div>
 </template>
@@ -78,7 +95,8 @@ export default {
       return search;
     },
     quickSearch(slug) {
-      this.$router.push({ name: "activity", slug });
+      // this.$router.push({ name: "activity", slug });
+      this.$emit("searched", slug);
     }
   },
   computed: {
@@ -125,39 +143,32 @@ export default {
     background-color: black;
   }
   .v-select {
-    width: 50vw;
     background-color: black;
     margin-right: 2em;
   }
-  .v-select .vs__dropdown-menu {
-    width: 90vw;
-  }
+  /* .v-select .vs__dropdown-menu { */
+  /*   width: 90vw; */
+  /* } */
   .header {
     font-size: 32px;
-  }
-  .subheader {
-    font-size: 18px;
   }
 }
 @media (min-width: 1023px) {
   .v-select {
-    width: 20vw;
     background-color: black;
   }
-  .v-select .vs__dropdown-menu {
-    width: 25vw;
-  }
+  /* .v-select .vs__dropdown-menu { */
+  /*   width: 25vw; */
+  /* } */
   .header {
-    font-size: 64px;
-  }
-  .subheader {
-    font-size: 24px;
+    font-size: 40px;
   }
 }
 .search-bar {
   background-color: $color-teal;
   text-align: center;
   padding-top: 2em;
+  padding-bottom: 2em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -167,93 +178,22 @@ export default {
   }
 
   .search-fields {
-    white-space: nowrap;
-
-    display: flex;
-    align-content: center;
-    align-items: center;
-
     .v-select {
       border-radius: 30px;
       padding: 10px;
     }
 
     button.run-search {
+      white-space: nowrap;
       border-radius: 30px;
       border: 1px solid $selectorgray;
       padding: 9px;
       background-color: $selectorgray;
       color: white;
-      font-size: 1.37em;
+      font-size: 1.25em;
     }
   }
 
-  button.create-profile {
-    border-radius: 30px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    background-color: $color-salmon;
-    color: $color-darkgrey;
-  }
-}
-
-/* Dropdown Button */
-.dropbtn {
-  background-color: white;
-  color: black;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-}
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-  display: none;
-  position: fixed;
-  background-color: #f1f1f1;
-  width: auto;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-  max-height: 50%;
-  overflow-y: scroll;
-}
-
-/* Links inside the dropdown */
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  overflow-wrap: break-word; //not sure why this isnt working to wrap text
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
-
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
-  background-color: white;
-}
-
-.dropdownNav {
-  white-space: nowrap;
-}
-
-.dropdownNavControl {
-  display: inline-block;
 }
 
 .or-others {
@@ -271,21 +211,16 @@ export default {
   margin-bottom: 0;
   margin-top: 0;
 }
-.subheader {
-  margin-top: 1px;
-  clear: both;
-}
 
 .v-select {
   background-color: white;
   border-radius: 30px 0 0 30px;
-  display: inline-block;
 }
 .v-select .vs__dropdown-toggle {
   border: none;
 }
 
-.v-select .vs__dropdown-toggle .vs__actions {
-  display: none;
-}
+/* .v-select .vs__dropdown-toggle .vs__actions { */
+/*   display: none; */
+/* } */
 </style>
