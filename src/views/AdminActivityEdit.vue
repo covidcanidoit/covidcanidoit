@@ -394,9 +394,9 @@ export default {
         : [];
     },
     existingKeywords() {
-      if (!this.activityKeywords) return "";
-      return this.activityKeywords.length > 0
-        ? this.activityKeywords + ","
+      if (!this.activity.activityKeywords) return "";
+      return this.activity.activityKeywords.length > 0
+        ? this.activity.activityKeywords + ","
         : "";
     },
     hasBetaAccess() {
