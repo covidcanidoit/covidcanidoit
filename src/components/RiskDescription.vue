@@ -16,9 +16,9 @@
       <RiskComponents :activity="activity"></RiskComponents>
     </div>
 
-    <div class="risk-information">
+    <div class="risk-information" v-show="activity.showLocation == 'TRUE'">
       <v-container fluid class="crowdingBar">
-        <div v-show="activity.showLocation == 'TRUE'">
+        <div>
           <div class="d-flex justify-center align-center">
             <span>
               How busy will it be?
