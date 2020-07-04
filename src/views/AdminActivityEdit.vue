@@ -112,7 +112,7 @@
               label="Add a keyword"
               v-model="newKeyword"
               @keydown.enter="
-                saveValue('activityKeywords', existingKeywords + newKeyword)
+                saveValue('activityKeywords', existingKeywords + newKeyword); clearValue($event);
               "
             ></v-text-field>
           </v-flex>
@@ -465,6 +465,9 @@ export default {
     readableUser(uid) {
       const email = this.users[uid].email;
       return email;
+    },
+    clearValue(event) {
+      event.target.value = "";
     }
   }
 };
