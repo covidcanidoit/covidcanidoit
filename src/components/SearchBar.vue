@@ -24,7 +24,9 @@
       <button @click="quickSearch('biking-alone')">Grocery shopping</button>
       <button @click="quickSearch('biking-alone')">Walk with a friend</button>
       <button @click="quickSearch('biking-alone')">Food, takeout</button>
-      <button @click="quickSearch('biking-alone')">Going to barbershop/hair salon</button>
+      <button @click="quickSearch('biking-alone')">
+        Going to barbershop/hair salon
+      </button>
       <button @click="quickSearch('biking-alone')">Protesting</button>
       <button @click="quickSearch('biking-alone')">Pumping/Filling gas</button>
     </div>
