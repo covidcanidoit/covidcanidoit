@@ -112,10 +112,8 @@
               label="Add a keyword"
               v-model="newKeyword"
               @keydown.enter="
-                saveValue(
-                  'activityKeywords',
-                  activity.activityKeywords + ',' + newKeyword
-                )
+                saveValue('activityKeywords', existingKeywords + newKeyword);
+                clearValue($event);
               "
             ></v-text-field>
           </v-flex>
@@ -162,6 +160,14 @@
             <v-tab-item>
               <v-card flat tile>
                 <v-card-text>
+                  <v-text-field
+                    type="number"
+                    label="Risk"
+                    min="1"
+                    max="5"
+                    :value="activity.crowding"
+                    @input="saveValue('crowding', $event)"
+                  ></v-text-field>
                   <v-textarea
                     label="Crowding Notes"
                     :value="activity.crowdingNotes"
@@ -178,6 +184,14 @@
             <v-tab-item>
               <v-card flat tile>
                 <v-card-text>
+                  <v-text-field
+                    type="number"
+                    label="Risk"
+                    min="1"
+                    max="5"
+                    :value="activity.droplets"
+                    @input="saveValue('droplets', $event)"
+                  ></v-text-field>
                   <v-textarea
                     label="Droplets Notes"
                     :value="activity.dropletsNotes"
@@ -194,6 +208,14 @@
             <v-tab-item>
               <v-card flat tile>
                 <v-card-text>
+                  <v-text-field
+                    type="number"
+                    label="Risk"
+                    min="1"
+                    max="5"
+                    :value="activity.exposureTime"
+                    @input="saveValue('exposureTime', $event)"
+                  ></v-text-field>
                   <v-textarea
                     label="Exposure Time Notes"
                     :value="activity.exposureTimeNotes"
@@ -210,6 +232,14 @@
             <v-tab-item>
               <v-card flat tile>
                 <v-card-text>
+                  <v-text-field
+                    type="number"
+                    label="Risk"
+                    min="1"
+                    max="5"
+                    :value="activity.ventilation"
+                    @input="saveValue('ventilation', $event)"
+                  ></v-text-field>
                   <v-textarea
                     label="Ventilation Notes"
                     :value="activity.ventilationNotes"
@@ -396,6 +426,12 @@ export default {
         ? this.activity.activityKeywords.split(",")
         : [];
     },
+    existingKeywords() {
+      if (!this.activity.activityKeywords) return "";
+      return this.activity.activityKeywords.length > 0
+        ? this.activity.activityKeywords + ","
+        : "";
+    },
     hasBetaAccess() {
       return !!this.currentUserSettings?.hasBetaAccess;
     },
@@ -421,6 +457,7 @@ export default {
       this.updateTimestamp();
     },
     saveValue(name, value) {
+      console.log("saveValue value: ", value);
       db.ref("content")
         .child(this.currentCountry)
         .child("activities")
@@ -461,6 +498,9 @@ export default {
     readableUser(uid) {
       const email = this.users[uid].email;
       return email;
+    },
+    clearValue(event) {
+      event.target.value = "";
     }
   }
 };
