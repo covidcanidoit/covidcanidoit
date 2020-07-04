@@ -5,32 +5,30 @@
       <v-container>
         <v-row justify="center" align="center">
           <v-col :cols="6">
-      <VueSelect
-        label="activityName"
-        :options="this.activityList"
-        class="v-select"
-        v-model="searchTerm"
-        v-on:input="onSearch"
-        placeholder="Type your activity here"
-      >
-        <template #search="{ attributes, events }">
-          <v-icon>mdi-magnify</v-icon>
-          <input
-            class="vs__search"
-            v-bind="attributes"
-            v-on="events"
-          >
-        </template>
-        <template #no-options="{ search, searching}">
-          <template v-if="searching">
-            We don't have information on {{ computedSearch(search) }}. Click
-            "Assess my risk!" to suggest it.
-          </template>
-        </template>
-      </VueSelect>
+            <VueSelect
+              label="activityName"
+              :options="this.activityList"
+              class="v-select"
+              v-model="searchTerm"
+              v-on:input="onSearch"
+              placeholder="Type your activity here"
+            >
+              <template #search="{ attributes, events }">
+                <v-icon>mdi-magnify</v-icon>
+                <input class="vs__search" v-bind="attributes" v-on="events" />
+              </template>
+              <template #no-options="{ search, searching}">
+                <template v-if="searching">
+                  We don't have information on {{ computedSearch(search) }}.
+                  Click "Assess my risk!" to suggest it.
+                </template>
+              </template>
+            </VueSelect>
           </v-col>
           <v-col :cols="2">
-      <button class="run-search" @click="onSearch">Search activities</button>
+            <button class="run-search" @click="onSearch">
+              Search activities
+            </button>
           </v-col>
         </v-row>
       </v-container>
@@ -38,14 +36,20 @@
 
     <div class="or-others d-flex flex-wrap justify-center">
       <button @click="quickSearch('Biking alone')">Biking alone</button>
-      <button @click="quickSearch('Shopping (Grocery store)')">Grocery shopping</button>
-      <button @click="quickSearch('Walking with a friend')">Walk with a friend</button>
+      <button @click="quickSearch('Shopping (Grocery store)')">
+        Grocery shopping
+      </button>
+      <button @click="quickSearch('Walking with a friend')">
+        Walk with a friend
+      </button>
       <button @click="quickSearch('Food, Takeout')">Food, takeout</button>
       <button @click="quickSearch('Going to barbershop/hair salon')">
         Going to barbershop/hair salon
       </button>
       <button @click="quickSearch('Protesting')">Protesting</button>
-      <button @click="quickSearch('Pumping/Filling gas')">Pumping/Filling gas</button>
+      <button @click="quickSearch('Pumping/Filling gas')">
+        Pumping/Filling gas
+      </button>
     </div>
   </div>
 </template>
@@ -193,7 +197,6 @@ export default {
       font-size: 1.25em;
     }
   }
-
 }
 
 .or-others {
