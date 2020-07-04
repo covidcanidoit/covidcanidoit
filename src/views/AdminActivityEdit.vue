@@ -126,8 +126,9 @@
                 v-for="keyword in keywords"
                 :key="keyword"
                 @click:close="removeKeyword(keyword)"
-                >{{ keyword }}</v-chip
               >
+                {{ keyword }}
+              </v-chip>
             </v-layout>
           </v-flex>
           <v-flex lg1></v-flex>
@@ -221,7 +222,7 @@
                     :value="activity.exposureTimeNotes"
                     @input="saveValue('exposureTimeNotes', $event)"
                   ></v-textarea>
-                  <v-label> Exposure Time Notes Preview</v-label>
+                  <v-label>Exposure Time Notes Preview</v-label>
                   <v-card outlined>
                     <Markdown :source="activity.exposureTimeNotes" />
                   </v-card>

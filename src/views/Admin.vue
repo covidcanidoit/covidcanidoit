@@ -39,10 +39,9 @@
                         name: 'AdminRegionEdit',
                         params: { slug: region.slug }
                       }"
-                      ><v-icon title="Edit this region"
-                        >mdi-lead-pencil</v-icon
-                      ></router-link
                     >
+                      <v-icon title="Edit this region">mdi-lead-pencil</v-icon>
+                    </router-link>
                     <v-btn icon @click="deleteRegion(region)">
                       <v-icon title="Delete region">mdi-trash-can</v-icon>
                     </v-btn>
@@ -274,9 +273,9 @@
                   {{ topic.count }}
                 </td>
                 <td>
-                  <v-btn text icon @click="newActivity(topicName)"
-                    ><v-icon>mdi-arrow-up-bold-box</v-icon></v-btn
-                  >
+                  <v-btn text icon @click="newActivity(topicName)">
+                    <v-icon>mdi-arrow-up-bold-box</v-icon>
+                  </v-btn>
                 </td>
               </tr>
             </tbody>

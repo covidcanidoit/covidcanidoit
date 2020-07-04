@@ -2,7 +2,8 @@
   <div class="risk-description d-flex flex-column">
     <div class="score-panel">
       <div v-if="isAgeScore">
-        <b>{{ activity.activityName }}</b> has an Age-Specific risk level of
+        <b>{{ activity.activityName }}</b>
+        has an Age-Specific risk level of
       </div>
       <div v-else>
         <b>{{ activity.activityName }}</b>

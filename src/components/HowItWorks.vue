@@ -11,27 +11,29 @@
       </li>
       <li>
         Our team reviewed
-        <b style="color: #fd6167">public comments</b> made by infectious disease
-        experts and, when available,
-        <b style="color: #fd6167">published scientific literature</b>, to assess
-        the
+        <b style="color: #fd6167">public comments</b>
+        made by infectious disease experts and, when available,
+        <b style="color: #fd6167">published scientific literature</b>
+        , to assess the
         <b style="color: #fd6167">potential risk of getting and spreading</b>
         COVID-19 posed by doing common, everyday things.
       </li>
       <li>
         Two independent
-        <b style="color: #fd6167">reviewers</b> rated the overall risk of each
-        activity and for seven specific age groups.
+        <b style="color: #fd6167">reviewers</b>
+        rated the overall risk of each activity and for seven specific age
+        groups.
       </li>
       <li>
         These ratings were
-        <b style="color: #fd6167">independently reviewed</b> by a panel of
-        experts and revised based on their comments and feedback.
+        <b style="color: #fd6167">independently reviewed</b>
+        by a panel of experts and revised based on their comments and feedback.
       </li>
       <li>
         These ratings reflect what we know about risk associated with doing any
         activity and are reviewed each week to reflect
-        <b style="color: #fd6167">changing research</b> on COVID-19.
+        <b style="color: #fd6167">changing research</b>
+        on COVID-19.
       </li>
     </ol>
     <!-- <p>image placeholder</p> -->

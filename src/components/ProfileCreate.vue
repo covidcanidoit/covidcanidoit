@@ -124,9 +124,10 @@
       <ol>
         <li>
           You should
-          <b>not</b> rely on us for medical advice. You should seek medical
-          advice from a licensed professional and follow the instructions of
-          government authorities.
+          <b>not</b>
+          rely on us for medical advice. You should seek medical advice from a
+          licensed professional and follow the instructions of government
+          authorities.
         </li>
 
         <li>
@@ -143,7 +144,8 @@
         </li>
         <li>
           The information provided is not collected or stored by
-          <i>COVID Can I Do It</i> in any way.
+          <i>COVID Can I Do It</i>
+          in any way.
         </li>
         <li>
           If you have any questions, please

@@ -23,7 +23,8 @@
             >
               <h5 class="mb-0">
                 How does adding the location and time of my activities change
-                the risk?<i class="fas fa-angle-down rotate-icon"></i>
+                the risk?
+                <i class="fas fa-angle-down rotate-icon"></i>
               </h5>
             </a>
           </div>
@@ -64,9 +65,8 @@
             >
               <h5 class="mb-0">
                 If I am diagnosed with one of the additional disease and
-                conditions, how does the risk of an activity change?<i
-                  class="fas fa-angle-down rotate-icon"
-                ></i>
+                conditions, how does the risk of an activity change?
+                <i class="fas fa-angle-down rotate-icon"></i>
               </h5>
             </a>
           </div>
@@ -166,7 +166,7 @@
           >
             <div class="card-body">
               <p>
-                <strong>You shouldn’t rely on us for medical advice. </strong>
+                <strong>You shouldn’t rely on us for medical advice.</strong>
                 We make this question and answer service available to you as a
                 convenience. We will do our best to provide you with the best
                 information available and to keep information accurate and
@@ -202,50 +202,52 @@
             <td class="peopleGroup">
               <ul>
                 <li>
-                  <a href="https://www.linkedin.com/in/jarjiehfang/"
-                    >Jarjieh Fang, MPH</a
-                  >
+                  <a href="https://www.linkedin.com/in/jarjiehfang/">
+                    Jarjieh Fang, MPH
+                  </a>
                 </li>
                 <li>
-                  <a href="https://www.linkedin.com/in/gayatri-sanku-16212a4/"
-                    >Gayatri Sanku, MPH</a
-                  >
+                  <a href="https://www.linkedin.com/in/gayatri-sanku-16212a4/">
+                    Gayatri Sanku, MPH
+                  </a>
                 </li>
                 <li>
-                  <a href="https://www.linkedin.com/in/mpaju-david-07606718a"
-                    >Mpaju David, MBChB V</a
-                  >
+                  <a href="https://www.linkedin.com/in/mpaju-david-07606718a">
+                    Mpaju David, MBChB V
+                  </a>
                 </li>
                 <li>
                   <a
                     href="https://www.linkedin.com/in/joseph-byamugisha-44b313155"
-                    >Joseph Byamugisha, MBChB V</a
                   >
+                    Joseph Byamugisha, MBChB V
+                  </a>
                 </li>
               </ul>
             </td>
             <td class="peopleGroup">
               <ul>
                 <li>
-                  <a href="https://www.linkedin.com/in/brockwilcox/"
-                    >Brock Wilcox, MS</a
-                  >
+                  <a href="https://www.linkedin.com/in/brockwilcox/">
+                    Brock Wilcox, MS
+                  </a>
                 </li>
                 <li>
                   <a
                     href="https://www.linkedin.com/in/david-kratochvil-1bb61a11b/"
-                    >David Kratochvil</a
                   >
+                    David Kratochvil
+                  </a>
                 </li>
                 <li>
-                  <a href="https://www.linkedin.com/in/grant-hussey-a9854bb4/"
-                    >Grant Hussey</a
-                  >
+                  <a href="https://www.linkedin.com/in/grant-hussey-a9854bb4/">
+                    Grant Hussey
+                  </a>
                 </li>
                 <li>
-                  <a href="https://www.linkedin.com/in/johnny-li-031b949/"
-                    >Johnny Li</a
-                  >
+                  <a href="https://www.linkedin.com/in/johnny-li-031b949/">
+                    Johnny Li
+                  </a>
                 </li>
               </ul>
             </td>
@@ -258,18 +260,18 @@
             <td class="peopleGroup">
               <ul>
                 <li>
-                  <a href="https://www.linkedin.com/in/andrewloeb/"
-                    >Andrew Loeb</a
-                  >
+                  <a href="https://www.linkedin.com/in/andrewloeb/">
+                    Andrew Loeb
+                  </a>
                 </li>
               </ul>
             </td>
             <td class="peopleGroup">
               <ul>
                 <li>
-                  <a href="https://www.linkedin.com/in/meera-nathan-371b15132/"
-                    >Meera Nathan</a
-                  >
+                  <a href="https://www.linkedin.com/in/meera-nathan-371b15132/">
+                    Meera Nathan
+                  </a>
                 </li>
               </ul>
             </td>
@@ -288,42 +290,44 @@
                 <li>
                   <a
                     href="https://www.linkedin.com/in/saskia-popescu-phd-mph-ma-cic-4ba9a334/"
-                    >Saskia Popescu, PhD, MPH, MA, CIC</a
                   >
+                    Saskia Popescu, PhD, MPH, MA, CIC
+                  </a>
                 </li>
                 <li>
-                  <a href="https://www.linkedin.com/in/yen-pottinger-8b82a992/"
-                    >Yen Pottinger, PhD</a
-                  >
+                  <a href="https://www.linkedin.com/in/yen-pottinger-8b82a992/">
+                    Yen Pottinger, PhD
+                  </a>
                 </li>
               </ul>
             </td>
             <td class="peopleGroup">
               <ul>
                 <li>
-                  <a href="https://profiles.ucsf.edu/jayant.rajan"
-                    >Jayant Rajan, M.D., P.h.D</a
-                  >
+                  <a href="https://profiles.ucsf.edu/jayant.rajan">
+                    Jayant Rajan, M.D., P.h.D
+                  </a>
                 </li>
                 <li>
                   <a
                     href="https://surgeryresidentresearch.ucsf.edu/research-fellows/general-surg
 ery/andrew-wisneski,-md.aspx"
-                  ></a
-                  >Andrew Wisneski, M.D.
+                  ></a>
+                  Andrew Wisneski, M.D.
                 </li>
                 <li>Heide Kuang, M.D.</li>
                 <li>
                   <a
                     href="https://depts.washington.edu/neurolog/education/residency/curr
 ent-residents/"
-                    >Roger Chang, M.D., P.h.D.</a
                   >
+                    Roger Chang, M.D., P.h.D.
+                  </a>
                 </li>
                 <li>
-                  <a href="https://www.uclahealth.org/rheumatology/fellows"
-                    >Ernest Maningding, M,D.</a
-                  >
+                  <a href="https://www.uclahealth.org/rheumatology/fellows">
+                    Ernest Maningding, M,D.
+                  </a>
                 </li>
               </ul>
             </td>
@@ -352,24 +356,25 @@ ent-residents/"
           but the situation is changing rapidly, so we can’t guarantee this. We
           will date and provide a source for answers. If you notice something is
           incorrect or outdated, please
-          <a href="mailto:info@covidcanidoit.com"
-            >contact us at info@covidcanidoit.com</a
-          >. You shouldn’t rely on us for medical advice. You should seek
-          medical advice from a licensed professional and follow the
-          instructions of government authorities. To provide this service, we
-          work with a network of partners and volunteers, who may help us to
-          process your request and answer your question. If you email us with a
-          suggested activity, our team may add the suggested activity to the
-          site after review. When using this service, you may provide additional
-          details about yourself. That information is not collected or stored by
-          COVID Can I Do It in any way. Please do not provide us with any
-          additional personally identifiable information beyond your name and
-          email address.
+          <a href="mailto:info@covidcanidoit.com">
+            contact us at info@covidcanidoit.com
+          </a>
+          . You shouldn’t rely on us for medical advice. You should seek medical
+          advice from a licensed professional and follow the instructions of
+          government authorities. To provide this service, we work with a
+          network of partners and volunteers, who may help us to process your
+          request and answer your question. If you email us with a suggested
+          activity, our team may add the suggested activity to the site after
+          review. When using this service, you may provide additional details
+          about yourself. That information is not collected or stored by COVID
+          Can I Do It in any way. Please do not provide us with any additional
+          personally identifiable information beyond your name and email
+          address.
           <br />
           If you have any questions, please
-          <a href="mailto:info@covidcanidoit.com"
-            >contact us at info@covidcanidoit.com</a
-          >
+          <a href="mailto:info@covidcanidoit.com">
+            contact us at info@covidcanidoit.com
+          </a>
         </p>
         <br />
         <p>
