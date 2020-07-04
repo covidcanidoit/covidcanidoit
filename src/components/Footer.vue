@@ -34,22 +34,23 @@ export default {
 </script>
 
 <style lang="scss">
-  .footer {
-    font-size: 0.75em;
-  }
+.footer {
+  font-size: 0.75em;
+}
 
-  .logo svg {
-    height: 100px;
-    width: auto;
-  }
-  .quick-links, .contact {
-    text-align: right;
-  }
+.logo svg {
+  height: 100px;
+  width: auto;
+}
+.quick-links,
+.contact {
+  text-align: right;
+}
 
-  .social a {
-    border: 1px solid grey;
-    border-radius: 20px;
-    padding: 10px;
-    margin: 5px;
-  }
+.social a {
+  border: 1px solid grey;
+  border-radius: 20px;
+  padding: 10px;
+  margin: 5px;
+}
 </style>
