@@ -54,13 +54,13 @@ export default {
     risk() {
       let risk = "";
       switch (parseInt(this.score)) {
-        case 1: 
+        case 1:
           risk = "Low";
           break;
         case 2:
           risk = "Medium";
           break;
-        case 3: 
+        case 3:
           risk = "High";
           break;
       }
