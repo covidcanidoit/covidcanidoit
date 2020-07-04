@@ -4,11 +4,9 @@
       <SmallLogo style="height: 2em; width: auto" />
       COVID <span class="can-i">Can I Do It?</span>
     </div>
-    <router-link class="router" :to="{ name: 'Home' }">Home</router-link>
-    <router-link class="router" :to="{ name: 'About' }">About</router-link>
-    <router-link class="router" :to="{ name: 'Browse' }">
-      Activities
-    </router-link>
+    <router-link class="router" :to="{ name: 'Home', params: { country: currentCountry, region: currentRegion } }">Home</router-link>
+    <router-link class="router" :to="{ name: 'About', params: { country: currentCountry, region: currentRegion } }">About</router-link>
+    <router-link class="router" :to="{ name: 'Browse', params: { country: currentCountry, region: currentRegion } }">Activities</router-link>
     <v-menu>
       <template v-slot:activator="{ on }">
         <v-btn text v-on="on" aria-label="Select country">

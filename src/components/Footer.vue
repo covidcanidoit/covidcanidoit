@@ -5,11 +5,9 @@
     </div>
     <div class="quick-links mr-10 d-flex flex-column">
       <div>Quick Links</div>
-      <router-link class="router" :to="{ name: 'Home' }">Home</router-link>
-      <router-link class="router" :to="{ name: 'About' }">About</router-link>
-      <router-link class="router" :to="{ name: 'Browse' }">
-        Activities
-      </router-link>
+      <router-link class="router" :to="{ name: 'Home', params: { country: currentCountry, region: currentRegion } }">Home</router-link>
+      <router-link class="router" :to="{ name: 'About', params: { country: currentCountry, region: currentRegion } }">About</router-link>
+      <router-link class="router" :to="{ name: 'Browse', params: { country: currentCountry, region: currentRegion } }">Activities</router-link>
     </div>
     <div class="contact d-flex flex-column mr-5">
       Contact Us
@@ -24,11 +22,18 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import Logo from "@/assets/ccidi-logo-full.svg";
 
 export default {
   components: {
     Logo
+  },
+  computed: {
+    ...mapGetters([
+      "currentCountry",
+      "currentRegion"
+    ])
   }
 };
 </script>
