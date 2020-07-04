@@ -18,8 +18,8 @@
     <div class="risk-information">
       <!--<Markdown class="risk-details" :source="risk && risk.longDescription" />-->
       <br />
-      <v-container fluid class="crowdingBar">
-        <div v-show="activity.showLocation == 'TRUE'">
+      <v-container v-show="activity.showLocation == 'TRUE'" fluid class="crowdingBar">
+        <div>
           <div class="d-flex justify-center align-center">
             <span>
               Specify your location

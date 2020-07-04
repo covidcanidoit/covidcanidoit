@@ -52,7 +52,19 @@ export default {
       return this.activity[this.type];
     },
     risk() {
-      return this.score === 1 ? "Low" : this.score === 2 ? "Medium" : "High";
+      let risk = "";
+      switch (parseInt(this.score)) {
+        case 1: 
+          risk = "Low";
+          break;
+        case 2:
+          risk = "Medium";
+          break;
+        case 3: 
+          risk = "High";
+          break;
+      }
+      return risk;
     },
     notes() {
       return this.type !== "" ? this.activity[this.type + "Notes"] : "";
