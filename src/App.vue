@@ -34,5 +34,4 @@ body {
   margin: 0 auto;
   border: 1px solid $color-lightgrey;
 }
-
 </style>

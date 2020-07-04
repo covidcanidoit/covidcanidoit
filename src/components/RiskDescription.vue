@@ -1,6 +1,5 @@
 <template>
   <div class="risk-description d-flex flex-column">
-
     <div class="score-panel">
       <div v-if="isAgeScore">
         <b>{{ activity.activityName }}</b> has an Age-Specific risk level of
@@ -16,7 +15,6 @@
 
       <RiskComponents :activity="activity"></RiskComponents>
     </div>
-
 
     <div class="risk-information">
       <v-container fluid class="crowdingBar">
@@ -154,7 +152,6 @@ export default {
 
 <style scoped lang="scss">
 .risk-description {
-
   .score-panel {
     padding: 1em;
     margin: auto;
@@ -185,7 +182,6 @@ export default {
   .risk-references-container {
     font-size: 0.8em;
   }
-
 
   .riskComponentsContainer {
     background-color: white;

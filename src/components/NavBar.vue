@@ -1,7 +1,7 @@
 <template>
   <div id="nav" class="navigation">
     <div class="logo" v-if="!isHome">
-      <SmallLogo style="height: 2em; width: auto"/>
+      <SmallLogo style="height: 2em; width: auto" />
       COVID <span class="can-i">Can I Do It?</span>
     </div>
     <router-link class="router" :to="{ name: 'Home' }">Home</router-link>
