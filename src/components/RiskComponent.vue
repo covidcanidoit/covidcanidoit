@@ -1,14 +1,20 @@
 <template>
-  <div :class="riskClass">
-    <CrowdingIcon v-if="isCrowding" class="componentIcon" />
-    <DropletsIcon v-if="isDroplets" class="componentIcon" />
-    <TimeIcon v-if="isTime" class="componentIcon" />
-    <VentIcon v-if="isVent" class="componentIcon" />
-    <div class="componentTitle">{{ title }}</div>
-    <div class="componentRiskLabel">{{ risk }}</div>
-    <Markdown :source="notes" />
-    <!-- <v-btn>Learn more about {{ type }}</v-btn> -->
-  </div>
+  <v-row class="risk-component" justify="center" :class="riskClass">
+    <v-col cols="2" md="12">
+      <CrowdingIcon v-if="isCrowding" class="componentIcon" />
+      <DropletsIcon v-if="isDroplets" class="componentIcon" />
+      <TimeIcon v-if="isTime" class="componentIcon" />
+      <VentIcon v-if="isVent" class="componentIcon" />
+    </v-col>
+    <v-col cols="6" md="12">
+      <div class="componentTitle">{{ title }}</div>
+      <div class="componentRiskLabel">{{ risk }}</div>
+      <div>
+        <Markdown :source="notes" />
+        <!-- <v-btn>Learn more about {{ type }}</v-btn> -->
+      </div>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -80,5 +86,8 @@ div .cls-2 {
 }
 .riskHigh * {
   fill: $stopred;
+}
+.componentTitle {
+  font-weight: bold;
 }
 </style>
