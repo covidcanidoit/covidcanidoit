@@ -1,10 +1,10 @@
 <template>
   <div class="search-bar d-flex flex-column align-stretch">
-    <p class="header">What's the risk?</p>
+    <div class="header">What's the risk?</div>
     <div class="search-fields">
       <v-container>
         <v-row justify="center" align="center">
-          <v-col :cols="6">
+          <v-col cols="8">
             <VueSelect
               label="activityName"
               :options="this.activityList"
@@ -25,7 +25,7 @@
               </template>
             </VueSelect>
           </v-col>
-          <v-col :cols="2">
+          <v-col cols="8" md="2">
             <button class="run-search" @click="onSearch">
               Search activities
             </button>
@@ -142,34 +142,8 @@ export default {
 
 <style lang="scss">
 @import "vue-select/src/scss/vue-select.scss";
-@media only screen and (max-width: 1022px) {
-  body {
-    background-color: black;
-  }
-  .v-select {
-    background-color: black;
-    margin-right: 2em;
-  }
-  /* .v-select .vs__dropdown-menu { */
-  /*   width: 90vw; */
-  /* } */
-  .header {
-    font-size: 32px;
-  }
-}
-@media (min-width: 1023px) {
-  .v-select {
-    background-color: black;
-  }
-  /* .v-select .vs__dropdown-menu { */
-  /*   width: 25vw; */
-  /* } */
-  .header {
-    font-size: 40px;
-  }
-}
 .search-bar {
-  background-color: $color-teal;
+  background-color: $secondary;
   text-align: center;
   padding-top: 2em;
   padding-bottom: 2em;
@@ -177,26 +151,22 @@ export default {
   flex-direction: column;
   align-items: center;
 
-  h2 {
-    margin-bottom: 1em;
-  }
-
   .search-fields {
     .v-select {
       border-radius: 30px;
-      padding: 10px;
     }
 
-    button.run-search {
-      white-space: nowrap;
-      border-radius: 30px;
-      border: 1px solid $selectorgray;
-      padding: 9px;
-      background-color: $selectorgray;
-      color: white;
-      font-size: 1.25em;
-    }
   }
+}
+
+button.run-search {
+  white-space: nowrap;
+  border-radius: 30px;
+  border: 1px solid $selectorgray;
+  padding: 9px;
+  background-color: $selectorgray;
+  color: white;
+  font-size: 1.25em;
 }
 
 .or-others {
@@ -213,11 +183,13 @@ export default {
 .header {
   margin-bottom: 0;
   margin-top: 0;
+  font-size: 32px;
 }
 
 .v-select {
   background-color: white;
   border-radius: 30px 0 0 30px;
+  padding: 10px;
 }
 .v-select .vs__dropdown-toggle {
   border: none;

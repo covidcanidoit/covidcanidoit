@@ -1,24 +1,53 @@
 <template>
-  <div class="footer d-flex mb-5">
-    <div class="logo ml-10 mr-auto">
-      <Logo />
-    </div>
-    <div class="quick-links mr-10 d-flex flex-column">
-      <div>Quick Links</div>
-      <router-link class="router" :to="{ name: 'Home', params: { country: currentCountry, region: currentRegion } }">Home</router-link>
-      <router-link class="router" :to="{ name: 'About', params: { country: currentCountry, region: currentRegion } }">About</router-link>
-      <router-link class="router" :to="{ name: 'Browse', params: { country: currentCountry, region: currentRegion } }">Activities</router-link>
-    </div>
-    <div class="contact d-flex flex-column mr-5">
-      Contact Us
-      <a href="mailto:info@covidcanidoit.com">info@covidcanidoit.com</a>
-      <div class="social mt-5">
-        <a href="facebook"><v-icon small>mdi-facebook</v-icon></a>
-        <a href="instagram"><v-icon small>mdi-instagram</v-icon></a>
-        <a href="twitter"><v-icon small>mdi-twitter</v-icon></a>
-      </div>
-    </div>
-  </div>
+  <v-footer app absolute>
+    <v-row>
+      <v-col cols="12" md="3">
+        <div class="logo ml-10 mr-auto">
+          <Logo />
+        </div>
+      </v-col>
+      <v-spacer class="d-none d-md-block" />
+      <v-col cols="4" md="3" class="quick-links d-flex flex-column">
+        <div>Quick Links</div>
+        <router-link
+          class="router"
+          :to="{
+            name: 'Home',
+            params: { country: currentCountry, region: currentRegion }
+          }"
+        >
+          Home
+        </router-link>
+        <router-link
+          class="router"
+          :to="{
+            name: 'About',
+            params: { country: currentCountry, region: currentRegion }
+          }"
+        >
+          About
+        </router-link>
+        <router-link
+          class="router"
+          :to="{
+            name: 'Browse',
+            params: { country: currentCountry, region: currentRegion }
+          }"
+        >
+          Activities
+        </router-link>
+      </v-col>
+      <v-col cols="8" md="3" class="contact d-flex flex-column">
+        Contact Us
+        <a href="mailto:info@covidcanidoit.com">info@covidcanidoit.com</a>
+        <div class="social mt-5">
+          <a href="facebook"><v-icon small>mdi-facebook</v-icon></a>
+          <a href="instagram"><v-icon small>mdi-instagram</v-icon></a>
+          <a href="twitter"><v-icon small>mdi-twitter</v-icon></a>
+        </div>
+      </v-col>
+    </v-row>
+  </v-footer>
 </template>
 
 <script>
@@ -30,15 +59,12 @@ export default {
     Logo
   },
   computed: {
-    ...mapGetters([
-      "currentCountry",
-      "currentRegion"
-    ])
+    ...mapGetters(["currentCountry", "currentRegion"])
   }
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .footer {
   font-size: 0.75em;
 }

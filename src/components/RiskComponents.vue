@@ -30,10 +30,12 @@ export default {
   },
   computed: {
     hasRiskData() {
-      return this.activity.dropletsNotes &&
+      return (
+        this.activity.dropletsNotes &&
         this.activity.exposureTimeNotes &&
         this.activity.crowdingNotes &&
-        this.activity.ventilationNotes;
+        this.activity.ventilationNotes
+      );
     }
   },
   methods: {},

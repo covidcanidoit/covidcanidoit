@@ -121,7 +121,7 @@ export default {
   margin: 0 auto 3em auto;
 
   svg {
-    height: 200px;
+    height: 150px;
     width: auto;
   }
 }

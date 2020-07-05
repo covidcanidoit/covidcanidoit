@@ -1,47 +1,176 @@
 <template>
-  <div id="nav" class="navigation">
-    <div class="logo" v-if="!isHome">
-      <SmallLogo style="height: 2em; width: auto" />
-      COVID <span class="can-i">Can I Do It?</span>
-    </div>
-    <router-link class="router" :to="{ name: 'Home', params: { country: currentCountry, region: currentRegion } }">Home</router-link>
-    <router-link class="router" :to="{ name: 'About', params: { country: currentCountry, region: currentRegion } }">About</router-link>
-    <router-link class="router" :to="{ name: 'Browse', params: { country: currentCountry, region: currentRegion } }">Activities</router-link>
-    <router-link class="router" :to="{ name: 'Home', params: { country: currentCountry, region: currentRegion } }"><v-icon>mdi-magnify</v-icon></router-link>
-    <v-menu>
-      <template v-slot:activator="{ on }">
-        <v-btn text v-on="on" aria-label="Select country">
-          <img :src="`${publicPath}images/flag/${currentCountry}.png`" />
-          {{ currentCountry }}
-        </v-btn>
-      </template>
-      <v-list>
-        <v-list-item
-          v-for="country in countrySlugs"
-          :key="country"
-          @click="setCurrentCountry(country)"
-        >
-          <img :src="`${publicPath}images/flag/${country}.png`" />
-          {{ country }}
+  <div>
+    <v-navigation-drawer v-model="drawer" app right absolute>
+      <v-list dense>
+        <v-list-item link>
+          <router-link
+            class="router"
+            :to="{
+              name: 'Home',
+              params: { country: currentCountry, region: currentRegion }
+            }"
+          >
+            Home
+          </router-link>
+        </v-list-item>
+        <v-list-item link>
+          <router-link
+            class="router"
+            :to="{
+              name: 'About',
+              params: { country: currentCountry, region: currentRegion }
+            }"
+          >
+            About
+          </router-link>
+        </v-list-item>
+        <v-list-item link>
+          <router-link
+            class="router"
+            :to="{
+              name: 'Browse',
+              params: { country: currentCountry, region: currentRegion }
+            }"
+          >
+            Activities
+          </router-link>
+        </v-list-item>
+        <v-list-item link>
+          <router-link
+            class="router"
+            :to="{
+              name: 'Home',
+              params: { country: currentCountry, region: currentRegion }
+            }"
+          >
+            <v-icon>mdi-magnify</v-icon>
+          </router-link>
+        </v-list-item>
+        <v-list-item>
+          <v-menu>
+            <template v-slot:activator="{ on }">
+              <v-btn text v-on="on" aria-label="Select country">
+                <img :src="`${publicPath}images/flag/${currentCountry}.png`" />
+                {{ currentCountry }}
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item
+                v-for="country in countrySlugs"
+                :key="country"
+                @click="setCurrentCountry(country)"
+                >
+                <img :src="`${publicPath}images/flag/${country}.png`" />
+                {{ country }}
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-list-item>
+        <v-list-item>
+          <v-menu v-if="regionSlugs.length > 1">
+            <template v-slot:activator="{ on }">
+              <v-btn text v-on="on" aria-label="Select region">
+                {{ currentRegion }}
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item
+                v-for="region in regionSlugs"
+                :key="region"
+                @click="setCurrentRegion(region)"
+                >
+                {{ region }}
+              </v-list-item>
+            </v-list>
+          </v-menu>
         </v-list-item>
       </v-list>
-    </v-menu>
-    <v-menu v-if="regionSlugs.length > 1">
-      <template v-slot:activator="{ on }">
-        <v-btn text v-on="on" aria-label="Select region">
-          {{ currentRegion }}
-        </v-btn>
-      </template>
-      <v-list>
-        <v-list-item
-          v-for="region in regionSlugs"
-          :key="region"
-          @click="setCurrentRegion(region)"
+    </v-navigation-drawer>
+
+    <v-app-bar fixed color="white">
+      <div class="logo" v-if="!isHome">
+        <SmallLogo style="height: 2em; width: auto" />
+        COVID
+        <span class="can-i">Can I Do It?</span>
+      </div>
+
+      <v-spacer />
+
+      <div v-if="!mobileView" class="d-flex align-center">
+        <router-link
+          class="router mx-3"
+          :to="{
+            name: 'Home',
+            params: { country: currentCountry, region: currentRegion }
+          }"
         >
-          {{ region }}
-        </v-list-item>
-      </v-list>
-    </v-menu>
+          Home
+        </router-link>
+        <router-link
+          class="router mx-3"
+          :to="{
+            name: 'About',
+            params: { country: currentCountry, region: currentRegion }
+          }"
+        >
+          About
+        </router-link>
+        <router-link
+          class="router mx-3"
+          :to="{
+            name: 'Browse',
+            params: { country: currentCountry, region: currentRegion }
+          }"
+        >
+          Activities
+        </router-link>
+        <router-link
+          class="router mx-3"
+          :to="{
+            name: 'Home',
+            params: { country: currentCountry, region: currentRegion }
+          }"
+        >
+          <v-icon>mdi-magnify</v-icon>
+        </router-link>
+        <v-menu>
+          <template v-slot:activator="{ on }">
+            <v-btn text v-on="on" aria-label="Select country">
+              <img :src="`${publicPath}images/flag/${currentCountry}.png`" />
+              {{ currentCountry }}
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item
+              v-for="country in countrySlugs"
+              :key="country"
+              @click="setCurrentCountry(country)"
+            >
+              <img :src="`${publicPath}images/flag/${country}.png`" />
+              {{ country }}
+            </v-list-item>
+          </v-list>
+        </v-menu>
+        <v-menu v-if="regionSlugs.length > 1">
+          <template v-slot:activator="{ on }">
+            <v-btn text v-on="on" aria-label="Select region">
+              {{ currentRegion }}
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item
+              v-for="region in regionSlugs"
+              :key="region"
+              @click="setCurrentRegion(region)"
+            >
+              {{ region }}
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </div>
+
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" v-if="mobileView" />
+    </v-app-bar>
   </div>
 </template>
 
@@ -55,6 +184,7 @@ export default {
   },
   data() {
     return {
+      drawer: false,
       publicPath: process.env.BASE_URL
     };
   },
@@ -68,6 +198,9 @@ export default {
     ]),
     isHome() {
       return this.$route.name == "Home";
+    },
+    mobileView() {
+      return this.$vuetify.breakpoint.smAndDown;
     }
   },
   methods: {
@@ -101,19 +234,19 @@ export default {
   text-align: center;
 }
 
-.navigation {
-  text-align: right;
-
-  a {
-    font-weight: bold;
-    color: #0f4a5c;
-    margin: 0 0.5em;
-
-    &.router-link-exact-active {
-      color: #8ad4b4;
-    }
-  }
-}
+/* .navigation { */
+/*   text-align: right; */
+/*  */
+/*   a { */
+/*     font-weight: bold; */
+/*     color: #0f4a5c; */
+/*     margin: 0 0.5em; */
+/*  */
+/*     &.router-link-exact-active { */
+/*       color: #8ad4b4; */
+/*     } */
+/*   } */
+/* } */
 
 .form-select {
   /* display: inline-block;
