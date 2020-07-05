@@ -34,6 +34,9 @@
       </v-container>
     </div>
 
+    <div class="suggestions-title">
+      Top Suggestions
+    </div>
     <div class="or-others d-flex flex-wrap justify-center">
       <button @click="quickSearch('Biking alone')">Biking alone</button>
       <button @click="quickSearch('Shopping (Grocery store)')">
@@ -173,10 +176,10 @@ button.run-search {
   button {
     border-radius: 30px;
     border: 1px solid $primary;
-    padding: 10px;
+    padding: 1em 1.5em;
     background-color: $primary;
     color: black;
-    margin: 0.2em 1em;
+    margin: 0.5em 1em;
   }
 }
 
@@ -184,6 +187,12 @@ button.run-search {
   margin-bottom: 0;
   margin-top: 0;
   font-size: 32px;
+}
+
+.suggestions-title {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  font-size: 24px;
 }
 
 .v-select {

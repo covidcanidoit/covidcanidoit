@@ -17,5 +17,6 @@ export default {};
   text-align: center;
   background-color: $primary;
   color: black;
+  font-size: 0.75em;
 }
 </style>
