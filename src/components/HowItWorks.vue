@@ -1,9 +1,8 @@
 <template>
   <div class="how-it-works">
     <h1>How "COVID Can I Do It" Works</h1>
-
     <h2>The Risk Score</h2>
-    <ol>
+    <ul>
       <li>
         COVID-19, aka coronavirus, is a new virus that the public health and
         medical community is
@@ -35,7 +34,7 @@
         <b style="color: #fd6167">changing research</b>
         on COVID-19.
       </li>
-    </ol>
+    </ul>
     <!-- <p>image placeholder</p> -->
 
     <!-- <h2>Personalized Suggestions</h2>

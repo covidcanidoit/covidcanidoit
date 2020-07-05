@@ -36,7 +36,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .create-user-profile .header {
   background-color: $color-teal;
   text-align: center;

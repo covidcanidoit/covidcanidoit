@@ -17,7 +17,7 @@
 
       <v-container>
         <v-row>
-          <v-col cols="6">
+          <v-col cols="12" md="6">
             <h5>You are at more risk than others if</h5>
             <v-expansion-panels focusable>
               <v-expansion-panel
@@ -37,7 +37,7 @@
               </v-expansion-panel>
             </v-expansion-panels>
           </v-col>
-          <v-col cols="6">
+          <v-col cols="12" md="6">
             <h5>Things to consider</h5>
             <Markdown
               class="risk-details"

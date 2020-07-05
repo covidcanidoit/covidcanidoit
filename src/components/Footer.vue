@@ -1,12 +1,12 @@
 <template>
-  <v-footer app absolute>
+  <v-footer app absolute class="footer">
     <v-row>
-      <v-col cols="12" md="3">
-        <div class="logo ml-10 mr-auto">
+      <v-col cols="12" md="1">
+        <div class="logo">
           <Logo />
         </div>
       </v-col>
-      <v-spacer class="d-none d-md-block" />
+      <v-spacer />
       <v-col cols="4" md="3" class="quick-links d-flex flex-column">
         <div>Quick Links</div>
         <router-link
@@ -67,6 +67,10 @@ export default {
 <style lang="scss" scoped>
 .footer {
   font-size: 0.75em;
+}
+
+.logo {
+  text-align: center;
 }
 
 .logo svg {

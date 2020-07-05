@@ -17,36 +17,38 @@
       <RiskComponents :activity="activity"></RiskComponents>
     </div>
 
-    <div class="risk-information" v-show="activity.showLocation == 'TRUE'">
-      <v-container fluid class="crowdingBar">
-        <div>
-          <div class="d-flex justify-center align-center">
-            <span>
-              How busy will it be?
-            </span>
-            <VueGoogleAutocomplete
-              classname="busyLocation"
-              id="map"
-              placeholder="Please enter the activity location"
-              @placechanged="getAddressData"
-              :enableGeolocation="true"
-              :geolocationOptions="{ enableHighAccuracy: false }"
-              types="establishment"
+    <v-container fluid class="crowdingBar" v-show="activity.showLocation == 'TRUE'">
+      <v-row dense align="center">
+        <v-col cols="12" md="3">
+          How busy will it be?
+        </v-col>
+        <v-col cols="12" md="6">
+          <VueGoogleAutocomplete
+            classname="busyLocation"
+            id="map"
+            placeholder="Please enter the activity location"
+            @placechanged="getAddressData"
+            :enableGeolocation="true"
+            :geolocationOptions="{ enableHighAccuracy: false }"
+            types="establishment"
             />
-            <button class="busyCheckButton btn-primary" @click="getBusyInfo">
-              Check your location
-            </button>
-          </div>
-          <div v-if="loadingBusyResults">Loading...</div>
-          <div v-else>
-            <div v-if="busyResults" class="d-flex justify-center">
-              <div v-if="busyResults == 'error'">Data not available</div>
-              <Chart v-else :crowdingData="busyResults" class="busyChart" />
-            </div>
+        </v-col>
+        <v-col cols="12" md="3">
+          <button class="busyCheckButton btn-primary" @click="getBusyInfo">
+            Check your location
+          </button>
+        </v-col>
+      </v-row>
+      <v-row>
+        <div v-if="loadingBusyResults">Loading...</div>
+        <div v-else>
+          <div v-if="busyResults" class="d-flex justify-center">
+            <div v-if="busyResults == 'error'">Data not available</div>
+            <Chart v-else :crowdingData="busyResults" class="busyChart" />
           </div>
         </div>
-      </v-container>
-    </div>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
@@ -200,6 +202,7 @@ export default {
   .crowdingBar {
     background-color: $selectorgray;
     color: white;
+    text-align: center;
   }
 
   .busyChart {
@@ -210,9 +213,8 @@ export default {
     background-color: white;
     color: black;
     border-radius: 2em;
-    width: 30vw;
-    padding-left: 1em;
-    margin: 1em 1em;
+    width: 90%;
+    padding: 0 1em;
   }
 
   .busyCheckButton {

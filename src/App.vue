@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-navigation-drawer v-model="drawer" app right>
+    <v-navigation-drawer v-model="drawer" app right :disable-resize-watcher="true">
       <v-list dense>
         <v-list-item link>
           <router-link
