@@ -1,5 +1,5 @@
 <template>
-  <div :id="type" :class="riskClass">
+  <div :class="riskClass">
     <CrowdingIcon v-if="isCrowding" class="componentIcon" />
     <DropletsIcon v-if="isDroplets" class="componentIcon" />
     <TimeIcon v-if="isTime" class="componentIcon" />
@@ -7,7 +7,7 @@
     <div class="componentTitle">{{ title }}</div>
     <div class="componentRiskLabel">{{ risk }}</div>
     <Markdown :source="notes" />
-    <v-btn>Learn more about {{ type }}</v-btn>
+    <!-- <v-btn>Learn more about {{ type }}</v-btn> -->
   </div>
 </template>
 
@@ -60,11 +60,6 @@ export default {
     riskClass() {
       return "risk" + this.risk;
     }
-  },
-  mounted() {
-    //const color = this.score === 1 ? "#37B34A" : this.score === 2 ? "#FAAF40" : "#D03727";
-    //const path = document.getElementById(this.type).getElementsByTagName("svg")[0].getElementsByTagName("path")[0];
-    //path.style.fill = color;
   }
 };
 </script>
@@ -78,12 +73,12 @@ div .cls-2 {
   fill: white;
 }
 .riskLow * {
-  fill: #37b34a;
+  fill: $gogreen;
 }
 .riskMedium * {
-  fill: #faaf40;
+  fill: $cautionyellow;
 }
 .riskHigh * {
-  fill: #d03727;
+  fill: $stopred;
 }
 </style>

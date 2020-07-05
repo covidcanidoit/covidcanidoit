@@ -1,17 +1,16 @@
 <template>
   <v-container v-if="hasRiskData">
     <v-row>
-      <!-- Crowding -->
-      <v-col>
+      <v-col cols="12" md="3">
         <RiskComponent :activity="activity" type="crowding"></RiskComponent>
       </v-col>
-      <v-col>
+      <v-col cols="12" md="3">
         <RiskComponent :activity="activity" type="droplets"></RiskComponent>
       </v-col>
-      <v-col>
+      <v-col cols="12" md="3">
         <RiskComponent :activity="activity" type="exposureTime"></RiskComponent>
       </v-col>
-      <v-col>
+      <v-col cols="12" md="3">
         <RiskComponent :activity="activity" type="ventilation"></RiskComponent>
       </v-col>
     </v-row>
