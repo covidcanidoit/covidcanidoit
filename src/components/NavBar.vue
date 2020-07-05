@@ -59,7 +59,7 @@
                 v-for="country in countrySlugs"
                 :key="country"
                 @click="setCurrentCountry(country)"
-                >
+              >
                 <img :src="`${publicPath}images/flag/${country}.png`" />
                 {{ country }}
               </v-list-item>
@@ -78,7 +78,7 @@
                 v-for="region in regionSlugs"
                 :key="region"
                 @click="setCurrentRegion(region)"
-                >
+              >
                 {{ region }}
               </v-list-item>
             </v-list>

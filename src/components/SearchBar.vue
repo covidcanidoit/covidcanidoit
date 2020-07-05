@@ -158,7 +158,6 @@ export default {
     .v-select {
       border-radius: 30px;
     }
-
   }
 }
 

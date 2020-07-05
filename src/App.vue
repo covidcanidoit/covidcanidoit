@@ -1,6 +1,11 @@
 <template>
   <v-app>
-    <v-navigation-drawer v-model="drawer" app right :disable-resize-watcher="true">
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+      right
+      :disable-resize-watcher="true"
+    >
       <v-list dense>
         <v-list-item link>
           <router-link
@@ -59,7 +64,7 @@
                 v-for="country in countrySlugs"
                 :key="country"
                 @click="setCurrentCountry(country)"
-                >
+              >
                 <img :src="`${publicPath}images/flag/${country}.png`" />
                 {{ country }}
               </v-list-item>
@@ -78,7 +83,7 @@
                 v-for="region in regionSlugs"
                 :key="region"
                 @click="setCurrentRegion(region)"
-                >
+              >
                 {{ region }}
               </v-list-item>
             </v-list>
@@ -169,7 +174,10 @@
         </v-menu>
       </div>
 
-      <v-app-bar-nav-icon class="d-block d-md-none" @click.stop="drawer = !drawer" />
+      <v-app-bar-nav-icon
+        class="d-block d-md-none"
+        @click.stop="drawer = !drawer"
+      />
     </v-app-bar>
 
     <v-main>

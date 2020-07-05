@@ -17,7 +17,11 @@
       <RiskComponents :activity="activity"></RiskComponents>
     </div>
 
-    <v-container fluid class="crowdingBar" v-show="activity.showLocation == 'TRUE'">
+    <v-container
+      fluid
+      class="crowdingBar"
+      v-show="activity.showLocation == 'TRUE'"
+    >
       <v-row dense align="center">
         <v-col cols="12" md="3">
           How busy will it be?
@@ -31,7 +35,7 @@
             :enableGeolocation="true"
             :geolocationOptions="{ enableHighAccuracy: false }"
             types="establishment"
-            />
+          />
         </v-col>
         <v-col cols="12" md="3">
           <button class="busyCheckButton btn-primary" @click="getBusyInfo">
