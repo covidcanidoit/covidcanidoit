@@ -3,12 +3,34 @@
     <div class="risk-description d-flex flex-column">
       <div class="score-panel">
         <div v-if="isAgeScore">
-          <b>{{ activity.activityName }}</b>
-          has an Age-Specific risk level of
+          <!--<b>{{ activity.activityName }}</b>-->
+          <ActivitySearchbar
+            :activityList="Object.values(activities)"
+            :initialSearch="activity"
+          ></ActivitySearchbar>
+          <span class="riskDeclare" style="white-space: nowrap">
+            &nbsp;is&nbsp;
+            <span :class="riskTokenClass">
+              <span>{{ activityRiskToken }}</span>
+              &nbsp;Risk
+            </span>
+          </span>
+          <!--has an Age-Specific risk level of-->
         </div>
         <div v-else>
-          <b>{{ activity.activityName }}</b>
-          <div style="white-space: nowrap">has a risk level of</div>
+          <!--<b>{{ activity.activityName }}</b>-->
+          <ActivitySearchbar
+            :activityList="Object.values(activities)"
+            :initialSearch="activity"
+          ></ActivitySearchbar>
+          <span class="riskDeclare" style="white-space: nowrap">
+            &nbsp;is&nbsp;
+            <span :class="riskTokenClass">
+              <span>{{ activityRiskToken }}</span>
+              &nbsp;Risk
+            </span>
+          </span>
+          <!--<div style="white-space: nowrap">has a risk level of</div>-->
         </div>
         <div class="score">{{ risk && risk.riskScore }}</div>
         <div class="score-title">{{ risk && risk.riskName }}</div>
@@ -38,12 +60,14 @@ import { mapGetters } from "vuex";
 import ScoreScale from "@/components/ScoreScale.vue";
 import RiskComponents from "@/components/RiskComponents.vue";
 import LocationComponent from "@/components/LocationComponent.vue";
+import ActivitySearchbar from "@/components/ActivitySearchbar.vue";
 
 export default {
   components: {
     ScoreScale,
     RiskComponents,
-    LocationComponent
+    LocationComponent,
+    ActivitySearchbar
   },
   props: {
     score: {
@@ -70,7 +94,8 @@ export default {
       "riskLevels",
       "currentUserSettings",
       "currentRegion",
-      "regions"
+      "regions",
+      "activities"
     ]),
     risk() {
       return this.riskLevels["riskLevel" + this.score];
@@ -98,6 +123,28 @@ export default {
     },
     regionsList: function() {
       return Object.values(this.regions);
+    },
+    activityRiskToken: function() {
+      let risk;
+      switch (this.score) {
+        case "1":
+        case "2":
+          risk = "Low";
+          break;
+        case "3":
+        case "4":
+          risk = "Moderate";
+          break;
+        case "5":
+          risk = "High";
+          break;
+        default:
+          risk = "Uncertain";
+      }
+      return risk;
+    },
+    riskTokenClass: function() {
+      return "risk" + this.score;
     }
   },
   methods: {
@@ -122,6 +169,7 @@ export default {
 <style scoped lang="scss">
 .risk-description {
   .score-panel {
+    width: 100%;
     padding: 1em;
     margin: auto;
     flex: 30%;
@@ -166,10 +214,29 @@ export default {
   }
 
   .selectRegion {
-    width: 25%;
-    min-width: 25%;
+    width: 10%;
+    min-width: 10%;
     margin: 0 auto;
     margin-top: 2em;
+  }
+
+  .riskDeclare {
+    font-size: 2em;
+  }
+  .risk1 {
+    color: $gogreen;
+  }
+  .risk2 {
+    color: $pausegreen;
+  }
+  .risk3 {
+    color: $cautionyellow;
+  }
+  .risk4 {
+    color: $warningorange;
+  }
+  .risk5 {
+    color: $stopred;
   }
 }
 </style>

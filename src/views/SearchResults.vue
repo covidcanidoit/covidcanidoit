@@ -13,7 +13,7 @@
 import SearchResults from "@/components/SearchResults.vue";
 import ThanksForSuggesting from "@/components/ThanksForSuggesting.vue";
 import { mapState, mapGetters } from "vuex";
-import VueScrollTo from "vue-scrollto";
+//import VueScrollTo from "vue-scrollto";
 
 export default {
   props: ["search", "skipProfile", "slug"],
@@ -75,7 +75,7 @@ export default {
                 params: { slug: activity.slug }
               });
             }
-            VueScrollTo.scrollTo("#search-results");
+            //VueScrollTo.scrollTo("#search-results");
           }
         }
       });

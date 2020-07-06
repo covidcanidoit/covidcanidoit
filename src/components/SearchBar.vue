@@ -194,7 +194,7 @@ button.run-search {
   font-size: 24px;
 }
 
-.v-select {
+.col .v-select {
   background-color: white;
   border-radius: 30px 0 0 30px;
   padding: 10px;
