@@ -156,7 +156,7 @@
             </v-list-item>
           </v-list>
         </v-menu>
-        <v-menu v-if="regionSlugs.length > 1">
+        <v-menu v-if="Object.keys(regions).length > 1">
           <template v-slot:activator="{ on }">
             <v-btn text v-on="on" aria-label="Select region">
               {{ currentRegion }}
@@ -164,11 +164,11 @@
           </template>
           <v-list>
             <v-list-item
-              v-for="region in regionSlugs"
-              :key="region"
-              @click="setCurrentRegion(region)"
+              v-for="region in Object.values(regions)"
+              :key="region.slug"
+              @click="setCurrentRegion(region.slug)"
             >
-              {{ region }}
+              {{ region.longName }}
             </v-list-item>
           </v-list>
         </v-menu>
@@ -210,7 +210,8 @@ export default {
       "activitySuggestions",
       "currentCountry",
       "currentRegion",
-      "regionSlugs"
+      "regionSlugs",
+      "regions"
     ]),
     isHome() {
       return this.$route.name == "Home";
