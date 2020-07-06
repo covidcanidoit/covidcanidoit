@@ -13,10 +13,10 @@
   },
   "lint-staged": {
     "*.js": [
-      "lint"
+      "yarn lint"
     ],
     "*.vue": [
-      "lint"
+      "yarn lint"
     ]
   },
   "dependencies": {
