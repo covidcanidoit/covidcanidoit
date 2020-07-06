@@ -17,12 +17,13 @@
 
       <v-container>
         <v-row>
-          <v-col cols="12" md="6">
+          <v-col cols="12" md="6" class="otherRisksSeparator">
             <h5>You are at more risk than others if</h5>
-            <v-expansion-panels focusable>
+            <v-expansion-panels focusable flat popout>
               <v-expansion-panel
                 v-for="riskFactor in riskFactors"
                 :key="riskFactor.name"
+                class="riskFactorDropdown"
               >
                 <v-expansion-panel-header>
                   <span>
@@ -104,5 +105,12 @@ export default {
 }
 .icon {
   width: 40px;
+}
+.otherRisksSeparator {
+  border-right: 1px solid $secondary;
+}
+
+.riskFactorDropdown:nth-child(n + 2) {
+  border-top: 1px solid $color-lightgrey;
 }
 </style>
