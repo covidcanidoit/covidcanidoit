@@ -41,9 +41,15 @@
         Contact Us
         <a href="mailto:info@covidcanidoit.com">info@covidcanidoit.com</a>
         <div class="social mt-5">
-          <a href="facebook"><v-icon small>mdi-facebook</v-icon></a>
-          <a href="instagram"><v-icon small>mdi-instagram</v-icon></a>
-          <a href="twitter"><v-icon small>mdi-twitter</v-icon></a>
+          <a href="https://www.facebook.com/covidcanidoit">
+            <v-icon small>mdi-facebook</v-icon>
+          </a>
+          <a href="https://www.instagram.com/covidcanidoit/">
+            <v-icon small>mdi-instagram</v-icon>
+          </a>
+          <a href="https://twitter.com/COVIDCanIDoIt">
+            <v-icon small>mdi-twitter</v-icon>
+          </a>
         </div>
       </v-col>
     </v-row>
