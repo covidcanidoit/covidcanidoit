@@ -13,6 +13,17 @@
         <div class="score">{{ risk && risk.riskScore }}</div>
         <div class="score-title">{{ risk && risk.riskName }}</div>
         <ScoreScale :score="score" />
+        <v-select
+          outlined
+          return-object
+          item-text="longName"
+          :items="regionsList"
+          @change="setCurrentRegion($event)"
+          class="selectRegion"
+          v-model="selectedRegion"
+        >
+          <template v-slot:prepend>in&nbsp;</template>
+        </v-select>
         <v-spacer></v-spacer>
 
         <RiskComponents :activity="activity"></RiskComponents>
@@ -44,14 +55,23 @@ export default {
       default: false
     }
   },
+  mounted() {
+    this.getCurrentRegionFromList();
+  },
   data() {
     return {
       hideMoreInfo: true,
-      hasSearched: false
+      hasSearched: false,
+      selectedRegion: Object
     };
   },
   computed: {
-    ...mapGetters(["riskLevels", "currentUserSettings"]),
+    ...mapGetters([
+      "riskLevels",
+      "currentUserSettings",
+      "currentRegion",
+      "regions"
+    ]),
     risk() {
       return this.riskLevels["riskLevel" + this.score];
     },
@@ -75,11 +95,25 @@ export default {
       return (
         this.activity.activityName && this.currentUserSettings.hasBetaAccess
       );
+    },
+    regionsList: function() {
+      return Object.values(this.regions);
     }
   },
   methods: {
     toggleMoreInfo() {
       this.hideMoreInfo = !this.hideMoreInfo;
+    },
+    setCurrentRegion() {
+      this.$store.dispatch("changeRegion", this.selectedRegion.slug);
+    },
+    getCurrentRegionFromList() {
+      this.selectedRegion = this.regions[this.currentRegion];
+    }
+  },
+  watch: {
+    currentRegion() {
+      this.getCurrentRegionFromList();
     }
   }
 };
@@ -129,6 +163,13 @@ export default {
   .tabCard {
     text-align: left;
     background-color: #f1f8e9;
+  }
+
+  .selectRegion {
+    width: 25%;
+    min-width: 25%;
+    margin: 0 auto;
+    margin-top: 2em;
   }
 }
 </style>
