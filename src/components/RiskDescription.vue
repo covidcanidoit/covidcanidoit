@@ -1,76 +1,38 @@
 <template>
-  <div class="risk-description d-flex flex-column">
-    <div class="score-panel">
-      <div v-if="isAgeScore">
-        <b>{{ activity.activityName }}</b>
-        has an Age-Specific risk level of
-      </div>
-      <div v-else>
-        <b>{{ activity.activityName }}</b>
-        <div style="white-space: nowrap">has a risk level of</div>
-      </div>
-      <div class="score">{{ risk && risk.riskScore }}</div>
-      <div class="score-title">{{ risk && risk.riskName }}</div>
-      <ScoreScale :score="score" />
-      <v-spacer></v-spacer>
-
-      <RiskComponents :activity="activity"></RiskComponents>
-    </div>
-
-    <v-container
-      fluid
-      class="crowdingBar"
-      v-show="activity.showLocation == 'TRUE'"
-    >
-      <v-row dense align="center">
-        <v-col cols="12" md="3">
-          How busy will it be?
-        </v-col>
-        <v-col cols="12" md="6">
-          <VueGoogleAutocomplete
-            classname="busyLocation"
-            id="map"
-            placeholder="Please enter the activity location"
-            @placechanged="getAddressData"
-            :enableGeolocation="true"
-            :geolocationOptions="{ enableHighAccuracy: false }"
-            types="establishment"
-          />
-        </v-col>
-        <v-col cols="12" md="3">
-          <button class="busyCheckButton btn-primary" @click="getBusyInfo">
-            Check your location
-          </button>
-        </v-col>
-      </v-row>
-      <v-row>
-        <div v-if="loadingBusyResults">Loading...</div>
-        <div v-else>
-          <div v-if="busyResults" class="d-flex justify-center">
-            <div v-if="busyResults == 'error'">Data not available</div>
-            <Chart v-else :crowdingData="busyResults" class="busyChart" />
-          </div>
+  <div>
+    <div class="risk-description d-flex flex-column">
+      <div class="score-panel">
+        <div v-if="isAgeScore">
+          <b>{{ activity.activityName }}</b>
+          has an Age-Specific risk level of
         </div>
-      </v-row>
-    </v-container>
+        <div v-else>
+          <b>{{ activity.activityName }}</b>
+          <div style="white-space: nowrap">has a risk level of</div>
+        </div>
+        <div class="score">{{ risk && risk.riskScore }}</div>
+        <div class="score-title">{{ risk && risk.riskName }}</div>
+        <ScoreScale :score="score" />
+        <v-spacer></v-spacer>
+
+        <RiskComponents :activity="activity"></RiskComponents>
+      </div>
+    </div>
+    <LocationComponent :activity="activity"></LocationComponent>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import ScoreScale from "@/components/ScoreScale.vue";
-import Chart from "@/components/PopularTimesChart";
-import VueGoogleAutocomplete from "vue-google-autocomplete";
 import RiskComponents from "@/components/RiskComponents.vue";
-
-import axios from "axios";
+import LocationComponent from "@/components/LocationComponent.vue";
 
 export default {
   components: {
     ScoreScale,
-    Chart,
-    VueGoogleAutocomplete,
-    RiskComponents
+    RiskComponents,
+    LocationComponent
   },
   props: {
     score: {
@@ -85,11 +47,6 @@ export default {
   data() {
     return {
       hideMoreInfo: true,
-      location: "",
-      business: "",
-      placeId: undefined,
-      busyResults: undefined,
-      loadingBusyResults: false,
       hasSearched: false
     };
   },
@@ -123,35 +80,6 @@ export default {
   methods: {
     toggleMoreInfo() {
       this.hideMoreInfo = !this.hideMoreInfo;
-    },
-    async getBusyInfo() {
-      this.busyResults = undefined;
-      this.loadingBusyResults = true;
-      try {
-        const locationResults = await axios.get(
-          "https://thelackthereof.org/api",
-          {
-            params: {
-              location: this.location,
-              name: this.business,
-              placeId: this.placeId
-            }
-          }
-        );
-        this.busyResults = locationResults.data;
-      } catch (e) {
-        console.log("error fetching location data");
-        console.error(e);
-        this.busyResults = "error";
-      } finally {
-        this.loadingBusyResults = false;
-        this.hasSearched = true;
-      }
-    },
-    getAddressData(something, rawSomething) {
-      console.log("Got some address data", something, rawSomething);
-      this.placeId = rawSomething.reference;
-      this.getBusyInfo();
     }
   }
 };
@@ -201,33 +129,6 @@ export default {
   .tabCard {
     text-align: left;
     background-color: #f1f8e9;
-  }
-
-  .crowdingBar {
-    background-color: $selectorgray;
-    color: white;
-    text-align: center;
-  }
-
-  .busyChart {
-    background-color: white;
-  }
-
-  .busyLocation {
-    background-color: white;
-    color: black;
-    border-radius: 2em;
-    width: 90%;
-    padding: 0 1em;
-  }
-
-  .busyCheckButton {
-    background-color: $primary;
-    color: $selectorgray;
-    padding: 0.5em;
-    padding-left: 1em;
-    padding-right: 1em;
-    border-radius: 2em;
   }
 }
 </style>
