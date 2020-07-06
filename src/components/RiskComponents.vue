@@ -53,9 +53,9 @@ export default {
 
 <style scoped lang="scss">
 .left-border {
-  border-left: 1px solid #ccc;
+  border-left: 1px solid $color-lightgrey;
 }
 .top-border {
-  border-top: 1px solid #ccc;
+  border-top: 1px solid $color-lightgrey;
 }
 </style>
