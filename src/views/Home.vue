@@ -14,6 +14,7 @@
       :perPage="5"
     />
     <ThanksForSuggesting v-if="noResults" :suggested="suggested" />
+    <HowToThinkAboutRisk></HowToThinkAboutRisk>
     <!-- will pass in data as crowdingData based on the example data Brock sent me -->
     <!-- <Chart crowdingData= /> -->
     <HowItWorks />
@@ -26,6 +27,7 @@ import SearchBar from "@/components/SearchBar.vue";
 import HomeBanner from "@/components/HomeBanner.vue";
 import HowItWorks from "@/components/HowItWorks.vue";
 import ThanksForSuggesting from "@/components/ThanksForSuggesting.vue";
+import HowToThinkAboutRisk from "@/components/HowToThinkAboutRisk.vue";
 import { mapState, mapGetters } from "vuex";
 import VueScrollTo from "vue-scrollto";
 // import Chart from "@/components/PopularTimesChart.vue"
@@ -37,7 +39,8 @@ export default {
     SearchBar,
     HowItWorks,
     ThanksForSuggesting,
-    HomeBanner
+    HomeBanner,
+    HowToThinkAboutRisk
     // Chart
   },
   data: function() {
