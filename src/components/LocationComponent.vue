@@ -27,13 +27,15 @@
         </v-col>
       </v-row>
       <v-row>
-        <div v-if="loadingBusyResults">Loading...</div>
-        <div v-else>
-          <div v-if="busyResults" class="d-flex justify-center">
-            <div v-if="busyResults == 'error'">Data not available</div>
-            <Chart v-else :crowdingData="busyResults" class="busyChart" />
+        <v-col>
+          <div v-if="loadingBusyResults">Loading...</div>
+          <div v-else>
+            <div v-if="busyResults" class="d-flex justify-center">
+              <div v-if="busyResults == 'error'">Data not available</div>
+              <Chart v-else :crowdingData="busyResults" class="busyChart" />
+            </div>
           </div>
-        </div>
+        </v-col>
       </v-row>
     </v-container>
   </div>
