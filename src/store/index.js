@@ -112,6 +112,9 @@ export default new Vuex.Store({
     categories(_state, getters) {
       return getters.currentContent.categories || {};
     },
+    components(_state, getters) {
+      return getters.currentContent.components || {};
+    },
     riskLevels(_state, getters) {
       return getters.currentContent.riskLevels || {};
     },
