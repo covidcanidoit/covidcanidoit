@@ -45,7 +45,7 @@ describe("ScoreScale", () => {
     });
     expect(wrapper.html()).toMatchInlineSnapshot(`
       <div class="score-scale">
-        <div class="score-scale-entry selected-1">
+        <div class="score-scale-entry selected selected-1">
           1
         </div>
         <div class="connector"></div>
@@ -78,7 +78,7 @@ describe("ScoreScale", () => {
           1
         </div>
         <div class="connector"></div>
-        <div class="score-scale-entry selected-2">
+        <div class="score-scale-entry selected selected-2">
           2
         </div>
         <div class="connector"></div>
@@ -111,7 +111,7 @@ describe("ScoreScale", () => {
           2
         </div>
         <div class="connector"></div>
-        <div class="score-scale-entry selected-3">
+        <div class="score-scale-entry selected selected-3">
           3
         </div>
         <div class="connector"></div>
@@ -144,7 +144,7 @@ describe("ScoreScale", () => {
           3
         </div>
         <div class="connector"></div>
-        <div class="score-scale-entry selected-4">
+        <div class="score-scale-entry selected selected-4">
           4
         </div>
         <div class="connector"></div>
@@ -177,7 +177,7 @@ describe("ScoreScale", () => {
           4
         </div>
         <div class="connector"></div>
-        <div class="score-scale-entry selected-5">
+        <div class="score-scale-entry selected selected-5">
           5
         </div>
       </div>
