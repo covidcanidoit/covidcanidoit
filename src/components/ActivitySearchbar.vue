@@ -3,7 +3,7 @@
     label="activityName"
     :options="filteredActivities"
     :getOptionKey="option => option.slug"
-    class="v-select"
+    :class="searchbarClass"
     v-model="activity"
     v-on:input="onSearch"
     placeholder="Type your activity here"
@@ -85,6 +85,13 @@ export default {
     },
     activityListDynamic() {
       return this.activityListComplete;
+    },
+    searchbarClass() {
+      if (this.$vuetify.breakpoint.mdAndUp) {
+        return "v-select mediumAndUp";
+      } else {
+        return "v-select lowerThanMedium";
+      }
     }
   },
   mounted() {
@@ -106,14 +113,10 @@ export default {
   min-width: 15%;
   display: inline-block;
 }
-@media only screen and (max-width: 1022px) {
-  .v-select {
-    width: 100%;
-  }
+.lowerThanMedium {
+  width: 100%;
 }
-@media (min-width: 1081px) {
-  .v-select {
-    width: 20%;
-  }
+.mediumAndUp {
+  width: 20%;
 }
 </style>

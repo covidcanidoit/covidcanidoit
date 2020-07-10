@@ -41,7 +41,7 @@
           item-text="longName"
           :items="regionsList"
           @change="setCurrentRegion($event)"
-          class="selectRegion"
+          :class="regionSelectClass"
           v-model="selectedRegion"
         >
           <template v-slot:prepend>in&nbsp;</template>
@@ -145,6 +145,13 @@ export default {
     },
     riskTokenClass: function() {
       return "risk" + this.score;
+    },
+    regionSelectClass: function() {
+      if (this.$vuetify.breakpoint.mdAndUp) {
+        return "selectRegion regionSelectOnMediumAndUp";
+      } else {
+        return "selectRegion regionSelectOnSmaller";
+      }
     }
   },
   methods: {
@@ -219,15 +226,11 @@ export default {
     margin: 0 auto;
     margin-top: 2em;
   }
-  @media only screen and (max-width: 1022px) {
-    .selectRegion {
-      width: 100%;
-    }
+  .regionSelectOnSmaller {
+    width: 100%;
   }
-  @media (min-width: 1081px) {
-    .selectRegion {
-      width: 20%;
-    }
+  .regionSelectOnMediumAndUp {
+    width: 30%;
   }
   .riskDeclare {
     font-size: 2em;
