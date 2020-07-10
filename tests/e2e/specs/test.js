@@ -37,7 +37,6 @@ describe("Browsing Categories", () => {
   it("Click Activity in Category", () => {
     cy.contains("Category: Errand");
     cy.contains(".activity-name", "Dog Walking").click();
-    // cy.contains("Skip").click();
     cy.contains("Dog");
     cy.contains("risk");
   });
