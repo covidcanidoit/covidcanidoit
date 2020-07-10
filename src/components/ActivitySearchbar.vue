@@ -1,7 +1,7 @@
 <template>
   <VueSelect
     label="activityName"
-    :options="Object.values(this.activities)"
+    :options="filteredActivities"
     :getOptionKey="option => option.slug"
     class="v-select"
     v-model="activity"
@@ -60,6 +60,11 @@ export default {
   },
   computed: {
     ...mapGetters(["activities"]),
+    filteredActivities() {
+      return Object.values(this.activities).filter(
+        value => value.disabled !== true
+      );
+    },
     activityListComplete() {
       const options = {
         minMatchCharLength: 2,

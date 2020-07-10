@@ -214,12 +214,21 @@ export default {
   }
 
   .selectRegion {
-    width: 10%;
+    width: 30%;
     min-width: 10%;
     margin: 0 auto;
     margin-top: 2em;
   }
-
+  @media only screen and (max-width: 1022px) {
+    .selectRegion {
+      width: 100%;
+    }
+  }
+  @media (min-width: 1081px) {
+    .selectRegion {
+      width: 20%;
+    }
+  }
   .riskDeclare {
     font-size: 2em;
   }
