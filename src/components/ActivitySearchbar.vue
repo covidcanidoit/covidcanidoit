@@ -2,6 +2,7 @@
   <VueSelect
     label="activityName"
     :options="Object.values(this.activities)"
+    :getOptionKey="option => option.slug"
     class="v-select"
     v-model="activity"
     v-on:input="onSearch"
