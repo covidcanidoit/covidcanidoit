@@ -247,6 +247,11 @@
                     >Johnny Li</a
                   >
                 </li>
+                <li>
+                  <a href="https://www.linkedin.com/in/tranjnnfr/"
+                    >Jennifer Tran</a
+                  >
+                </li>
               </ul>
             </td>
           </tr>
