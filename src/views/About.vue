@@ -9,9 +9,8 @@
         id="accordionEx"
         role="tablist"
         aria-multiselectable="true"
-        style="background:#fec0a4"
       >
-        <div class="card" style="background:#fec0a4">
+        <div class="card">
           <!-- Card header -->
           <div class="card-header" role="tab" id="headingOne1">
             <a
@@ -52,7 +51,7 @@
             </div>
           </div>
         </div>
-        <div class="card" style="background:#fec0a4">
+        <div class="card">
           <!-- Card header -->
           <div class="card-header" role="tab" id="headingTwo2">
             <a
@@ -96,7 +95,7 @@
             </div>
           </div>
         </div>
-        <div class="card" style="background:#fec0a4">
+        <div class="card">
           <!-- Card header -->
           <div class="card-header" role="tab" id="headingThree3">
             <a
@@ -616,10 +615,13 @@ export default {
 .about {
   margin: 0 2em;
   border: 1px solid #ccc;
-  background-color: $color-peach;
+  background-color: $primary;
   .infoHeader {
     overflow-x: auto;
   }
+}
+.card-body {
+  background-color: $primary;
 }
 .peopleGroup {
   vertical-align: top;
