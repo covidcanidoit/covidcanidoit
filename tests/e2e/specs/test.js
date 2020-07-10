@@ -3,11 +3,11 @@
 describe("Homepage", () => {
   it("Loads with header text", () => {
     cy.visit("/US/");
-    cy.contains(".header", "Can I");
+    cy.contains(".header", "What's the risk");
   });
   it("Shows the nav", () => {
     cy.visit("/US/");
-    cy.contains(".navigation", "Find An Activity");
+    cy.contains("header", "Activities");
   });
 });
 
@@ -24,8 +24,9 @@ describe("Searching", () => {
 
 describe("Browsing Categories", () => {
   it("Navigates from homepage to categories", () => {
-    cy.visit("/US/");
-    cy.contains("Find An Activity").click();
+    cy.visit("/US/all");
+    cy.contains(".header", "What's the risk");
+    cy.contains("header a", "Activities").click();
     cy.contains("h1", "Browse activities by category");
   });
   it("Browse Category", () => {

@@ -78,13 +78,9 @@ const routes = [
       const country = to.params.country;
       console.log("Router /:country", { country });
       await store.dispatch("changeCountry", country);
-      if (country !== store.getters.currentCountry) {
-        return next(
-          store.getters.currentCountry + "/" + store.getters.currentRegion
-        );
-      } else {
-        return next();
-      }
+      return next(
+        store.getters.currentCountry + "/" + store.getters.currentRegion
+      );
     }
   },
   {
