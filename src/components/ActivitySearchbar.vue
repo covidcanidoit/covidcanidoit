@@ -106,4 +106,14 @@ export default {
   min-width: 15%;
   display: inline-block;
 }
+@media only screen and (max-width: 1022px) {
+  .v-select {
+    width: 100%;
+  }
+}
+@media (min-width: 1081px) {
+  .v-select {
+    width: 20%;
+  }
+}
 </style>
