@@ -57,7 +57,7 @@ export default {
         ) {
           this.result = activity;
           if (this.$route.params.slug != activity.slug) {
-            this.$router.replace({
+            this.$router.push({
               name: "ActivitySearch",
               params: { slug: activity.slug }
             });
