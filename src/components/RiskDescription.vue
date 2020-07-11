@@ -43,6 +43,7 @@
           @change="setCurrentRegion($event)"
           :class="regionSelectClass"
           v-model="selectedRegion"
+          v-if="regionsList.length > 1"
         >
           <template v-slot:prepend>in&nbsp;</template>
         </v-select>
