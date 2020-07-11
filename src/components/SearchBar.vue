@@ -91,12 +91,6 @@ export default {
       this.searchTerm = value;
       this.onSearch();
     },
-    goToBrowse() {
-      this.$router.push({ name: "Browse" });
-    },
-    goToProfile() {
-      this.$router.push({ name: "CreateUserProfile" });
-    },
     computedSearch(search) {
       this.suggested = search;
       return search;
