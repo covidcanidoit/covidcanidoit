@@ -1,18 +1,9 @@
 <template>
   <div class="introduction" id="search-results">
     <div v-show="activity.activityName">
-      <div v-show="profile.COVIDpositive == 'yes'">
-        <!-- if someone tested positive for coronavirus -->
-        <b class="warning">
-          Do not leave home except for essential medical visits. Even if you
-          have not tested positive and do not feel ill, you can spread COVID-19.
-        </b>
-      </div>
-
       <RiskDescription
-        :score="maybeAgeScore"
+        :score="activity.generalRiskScore"
         :activity="activity"
-        :isAgeScore="isAgeSet"
       />
 
       <v-container>
@@ -40,10 +31,7 @@
           </v-col>
           <v-col cols="12" md="6">
             <h5>Things to consider</h5>
-            <Markdown
-              class="risk-details"
-              :source="risk && risk.longDescription"
-            />
+            <Markdown class="risk-details" :source="risk.longDescription" />
           </v-col>
         </v-row>
       </v-container>
@@ -60,38 +48,15 @@ export default {
   components: { RiskDescription, Markdown },
   props: {
     searchedTerm: String,
-    activity: Object,
-    profile: {
-      type: Object
-    }
+    activity: Object
   },
   data() {
     return {};
   },
   computed: {
     ...mapGetters(["riskFactors", "riskLevels"]),
-    isAgeSet() {
-      return this.profile.age && this.activity[this.profile.age];
-    },
-    maybeAgeScore() {
-      if (this.profile.age && this.activity[this.profile.age]) {
-        return this.activity[this.profile.age];
-      } else {
-        return this.activity.generalRiskScore;
-      }
-    },
-    ageDescription() {
-      return this.$store.getters.ageDescription;
-    },
-    additionalRiskFactors() {
-      return Object.values(this.riskFactors).filter(riskFactor => {
-        console.log("Checking to see if we have", { riskFactor });
-        const lookFor = riskFactor.showWhen.split(",");
-        return lookFor.includes(this.profile[riskFactor.name]);
-      });
-    },
     risk() {
-      return this.riskLevels["riskLevel" + this.maybeAgeScore];
+      return this.riskLevels["riskLevel" + this.activity.generalRiskScore];
     }
   },
   methods: {}

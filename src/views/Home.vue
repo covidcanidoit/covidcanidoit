@@ -28,12 +28,11 @@ import HomeBanner from "@/components/HomeBanner.vue";
 import HowItWorks from "@/components/HowItWorks.vue";
 import ThanksForSuggesting from "@/components/ThanksForSuggesting.vue";
 import HowToThinkAboutRisk from "@/components/HowToThinkAboutRisk.vue";
-import { mapState, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import VueScrollTo from "vue-scrollto";
-// import Chart from "@/components/PopularTimesChart.vue"
 
 export default {
-  props: ["search", "skipProfile", "slug"],
+  props: ["search", "slug"],
   components: {
     Logo,
     SearchBar,
@@ -52,8 +51,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["userProfile"]),
-    ...mapGetters(["havePromptedForProfile", "activities", "currentCountry"]),
+    ...mapGetters(["activities", "currentCountry"]),
     activityList() {
       return Object.values(this.activities || {})
         .filter(activity => !activity.disabled)
@@ -84,21 +82,13 @@ export default {
           activity["activityName"].toLowerCase() == searchValue.toLowerCase()
         ) {
           this.result = activity;
-          // Update URL
-          if (!this.havePromptedForProfile) {
-            this.$router.push({
-              name: "CreateUserProfile",
-              params: { search: searchValue }
+          if (this.$route.params.slug != activity.slug) {
+            this.$router.replace({
+              name: "ActivitySearch",
+              params: { slug: activity.slug }
             });
-          } else {
-            if (this.$route.params.slug != activity.slug) {
-              this.$router.replace({
-                name: "ActivitySearch",
-                params: { slug: activity.slug }
-              });
-            }
-            VueScrollTo.scrollTo("#search-results");
           }
+          VueScrollTo.scrollTo("#search-results");
         }
       });
     },
