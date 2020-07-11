@@ -66,7 +66,7 @@ export default {
     /* border: 1px solid black; */
     /*border-top: 1px solid black;*/
     padding: 1em;
-    background-color: #8ad4b4;
+    background-color: $primary;
     padding: 1em;
     margin: 1em;
     position: relative;
@@ -77,7 +77,7 @@ export default {
   }
 
   .activity:nth-child(odd) {
-    background-color: #21acb0;
+    background-color: $secondary;
   }
 }
 </style>

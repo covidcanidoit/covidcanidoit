@@ -28,29 +28,13 @@ export default new Vuex.Store({
     currentUserUid: undefined,
 
     // Phase2
-    currentRegion: undefined,
-    regions: {},
+    currentRegion: "all",
 
-    // Deprecated for phase2
-    userProfile: {
-      age: undefined,
-      gender: undefined,
-      smoking: undefined,
-      comorbidity: undefined,
-      pregnant: undefined,
-      feelSick: undefined,
-      familySick: undefined,
-      COVIDpositive: undefined,
-      promptedForProfile: false
-    },
     suggestions: {}
   },
   mutations: {
     ...vuexfireMutations,
-    // Deprecated for phase2
-    setProfile(state, profile) {
-      state.userProfile = profile;
-    },
+
     setCurrentUserUid(state, currentUserUid) {
       state.currentUserUid = currentUserUid;
     },
@@ -62,81 +46,51 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    // Deprecated for phase2
-    getProfile(state) {
-      return state.userProfile;
+    currentCountry(state) {
+      return state.currentCountry;
     },
-    // Deprecated for phase2
-    ageDescription(state) {
-      if (state.userProfile.age == "riskUnder10") {
-        return "Under 10";
-      }
-      if (state.userProfile.age == "risk10To18") {
-        return "10 to 18";
-      }
-      if (state.userProfile.age == "risk18To19") {
-        return "18 to 19";
-      }
-      if (state.userProfile.age == "risk20To29") {
-        return "20 to 29";
-      }
-      if (state.userProfile.age == "risk30To49") {
-        return "30 to 49";
-      }
-      if (state.userProfile.age == "risk50To69") {
-        return "50 to 69";
-      }
-      if (state.userProfile.age == "riskOver70") {
-        return "70+";
-      }
-      return "unknown";
+    currentContent(state, getters) {
+      return state.content[getters.currentCountry] || {};
     },
-    // Deprecated for phase2
-    havePromptedForProfile(state) {
-      return state.userProfile.promptedForProfile;
+    currentRegion(state) {
+      return state.currentRegion;
     },
-    activities(state, getters) {
-      if (!getters.currentCountry) {
-        return [];
-      }
-      if (!state.content || !state.content[getters.currentCountry]) {
-        return [];
-      }
-      return state.content[getters.currentCountry].activities;
+
+    activities(_state, getters) {
+      return getters.currentContent.activities || {};
     },
-    categories(state, getters) {
-      if (!getters.currentCountry) {
-        return [];
-      }
-      if (!state.content || !state.content[getters.currentCountry]) {
-        return [];
-      }
-      return state.content[getters.currentCountry].categories;
+    categories(_state, getters) {
+      return getters.currentContent.categories || {};
     },
-    riskLevels(state, getters) {
-      if (!getters.currentCountry) {
-        return [];
-      }
-      if (!state.content || !state.content[getters.currentCountry]) {
-        return [];
-      }
-      return state.content[getters.currentCountry].riskLevels;
+    components(_state, getters) {
+      return getters.currentContent.components || {};
     },
-    riskFactors(state, getters) {
-      if (!getters.currentCountry) {
-        return [];
-      }
-      if (!state.content || !state.content[getters.currentCountry]) {
-        return [];
-      }
-      return state.content[getters.currentCountry].riskFactors;
+    riskLevels(_state, getters) {
+      return getters.currentContent.riskLevels || {};
     },
-    countries(state) {
+    riskFactors(_state, getters) {
+      return getters.currentContent.riskFactors || {};
+    },
+    regions(_state, getters) {
+      return (
+        getters.currentContent.regions || {
+          all: {
+            slug: "all",
+            shortName: "all",
+            longName: "all",
+            trending: "bad"
+          }
+        }
+      );
+    },
+
+    countrySlugs(state) {
       return Object.keys(state.content || {});
     },
-    regions(state) {
-      return state.regions;
+    regionSlugs(_state, getters) {
+      return Object.keys(getters.regions) || [];
     },
+
     currentUserUid(state) {
       return state.currentUserUid;
     },
@@ -163,24 +117,52 @@ export default new Vuex.Store({
       } else {
         return {};
       }
-    },
-    currentCountry(state) {
-      if (state.currentRegion) {
-        return state.regions[state.currentRegion].country;
-      } else {
-        return state.currentCountry;
-      }
     }
   },
   actions: {
-    bindRegions: bindFirebase("regions"),
+    // Bind via websocket for firebase content & updates
     bindContent: bindFirebase("content"),
     bindUsers: bindFirebase("users"),
     bindUserSettings: bindFirebase("userSettings"),
     bindSuggestions: bindFirebase("suggestions"),
-    changeCountry({ commit }, newCountry) {
-      commit("setCurrentCountry", newCountry);
+
+    // Firebase modifications
+    // ----------------------
+    setRegion: firebaseAction(({ state }, region) => {
+      console.log("Setting region", { region });
+      console.log(`At: content/${state.currentCountry}/${region.slug}`);
+      return db
+        .ref("content")
+        .child(state.currentCountry)
+        .child("regions")
+        .child(region.slug)
+        .set(region);
+    }),
+    deleteRegion: firebaseAction(({ state }, region) => {
+      return db
+        .ref("content")
+        .child(state.currentCountry)
+        .child("regions")
+        .child(region.slug)
+        .remove();
+    }),
+
+    // Other app actions
+    // -----------------
+    changeCountry({ commit, getters }, newCountry) {
+      if (getters.countrySlugs.includes(newCountry)) {
+        commit("setCurrentCountry", newCountry);
+      } else {
+        commit("setCurrentCountry", "US");
+      }
+    },
+    changeRegion({ commit, getters }, newRegion) {
+      commit("setCurrentRegion", newRegion);
+      if (getters.regionSlugs.includes(newRegion)) {
+        commit("setCurrentRegion", newRegion);
+      } else {
+        commit("setCurrentRegion", "all");
+      }
     }
-  },
-  modules: {}
+  }
 });

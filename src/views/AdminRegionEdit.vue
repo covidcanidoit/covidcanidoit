@@ -41,17 +41,6 @@
         </v-layout>
 
         <v-layout>
-          <v-flex xs12 md4 m-1>
-            <v-select
-              label="Country"
-              :items="countries"
-              :value="region.country"
-              @input="saveValue('country', $event)"
-            />
-          </v-flex>
-        </v-layout>
-
-        <v-layout>
           <v-flex lg12 md12 sm12 xs12>
             <h2 class="headline">Trending Status</h2>
           </v-flex>
@@ -73,29 +62,21 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { db } from "@/db.js";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   props: ["slug"],
-  async created() {
-    if (!this.regions) {
-      await this.$store.dispatch("bindRegions");
-    }
-  },
   computed: {
-    ...mapGetters(["regions", "countries"]),
+    ...mapGetters(["regions"]),
     region() {
       return this.regions[this.slug];
     }
   },
   methods: {
+    ...mapActions(["setRegion"]),
     saveValue(name, value) {
       console.log("saveValue", { name, value });
-      db.ref("regions")
-        .child(this.slug)
-        .child(name)
-        .set(value);
+      this.setRegion(Object.assign(this.region, { [name]: value }));
     }
   }
 };

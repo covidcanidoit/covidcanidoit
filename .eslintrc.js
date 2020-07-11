@@ -9,7 +9,13 @@ module.exports = {
   },
   rules: {
     "no-console": "off", // process.env.NODE_ENV === "production" ? "error" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off"
+    "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
+    "prettier/prettier": [
+      "warn",
+      {
+        htmlWhitespaceSensitivity: "ignore"
+      }
+    ]
   },
   overrides: [
     {

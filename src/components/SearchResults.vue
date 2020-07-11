@@ -1,63 +1,40 @@
 <template>
   <div class="introduction" id="search-results">
     <div v-show="activity.activityName">
-      <div v-show="profile.COVIDpositive == 'yes'">
-        <!-- if someone tested positive for coronavirus -->
-        <b class="warning">
-          Do not leave home except for essential medical visits. Even if you
-          have not tested positive and do not feel ill, you can spread COVID-19.
-        </b>
-      </div>
-
       <RiskDescription
-        :score="maybeAgeScore"
+        :score="activity.generalRiskScore"
         :activity="activity"
-        :isAgeScore="isAgeSet"
-        v-show="profile.COVIDpositive !== 'yes'"
       />
 
-      <div
-        v-show="
-          additionalRiskFactors.length > 0 || activity.showLocation == 'TRUE'
-        "
-        class="additional-factors"
-      >
-        <h2>Additional Risk Factors</h2>
-        <div class="accordion" id="accordionExample">
-          <!-- risk factor accordians -->
-          <div
-            class="card"
-            v-for="riskFactor in additionalRiskFactors"
-            :key="riskFactor.name"
-          >
-            <div class="card-header" :id="'heading-' + riskFactor.name">
-              <h2 class="mb-0 flex-row">
-                <i class="icon" :class="riskFactor.icon"></i>
-                <button
-                  class="btn btn-link collapsed"
-                  type="button"
-                  data-toggle="collapse"
-                  :data-target="'#collapse-' + riskFactor.name"
-                  aria-expanded="false"
-                  aria-controls="collapseTwo"
-                >
-                  {{ riskFactor.shortDescription }}
-                </button>
-              </h2>
-            </div>
-            <div
-              :id="'collapse-' + riskFactor.name"
-              class="collapse"
-              :aria-labelledby="'heading-' + riskFactor.name"
-              data-parent="#accordionExample"
-            >
-              <div class="card-body">
-                <Markdown :source="riskFactor.longDescription" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <v-container>
+        <v-row>
+          <v-col cols="12" md="6" class="otherRisksSeparator">
+            <h5>You are at more risk than others if</h5>
+            <v-expansion-panels focusable flat popout>
+              <v-expansion-panel
+                v-for="riskFactor in riskFactors"
+                :key="riskFactor.name"
+                class="riskFactorDropdown"
+              >
+                <v-expansion-panel-header>
+                  <span>
+                    <i class="icon" :class="riskFactor.icon" />
+                    {{ riskFactor.description }}
+                  </span>
+                </v-expansion-panel-header>
+                <v-expansion-panel-content>
+                  <Markdown :source="riskFactor.shortDescription" />
+                  <Markdown :source="riskFactor.longDescription" />
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
+          </v-col>
+          <v-col cols="12" md="6">
+            <h5>Things to consider</h5>
+            <Markdown class="risk-details" :source="risk.longDescription" />
+          </v-col>
+        </v-row>
+      </v-container>
     </div>
   </div>
 </template>
@@ -71,76 +48,34 @@ export default {
   components: { RiskDescription, Markdown },
   props: {
     searchedTerm: String,
-    activity: Object,
-    profile: {
-      type: Object
-    }
+    activity: Object
   },
   data() {
     return {};
   },
   computed: {
-    ...mapGetters(["riskFactors"]),
-    isAgeSet() {
-      return this.profile.age && this.activity[this.profile.age];
-    },
-    maybeAgeScore() {
-      if (this.profile.age && this.activity[this.profile.age]) {
-        return this.activity[this.profile.age];
-      } else {
-        return this.activity.generalRiskScore;
-      }
-    },
-    ageDescription() {
-      return this.$store.getters.ageDescription;
-    },
-    additionalRiskFactors() {
-      return Object.values(this.riskFactors).filter(riskFactor => {
-        console.log("Checking to see if we have", { riskFactor });
-        const lookFor = riskFactor.showWhen.split(",");
-        return lookFor.includes(this.profile[riskFactor.name]);
-      });
+    ...mapGetters(["riskFactors", "riskLevels"]),
+    risk() {
+      return this.riskLevels["riskLevel" + this.activity.generalRiskScore];
     }
   },
   methods: {}
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.results {
-  color: black;
-  background-color: #e8ebf5;
-}
 .warning {
   color: red;
   font-size: 24px;
 }
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-.additional-factors {
-  background-color: $color-salmon;
-  padding: 2em;
-}
-.flex-row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-}
 .icon {
   width: 40px;
+}
+.otherRisksSeparator {
+  border-right: 1px solid $secondary;
+}
+
+.riskFactorDropdown:nth-child(n + 2) {
+  border-top: 1px solid $color-lightgrey;
 }
 </style>

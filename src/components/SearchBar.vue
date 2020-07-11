@@ -1,26 +1,58 @@
 <template>
-  <div class="search-bar">
-    <p class="header">Can I...</p>
-    <div class="dropdown search-fields">
-      <VueSelect
-        label="activityName"
-        :options="this.activityList"
-        class="v-select"
-        v-model="searchTerm"
-        v-on:input="onSearch"
-      >
-        <template #no-options="{ search, searching}">
-          <template v-if="searching">
-            We don't have information on {{ computedSearch(search) }}. Click
-            "Assess my risk!" to suggest it.
-          </template>
-        </template> </VueSelect
-      ><button class="run-search" @click="onSearch">Assess my risk!</button>
+  <div class="search-bar d-flex flex-column align-stretch">
+    <div class="header">What's the risk?</div>
+    <div class="search-fields">
+      <v-container>
+        <v-row justify="center" align="center">
+          <v-col cols="8">
+            <VueSelect
+              label="activityName"
+              :options="this.activityList"
+              class="v-select"
+              v-model="searchTerm"
+              v-on:input="onSearch"
+              placeholder="Type your activity here"
+            >
+              <template #search="{ attributes, events }">
+                <v-icon>mdi-magnify</v-icon>
+                <input class="vs__search" v-bind="attributes" v-on="events" />
+              </template>
+              <template #no-options="{ search, searching}">
+                <template v-if="searching">
+                  We don't have information on {{ computedSearch(search) }}.
+                  Click "Assess my risk!" to suggest it.
+                </template>
+              </template>
+            </VueSelect>
+          </v-col>
+          <v-col cols="8" md="2">
+            <button class="run-search" @click="onSearch">
+              Search activities
+            </button>
+          </v-col>
+        </v-row>
+      </v-container>
     </div>
-    <p class="subheader">...safely during the COVID-19 outbreak.</p>
-    <div class="or-others">
-      <button @click="goToProfile">Fill in Profile</button>
-      <button @click="goToBrowse">Browse Activities</button>
+
+    <div class="suggestions-title">
+      Top Suggestions
+    </div>
+    <div class="or-others d-flex flex-wrap justify-center">
+      <button @click="quickSearch('Biking alone')">Biking alone</button>
+      <button @click="quickSearch('Shopping (Grocery store)')">
+        Grocery shopping
+      </button>
+      <button @click="quickSearch('Walking with a friend')">
+        Walk with a friend
+      </button>
+      <button @click="quickSearch('Food, Takeout')">Food, takeout</button>
+      <button @click="quickSearch('Going to barbershop/hair salon')">
+        Going to barbershop/hair salon
+      </button>
+      <button @click="quickSearch('Protesting')">Protesting</button>
+      <button @click="quickSearch('Pumping/Filling gas')">
+        Pumping/Filling gas
+      </button>
     </div>
   </div>
 </template>
@@ -59,15 +91,13 @@ export default {
       this.searchTerm = value;
       this.onSearch();
     },
-    goToBrowse() {
-      this.$router.push({ name: "Browse" });
-    },
-    goToProfile() {
-      this.$router.push({ name: "CreateUserProfile" });
-    },
     computedSearch(search) {
       this.suggested = search;
       return search;
+    },
+    quickSearch(slug) {
+      // this.$router.push({ name: "activity", slug });
+      this.$emit("searched", slug);
     }
   },
   computed: {
@@ -109,175 +139,65 @@ export default {
 
 <style lang="scss">
 @import "vue-select/src/scss/vue-select.scss";
-@media only screen and (max-width: 1022px) {
-  body {
-    background-color: black;
-  }
-  .v-select {
-    width: 50vw;
-    background-color: black;
-  }
-  .v-select .vs__dropdown-menu {
-    width: 90vw;
-  }
-  .header {
-    font-size: 32px;
-  }
-  .subheader {
-    font-size: 18px;
-  }
-}
-@media (min-width: 1023px) {
-  .v-select {
-    width: 20vw;
-    background-color: black;
-  }
-  .v-select .vs__dropdown-menu {
-    width: 25vw;
-  }
-  .header {
-    font-size: 64px;
-  }
-  .subheader {
-    font-size: 24px;
-  }
-}
 .search-bar {
-  background-color: $color-teal;
+  background-color: $secondary;
   text-align: center;
   padding-top: 2em;
+  padding-bottom: 2em;
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  h2 {
-    margin-bottom: 1em;
-  }
-
   .search-fields {
-    white-space: nowrap;
-
-    display: flex;
-    align-content: center;
-    align-items: center;
-
     .v-select {
-      border-radius: 30px 0 0 30px;
-      padding: 10px;
-      /*border-top: 1px solid $color-darkgrey;
-      border-right: none;
-      border-bottom: 1px solid $color-darkgrey;
-      border-left: 1px solid $color-darkgrey; */
-    }
-
-    button.run-search {
-      border-radius: 0 30px 30px 0;
-      border: 1px solid #fd6167;
-      padding: 9px;
-      background-color: #fd6167;
-      color: black;
-      font-size: 1.37em;
+      border-radius: 30px;
     }
   }
-
-  button.create-profile {
-    border-radius: 30px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    background-color: $color-salmon;
-    color: $color-darkgrey;
-  }
 }
 
-/* Dropdown Button */
-.dropbtn {
-  background-color: white;
-  color: black;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-}
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-  display: none;
-  position: fixed;
-  background-color: #f1f1f1;
-  width: auto;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-  max-height: 50%;
-  overflow-y: scroll;
-}
-
-/* Links inside the dropdown */
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  overflow-wrap: break-word; //not sure why this isnt working to wrap text
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
-
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
-  background-color: white;
-}
-
-.dropdownNav {
+button.run-search {
   white-space: nowrap;
-}
-
-.dropdownNavControl {
-  display: inline-block;
+  border-radius: 30px;
+  border: 1px solid $selectorgray;
+  padding: 9px;
+  background-color: $selectorgray;
+  color: white;
+  font-size: 1.25em;
 }
 
 .or-others {
   button {
     border-radius: 30px;
-    border: 1px solid $color-navy;
-    padding: 10px;
-    background-color: $color-navy;
-    color: $color-teal;
-    margin: 1em;
+    border: 1px solid $primary;
+    padding: 1em 1.5em;
+    background-color: $primary;
+    color: black;
+    margin: 0.5em 1em;
   }
 }
 
 .header {
   margin-bottom: 0;
   margin-top: 0;
-}
-.subheader {
-  margin-top: 1px;
-  clear: both;
+  font-size: 32px;
 }
 
-.v-select {
+.suggestions-title {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  font-size: 24px;
+}
+
+.col .v-select {
   background-color: white;
   border-radius: 30px 0 0 30px;
-  display: inline-block;
+  padding: 10px;
 }
 .v-select .vs__dropdown-toggle {
   border: none;
 }
 
-.v-select .vs__dropdown-toggle .vs__actions {
-  display: none;
-}
+/* .v-select .vs__dropdown-toggle .vs__actions { */
+/*   display: none; */
+/* } */
 </style>

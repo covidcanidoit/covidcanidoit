@@ -35,35 +35,18 @@ export default {
 </script>
 
 <style lang="scss">
-@media only screen and (max-width: 1022px) {
-  .category {
-    flex: 100%;
-  }
-}
-@media (min-width: 1023px) {
-  .category {
-    flex: 40%;
-  }
-}
-.banner {
-  /* background-color: steelblue; */
-}
-.bannerText {
-  text-align: center;
-  margin-left: 20%;
-  margin-right: 20%;
-}
 .categories {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 
   .category {
+    flex: 40%;
     border: 1px solid black;
     padding: 1em;
     margin: 1em;
     cursor: pointer;
-    background-color: #8ad4b4;
+    background-color: $primary;
   }
 }
 </style>

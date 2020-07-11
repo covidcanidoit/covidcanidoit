@@ -3,11 +3,11 @@
 describe("Homepage", () => {
   it("Loads with header text", () => {
     cy.visit("/US/");
-    cy.contains(".header", "Can I");
+    cy.contains(".header", "What's the risk");
   });
   it("Shows the nav", () => {
     cy.visit("/US/");
-    cy.contains(".navigation", "Find An Activity");
+    cy.contains("header", "Activities");
   });
 });
 
@@ -24,8 +24,9 @@ describe("Searching", () => {
 
 describe("Browsing Categories", () => {
   it("Navigates from homepage to categories", () => {
-    cy.visit("/US/");
-    cy.contains("Find An Activity").click();
+    cy.visit("/US/all");
+    cy.contains(".header", "What's the risk");
+    cy.contains("header a", "Activities").click();
     cy.contains("h1", "Browse activities by category");
   });
   it("Browse Category", () => {
@@ -36,46 +37,18 @@ describe("Browsing Categories", () => {
   it("Click Activity in Category", () => {
     cy.contains("Category: Errand");
     cy.contains(".activity-name", "Dog Walking").click();
-    cy.contains("Skip").click();
     cy.contains("Dog");
-    cy.contains("risk level");
-  });
-});
-
-describe("Profile", () => {
-  it("Navigates from homepage to profile", () => {
-    cy.visit("/US/");
-    cy.contains("Profile").click();
-    cy.contains("Personalized Risk Screener");
-  });
-  it("Fill in profile after search", () => {
-    cy.visit("/US/");
-    cy.get(".v-select").type("sex");
-    cy.contains("Sex with casual partner").click();
-    cy.contains("Personalized Risk Screener");
-    cy.contains("Submit").click();
-    cy.contains("Sex with casual partner");
-    cy.contains("risk level");
-  });
-  it("Add additional risk", () => {
-    cy.visit("/US/");
-    cy.get(".v-select").type("Going to bar");
-    cy.contains("Going to barber").click();
-    cy.contains("Personalized Risk Screener");
-    cy.contains("How old are you?");
-    cy.get(":nth-child(1) > .content > .form-select").select("70+");
-    //cy.contains("70+").click();
-    cy.contains("Submit").click();
-    cy.contains("Going to barber");
-    cy.contains("risk level");
-    cy.contains("Your age puts you at a higher risk");
+    cy.contains("risk");
   });
 });
 
 describe("Change Country", () => {
   it("Click and change country", () => {
     cy.visit("/US/");
-    cy.get('button[aria-label="Select country"]').click();
+    cy.get('button[aria-label="Select country"]').click({
+      multiple: true,
+      force: true
+    });
     cy.contains("US");
     cy.contains("UG");
     cy.get(".v-list-item")

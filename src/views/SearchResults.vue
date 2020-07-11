@@ -1,43 +1,20 @@
 <template>
-  <div class="home d-flex flex-column">
-    <HomeBanner v-if="currentCountry === 'US'" />
-    <div class="hero">
-      <router-link class="router" :to="{ name: 'Home' }">
-        <Logo class="logo" />
-      </router-link>
-    </div>
-    <SearchBar
-      :initialSearchTerm="search"
-      @searched="onSearch"
-      @suggested="onSuggest"
-      :activityList="activityList"
-      :perPage="5"
-    />
+  <div class="home">
     <ThanksForSuggesting v-if="noResults" :suggested="suggested" />
-    <HowToThinkAboutRisk></HowToThinkAboutRisk>
-    <HowItWorks />
+    <SearchResults :activity="result" :searched="searched" />
   </div>
 </template>
 
 <script>
-import Logo from "@/assets/ccidi-logo-full.svg";
-import SearchBar from "@/components/SearchBar.vue";
-import HomeBanner from "@/components/HomeBanner.vue";
-import HowItWorks from "@/components/HowItWorks.vue";
+import SearchResults from "@/components/SearchResults.vue";
 import ThanksForSuggesting from "@/components/ThanksForSuggesting.vue";
-import HowToThinkAboutRisk from "@/components/HowToThinkAboutRisk.vue";
 import { mapGetters } from "vuex";
-import VueScrollTo from "vue-scrollto";
 
 export default {
   props: ["search", "slug"],
   components: {
-    Logo,
-    SearchBar,
-    HowItWorks,
-    ThanksForSuggesting,
-    HomeBanner,
-    HowToThinkAboutRisk
+    SearchResults,
+    ThanksForSuggesting
   },
   data: function() {
     return {
@@ -85,7 +62,6 @@ export default {
               params: { slug: activity.slug }
             });
           }
-          VueScrollTo.scrollTo("#search-results");
         }
       });
     },
@@ -106,13 +82,5 @@ export default {
   text-align: center;
   margin-left: 20%;
   margin-right: 20%;
-}
-.hero {
-  margin: 0 auto 3em auto;
-
-  svg {
-    height: 150px;
-    width: auto;
-  }
 }
 </style>

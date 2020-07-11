@@ -1,91 +1,75 @@
 <template>
-  <div class="risk-description">
-    <div class="score-panel">
-      <div v-if="isAgeScore">
-        <b>{{ activity.activityName }}</b> has an Age-Specific risk level of
-      </div>
-      <div v-else>
-        <b>{{ activity.activityName }}</b>
-        <div style="white-space: nowrap">has a risk level of</div>
-      </div>
-      <div class="score">{{ risk && risk.riskScore }}</div>
-      <div class="score-title">{{ risk && risk.riskName }}</div>
-      <ScoreScale :score="score" />
-    </div>
-    <div class="risk-information">
-      <Markdown class="risk-details" :source="risk && risk.longDescription" />
-      <br />
-      <div v-show="activity.showLocation == 'TRUE'">
-        <p>Check to see if it's going to be crowded when and where you are</p>
-        <VueGoogleAutocomplete
-          classname="form-control"
-          id="map"
-          placeholder="Please enter the activity location"
-          @placechanged="getAddressData"
-          :enableGeolocation="true"
-          :geolocationOptions="{ enableHighAccuracy: false }"
-          types="establishment"
-        />
-        <button class="form-control btn-primary" @click="getBusyInfo">
-          How Busy Will It Be?
-        </button>
-        <!-- <div>{{ busyResults }}</div> -->
-        <div v-if="loadingBusyResults">Loading...</div>
-        <div v-else>
-          <div v-if="busyResults">
-            <div v-if="busyResults == 'error'">Data not available</div>
-            <Chart v-else :crowdingData="busyResults" />
-          </div>
+  <div>
+    <div class="risk-description d-flex flex-column">
+      <div class="score-panel">
+        <div v-if="isAgeScore">
+          <!--<b>{{ activity.activityName }}</b>-->
+          <ActivitySearchbar
+            :activityList="Object.values(activities)"
+            :initialSearch="activity"
+          ></ActivitySearchbar>
+          <span class="riskDeclare" style="white-space: nowrap">
+            &nbsp;is&nbsp;
+            <span :class="riskTokenClass">
+              <span>{{ activityRiskToken }}</span>
+              &nbsp;Risk
+            </span>
+          </span>
+          <!--has an Age-Specific risk level of-->
         </div>
-      </div>
-      <br />
-      <a
-        v-show="hideMoreInfo"
-        href="#divMoreInfo"
-        data-toggle="collapse"
-        class="moreLessInfoLink"
-        @click="toggleMoreInfo"
-        >More info</a
-      >
-      <a
-        v-show="!hideMoreInfo"
-        href="#divMoreInfo"
-        data-toggle="collapse"
-        class="moreLessInfoLink"
-        @click="toggleMoreInfo"
-        >Less info</a
-      >
-      <div
-        v-show="!hideMoreInfo"
-        id="divMoreInfo"
-        class="risk-references-container collapse"
-      >
-        <h5>Learn more:</h5>
-        <ol>
-          <li
-            v-for="(reference, index) in references"
-            :key="index"
-            class="risk-reference"
-          >
-            <a :href="reference">{{ reference }}</a>
-          </li>
-        </ol>
+        <div v-else>
+          <!--<b>{{ activity.activityName }}</b>-->
+          <ActivitySearchbar
+            :activityList="Object.values(activities)"
+            :initialSearch="activity"
+          ></ActivitySearchbar>
+          <span class="riskDeclare" style="white-space: nowrap">
+            &nbsp;is&nbsp;
+            <span :class="riskTokenClass">
+              <span>{{ activityRiskToken }}</span>
+              &nbsp;Risk
+            </span>
+          </span>
+          <!--<div style="white-space: nowrap">has a risk level of</div>-->
+        </div>
+        <div class="score">{{ risk.riskScore }}</div>
+        <div class="score-title">{{ risk.riskName }}</div>
+        <ScoreScale :score="score" />
+        <v-select
+          outlined
+          return-object
+          item-text="longName"
+          :items="regionsList"
+          @change="setCurrentRegion($event)"
+          :class="regionSelectClass"
+          v-model="selectedRegion"
+          v-if="regionsList.length > 1"
+        >
+          <template v-slot:prepend>in&nbsp;</template>
+        </v-select>
+        <v-spacer></v-spacer>
+
+        <RiskComponents :activity="activity"></RiskComponents>
       </div>
     </div>
+    <LocationComponent :activity="activity"></LocationComponent>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import Markdown from "vue-markdown";
 import ScoreScale from "@/components/ScoreScale.vue";
-import Chart from "@/components/PopularTimesChart";
-import VueGoogleAutocomplete from "vue-google-autocomplete";
-
-import axios from "axios";
+import RiskComponents from "@/components/RiskComponents.vue";
+import LocationComponent from "@/components/LocationComponent.vue";
+import ActivitySearchbar from "@/components/ActivitySearchbar.vue";
 
 export default {
-  components: { ScoreScale, Markdown, Chart, VueGoogleAutocomplete },
+  components: {
+    ScoreScale,
+    RiskComponents,
+    LocationComponent,
+    ActivitySearchbar
+  },
   props: {
     score: {
       type: String,
@@ -96,19 +80,24 @@ export default {
       default: false
     }
   },
+  mounted() {
+    this.getCurrentRegionFromList();
+  },
   data() {
     return {
       hideMoreInfo: true,
-      location: "",
-      business: "",
-      placeId: undefined,
-      busyResults: undefined,
-      loadingBusyResults: false,
-      hasSearched: false
+      hasSearched: false,
+      selectedRegion: Object
     };
   },
   computed: {
-    ...mapGetters(["riskLevels"]),
+    ...mapGetters([
+      "riskLevels",
+      "currentUserSettings",
+      "currentRegion",
+      "regions",
+      "activities"
+    ]),
     risk() {
       return this.riskLevels["riskLevel" + this.score];
     },
@@ -127,40 +116,59 @@ export default {
           ];
       }
       return referencesArray;
+    },
+    showRiskComponents: function() {
+      return (
+        this.activity.activityName && this.currentUserSettings.hasBetaAccess
+      );
+    },
+    regionsList: function() {
+      return Object.values(this.regions);
+    },
+    activityRiskToken: function() {
+      let risk;
+      switch (this.score) {
+        case "1":
+        case "2":
+          risk = "Low";
+          break;
+        case "3":
+        case "4":
+          risk = "Moderate";
+          break;
+        case "5":
+          risk = "High";
+          break;
+        default:
+          risk = "Uncertain";
+      }
+      return risk;
+    },
+    riskTokenClass: function() {
+      return "risk" + this.score;
+    },
+    regionSelectClass: function() {
+      if (this.$vuetify.breakpoint.mdAndUp) {
+        return "selectRegion regionSelectOnMediumAndUp";
+      } else {
+        return "selectRegion regionSelectOnSmaller";
+      }
     }
   },
   methods: {
     toggleMoreInfo() {
       this.hideMoreInfo = !this.hideMoreInfo;
     },
-    async getBusyInfo() {
-      this.busyResults = undefined;
-      this.loadingBusyResults = true;
-      try {
-        const locationResults = await axios.get(
-          "https://thelackthereof.org/api",
-          {
-            params: {
-              location: this.location,
-              name: this.business,
-              placeId: this.placeId
-            }
-          }
-        );
-        this.busyResults = locationResults.data;
-      } catch (e) {
-        console.log("error fetching location data");
-        console.error(e);
-        this.busyResults = "error";
-      } finally {
-        this.loadingBusyResults = false;
-        this.hasSearched = true;
-      }
+    setCurrentRegion() {
+      this.$store.dispatch("changeRegion", this.selectedRegion.slug);
     },
-    getAddressData(something, rawSomething) {
-      console.log("Got some address data", something, rawSomething);
-      this.placeId = rawSomething.reference;
-      this.getBusyInfo();
+    getCurrentRegionFromList() {
+      this.selectedRegion = this.regions[this.currentRegion];
+    }
+  },
+  watch: {
+    currentRegion() {
+      this.getCurrentRegionFromList();
     }
   }
 };
@@ -168,13 +176,8 @@ export default {
 
 <style scoped lang="scss">
 .risk-description {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  color: black;
-  background-color: #e8ebf5;
-
   .score-panel {
+    width: 100%;
     padding: 1em;
     margin: auto;
     flex: 30%;
@@ -205,10 +208,48 @@ export default {
     font-size: 0.8em;
   }
 
-  .risk-information {
-    flex: 70%;
-    margin: auto;
-    padding: 1em;
+  .riskComponentsContainer {
+    background-color: white;
+  }
+
+  .v-tab--active {
+    background-color: #f1f8e9;
+  }
+
+  .tabCard {
+    text-align: left;
+    background-color: #f1f8e9;
+  }
+
+  .selectRegion {
+    width: 30%;
+    min-width: 10%;
+    margin: 0 auto;
+    margin-top: 2em;
+  }
+  .regionSelectOnSmaller {
+    width: 100%;
+  }
+  .regionSelectOnMediumAndUp {
+    width: 30%;
+  }
+  .riskDeclare {
+    font-size: 2em;
+  }
+  .risk1 {
+    color: $gogreen;
+  }
+  .risk2 {
+    color: $pausegreen;
+  }
+  .risk3 {
+    color: $cautionyellow;
+  }
+  .risk4 {
+    color: $warningorange;
+  }
+  .risk5 {
+    color: $stopred;
   }
 }
 </style>

@@ -1,22 +1,37 @@
 <template>
   <div class="score-scale">
-    <div class="score-scale-entry" :class="[score == 1 ? 'selected-1' : '']">
+    <div
+      class="score-scale-entry"
+      :class="[score == 1 ? 'selected selected-1' : '']"
+    >
       1
     </div>
     <div class="connector"></div>
-    <div class="score-scale-entry" :class="[score == 2 ? 'selected-2' : '']">
+    <div
+      class="score-scale-entry"
+      :class="[score == 2 ? 'selected selected-2' : '']"
+    >
       2
     </div>
     <div class="connector"></div>
-    <div class="score-scale-entry" :class="[score == 3 ? 'selected-3' : '']">
+    <div
+      class="score-scale-entry"
+      :class="[score == 3 ? 'selected selected-3' : '']"
+    >
       3
     </div>
     <div class="connector"></div>
-    <div class="score-scale-entry" :class="[score == 4 ? 'selected-4' : '']">
+    <div
+      class="score-scale-entry"
+      :class="[score == 4 ? 'selected selected-4' : '']"
+    >
       4
     </div>
     <div class="connector"></div>
-    <div class="score-scale-entry" :class="[score == 5 ? 'selected-5' : '']">
+    <div
+      class="score-scale-entry"
+      :class="[score == 5 ? 'selected selected-5' : '']"
+    >
       5
     </div>
   </div>
@@ -55,20 +70,29 @@ export default {
     width: 10px;
   }
 
+  .selected {
+    border-radius: 30px;
+    width: 60px;
+    height: 60px;
+    line-height: 58px;
+    font-size: 2em;
+    color: white;
+  }
+
   .selected-1 {
-    background-color: #339900;
+    background-color: $gogreen;
   }
   .selected-2 {
-    background-color: #99cc33;
+    background-color: $pausegreen;
   }
   .selected-3 {
-    background-color: #ffcc00;
+    background-color: $cautionyellow;
   }
   .selected-4 {
-    background-color: #ff9966;
+    background-color: $warningorange;
   }
   .selected-5 {
-    background-color: #cc3300;
+    background-color: $stopred;
   }
 }
 </style>

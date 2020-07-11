@@ -7,9 +7,17 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
-    "lint": "vue-cli-service lint",
+    "lint": "vue-cli-service lint --fix",
     "deploy-staging": "yarn build --mode staging && yarn run firebase -P ccidi-staging deploy --only hosting",
     "deploy-db-rules": "yarn build && yarn run firebase deploy --only database"
+  },
+  "lint-staged": {
+    "*.js": [
+      "yarn lint"
+    ],
+    "*.vue": [
+      "yarn lint"
+    ]
   },
   "dependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.10.1",
@@ -57,11 +65,13 @@
     "eslint-plugin-vue": "^6.2.2",
     "firebase-tools": "^8.4.2",
     "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
     "prettier": "^1.19.1",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "vue-cli-plugin-vuefire": "~1.0.2",
     "vue-cli-plugin-vuetify": "~2.0.5",
+    "vue-svg-loader": "^0.16.0",
     "vue-template-compiler": "^2.6.11",
     "vuetify-loader": "^1.3.0"
   }

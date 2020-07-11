@@ -1,9 +1,8 @@
 <template>
   <div>
     <a href="/Protest_V2.pdf" target="_blank">
-      <v-alert class="banner" color="#fd6167" type="warning" icon=" ">
-        Going to a protest?<br />
-        Here are some tips >>>
+      <v-alert class="banner" color="$secondary" type="warning" icon=" ">
+        Going to a protest? Here are some tips &gt;&gt;&gt;
       </v-alert>
     </a>
   </div>
@@ -15,7 +14,9 @@ export default {};
 
 <style scoped lang="scss">
 .banner {
-  font-size: 2em;
   text-align: center;
+  background-color: $primary;
+  color: black;
+  font-size: 0.75em;
 }
 </style>

@@ -2,7 +2,8 @@
   <div>
     <v-card>
       <v-card-title>
-        Activities<v-icon>mdi-run</v-icon>
+        Activities
+        <v-icon>mdi-run</v-icon>
         <v-spacer></v-spacer>
         <v-text-field
           v-model="activitySearch"
@@ -14,14 +15,14 @@
         <v-spacer></v-spacer>
         <v-dialog v-model="showNewActivityPrompt" max-width="500">
           <template v-slot:activator="{ on }">
-            <v-btn class="buttonNew" color="dark" dark v-on="on"
-              >&#x2b; New</v-btn
-            >
+            <v-btn class="buttonNew" color="dark" dark v-on="on">
+              &#x2b; New
+            </v-btn>
           </template>
           <v-card>
-            <v-card-title class="headline"
-              >Enter new activity name</v-card-title
-            >
+            <v-card-title class="headline">
+              Enter new activity name
+            </v-card-title>
             <v-text-field
               class="promptInput"
               v-model="newActivityName"
@@ -37,16 +38,17 @@
                 color="secondary darken-1"
                 text
                 @click="showNewActivityPrompt = false"
-                >Cancel</v-btn
               >
-              <v-btn color="primary darken-1" text @click="newActivityOk"
-                >Ok</v-btn
-              >
+                Cancel
+              </v-btn>
+              <v-btn color="primary darken-1" text @click="newActivityOk">
+                Ok
+              </v-btn>
             </v-card-actions>
           </v-card>
-          <v-alert v-model="activityAlreadyExistsError" type="error"
-            >Activity already exists!</v-alert
-          >
+          <v-alert v-model="activityAlreadyExistsError" type="error">
+            Activity already exists!
+          </v-alert>
         </v-dialog>
       </v-card-title>
       <v-data-table
@@ -58,8 +60,9 @@
           <v-icon
             :title="timestampTooltip(item.lastVerifiedOn, item.lastVerifiedBy)"
             @click="VerifyWithTimestamp(item.slug)"
-            >mdi-stamper</v-icon
           >
+            mdi-stamper
+          </v-icon>
           <router-link
             :to="{
               name: 'AdminActivityEdit',
@@ -69,40 +72,42 @@
                 currentUserSettings: currentUserSettings
               }
             }"
-            ><v-icon title="Edit this activity"
-              >mdi-lead-pencil</v-icon
-            ></router-link
           >
+            <v-icon title="Edit this activity">mdi-lead-pencil</v-icon>
+          </router-link>
           <v-icon
             :title="EnableDisableActivityTooltip(item.disabled)"
             @click="toggleActivityIsDisabled(item.slug, item.disabled)"
-            >{{ activityIsActive(item.disabled) }}</v-icon
           >
+            {{ activityIsActive(item.disabled) }}
+          </v-icon>
           <v-icon
             title="Delete this activity"
             @click="showConfirmActivityDelete(item.slug)"
-            >mdi-trash-can</v-icon
           >
+            mdi-trash-can
+          </v-icon>
         </template>
       </v-data-table>
     </v-card>
     <v-dialog v-model="confirmActivityDelete" max-width="500">
       <v-card>
-        <v-card-title
-          >Are you sure you want to delete this activity?</v-card-title
-        >
+        <v-card-title>
+          Are you sure you want to delete this activity?
+        </v-card-title>
         <v-card-text>{{ activitySlugToDelete }}</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="secondary darken-1" text @click="deleteActivity"
-            >Yes</v-btn
-          >
+          <v-btn color="secondary darken-1" text @click="deleteActivity">
+            Yes
+          </v-btn>
           <v-btn
             color="primary darken-1"
             text
             @click="confirmActivityDelete = false"
-            >No</v-btn
           >
+            No
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

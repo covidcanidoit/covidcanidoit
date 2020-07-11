@@ -126,8 +126,9 @@
                 v-for="keyword in keywords"
                 :key="keyword"
                 @click:close="removeKeyword(keyword)"
-                >{{ keyword }}</v-chip
               >
+                {{ keyword }}
+              </v-chip>
             </v-layout>
           </v-flex>
           <v-flex lg1></v-flex>
@@ -162,12 +163,12 @@
                 <v-card-text>
                   <v-text-field
                     type="number"
-                    label="Risk"
+                    label="Crowding score"
                     min="1"
                     max="3"
                     :value="activity.crowding"
                     @input="saveValue('crowding', $event)"
-                  ></v-text-field>
+                  />
                   <v-textarea
                     label="Crowding Notes"
                     :value="activity.crowdingNotes"
@@ -186,12 +187,12 @@
                 <v-card-text>
                   <v-text-field
                     type="number"
-                    label="Risk"
+                    label="Droplets score"
                     min="1"
                     max="3"
                     :value="activity.droplets"
                     @input="saveValue('droplets', $event)"
-                  ></v-text-field>
+                  />
                   <v-textarea
                     label="Droplets Notes"
                     :value="activity.dropletsNotes"
@@ -210,18 +211,18 @@
                 <v-card-text>
                   <v-text-field
                     type="number"
-                    label="Risk"
+                    label="Exposure Time score"
                     min="1"
                     max="3"
                     :value="activity.exposureTime"
                     @input="saveValue('exposureTime', $event)"
-                  ></v-text-field>
+                  />
                   <v-textarea
                     label="Exposure Time Notes"
                     :value="activity.exposureTimeNotes"
                     @input="saveValue('exposureTimeNotes', $event)"
                   ></v-textarea>
-                  <v-label> Exposure Time Notes Preview</v-label>
+                  <v-label>Exposure Time Notes Preview</v-label>
                   <v-card outlined>
                     <Markdown :source="activity.exposureTimeNotes" />
                   </v-card>
@@ -234,12 +235,12 @@
                 <v-card-text>
                   <v-text-field
                     type="number"
-                    label="Risk"
+                    label="Ventilation score"
                     min="1"
                     max="3"
                     :value="activity.ventilation"
                     @input="saveValue('ventilation', $event)"
-                  ></v-text-field>
+                  />
                   <v-textarea
                     label="Ventilation Notes"
                     :value="activity.ventilationNotes"
@@ -482,9 +483,7 @@ export default {
         .set(Date.parse(now.toUTCString()));
     },
     lookupActivity() {
-      this.currentKey = Object.keys(this.activities).find(
-        key => this.activities[key].activityName === this.activityName
-      );
+      this.currentKey = this.slug;
     },
     removeKeyword(deleteKeyword) {
       this.activity.activityKeywords = this.keywords
@@ -496,7 +495,7 @@ export default {
       return new Date(milliseconds).toLocaleString();
     },
     readableUser(uid) {
-      const email = this.users[uid].email;
+      const email = this.users[uid]?.email || "unknown";
       return email;
     },
     clearValue(event) {
