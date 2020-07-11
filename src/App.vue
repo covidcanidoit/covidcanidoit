@@ -93,10 +93,18 @@
     </v-navigation-drawer>
 
     <v-app-bar app>
-      <div>
-        <SmallLogo style="height: 2em; width: auto" />
-        COVID
-        <span class="can-i">Can I Do It?</span>
+      <div class="nav-logo">
+        <router-link
+          class="router mx-3"
+          :to="{
+            name: 'Home',
+            params: { country: currentCountry, region: currentRegion }
+          }"
+        >
+          <SmallLogo style="height: 2em; width: auto" />
+          COVID
+          <span class="can-i">Can I Do It?</span>
+        </router-link>
       </div>
 
       <v-spacer />
@@ -256,5 +264,14 @@ body {
   /* max-width: 1024px; */
   /* margin: 0 auto;
   border: 1px solid $color-lightgrey; */
+}
+.nav-logo a,
+.nav-logo a:visited,
+.nav-logo a:hover {
+  text-decoration: none;
+  color: black;
+  .can-i {
+    color: $logodark;
+  }
 }
 </style>

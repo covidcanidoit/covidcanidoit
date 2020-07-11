@@ -42,38 +42,6 @@ describe("Browsing Categories", () => {
   });
 });
 
-/*
-describe("Profile", () => {
-  it("Navigates from homepage to profile", () => {
-    cy.visit("/US/");
-    cy.contains("Profile").click();
-    cy.contains("Personalized Risk Screener");
-  });
-  it("Fill in profile after search", () => {
-    cy.visit("/US/");
-    cy.get(".v-select").type("sex");
-    cy.contains("Sex with casual partner").click();
-    cy.contains("Personalized Risk Screener");
-    cy.contains("Submit").click();
-    cy.contains("Sex with casual partner");
-    cy.contains("risk");
-  });
-  it("Add additional risk", () => {
-    cy.visit("/US/");
-    cy.get(".v-select").type("Going to bar");
-    cy.contains("Going to barber").click();
-    cy.contains("Personalized Risk Screener");
-    cy.contains("How old are you?");
-    cy.get(":nth-child(1) > .content > .form-select").select("70+");
-    //cy.contains("70+").click();
-    cy.contains("Submit").click();
-    cy.contains("Going to barber");
-    cy.contains("risk");
-    cy.contains("Your age puts you at a higher risk");
-  });
-});
-*/
-
 describe("Change Country", () => {
   it("Click and change country", () => {
     cy.visit("/US/");

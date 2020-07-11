@@ -32,8 +32,8 @@
           </span>
           <!--<div style="white-space: nowrap">has a risk level of</div>-->
         </div>
-        <div class="score">{{ risk && risk.riskScore }}</div>
-        <div class="score-title">{{ risk && risk.riskName }}</div>
+        <div class="score">{{ risk.riskScore }}</div>
+        <div class="score-title">{{ risk.riskName }}</div>
         <ScoreScale :score="score" />
         <v-select
           outlined
@@ -43,6 +43,7 @@
           @change="setCurrentRegion($event)"
           :class="regionSelectClass"
           v-model="selectedRegion"
+          v-if="regionsList.length > 1"
         >
           <template v-slot:prepend>in&nbsp;</template>
         </v-select>

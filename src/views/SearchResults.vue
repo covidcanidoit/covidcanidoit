@@ -1,22 +1,17 @@
 <template>
   <div class="home">
     <ThanksForSuggesting v-if="noResults" :suggested="suggested" />
-    <SearchResults
-      :activity="result"
-      :searched="searched"
-      :profile="userProfile"
-    />
+    <SearchResults :activity="result" :searched="searched" />
   </div>
 </template>
 
 <script>
 import SearchResults from "@/components/SearchResults.vue";
 import ThanksForSuggesting from "@/components/ThanksForSuggesting.vue";
-import { mapState, mapGetters } from "vuex";
-//import VueScrollTo from "vue-scrollto";
+import { mapGetters } from "vuex";
 
 export default {
-  props: ["search", "skipProfile", "slug"],
+  props: ["search", "slug"],
   components: {
     SearchResults,
     ThanksForSuggesting
@@ -30,8 +25,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["userProfile"]),
-    ...mapGetters(["havePromptedForProfile", "activities", "currentCountry"]),
+    ...mapGetters(["activities", "currentCountry"]),
     activityList() {
       return Object.values(this.activities || {})
         .filter(activity => !activity.disabled)
@@ -62,20 +56,11 @@ export default {
           activity["activityName"].toLowerCase() == searchValue.toLowerCase()
         ) {
           this.result = activity;
-          // Update URL
-          if (!this.havePromptedForProfile) {
+          if (this.$route.params.slug != activity.slug) {
             this.$router.push({
-              name: "CreateUserProfile",
-              params: { search: searchValue }
+              name: "ActivitySearch",
+              params: { slug: activity.slug }
             });
-          } else {
-            if (this.$route.params.slug != activity.slug) {
-              this.$router.replace({
-                name: "ActivitySearch",
-                params: { slug: activity.slug }
-              });
-            }
-            //VueScrollTo.scrollTo("#search-results");
           }
         }
       });

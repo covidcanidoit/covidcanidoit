@@ -6,7 +6,6 @@ import Home from "@/views/Home.vue";
 import Browse from "@/views/Browse.vue";
 import BrowseCategory from "@/views/BrowseCategory.vue";
 import About from "@/views/About.vue";
-import CreateUserProfile from "@/views/CreateUserProfile.vue";
 import Admin from "@/views/Admin.vue";
 import AdminRegionEdit from "@/views/AdminRegionEdit.vue";
 import AdminActivityEdit from "@/views/AdminActivityEdit.vue";
@@ -131,12 +130,6 @@ const routes = [
         path: "about",
         name: "About",
         component: About
-      },
-      {
-        path: "profile",
-        name: "CreateUserProfile",
-        component: CreateUserProfile,
-        props: true
       }
     ]
   },
