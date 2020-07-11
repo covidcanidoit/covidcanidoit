@@ -15,8 +15,6 @@
     />
     <ThanksForSuggesting v-if="noResults" :suggested="suggested" />
     <HowToThinkAboutRisk></HowToThinkAboutRisk>
-    <!-- will pass in data as crowdingData based on the example data Brock sent me -->
-    <!-- <Chart crowdingData= /> -->
     <HowItWorks />
   </div>
 </template>
@@ -40,7 +38,6 @@ export default {
     ThanksForSuggesting,
     HomeBanner,
     HowToThinkAboutRisk
-    // Chart
   },
   data: function() {
     return {
