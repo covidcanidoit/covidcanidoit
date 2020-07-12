@@ -33,27 +33,6 @@
         </v-row>
       </v-container>
     </div>
-
-    <div class="suggestions-title">
-      Top Suggestions
-    </div>
-    <div class="or-others d-flex flex-wrap justify-center">
-      <button @click="quickSearch('Biking alone')">Biking alone</button>
-      <button @click="quickSearch('Shopping (Grocery store)')">
-        Grocery shopping
-      </button>
-      <button @click="quickSearch('Walking with a friend')">
-        Walk with a friend
-      </button>
-      <button @click="quickSearch('Food, Takeout')">Food, takeout</button>
-      <button @click="quickSearch('Going to barbershop/hair salon')">
-        Going to barbershop/hair salon
-      </button>
-      <button @click="quickSearch('Protesting')">Protesting</button>
-      <button @click="quickSearch('Pumping/Filling gas')">
-        Pumping/Filling gas
-      </button>
-    </div>
   </div>
 </template>
 
@@ -94,10 +73,6 @@ export default {
     computedSearch(search) {
       this.suggested = search;
       return search;
-    },
-    quickSearch(slug) {
-      // this.$router.push({ name: "activity", slug });
-      this.$emit("searched", slug);
     }
   },
   computed: {
@@ -143,7 +118,6 @@ export default {
   background-color: $secondary;
   text-align: center;
   padding-top: 2em;
-  padding-bottom: 2em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -163,17 +137,6 @@ button.run-search {
   background-color: $selectorgray;
   color: white;
   font-size: 1.25em;
-}
-
-.or-others {
-  button {
-    border-radius: 30px;
-    border: 1px solid $primary;
-    padding: 1em 1.5em;
-    background-color: $primary;
-    color: black;
-    margin: 0.5em 1em;
-  }
 }
 
 .header {

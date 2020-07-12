@@ -14,6 +14,7 @@
       :perPage="5"
     />
     <ThanksForSuggesting v-if="noResults" :suggested="suggested" />
+    <SuggestedSearches @searched="onSearch" />
     <HowToThinkAboutRisk></HowToThinkAboutRisk>
     <HowItWorks />
   </div>
@@ -22,6 +23,7 @@
 <script>
 import Logo from "@/assets/ccidi-logo-full.svg";
 import SearchBar from "@/components/SearchBar.vue";
+import SuggestedSearches from "@/components/SuggestedSearches.vue";
 import HomeBanner from "@/components/HomeBanner.vue";
 import HowItWorks from "@/components/HowItWorks.vue";
 import ThanksForSuggesting from "@/components/ThanksForSuggesting.vue";
@@ -34,6 +36,7 @@ export default {
   components: {
     Logo,
     SearchBar,
+    SuggestedSearches,
     HowItWorks,
     ThanksForSuggesting,
     HomeBanner,
