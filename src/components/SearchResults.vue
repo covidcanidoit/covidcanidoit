@@ -8,7 +8,13 @@
 
       <v-container>
         <v-row>
-          <v-col cols="12" md="6" class="otherRisksSeparator">
+          <v-col
+            cols="12"
+            md="6"
+            order="last"
+            order-md="first"
+            class="otherRisksSeparator"
+          >
             <h5>You are at more risk than others if</h5>
             <v-expansion-panels focusable flat popout>
               <v-expansion-panel
@@ -29,7 +35,7 @@
               </v-expansion-panel>
             </v-expansion-panels>
           </v-col>
-          <v-col cols="12" md="6">
+          <v-col cols="12" md="6" order="first" order-md="last">
             <h5>Things to consider</h5>
             <Markdown class="risk-details" :source="risk.longDescription" />
           </v-col>
