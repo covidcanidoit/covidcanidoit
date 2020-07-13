@@ -2,19 +2,22 @@
   <div class="home">
     <ThanksForSuggesting v-if="noResults" :suggested="suggested" />
     <SearchResults :activity="result" :searched="searched" />
+    <SuggestedSearches @searched="onSearch" />
   </div>
 </template>
 
 <script>
 import SearchResults from "@/components/SearchResults.vue";
 import ThanksForSuggesting from "@/components/ThanksForSuggesting.vue";
+import SuggestedSearches from "@/components/SuggestedSearches.vue";
 import { mapGetters } from "vuex";
 
 export default {
   props: ["search", "slug"],
   components: {
     SearchResults,
-    ThanksForSuggesting
+    ThanksForSuggesting,
+    SuggestedSearches
   },
   data: function() {
     return {

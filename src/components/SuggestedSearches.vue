@@ -45,6 +45,7 @@ export default {
 .suggested-searches {
   background-color: $secondary;
   text-align: center;
+  padding-top: 0.25em;
   padding-bottom: 2em;
 }
 
