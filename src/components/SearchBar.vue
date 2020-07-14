@@ -170,14 +170,14 @@ button.run-search {
   margin: 0;
 }
 
-.col.searchbarOnSmaller {
+.col-12.searchbarOnSmaller {
   flex: 1 1 100%;
+  font-size: 0.9rem;
 }
 .searchbarOnSmaller button {
   width: 100%;
 }
 .searchbarMediumAndUp .v-select {
   width: 100%;
-  font-size: 0.9rem;
 }
 </style>
