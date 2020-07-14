@@ -4,10 +4,13 @@
       <div class="score-panel">
         <div v-if="isAgeScore">
           <!--<b>{{ activity.activityName }}</b>-->
-          <ActivitySearchbar
-            :activityList="Object.values(activities)"
-            :initialSearch="activity"
-          ></ActivitySearchbar>
+          <div :class="searchbarContainerClass">
+            <ActivitySearchbar
+              :activityList="Object.values(activities)"
+              :initialSearch="activity"
+              :inHome="false"
+            ></ActivitySearchbar>
+          </div>
           <span class="riskDeclare" style="white-space: nowrap">
             &nbsp;is&nbsp;
             <span :class="riskTokenClass">
@@ -19,10 +22,12 @@
         </div>
         <div v-else>
           <!--<b>{{ activity.activityName }}</b>-->
-          <ActivitySearchbar
-            :activityList="Object.values(activities)"
-            :initialSearch="activity"
-          ></ActivitySearchbar>
+          <div :class="searchbarContainerClass">
+            <ActivitySearchbar
+              :activityList="Object.values(activities)"
+              :initialSearch="activity"
+            ></ActivitySearchbar>
+          </div>
           <span class="riskDeclare" style="white-space: nowrap">
             &nbsp;is&nbsp;
             <span :class="riskTokenClass">
@@ -153,6 +158,13 @@ export default {
       } else {
         return "selectRegion regionSelectOnSmaller";
       }
+    },
+    searchbarContainerClass: function() {
+      if (this.$vuetify.breakpoint.mdAndUp) {
+        return "searchbarContainerOnMediumAndUp";
+      } else {
+        return "searchbarContainerOnSmaller";
+      }
     }
   },
   methods: {
@@ -219,6 +231,15 @@ export default {
   .tabCard {
     text-align: left;
     background-color: #f1f8e9;
+  }
+
+  .searchbarContainerOnSmaller {
+    width: 100%;
+  }
+
+  .searchbarContainerOnMediumAndUp {
+    width: 30%;
+    margin: 0 auto;
   }
 
   .selectRegion {

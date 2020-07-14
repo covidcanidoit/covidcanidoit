@@ -2,30 +2,12 @@
   <div class="search-bar d-flex flex-column align-stretch">
     <div class="header">What's the risk?</div>
     <div class="search-fields">
-      <v-container>
-        <v-row justify="center" align="center">
-          <v-col cols="8">
-            <VueSelect
-              label="activityName"
-              :options="this.activityList"
-              class="v-select"
-              v-model="searchTerm"
-              v-on:input="onSearch"
-              placeholder="Type your activity here"
-            >
-              <template #search="{ attributes, events }">
-                <v-icon>mdi-magnify</v-icon>
-                <input class="vs__search" v-bind="attributes" v-on="events" />
-              </template>
-              <template #no-options="{ search, searching}">
-                <template v-if="searching">
-                  We don't have information on {{ computedSearch(search) }}.
-                  Click "Assess my risk!" to suggest it.
-                </template>
-              </template>
-            </VueSelect>
+      <v-container :class="containerRowClass">
+        <v-row :class="containerRowClass" justify="center" align="center">
+          <v-col cols="12" md="8" :class="searchbarClass">
+            <ActivitySearchbar :inHome="true"></ActivitySearchbar>
           </v-col>
-          <v-col cols="8" md="2">
+          <v-col cols="12" md="2" :class="searchbarClass">
             <button class="run-search" @click="onSearch">
               Search activities
             </button>
@@ -38,11 +20,13 @@
 
 <script>
 import Fuse from "fuse.js";
-import VueSelect from "vue-select";
+//import VueSelect from "vue-select";
+import ActivitySearchbar from "@/components/ActivitySearchbar.vue";
 
 export default {
   components: {
-    VueSelect
+    //VueSelect
+    ActivitySearchbar
   },
   props: {
     msg: String,
@@ -76,6 +60,20 @@ export default {
     }
   },
   computed: {
+    containerRowClass() {
+      if (this.$vuetify.breakpoint.mdAndUp) {
+        return "";
+      } else {
+        return "containerRowColumnsOnSmaller";
+      }
+    },
+    searchbarClass() {
+      if (this.$vuetify.breakpoint.mdAndUp) {
+        return ".searchbarMediumAndUp";
+      } else {
+        return "containerRowColumnsOnSmaller searchbarOnSmaller";
+      }
+    },
     activityListComplete() {
       const options = {
         minMatchCharLength: 2,
@@ -160,7 +158,25 @@ button.run-search {
   border: none;
 }
 
-/* .v-select .vs__dropdown-toggle .vs__actions { */
-/*   display: none; */
-/* } */
+.container.containerRowColumnsOnSmaller {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+
+.row.containerRowColumnsOnSmaller {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+
+.col.searchbarOnSmaller {
+  flex: 1 1 100%;
+}
+.searchbarOnSmaller button {
+  width: 100%;
+}
+.searchbarMediumAndUp .v-select {
+  width: 100%;
+}
 </style>

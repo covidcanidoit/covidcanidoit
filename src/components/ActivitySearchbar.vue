@@ -3,11 +3,15 @@
     label="activityName"
     :options="filteredActivities"
     :getOptionKey="option => option.slug"
-    :class="searchbarClass"
+    class="searchbar"
     v-model="activity"
     v-on:input="onSearch"
     placeholder="Type your activity here"
   >
+    <template #search="{ attributes, events }">
+      <v-icon v-if="inHome">mdi-magnify</v-icon>
+      <input class="vs__search" v-bind="attributes" v-on="events" />
+    </template>
     <template #no-options="{ search, searching}">
       <template v-if="searching">
         We don't have information on {{ computedSearch(search) }}. Click "Assess
@@ -27,7 +31,8 @@ export default {
     VueSelect
   },
   props: {
-    initialSearch: Object
+    initialSearch: Object,
+    inHome: Boolean
   },
   data: function() {
     return {
@@ -45,7 +50,7 @@ export default {
         this.suggested = "";
       }
       this.$emit("searched", this.searchTerm);
-      if (this.$route.params.slug != this.activity.slug) {
+      if (this.activity && this.$route.params.slug != this.activity.slug) {
         this.$router.replace({
           name: "ActivitySearch",
           params: { slug: this.activity.slug }
@@ -97,21 +102,26 @@ export default {
   mounted() {
     console.log("initialSearch", this.initialSearch);
     if (this.initialSearch) {
-      console.log("initialSearch", this.initialSearch);
       this.activity = this.initialSearch;
       this.onSearch();
+    }
+    if (!this.activity.slug) {
+      console.log("clearing out activity name")
+      this.activity = null;
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.v-select {
+.searchbar {
   padding: 10px;
   border: 1px solid $color-medgrey;
   border-radius: 4px;
   min-width: 15%;
   display: inline-block;
+  width: 100%;
+  background-color: white;
 }
 .lowerThanMedium {
   width: 100%;
