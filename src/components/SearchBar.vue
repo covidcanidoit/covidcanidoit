@@ -178,5 +178,6 @@ button.run-search {
 }
 .searchbarMediumAndUp .v-select {
   width: 100%;
+  font-size: 0.9rem;
 }
 </style>
