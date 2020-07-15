@@ -264,6 +264,12 @@ body {
   /* max-width: 1024px; */
   /* margin: 0 auto;
   border: 1px solid $color-lightgrey; */
+
+  a,
+  a:visited,
+  a:hover {
+    color: $secondary;
+  }
 }
 .nav-logo a,
 .nav-logo a:visited,
