@@ -14,8 +14,11 @@
     </template>
     <template #no-options="{ search, searching}">
       <template v-if="searching">
-        We don't have information on {{ computedSearch(search) }}. Click "Assess
-        my risk!" to suggest it.
+        <v-btn @click="onSearch">
+          Request a risk score
+          <br />
+          for {{ computedSearch(search) }}
+        </v-btn>
       </template>
     </template>
   </VueSelect>
@@ -106,7 +109,7 @@ export default {
       this.onSearch();
     }
     if (!this.activity.slug) {
-      console.log("clearing out activity name")
+      console.log("clearing out activity name");
       this.activity = null;
     }
   }
@@ -122,6 +125,10 @@ export default {
   display: inline-block;
   width: 100%;
   background-color: white;
+
+  &.vs--open {
+    border-radius: 30px 30px 0px 0px !important;
+  }
 }
 .lowerThanMedium {
   width: 100%;

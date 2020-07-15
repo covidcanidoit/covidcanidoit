@@ -49,9 +49,7 @@
           :class="regionSelectClass"
           v-model="selectedRegion"
           v-if="regionsList.length > 1"
-        >
-          <template v-slot:prepend>in&nbsp;</template>
-        </v-select>
+        ></v-select>
         <v-spacer></v-spacer>
 
         <RiskComponents :activity="activity"></RiskComponents>

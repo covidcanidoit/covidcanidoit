@@ -111,11 +111,17 @@ export default {
   margin-right: 20%;
 }
 .hero {
-  margin: 0 auto 3em auto;
+  margin: 4em auto;
 
   svg {
-    height: 150px;
-    width: auto;
+    height: auto;
+    width: 35vw;
+  }
+  @media #{map-get($display-breakpoints, 'sm-and-down')} {
+    svg {
+      height: auto;
+      width: 90vw;
+    }
   }
 }
 </style>
