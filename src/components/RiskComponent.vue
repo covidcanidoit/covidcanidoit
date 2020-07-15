@@ -9,7 +9,7 @@
     <v-col cols="6" md="12">
       <div class="componentTitle">{{ title }}</div>
       <div class="componentRiskLabel">{{ risk }}</div>
-      <div>
+      <div class="notes">
         <Markdown :source="notes" />
         <!-- <v-btn>Learn more about {{ type }}</v-btn> -->
       </div>
@@ -89,5 +89,10 @@ div .cls-2 {
 }
 .componentTitle {
   font-weight: bold;
+}
+.notes {
+  margin: 1em;
+  text-align: left;
+  font-size: 0.75em;
 }
 </style>
