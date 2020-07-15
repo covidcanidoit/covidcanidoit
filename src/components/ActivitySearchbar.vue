@@ -14,7 +14,7 @@
     </template>
     <template #no-options="{ search, searching}">
       <template v-if="searching">
-        <v-btn>
+        <v-btn @click="onSearch">
           Request a risk score
           <br />
           for {{ computedSearch(search) }}
