@@ -132,15 +132,19 @@ export default {
       let risk;
       switch (this.score) {
         case "1":
-        case "2":
           risk = "Low";
           break;
-        case "3":
-        case "4":
+        case "2":
           risk = "Moderate";
           break;
-        case "5":
+        case "3":
+          risk = "Elevated";
+          break;
+        case "4":
           risk = "High";
+          break;
+        case "5":
+          risk = "Critical";
           break;
         default:
           risk = "Uncertain";
