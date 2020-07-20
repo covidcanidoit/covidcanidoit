@@ -620,7 +620,7 @@ export default {
 .about {
   margin: 0 2em;
   border: 1px solid #ccc;
-  background-color: $primary;
+  background-color: #ffffff;
   .infoHeader {
     overflow-x: auto;
   }
