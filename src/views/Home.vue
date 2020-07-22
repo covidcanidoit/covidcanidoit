@@ -9,11 +9,9 @@
     <SearchBar
       :initialSearchTerm="search"
       @searched="onSearch"
-      @suggested="onSuggest"
       :activityList="activityList"
       :perPage="5"
     />
-    <ThanksForSuggesting v-if="noResults" :suggested="suggested" />
     <SuggestedSearches @searched="onSearch" />
     <HowToThinkAboutRisk></HowToThinkAboutRisk>
     <HowItWorks />
@@ -26,7 +24,6 @@ import SearchBar from "@/components/SearchBar.vue";
 import SuggestedSearches from "@/components/SuggestedSearches.vue";
 import HomeBanner from "@/components/HomeBanner.vue";
 import HowItWorks from "@/components/HowItWorks.vue";
-import ThanksForSuggesting from "@/components/ThanksForSuggesting.vue";
 import HowToThinkAboutRisk from "@/components/HowToThinkAboutRisk.vue";
 import { mapGetters } from "vuex";
 import VueScrollTo from "vue-scrollto";
@@ -38,16 +35,13 @@ export default {
     SearchBar,
     SuggestedSearches,
     HowItWorks,
-    ThanksForSuggesting,
     HomeBanner,
     HowToThinkAboutRisk
   },
   data: function() {
     return {
       searched: false,
-      result: {},
-      noResults: false,
-      suggested: ""
+      result: {}
     };
   },
   computed: {
@@ -66,10 +60,7 @@ export default {
   },
   methods: {
     onSearch(searchValue) {
-      if (searchValue === "") {
-        this.noResults = true;
-      } else {
-        this.noResults = false;
+      if (searchValue !== "") {
         this.$gtag.event("search", {
           event_category: "user-action",
           event_label: searchValue
@@ -90,14 +81,6 @@ export default {
           }
           VueScrollTo.scrollTo("#search-results");
         }
-      });
-    },
-
-    onSuggest(suggestValue) {
-      this.suggested = suggestValue;
-      this.$gtag.event("search", {
-        event_category: "user-action",
-        event_label: suggestValue
       });
     }
   }
