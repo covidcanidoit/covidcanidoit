@@ -5,7 +5,7 @@
     <h6>
       <small class="lastEdited">{{ lastEdited }}</small>
     </h6>
-    <v-form v-show="hasBetaAccess">
+    <v-form>
       <v-container fluid>
         <v-layout>
           <v-flex lg12 md12 sm12 xs12>

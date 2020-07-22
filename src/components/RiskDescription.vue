@@ -120,11 +120,6 @@ export default {
       }
       return referencesArray;
     },
-    showRiskComponents: function() {
-      return (
-        this.activity.activityName && this.currentUserSettings.hasBetaAccess
-      );
-    },
     regionsList: function() {
       return Object.values(this.regions);
     },
