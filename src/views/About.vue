@@ -2,8 +2,10 @@
   <div class="about">
     <!-- <HowItWorks /> -->
     <div class="infoHeader" style="margin:2em">
-      <h1>Questions You Might Have</h1>
-
+      <h1 style="text-align:center">About COVID Can I Do It?</h1>
+      <br />
+      <br />
+      <h3 style="color: #009898;">Frequently Asked Questions</h3>
       <div
         class="accordion md-accordion"
         id="accordionEx"
@@ -188,18 +190,23 @@
     </div>
     <div style="margin:2em">
       <div>
+        <br />
+        <hr style="border: 1px solid; color: #009898;" />
+        <br />
         <!--<h1>Who We Are</h1>-->
         <table class="weTable">
           <tr>
             <th class="peopleBigHeader">Who We Are</th>
           </tr>
           <tr>
-            <td class="peopleGroupHeader">Risk Assessment</td>
-            <td class="peopleGroupHeader">Development</td>
+            <td class="peopleGroupHeader">Public Health</td>
+            <td class="peopleGroupHeader">Software Development</td>
+            <td class="peopleGroupHeader">Communications</td>
+            <td class="peopleGroupHeader">Design</td>
           </tr>
           <tr>
             <td class="peopleGroup">
-              <ul>
+              <ul style="list-style-type: none; padding: 0px;">
                 <li>
                   <a href="https://www.linkedin.com/in/jarjiehfang/">
                     Jarjieh Fang, MPH
@@ -211,36 +218,38 @@
                   </a>
                 </li>
                 <li>
-                  <a href="https://www.linkedin.com/in/mpaju-david-07606718a">
-                    Mpaju David, MBChB V
+                  Andrew Zapfel, MPH
+                </li>
+                <li>
+                  Ariel Trocino, MPH
+                </li>
+                <li>
+                  Ashley Holub, MPH, PhD
+                </li>
+                <li>
+                  Christina Rawetzki, MPH
+                </li>
+                <li>
+                  Micquel Hart, MPH
+                </li>
+                <li>
+                  <a href="https://www.linkedin.com/in/kstermer/">
+                    Katelyn Donnelly, MPH
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="https://www.linkedin.com/in/joseph-byamugisha-44b313155"
-                  >
-                    Joseph Byamugisha, MBChB V
-                  </a>
+                  Jessica Saddler, MPH(c)
+                </li>
+                <li>
+                  Swathi Nuli, MPH(c)
                 </li>
               </ul>
             </td>
             <td class="peopleGroup">
-              <ul>
+              <ul style="list-style-type: none; padding: 0px;">
                 <li>
                   <a href="https://www.linkedin.com/in/brockwilcox/">
                     Brock Wilcox, MS
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.linkedin.com/in/david-kratochvil-1bb61a11b/"
-                  >
-                    David Kratochvil
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.linkedin.com/in/grant-hussey-a9854bb4/">
-                    Grant Hussey
                   </a>
                 </li>
                 <li>
@@ -253,33 +262,47 @@
                     Jennifer Tran
                   </a>
                 </li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <td class="peopleGroupHeader">Public Relations</td>
-            <td class="peopleGroupHeader">Design</td>
-          </tr>
-          <tr>
-            <td class="peopleGroup">
-              <ul>
                 <li>
-                  <a href="https://www.linkedin.com/in/andrewloeb/">
-                    Andrew Loeb
-                  </a>
+                  Srilekha Nuli
+                </li>
+                <li>
+                  Alexa Stefankiewicz
                 </li>
               </ul>
             </td>
             <td class="peopleGroup">
-              <ul>
+              <ul style="list-style-type: none; padding: 0px;">
                 <li>
-                  <a href="https://www.linkedin.com/in/meera-nathan-371b15132/">
-                    Meera Nathan
+                  Morgan Singer
+                </li>
+                <li>
+                  Kasia Kujawski
+                </li>
+              </ul>
+            </td>
+            <td class="peopleGroup">
+              <ul style="list-style-type: none; padding: 0px;">
+                <li>
+                  <a href="https://www.linkedin.com/in/megangreendesign/">
+                    Megan Green
                   </a>
+                </li>
+                <li>
+                  <a href="https://www.linkedin.com/in/clairemercer/">
+                    Claire Mercer
+                  </a>
+                </li>
+                <li>
+                  Elizabeth Hunt
+                </li>
+                <li>
+                  Tommy Scheurich, MS
                 </li>
               </ul>
             </td>
           </tr>
+          <br />
+          <br />
           <tr>
             <th class="peopleBigHeader">Who Our Advisors Are</th>
           </tr>
@@ -290,7 +313,7 @@
           </tr>
           <tr style="vertical-align: top;">
             <td class="peopleGroup">
-              <ul>
+              <ul style="list-style-type: none; padding: 0px;">
                 <li>
                   <a
                     href="https://www.linkedin.com/in/saskia-popescu-phd-mph-ma-cic-4ba9a334/"
@@ -306,7 +329,7 @@
               </ul>
             </td>
             <td class="peopleGroup">
-              <ul>
+              <ul style="list-style-type: none; padding: 0px;">
                 <li>
                   <a href="https://profiles.ucsf.edu/jayant.rajan">
                     Jayant Rajan, M.D., P.h.D
@@ -344,14 +367,13 @@ ent-residents/"
         or profits for this project.
       </p>
       <br />
-      <hr />
+      <hr style="border: 1px solid; color: #009898;" />
       <br />
       <div>
         <!-- Privacy Policy -->
         <!-- <b>
           <u>Your Privacy and Your Rights</u>
         </b> -->
-
         <h1>Information Collection Statement</h1>
         <p>
           We make this question and answer service available to you as a
@@ -617,31 +639,51 @@ export default {
 </script>
 
 <style lang="scss">
+a {
+  color: $selectorgray;
+}
 .about {
   margin: 0 2em;
-  border: 1px solid #ccc;
-  background-color: $primary;
+  background-color: #ffffff;
   .infoHeader {
     overflow-x: auto;
   }
 }
-.card-body {
-  background-color: $primary;
+div.card {
+  border: 0px;
+}
+div.card-header {
+  background-color: #ffffff;
+  color: $selectorgray;
+}
+div.card-header:hover {
+  background-color: darken(#ffffff, 5%);
+}
+div.card-body {
+  padding: 2em;
+  background-color: #ffffff;
+}
+h5.mb-0 {
+  color: $selectorgray;
 }
 .peopleGroup {
+  padding: 3px;
   vertical-align: top;
 }
+
 .peopleGroupHeader {
   font-weight: bold;
-  text-decoration: underline;
+  padding-bottom: 0px;
 }
 .peopleBigHeader {
-  font-size: 2.5em;
+  font-size: 1.7em;
   padding-bottom: 0.5rem;
   padding-top: 1rem;
-  font-weight: 500;
+  font-weight: 300;
   line-height: 1.2;
+  color: $logodark;
 }
+
 .weTable {
   width: 100%;
   border-collapse: collapse;
