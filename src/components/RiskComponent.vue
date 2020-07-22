@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import CrowdingIcon from "@/assets/Risk_Crowding-filled.svg";
 import DropletsIcon from "@/assets/Risk_Droplets-filled.svg";
 import TimeIcon from "@/assets/Risk_Time-filled.svg";
@@ -37,6 +38,7 @@ export default {
     type: String
   },
   computed: {
+    ...mapGetters(["components"]),
     isCrowding() {
       return this.type === "crowding";
     },
@@ -50,9 +52,7 @@ export default {
       return this.type === "ventilation";
     },
     title() {
-      return (
-        this.type[0].toUpperCase() + this.type.substring(1, this.type.length)
-      );
+      return this.components[this.type].title;
     },
     score() {
       return parseInt(this.activity[this.type]);
