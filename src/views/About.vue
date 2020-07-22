@@ -206,7 +206,7 @@
           </tr>
           <tr>
             <td class="peopleGroup">
-              <ul style="list-style-type: none; padding: 0;">
+              <ul style="list-style-type: none; padding: 0px;">
                 <li>
                   <a href="https://www.linkedin.com/in/jarjiehfang/">
                     Jarjieh Fang, MPH
@@ -217,6 +217,12 @@
                     Gayatri Sanku, MPH
                   </a>
                 </li>
+                <li>
+                  <a href="https://www.linkedin.com/in/kstermer/">
+                    Katelyn Donnelly, MPH
+                  </a>
+                </li>
+
                 <li>
                   <a href="https://www.linkedin.com/in/mpaju-david-07606718a">
                     Mpaju David, MBChB V
@@ -229,10 +235,11 @@
                     Joseph Byamugisha, MBChB V
                   </a>
                 </li>
+                <li></li>
               </ul>
             </td>
             <td class="peopleGroup">
-              <ul style="list-style-type: none; padding: 0;">
+              <ul style="list-style-type: none; padding: 0px;">
                 <li>
                   <a href="https://www.linkedin.com/in/brockwilcox/">
                     Brock Wilcox, MS
@@ -263,7 +270,10 @@
               </ul>
             </td>
             <td class="peopleGroup">
-              <ul style="list-style-type: none; padding: 0;">
+              <ul style="list-style-type: none; padding: 0px;">
+                <li>
+                  Kasia Kujawski
+                </li>
                 <li>
                   <a href="https://www.linkedin.com/in/andrewloeb/">
                     Andrew Loeb
@@ -272,7 +282,20 @@
               </ul>
             </td>
             <td class="peopleGroup">
-              <ul style="list-style-type: none; padding: 0;">
+              <ul style="list-style-type: none; padding: 0px;">
+                <li>
+                  Tommy Scheurich
+                </li>
+                <li>
+                  <a href="https://www.linkedin.com/in/megangreendesign/">
+                    Megan Green
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.linkedin.com/in/clairemercer/">
+                    Claire Mercer
+                  </a>
+                </li>
                 <li>
                   <a href="https://www.linkedin.com/in/meera-nathan-371b15132/">
                     Meera Nathan
@@ -293,7 +316,7 @@
           </tr>
           <tr style="vertical-align: top;">
             <td class="peopleGroup">
-              <ul style="list-style-type: none; padding: 0;">
+              <ul style="list-style-type: none; padding: 0px;">
                 <li>
                   <a
                     href="https://www.linkedin.com/in/saskia-popescu-phd-mph-ma-cic-4ba9a334/"
@@ -309,7 +332,7 @@
               </ul>
             </td>
             <td class="peopleGroup">
-              <ul style="list-style-type: none; padding: 0;">
+              <ul style="list-style-type: none; padding: 0px;">
                 <li>
                   <a href="https://profiles.ucsf.edu/jayant.rajan">
                     Jayant Rajan, M.D., P.h.D
@@ -647,11 +670,13 @@ h5.mb-0 {
   color: $selectorgray;
 }
 .peopleGroup {
-  padding: 1px;
+  padding: 3px;
+  vertical-align: top;
 }
 
 .peopleGroupHeader {
-  font-weight: 300;
+  font-weight: bold;
+  padding-bottom: 0px;
 }
 .peopleBigHeader {
   font-size: 1.7em;
