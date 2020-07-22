@@ -14,7 +14,7 @@
         <RiskComponent :activity="activity" type="ventilation"></RiskComponent>
       </v-col>
     </v-row>
-    <v-row no-gutters v-if="!onMediumandUp">
+    <v-row no-gutters v-else>
       <v-col cols="12" sm-and-down>
         <v-expansion-panels flat>
           <RiskComponentDropdown
@@ -61,11 +61,7 @@ export default {
       );
     },
     maybeSeparator() {
-      if (this.$vuetify.breakpoint.mdAndUp) {
-        return "left-border";
-      } else {
-        return "top-border";
-      }
+      return this.$vuetify.breakpoint.mdAndUp ? "left-border" : "top-border";
     },
     onMediumandUp() {
       return this.$vuetify.breakpoint.mdAndUp;

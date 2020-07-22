@@ -59,15 +59,17 @@ export default {
       return parseInt(this.activity[this.type]);
     },
     risk() {
-      return this.score === 1 ? "Low" : this.score === 2 ? "Medium" : "High";
+      const score = this.activity?.[this.type];
+      return this.riskLabels?.[score] || this.riskLabels["default"];
     },
     notes() {
-      return this.type !== "" ? this.activity[this.type + "Notes"] : "";
+      return this.type ? this.activity[`${this.type}Notes`] : "";
     },
     riskClass() {
-      return "risk" + this.risk;
+      return `risk${this.risk}`;
     }
-  }
+  },
+  data: () => ({ riskLabels: { "1": "Low", "2": "Medium", default: "High" } })
 };
 </script>
 
