@@ -199,9 +199,9 @@
             <th class="peopleBigHeader">Who We Are</th>
           </tr>
           <tr>
-            <td class="peopleGroupHeader">Risk Assessment</td>
-            <td class="peopleGroupHeader">Development</td>
-            <td class="peopleGroupHeader">Public Relations</td>
+            <td class="peopleGroupHeader">Public Health</td>
+            <td class="peopleGroupHeader">Software Development</td>
+            <td class="peopleGroupHeader">Communications</td>
             <td class="peopleGroupHeader">Design</td>
           </tr>
           <tr>
@@ -218,24 +218,31 @@
                   </a>
                 </li>
                 <li>
+                  Andrew Zapfel, MPH
+                </li>
+                <li>
+                  Ariel Trocino, MPH
+                </li>
+                <li>
+                  Ashley Holub, MPH, PhD
+                </li>
+                <li>
+                  Christina Rawetzki, MPH
+                </li>
+                <li>
+                  Micquel Hart, MPH
+                </li>
+                <li>
                   <a href="https://www.linkedin.com/in/kstermer/">
                     Katelyn Donnelly, MPH
                   </a>
                 </li>
-
                 <li>
-                  <a href="https://www.linkedin.com/in/mpaju-david-07606718a">
-                    Mpaju David, MBChB V
-                  </a>
+                  Jessica Saddler, MPH(c)
                 </li>
                 <li>
-                  <a
-                    href="https://www.linkedin.com/in/joseph-byamugisha-44b313155"
-                  >
-                    Joseph Byamugisha, MBChB V
-                  </a>
+                  Swathi Nuli, MPH(c)
                 </li>
-                <li></li>
               </ul>
             </td>
             <td class="peopleGroup">
@@ -243,18 +250,6 @@
                 <li>
                   <a href="https://www.linkedin.com/in/brockwilcox/">
                     Brock Wilcox, MS
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.linkedin.com/in/david-kratochvil-1bb61a11b/"
-                  >
-                    David Kratochvil
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.linkedin.com/in/grant-hussey-a9854bb4/">
-                    Grant Hussey
                   </a>
                 </li>
                 <li>
@@ -267,25 +262,26 @@
                     Jennifer Tran
                   </a>
                 </li>
+                <li>
+                  Srilekha Nuli
+                </li>
+                <li>
+                  Alexa Stefankiewicz
+                </li>
               </ul>
             </td>
             <td class="peopleGroup">
               <ul style="list-style-type: none; padding: 0px;">
+                <li>
+                  Morgan Singer
+                </li>
                 <li>
                   Kasia Kujawski
                 </li>
-                <li>
-                  <a href="https://www.linkedin.com/in/andrewloeb/">
-                    Andrew Loeb
-                  </a>
-                </li>
               </ul>
             </td>
             <td class="peopleGroup">
               <ul style="list-style-type: none; padding: 0px;">
-                <li>
-                  Tommy Scheurich
-                </li>
                 <li>
                   <a href="https://www.linkedin.com/in/megangreendesign/">
                     Megan Green
@@ -297,9 +293,10 @@
                   </a>
                 </li>
                 <li>
-                  <a href="https://www.linkedin.com/in/meera-nathan-371b15132/">
-                    Meera Nathan
-                  </a>
+                  Elizabeth Hunt
+                </li>
+                <li>
+                  Tommy Scheurich, MS
                 </li>
               </ul>
             </td>
