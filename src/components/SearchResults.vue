@@ -1,10 +1,7 @@
 <template>
   <div class="introduction" id="search-results">
     <div v-show="activity.activityName">
-      <RiskDescription
-        :score="activity.generalRiskScore"
-        :activity="activity"
-      />
+      <RiskDescription :riskScore="riskScore" :activity="activity" />
 
       <v-container class="more-info">
         <v-row>
@@ -65,9 +62,21 @@ export default {
     return {};
   },
   computed: {
-    ...mapGetters(["riskFactors", "riskLevels"]),
+    ...mapGetters(["riskFactors", "riskLevels", "currentRegion", "regions"]),
     risk() {
-      return this.riskLevels["riskLevel" + this.activity.generalRiskScore];
+      return this.riskLevels[`riskLevel${this.riskScore}`];
+    },
+    riskScore() {
+      let score;
+      if (this.currentRegion !== "all") {
+        const scoreLookup = {
+          bad: this.activity?.TrendBadRiskScore,
+          medium: this.activity?.TrendMediumRiskScore,
+          good: this.activity?.TrendGoodRiskScore
+        };
+        score = scoreLookup?.[this.regions[this.currentRegion]?.trending];
+      }
+      return score || this.activity.generalRiskScore;
     }
   },
   methods: {}
