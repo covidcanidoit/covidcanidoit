@@ -73,6 +73,11 @@ const routes = [
     props: true
   },
   {
+    path: "/infographic",
+    name: "Infographic",
+    component: Infographic
+  },
+  {
     path: "/:country",
     async beforeEnter(to, from, next) {
       const country = to.params.country;
@@ -131,11 +136,6 @@ const routes = [
         path: "about",
         name: "About",
         component: About
-      },
-      {
-        path: "infographic",
-        name: "Infographic",
-        component: Infographic
       }
     ]
   },
