@@ -58,6 +58,10 @@ export default {
     color: black;
     margin: 0.5em 1em;
   }
+
+  button:hover {
+    background-color: white;
+  }
 }
 
 @media #{map-get($display-breakpoints, 'md-and-down')} {
