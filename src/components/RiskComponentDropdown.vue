@@ -1,7 +1,10 @@
 <template>
   <v-expansion-panel class="riskComponentDropdown">
     <v-expansion-panel-header class="d-flex flex-row">
-      <div :class="riskClass" class="componentIconContainer" flex-shrink-1>
+      <div
+        :class="riskClass"
+        class="componentIconContainer flex-shrink-1 flex-grow-0"
+      >
         <CrowdingIcon v-if="isCrowding" class="componentIcon" />
         <DropletsIcon v-if="isDroplets" class="componentIcon" />
         <TimeIcon v-if="isTime" class="componentIcon" />
@@ -13,7 +16,7 @@
       </div>
     </v-expansion-panel-header>
     <v-expansion-panel-content>
-      <Markdown :source="notes" />
+      <Markdown :source="notes" class="component-notes" />
     </v-expansion-panel-content>
   </v-expansion-panel>
 </template>
@@ -107,11 +110,14 @@ div .cls-2 {
   text-align: left;
   font-size: 0.75em;
 }
+.component-notes {
+  margin: 1em;
+  text-align: left;
+}
 .riskComponentDropdown:nth-child(n + 2) {
   border-top: 1px solid $color-lightgrey;
 }
 .componentIconContainer {
-  flex: 1 1 75 !important;
-  padding-right: 5em;
+  padding-right: 2em;
 }
 </style>
