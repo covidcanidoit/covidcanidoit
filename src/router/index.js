@@ -14,6 +14,7 @@ import AdminRiskFactorEdit from "@/views/AdminRiskFactorEdit.vue";
 import AdminCategoryEdit from "@/views/AdminCategoryEdit.vue";
 import AdminUserEdit from "@/views/AdminUserEdit.vue";
 import SearchResults from "@/views/SearchResults.vue";
+import Infographic from "@/views/Infographic.vue";
 
 Vue.use(VueRouter);
 
@@ -130,6 +131,11 @@ const routes = [
         path: "about",
         name: "About",
         component: About
+      },
+      {
+        path: "infographic",
+        name: "Infographic",
+        component: Infographic
       }
     ]
   },
