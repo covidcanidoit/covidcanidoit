@@ -37,9 +37,9 @@
           </span>
           <!--<div style="white-space: nowrap">has a risk level of</div>-->
         </div>
-        <div class="score">{{ risk.riskScore }}</div>
-        <div class="score-title">{{ risk.riskName }}</div>
-        <ScoreScale :score="score" />
+        <div class="score">{{ riskLevel.riskScore }}</div>
+        <div class="score-title">{{ riskLevel.riskName }}</div>
+        <ScoreScale :score="riskScore" />
         <v-select
           outlined
           return-object
@@ -74,7 +74,7 @@ export default {
     ActivitySearchbar
   },
   props: {
-    score: {
+    riskScore: {
       type: String,
       default: "5"
     },
@@ -101,8 +101,8 @@ export default {
       "regions",
       "activities"
     ]),
-    risk() {
-      return this.riskLevels["riskLevel" + this.score];
+    riskLevel() {
+      return this.riskLevels[`riskLevel${this.riskScore}`];
     },
     references: function() {
       var referencePropertyNames = Object.keys(this.activity).filter(
@@ -124,30 +124,17 @@ export default {
       return Object.values(this.regions);
     },
     activityRiskToken: function() {
-      let risk;
-      switch (this.score) {
-        case "1":
-          risk = "Low";
-          break;
-        case "2":
-          risk = "Moderate";
-          break;
-        case "3":
-          risk = "Elevated";
-          break;
-        case "4":
-          risk = "High";
-          break;
-        case "5":
-          risk = "Critical";
-          break;
-        default:
-          risk = "Uncertain";
-      }
-      return risk;
+      const riskTokenMap = {
+        "1": "Low",
+        "2": "Moderate",
+        "3": "Elevated",
+        "4": "High",
+        "5": "Critical"
+      };
+      return riskTokenMap?.[this.riskScore] || "Uncertain";
     },
     riskTokenClass: function() {
-      return "risk" + this.score;
+      return `risk${this.riskScore}`;
     },
     regionSelectClass: function() {
       if (this.$vuetify.breakpoint.mdAndUp) {
@@ -185,6 +172,8 @@ export default {
 
 <style scoped lang="scss">
 .risk-description {
+  margin-top: 2em;
+
   .score-panel {
     width: 100%;
     padding: 1em;

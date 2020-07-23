@@ -43,20 +43,12 @@ export default {
   },
   methods: {
     onSearch() {
-      if (this.searchTerm === "") {
-        this.$emit("suggested", this.suggested);
-        this.suggested = "";
-      }
       this.$emit("searched", this.searchTerm);
       this.searchTerm = "";
     },
     dropdownClick(value) {
       this.searchTerm = value;
       this.onSearch();
-    },
-    computedSearch(search) {
-      this.suggested = search;
-      return search;
     }
   },
   computed: {

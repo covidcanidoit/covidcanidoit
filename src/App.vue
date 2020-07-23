@@ -109,7 +109,7 @@
 
       <v-spacer />
 
-      <div v-if="!mobileView" class="d-flex align-center">
+      <div v-if="!mobileView" class="d-flex align-center nav-buttons">
         <router-link
           class="router mx-3"
           :to="{
@@ -139,6 +139,7 @@
         </router-link>
         <router-link
           class="router mx-3"
+          exact-active-class="disable"
           :to="{
             name: 'Home',
             params: { country: currentCountry, region: currentRegion }
@@ -269,6 +270,28 @@ body {
   a:visited,
   a:hover {
     color: $secondary;
+  }
+
+  header {
+    a,
+    a:visited,
+    a:hover {
+      white-space: nowrap;
+      border-radius: 30px;
+      padding: 2px 7px;
+      text-decoration: none;
+    }
+
+    .nav-buttons a.router-link-exact-active,
+    .nav-buttons a.router-link-exact-active:visited,
+    .nav-buttons a.router-link-exact-active:hover {
+      white-space: nowrap;
+      border-radius: 30px;
+      padding: 2px 7px;
+      background-color: $selectorgray;
+      color: white;
+      text-decoration: none;
+    }
   }
 }
 .nav-logo a,
