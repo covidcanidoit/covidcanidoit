@@ -2,7 +2,8 @@
   <div class="introduction" id="search-results">
     <div v-show="activity.activityName">
       <RiskDescription :riskScore="riskScore" :activity="activity" />
-      <v-container>
+
+      <v-container class="more-info">
         <v-row>
           <v-col
             cols="12"
@@ -19,10 +20,13 @@
                 class="riskFactorDropdown"
               >
                 <v-expansion-panel-header>
-                  <span>
-                    <i class="icon" :class="riskFactor.icon" />
+                  <i
+                    class="icon flex-grow-0 risk-factor-icon"
+                    :class="riskFactor.icon"
+                  />
+                  <div class="risk-factor-description">
                     {{ riskFactor.description }}
-                  </span>
+                  </div>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
                   <Markdown :source="riskFactor.shortDescription" />
@@ -32,8 +36,10 @@
             </v-expansion-panels>
           </v-col>
           <v-col cols="12" md="6" order="first" order-md="last">
-            <h5>Things to consider</h5>
-            <Markdown class="risk-details" :source="risk.longDescription" />
+            <div class="things-to-consider">
+              <h5>Things to consider</h5>
+              <Markdown class="risk-details" :source="risk.longDescription" />
+            </div>
           </v-col>
         </v-row>
       </v-container>
@@ -77,7 +83,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .warning {
   color: red;
   font-size: 24px;
@@ -85,11 +91,42 @@ export default {
 .icon {
   width: 40px;
 }
-.otherRisksSeparator {
-  border-right: 1px solid $secondary;
+
+@media #{map-get($display-breakpoints, 'md-and-up')} {
+  .otherRisksSeparator {
+    border-right: 1px solid $secondary;
+  }
 }
 
 .riskFactorDropdown:nth-child(n + 2) {
   border-top: 1px solid $color-lightgrey;
+}
+.risk-factor-description {
+  text-align: left;
+}
+
+i.risk-factor-icon {
+  width: 2em;
+  display: block;
+}
+
+@media #{map-get($display-breakpoints, 'md-and-up')} {
+  .things-to-consider {
+    margin-left: 3em;
+  }
+}
+
+.risk-details li {
+  margin: 1em 0em;
+  padding-left: 1em;
+}
+
+.more-info {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.introduction h5 {
+  margin-bottom: 1.5em;
 }
 </style>

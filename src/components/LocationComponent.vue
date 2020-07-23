@@ -6,8 +6,8 @@
       v-show="activity.showLocation == 'TRUE'"
     >
       <v-row dense align="center">
-        <v-col cols="12" md="3">
-          How busy will it be?
+        <v-col cols="12" md="3" style="white-space: nowrap">
+          How crowded will it be?
         </v-col>
         <v-col cols="12" md="6">
           <VueGoogleAutocomplete
@@ -22,11 +22,11 @@
         </v-col>
         <v-col cols="12" md="3">
           <button class="busyCheckButton btn-primary" @click="getBusyInfo">
-            Check your location
+            Check location
           </button>
         </v-col>
       </v-row>
-      <v-row>
+      <v-row v-if="loadingBusyResults || busyResults">
         <v-col>
           <div v-if="loadingBusyResults">Loading...</div>
           <div v-else>
@@ -115,7 +115,7 @@ export default {
   color: black;
   border-radius: 2em;
   width: 90%;
-  padding: 0 1em;
+  padding: 0.5em 1em;
 }
 
 .busyCheckButton {
@@ -125,5 +125,10 @@ export default {
   padding-left: 1em;
   padding-right: 1em;
   border-radius: 2em;
+
+  &:hover {
+    background-color: $secondary;
+    color: $selectorgray;
+  }
 }
 </style>
