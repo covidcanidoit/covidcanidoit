@@ -185,6 +185,8 @@ export default {
 
 <style scoped lang="scss">
 .risk-description {
+  margin-top: 2em;
+
   .score-panel {
     width: 100%;
     padding: 1em;
