@@ -28,7 +28,8 @@ export default {
   computed: {
     ...mapGetters(["currentRegion", "regions"]),
     regionsList: function() {
-      return Object.values(this.regions);
+      console.log(Object.values(this.regions));
+      return Object.values(this.regions).filter(region => region.slug != "all");
     },
     regionSelectClass: function() {
       if (this.$vuetify.breakpoint.mdAndUp && this.parent === "SearchResults") {
@@ -40,19 +41,18 @@ export default {
   },
   methods: {
     setCurrentRegion() {
-      console.log("new region slug", this.selectedRegion.slug);
       this.$emit("regionSelected");
       this.$store.dispatch("changeRegion", this.selectedRegion.slug);
     },
     getCurrentRegionFromList() {
       this.selectedRegion = this.regions[this.currentRegion];
-    } //,
-    // watch: {
-    //   currentRegion() {
-    //     console.log("watching currentRegion", this.currentRegion);
-    //     this.getCurrentRegionFromList();
-    //   }
-    // }
+    },
+    watch: {
+      currentRegion: function() {
+        this.getCurrentRegionFromList();
+      },
+      deep: true
+    }
   }
 };
 </script>

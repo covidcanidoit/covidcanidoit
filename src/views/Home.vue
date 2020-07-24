@@ -17,8 +17,11 @@
     <HowItWorks />
     <v-dialog v-model="activitySelected" max-width="400">
       <v-card class="modalRegionSelector">
-        <v-card-title class="headline">Risks Are Region-Specific</v-card-title>
-        <v-card-text>Select a region first</v-card-text>
+        <v-card-title class="headline">Select a region/state</v-card-title>
+        <v-card-text>
+          Different regions and states have different levels of disease control.
+          This impacts your risk.
+        </v-card-text>
         <v-card-text>
           <RegionSelector @regionSelected="goToResults" parent="modal" />
         </v-card-text>
@@ -69,6 +72,11 @@ export default {
       return Object.values(this.activities || {})
         .filter(activity => !activity.disabled)
         .map(activity => activity.activityName);
+    },
+    shouldForceRegionSelect() {
+      return (
+        Object.keys(this.regions).length > 1 && this.currentRegion === "all"
+      );
     }
   },
   created() {
@@ -94,11 +102,11 @@ export default {
           this.result = activity;
           if (this.$route.params.slug != activity.slug) {
             this.selectedActivitySlug = activity.slug;
-            this.activitySelected = true;
-            // this.$router.push({
-            //   name: "ActivitySearch",
-            //   params: { slug: activity.slug }
-            // });
+            if (this.shouldForceRegionSelect) {
+              this.activitySelected = true;
+            } else {
+              this.goToResults();
+            }
           }
           VueScrollTo.scrollTo("#search-results");
         }
