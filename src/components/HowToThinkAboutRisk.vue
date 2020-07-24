@@ -79,7 +79,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["components"]),
+    ...mapGetters(["components", "currentCountry", "currentRegion"]),
     popupTitle() {
       if (this.component) {
         return this.components[this.component].title;
