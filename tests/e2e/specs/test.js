@@ -31,11 +31,11 @@ describe("Browsing Categories", () => {
   });
   it("Browse Category", () => {
     cy.contains("Errand").click();
-    cy.contains("Category: Errand");
-    cy.get(".activities").contains("Going");
+    cy.contains("Errand");
+    cy.get(".activity-list").contains("Going");
   });
   it("Click Activity in Category", () => {
-    cy.contains("Category: Errand");
+    cy.contains("Errand");
     cy.contains(".activity-name", "Dog Walking").click();
     cy.contains("Dog");
     cy.contains("risk");

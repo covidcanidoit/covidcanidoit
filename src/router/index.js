@@ -4,7 +4,6 @@ import store from "@/store";
 import AppBody from "@/components/AppBody.vue";
 import Home from "@/views/Home.vue";
 import Browse from "@/views/Browse.vue";
-import BrowseCategory from "@/views/BrowseCategory.vue";
 import About from "@/views/About.vue";
 import Admin from "@/views/Admin.vue";
 import AdminRegionEdit from "@/views/AdminRegionEdit.vue";
@@ -125,12 +124,6 @@ const routes = [
         path: "browse",
         name: "Browse",
         component: Browse
-      },
-      {
-        path: "browse/category/:name",
-        name: "BrowseCategory",
-        component: BrowseCategory,
-        props: true
       },
       {
         path: "about",
