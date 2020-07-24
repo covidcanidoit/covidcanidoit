@@ -11,6 +11,9 @@ cat base.json|jq '
   [
     .[]
 
+    # Break keywords into an array
+    | .keywords = (.keywords | split(",\\s*"; ""))
+
     # Restructure characteristics
     | .characteristics = {
          crowding: {
