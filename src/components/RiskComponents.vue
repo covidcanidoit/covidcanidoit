@@ -1,38 +1,48 @@
 <template>
   <v-container v-if="hasRiskData">
-    <v-row v-if="onMediumandUp">
-      <v-col cols="12" md="3" class="crowding">
-        <RiskComponent :activity="activity" type="crowding"></RiskComponent>
-      </v-col>
-      <v-col cols="12" md="3" class="droplets" :class="maybeSeparator">
-        <RiskComponent :activity="activity" type="droplets"></RiskComponent>
-      </v-col>
-      <v-col cols="12" md="3" class="exposureTime" :class="maybeSeparator">
-        <RiskComponent :activity="activity" type="exposureTime"></RiskComponent>
-      </v-col>
-      <v-col cols="12" md="3" class="ventilation" :class="maybeSeparator">
-        <RiskComponent :activity="activity" type="ventilation"></RiskComponent>
+    <!-- displays on medium and up breakpoints -->
+    <v-row class="hidden-sm-and-down">
+      <v-col
+        v-for="(risk, index) in riskData"
+        :key="risk.type"
+        cols="3"
+        :class="index && 'left-border'"
+      >
+        <RiskComponent v-bind="risk" :class="risk.type">
+          <template #icon>
+            <component
+              :is="icons[risk.type]"
+              class="component-icon"
+              :class="`${risk.riskClass}`"
+            />
+          </template>
+          <template #notes>
+            <Markdown :source="risk.notes" class="notes desktop-notes" />
+          </template>
+        </RiskComponent>
       </v-col>
     </v-row>
-    <v-row no-gutters v-else>
-      <v-col cols="12" sm-and-down>
+    <!-- displays on small and down breakpoints -->
+    <v-row no-gutters class="hidden-md-and-up">
+      <v-col cols="12">
         <v-expansion-panels flat>
           <RiskComponentDropdown
-            :activity="activity"
-            type="crowding"
-          ></RiskComponentDropdown>
-          <RiskComponentDropdown
-            :activity="activity"
-            type="droplets"
-          ></RiskComponentDropdown>
-          <RiskComponentDropdown
-            :activity="activity"
-            type="exposureTime"
-          ></RiskComponentDropdown>
-          <RiskComponentDropdown
-            :activity="activity"
-            type="ventilation"
-          ></RiskComponentDropdown>
+            v-for="(risk, index) in riskData"
+            :key="risk.type"
+            :class="index && 'top-border'"
+            v-bind="risk"
+          >
+            <template #icon>
+              <component
+                :is="icons[risk.type]"
+                class="component-icon dropdown-icon"
+                :class="`${risk.riskClass}`"
+              />
+            </template>
+            <template #notes>
+              <Markdown :source="risk.notes" class="notes dropdown-notes" />
+            </template>
+          </RiskComponentDropdown>
         </v-expansion-panels>
       </v-col>
     </v-row>
@@ -40,45 +50,112 @@
 </template>
 
 <script>
+// getters
+import { mapGetters } from "vuex";
+// components
 import RiskComponent from "@/components/RiskComponent.vue";
 import RiskComponentDropdown from "@/components/RiskComponentDropdown.vue";
+// icons
+import CrowdingIcon from "@/assets/Risk_Crowding-filled.svg";
+import DropletsIcon from "@/assets/Risk_Droplets-filled.svg";
+import TimeIcon from "@/assets/Risk_Time-filled.svg";
+import VentIcon from "@/assets/Risk_Ventilation-filled.svg";
+// markdown
+import Markdown from "vue-markdown";
 
 export default {
   components: {
     RiskComponent,
-    RiskComponentDropdown
+    RiskComponentDropdown,
+    Markdown
   },
   props: {
     activity: Object
   },
-  computed: {
-    hasRiskData() {
-      return (
-        this.activity.dropletsNotes &&
-        this.activity.exposureTimeNotes &&
-        this.activity.crowdingNotes &&
-        this.activity.ventilationNotes
-      );
+  data: () => ({
+    riskTypes: ["crowding", "droplets", "exposureTime", "ventilation"],
+    riskLabels: {
+      "1": "Low",
+      "2": "Medium"
     },
-    maybeSeparator() {
-      return this.$vuetify.breakpoint.mdAndUp ? "left-border" : "top-border";
-    },
-    onMediumandUp() {
-      return this.$vuetify.breakpoint.mdAndUp;
+    icons: {
+      crowding: CrowdingIcon,
+      droplets: DropletsIcon,
+      exposureTime: TimeIcon,
+      ventilation: VentIcon
     }
-  },
-  methods: {},
-  mounted() {
-    //console.log("MY ACTIVITY: ",this.activity);
+  }),
+  computed: {
+    ...mapGetters(["components"]),
+    hasRiskData() {
+      for (const risk of this.riskTypes) {
+        if (!this.activity?.[`${risk}Notes`]) return false;
+      }
+      return true;
+    },
+    riskData() {
+      return this.riskTypes.map(risk => {
+        const score = this.activity?.[risk];
+        const riskText = this.riskLabels?.[score] || "High";
+        return {
+          type: risk,
+          riskClass: `risk${riskText}`,
+          riskLabel: `${riskText} Risk`,
+          notes: this.activity[`${risk}Notes`],
+          title: this.components[risk].title
+        };
+      });
+    }
   }
 };
 </script>
 
 <style scoped lang="scss">
+.component-icon {
+  width: 75px;
+  &.riskLow > path {
+    fill: $gogreen;
+  }
+  &.riskMedium > path {
+    fill: $cautionyellow;
+  }
+  &.riskHigh > path {
+    fill: $stopred;
+  }
+
+  &.dropdown-icon {
+    width: 48px;
+  }
+
+  > path.cls-2 {
+    fill: white;
+  }
+}
+
 .left-border {
   border-left: 1px solid $color-lightgrey;
 }
 .top-border {
   border-top: 1px solid $color-lightgrey;
+}
+
+.componentTitle {
+  font-weight: bold;
+}
+
+.componentRiskLabel {
+  font-weight: 100;
+  color: $color-medgrey;
+}
+
+.container {
+  .notes {
+    text-align: left;
+    margin: 0 1em;
+  }
+  .desktop-notes {
+    font-size: 0.75em;
+    margin: 1em;
+  }
 }
 </style>
