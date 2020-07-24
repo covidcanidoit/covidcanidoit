@@ -2,26 +2,7 @@
   <div>
     <div class="risk-description d-flex flex-column">
       <div class="score-panel">
-        <div v-if="isAgeScore">
-          <!--<b>{{ activity.name }}</b>-->
-          <div :class="searchbarContainerClass">
-            <ActivitySearchbar
-              :activityList="Object.values(activities)"
-              :initialSearch="activity"
-              :inHome="false"
-            ></ActivitySearchbar>
-          </div>
-          <span class="riskDeclare" style="white-space: nowrap">
-            &nbsp;is&nbsp;
-            <span :class="riskTokenClass">
-              <span>{{ activityRiskToken }}</span>
-              &nbsp;Risk
-            </span>
-          </span>
-          <!--has an Age-Specific risk level of-->
-        </div>
-        <div v-else>
-          <!--<b>{{ activity.name }}</b>-->
+        <div>
           <div :class="searchbarContainerClass">
             <ActivitySearchbar
               :activityList="Object.values(activities)"
@@ -29,13 +10,12 @@
             ></ActivitySearchbar>
           </div>
           <span class="riskDeclare" style="white-space: nowrap">
-            &nbsp;is&nbsp;
+            is&nbsp;
             <span :class="riskTokenClass">
               <span>{{ activityRiskToken }}</span>
               &nbsp;Risk
             </span>
           </span>
-          <!--<div style="white-space: nowrap">has a risk level of</div>-->
         </div>
         <div class="score">{{ riskLevel.riskScore }}</div>
         <div class="score-title">{{ riskLevel.riskName }}</div>
@@ -78,10 +58,7 @@ export default {
       type: String,
       default: "5"
     },
-    activity: Object,
-    isAgeScore: {
-      default: false
-    }
+    activity: Object
   },
   mounted() {
     this.getCurrentRegionFromList();

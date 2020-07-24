@@ -70,11 +70,13 @@ export default {
       let score;
       if (this.currentRegion !== "all") {
         const scoreLookup = {
-          bad: this.activity?.TrendBadRiskScore,
-          medium: this.activity?.TrendMediumRiskScore,
-          good: this.activity?.TrendGoodRiskScore
+          poor: this.activity.trendScore.poor,
+          caution: this.activity.trendScore.caution,
+          better: this.activity.trendScore.better
         };
-        score = scoreLookup?.[this.regions[this.currentRegion]?.trending];
+        const regionLevel = this.regions[this.currentRegion].trending;
+
+        score = scoreLookup[regionLevel];
       }
       return score || this.activity.generalRiskScore;
     }

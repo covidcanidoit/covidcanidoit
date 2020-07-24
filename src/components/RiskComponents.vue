@@ -53,12 +53,8 @@ export default {
   },
   computed: {
     hasRiskData() {
-      return (
-        this.activity.dropletsNotes &&
-        this.activity.exposureTimeNotes &&
-        this.activity.crowdingNotes &&
-        this.activity.ventilationNotes
-      );
+      console.log(this.activity.characteristics);
+      return this.activity.characteristics;
     },
     maybeSeparator() {
       return this.$vuetify.breakpoint.mdAndUp ? "left-border" : "top-border";

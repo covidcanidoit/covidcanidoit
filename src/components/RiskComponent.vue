@@ -54,14 +54,11 @@ export default {
     title() {
       return this.components[this.type].title;
     },
-    score() {
-      return parseInt(this.activity[this.type]);
-    },
     risk() {
-      return this.score === 1 ? "Low" : this.score === 2 ? "Medium" : "High";
+      return this.activity.characteristics[this.type].score;
     },
     notes() {
-      return this.type !== "" ? this.activity[this.type + "Notes"] : "";
+      return this.type !== "" ? this.activity.characteristics[this.type].notes : "";
     },
     riskClass() {
       return "risk" + this.risk;
