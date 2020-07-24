@@ -1,6 +1,6 @@
 <template>
   <div class="introduction" id="search-results">
-    <div v-show="activity.activityName">
+    <div v-show="activity.name">
       <RiskDescription :riskScore="riskScore" :activity="activity" />
 
       <v-container class="more-info">

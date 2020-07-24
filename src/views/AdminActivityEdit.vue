@@ -1,7 +1,7 @@
 <template>
   <div>
     <router-link :to="{ name: 'Admin' }">Back</router-link>
-    <h1 class="display-2">Editing {{ this.activity.activityName }}</h1>
+    <h1 class="display-2">Editing {{ this.activity.name }}</h1>
     <h6>
       <small class="lastEdited">{{ lastEdited }}</small>
     </h6>
@@ -24,15 +24,15 @@
           <v-flex xs12 md4 m-1>
             <v-text-field
               label="Activity Name"
-              :value="activity.activityName"
-              @input="saveValue('activityName', $event)"
+              :value="activity.name"
+              @input="saveValue('name', $event)"
             ></v-text-field>
           </v-flex>
           <v-flex xs12 md4 m-1>
             <v-text-field
               label="Activity Search name"
-              :value="activity.searchActivityName"
-              @input="saveValue('searchActivityName', $event)"
+              :value="activity.searchName"
+              @input="saveValue('searchName', $event)"
             ></v-text-field>
           </v-flex>
         </v-layout>
@@ -272,21 +272,21 @@
         />
       </div>
       <div class="form-group">
-        <label>activityName</label>
+        <label>name</label>
         <input
           class="form-control"
           type="text"
-          @input="saveField('activityName', $event)"
-          :value="this.activity.activityName"
+          @input="saveField('name', $event)"
+          :value="this.activity.name"
         />
       </div>
       <div class="form-group">
-        <label>searchActivityName</label>
+        <label>searchName</label>
         <input
           class="form-control"
           type="text"
-          @input="saveField('searchActivityName', $event)"
-          :value="this.activity.searchActivityName"
+          @input="saveField('searchName', $event)"
+          :value="this.activity.searchName"
         />
       </div>
       <div class="form-group">
@@ -400,7 +400,7 @@ import Markdown from "vue-markdown";
 
 export default {
   components: { Markdown },
-  props: ["slug", "activityName"],
+  props: ["slug", "name"],
   data() {
     return {
       currentKey: undefined,

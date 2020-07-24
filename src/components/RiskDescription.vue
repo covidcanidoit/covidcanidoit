@@ -3,7 +3,7 @@
     <div class="risk-description d-flex flex-column">
       <div class="score-panel">
         <div v-if="isAgeScore">
-          <!--<b>{{ activity.activityName }}</b>-->
+          <!--<b>{{ activity.name }}</b>-->
           <div :class="searchbarContainerClass">
             <ActivitySearchbar
               :activityList="Object.values(activities)"
@@ -21,7 +21,7 @@
           <!--has an Age-Specific risk level of-->
         </div>
         <div v-else>
-          <!--<b>{{ activity.activityName }}</b>-->
+          <!--<b>{{ activity.name }}</b>-->
           <div :class="searchbarContainerClass">
             <ActivitySearchbar
               :activityList="Object.values(activities)"

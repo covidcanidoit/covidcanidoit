@@ -49,13 +49,13 @@ export default {
     activityList() {
       return Object.values(this.activities || {})
         .filter(activity => !activity.disabled)
-        .map(activity => activity.activityName);
+        .map(activity => activity.name);
     }
   },
   created() {
     if (this.slug) {
       console.log("Using slug", this.slug);
-      this.onSearch(this.activities[this.slug].activityName);
+      this.onSearch(this.activities[this.slug].name);
     }
   },
   methods: {
@@ -69,9 +69,7 @@ export default {
 
       this.searched = true;
       Object.values(this.activities).map(activity => {
-        if (
-          activity["activityName"].toLowerCase() == searchValue.toLowerCase()
-        ) {
+        if (activity["name"].toLowerCase() == searchValue.toLowerCase()) {
           this.result = activity;
           if (this.$route.params.slug != activity.slug) {
             this.$router.push({

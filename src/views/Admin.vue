@@ -80,7 +80,7 @@
         <v-tab>Activities</v-tab>
         <v-tab-item>
           <AdminActivityTable
-            :incomingNewActivityName="newActivityName"
+            :incomingNewName="newName"
             :currentUserSettings="currentUserSettings"
           />
         </v-tab-item>
@@ -297,7 +297,7 @@ export default {
   },
   data() {
     return {
-      newActivityName: "",
+      newName: "",
       currentUser: undefined,
       currentUserSettings: undefined,
       tab: undefined,
@@ -380,8 +380,8 @@ export default {
           console.log("Error signing out!", { error });
         });
     },
-    newActivity(activityName) {
-      this.newActivityName = activityName;
+    newActivity(name) {
+      this.newName = name;
     },
     deleteUser(userId) {
       db.ref("userSettings")

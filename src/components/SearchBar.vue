@@ -72,14 +72,14 @@ export default {
         includeScore: true,
         includeMatches: true,
         threshold: 0.3
-        //keys: ["activityName"] // include synonyms in the future
+        //keys: ["name"] // include synonyms in the future
       };
 
-      //const fuse = new Fuse(this.fullActivityList, options); // uncomment when ready to search both activityName and synonyms
+      //const fuse = new Fuse(this.fullActivityList, options); // uncomment when ready to search both name and synonyms
       const fuse = new Fuse(this.activityList, options);
       const result = fuse.search(this.searchTerm);
 
-      return result.map(result => result.item.activityName);
+      return result.map(result => result.item.name);
     },
     maxIndex() {
       return Math.ceil(this.activityListComplete.length / this.perPage);

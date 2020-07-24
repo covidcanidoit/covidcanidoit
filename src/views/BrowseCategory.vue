@@ -5,13 +5,13 @@
       <div
         class="activity"
         v-for="activity in categoryActivities"
-        :key="activity.activityName"
+        :key="activity.name"
       >
         <router-link
           :to="{ name: 'ActivitySearch', params: { slug: activity.slug } }"
         >
           <div class="activity-name stretched-link">
-            {{ activity.activityName }}
+            {{ activity.name }}
             &nbsp;&nbsp;
             <i class="fas fa-angle-double-right"></i>
           </div>
