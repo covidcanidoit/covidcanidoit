@@ -20,7 +20,8 @@
         <div class="score">{{ riskLevel.riskScore }}</div>
         <div class="score-title">{{ riskLevel.riskName }}</div>
         <ScoreScale :score="riskScore" />
-        <v-select
+        <RegionSelector parent="SearchResults" />
+        <!-- <v-select
           outlined
           return-object
           item-text="longName"
@@ -29,7 +30,7 @@
           :class="regionSelectClass"
           v-model="selectedRegion"
           v-if="regionsList.length > 1"
-        ></v-select>
+        ></v-select> -->
         <v-spacer></v-spacer>
 
         <RiskComponents :activity="activity"></RiskComponents>
@@ -45,13 +46,15 @@ import ScoreScale from "@/components/ScoreScale.vue";
 import RiskComponents from "@/components/RiskComponents.vue";
 import LocationComponent from "@/components/LocationComponent.vue";
 import ActivitySearchbar from "@/components/ActivitySearchbar.vue";
+import RegionSelector from "@/components/RegionSelector.vue";
 
 export default {
   components: {
     ScoreScale,
     RiskComponents,
     LocationComponent,
-    ActivitySearchbar
+    ActivitySearchbar,
+    RegionSelector
   },
   props: {
     riskScore: {
@@ -137,11 +140,6 @@ export default {
     },
     getCurrentRegionFromList() {
       this.selectedRegion = this.regions[this.currentRegion];
-    }
-  },
-  watch: {
-    currentRegion() {
-      this.getCurrentRegionFromList();
     }
   }
 };
