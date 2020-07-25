@@ -5,8 +5,6 @@ US_SHEET_URL='https://docs.google.com/spreadsheets/d/135us82p8GlOYXFhu2vdpKGz-kp
 # URL from param
 SHEET_URL=${1:-$US_SHEET_URL};
 
-echo "Importing from $SHEET_URL"
-
 curl -s "$SHEET_URL" > raw.csv
 
 # Slice off the extra header
@@ -95,5 +93,5 @@ cat base.json|jq '
 
   # Merge all these into one object
   | add
-' > activities_clean.json
+'
 
