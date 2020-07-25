@@ -96,13 +96,12 @@ export default {
     },
     riskData() {
       return this.riskTypes.map(risk => {
-        const score = this.activity?.[risk];
-        const riskText = this.riskLabels?.[score] || "High";
+        const riskText = this.activity.characteristics[risk].score;
         return {
           type: risk,
           riskClass: `risk${riskText}`,
           riskLabel: `${riskText} Risk`,
-          notes: this.activity[`${risk}Notes`],
+          notes: this.activity.characteristics[risk].notes,
           title: this.components[risk].title
         };
       });
