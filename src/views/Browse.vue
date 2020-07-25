@@ -23,14 +23,14 @@
               <router-link
                 v-for="activity in categoryActivities[category.name]"
                 class="activity"
-                :key="activity.activityName"
+                :key="activity.name"
                 :to="{
                   name: 'ActivitySearch',
                   params: { slug: activity.slug }
                 }"
               >
                 <div class="activity-name">
-                  {{ activity.activityName }}
+                  {{ activity.name }}
                 </div>
               </router-link>
             </div>
