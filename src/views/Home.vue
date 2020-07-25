@@ -15,24 +15,6 @@
     <SuggestedSearches @searched="onSearch" />
     <HowToThinkAboutRisk></HowToThinkAboutRisk>
     <HowItWorks />
-    <v-dialog v-model="activitySelected" max-width="400">
-      <v-card class="modalRegionSelector">
-        <v-card-title class="headline">Select a region/state</v-card-title>
-        <v-card-text>
-          Different regions and states have different levels of disease control.
-          This impacts your risk.
-        </v-card-text>
-        <v-card-text>
-          <RegionSelector @regionSelected="goToResults" parent="modal" />
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="green darken-1" text @click="goToResults">
-            Ok
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </div>
 </template>
 
@@ -43,7 +25,6 @@ import SuggestedSearches from "@/components/SuggestedSearches.vue";
 import HomeBanner from "@/components/HomeBanner.vue";
 import HowItWorks from "@/components/HowItWorks.vue";
 import HowToThinkAboutRisk from "@/components/HowToThinkAboutRisk.vue";
-import RegionSelector from "@/components/RegionSelector.vue";
 import { mapGetters } from "vuex";
 import VueScrollTo from "vue-scrollto";
 
@@ -55,28 +36,21 @@ export default {
     SuggestedSearches,
     HowItWorks,
     HomeBanner,
-    HowToThinkAboutRisk,
-    RegionSelector
+    HowToThinkAboutRisk
   },
   data: function() {
     return {
       searched: false,
       result: {},
-      selectedActivitySlug: "",
-      activitySelected: false
+      selectedActivitySlug: ""
     };
   },
   computed: {
-    ...mapGetters(["activities", "regions", "currentRegion", "currentCountry"]),
+    ...mapGetters(["activities", "currentCountry"]),
     activityList() {
       return Object.values(this.activities || {})
         .filter(activity => !activity.disabled)
         .map(activity => activity.name);
-    },
-    shouldForceRegionSelect() {
-      return (
-        Object.keys(this.regions).length > 1 && this.currentRegion === "all"
-      );
     }
   },
   created() {
@@ -100,11 +74,7 @@ export default {
           this.result = activity;
           if (this.$route.params.slug != activity.slug) {
             this.selectedActivitySlug = activity.slug;
-            if (this.shouldForceRegionSelect) {
-              this.activitySelected = true;
-            } else {
-              this.goToResults();
-            }
+            this.goToResults();
           }
           VueScrollTo.scrollTo("#search-results");
         }

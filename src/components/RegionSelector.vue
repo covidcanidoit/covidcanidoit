@@ -8,6 +8,7 @@
     :class="regionSelectClass"
     :value="selectedRegion"
     v-if="regionsList.length > 1"
+    placeholder="Select a region/state"
   ></v-select>
 </template>
 

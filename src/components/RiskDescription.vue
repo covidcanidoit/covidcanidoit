@@ -21,16 +21,22 @@
         <div class="score-title">{{ riskLevel.riskName }}</div>
         <ScoreScale :score="riskScore" />
         <RegionSelector parent="SearchResults" />
-        <!-- <v-select
-          outlined
-          return-object
-          item-text="longName"
-          :items="regionsList"
-          @change="setCurrentRegion($event)"
-          :class="regionSelectClass"
-          v-model="selectedRegion"
-          v-if="regionsList.length > 1"
-        ></v-select> -->
+        <v-dialog v-model="shouldForceRegionSelect" max-width="400">
+          <v-card class="modalRegionSelector">
+            <v-card-title class="headline">Select a region/state</v-card-title>
+            <v-card-text>
+              Different regions and states have different levels of disease
+              control. This impacts your risk.
+            </v-card-text>
+            <v-card-text>
+              <RegionSelector parent="modal" />
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="green darken-1" text>Ok</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
         <v-spacer></v-spacer>
 
         <RiskComponents :activity="activity"></RiskComponents>
@@ -100,9 +106,6 @@ export default {
       }
       return referencesArray;
     },
-    regionsList: function() {
-      return Object.values(this.regions);
-    },
     activityRiskToken: function() {
       const riskTokenMap = {
         "1": "Low",
@@ -116,30 +119,22 @@ export default {
     riskTokenClass: function() {
       return `risk${this.riskScore}`;
     },
-    regionSelectClass: function() {
-      if (this.$vuetify.breakpoint.mdAndUp) {
-        return "selectRegion regionSelectOnMediumAndUp";
-      } else {
-        return "selectRegion regionSelectOnSmaller";
-      }
-    },
     searchbarContainerClass: function() {
       if (this.$vuetify.breakpoint.mdAndUp) {
         return "searchbarContainerOnMediumAndUp";
       } else {
         return "searchbarContainerOnSmaller";
       }
+    },
+    shouldForceRegionSelect() {
+      return (
+        Object.keys(this.regions).length > 1 && this.currentRegion === "all"
+      );
     }
   },
   methods: {
     toggleMoreInfo() {
       this.hideMoreInfo = !this.hideMoreInfo;
-    },
-    setCurrentRegion() {
-      this.$store.dispatch("changeRegion", this.selectedRegion.slug);
-    },
-    getCurrentRegionFromList() {
-      this.selectedRegion = this.regions[this.currentRegion];
     }
   }
 };
@@ -201,19 +196,6 @@ export default {
   .searchbarContainerOnMediumAndUp {
     width: 30%;
     margin: 0 auto;
-  }
-
-  .selectRegion {
-    width: 30%;
-    min-width: 10%;
-    margin: 0 auto;
-    margin-top: 2em;
-  }
-  .regionSelectOnSmaller {
-    width: 100%;
-  }
-  .regionSelectOnMediumAndUp {
-    width: 30%;
   }
   .riskDeclare {
     font-size: 2em;
