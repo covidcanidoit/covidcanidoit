@@ -76,7 +76,8 @@ export default {
     riskTypes: ["crowding", "droplets", "exposureTime", "ventilation"],
     riskLabels: {
       "1": "Low",
-      "2": "Medium"
+      "2": "Medium",
+      "3": "High"
     },
     icons: {
       crowding: CrowdingIcon,
