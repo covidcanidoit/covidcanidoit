@@ -1,8 +1,13 @@
 #!/bin/bash
 
-SHEET_URL='https://docs.google.com/spreadsheets/d/135us82p8GlOYXFhu2vdpKGz-kpvQntA8/export?format=csv&gid=1549954680'
+US_SHEET_URL='https://docs.google.com/spreadsheets/d/135us82p8GlOYXFhu2vdpKGz-kpvQntA8/export?format=csv&gid=1549954680'
 
-curl "$SHEET_URL" > raw.csv
+# URL from param
+SHEET_URL=${1:-$US_SHEET_URL};
+
+echo "Importing from $SHEET_URL"
+
+curl -s "$SHEET_URL" > raw.csv
 
 # Slice off the extra header
 sed -e '1,10d' < raw.csv | csv2json > base.json
@@ -12,7 +17,11 @@ cat base.json|jq '
     .[]
 
     # Break keywords into an array
-    | .keywords = (.keywords | split(",\\s*"; ""))
+    | .keywords = (
+        .keywords
+        | split(",\\s*"; "")
+        | map(select(length > 0))
+      )
 
     # Restructure characteristics
     | .characteristics = {
@@ -53,7 +62,7 @@ cat base.json|jq '
       )
 
     # Restructure trendScore
-    | .trendScore = {
+    | .riskScore = {
         poor: .trendScorePoor,
         caution: .trendScoreCaution,
         better: .trendScoreBetter
