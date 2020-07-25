@@ -4,9 +4,9 @@
     return-object
     item-text="longName"
     :items="regionsList"
-    @change="setCurrentRegion($event)"
+    @change="setCurrentRegion"
     :class="regionSelectClass"
-    v-model="selectedRegion"
+    :value="selectedRegion"
     v-if="regionsList.length > 1"
   ></v-select>
 </template>
@@ -17,41 +17,27 @@ export default {
   props: {
     parent: String
   },
-  data() {
-    return {
-      selectedRegion: Object
-    };
-  },
-  mounted() {
-    this.getCurrentRegionFromList();
-  },
   computed: {
     ...mapGetters(["currentRegion", "regions"]),
-    regionsList: function() {
+    regionsList() {
       console.log(Object.values(this.regions));
       return Object.values(this.regions).filter(region => region.slug != "all");
     },
-    regionSelectClass: function() {
+    regionSelectClass() {
       if (this.$vuetify.breakpoint.mdAndUp && this.parent === "SearchResults") {
         return "selectRegion regionSelectOnMediumAndUp";
       } else {
         return "selectRegion regionSelectOnSmaller";
       }
+    },
+    selectedRegion() {
+      return this.regions[this.currentRegion];
     }
   },
   methods: {
-    setCurrentRegion() {
+    setCurrentRegion(newRegion) {
       this.$emit("regionSelected");
-      this.$store.dispatch("changeRegion", this.selectedRegion.slug);
-    },
-    getCurrentRegionFromList() {
-      this.selectedRegion = this.regions[this.currentRegion];
-    },
-    watch: {
-      currentRegion: function() {
-        this.getCurrentRegionFromList();
-      },
-      deep: true
+      this.$store.dispatch("changeRegion", newRegion.slug);
     }
   }
 };
