@@ -4,7 +4,6 @@ import store from "@/store";
 import AppBody from "@/components/AppBody.vue";
 import Home from "@/views/Home.vue";
 import Browse from "@/views/Browse.vue";
-import BrowseCategory from "@/views/BrowseCategory.vue";
 import About from "@/views/About.vue";
 import Admin from "@/views/Admin.vue";
 import AdminRegionEdit from "@/views/AdminRegionEdit.vue";
@@ -14,6 +13,7 @@ import AdminRiskFactorEdit from "@/views/AdminRiskFactorEdit.vue";
 import AdminCategoryEdit from "@/views/AdminCategoryEdit.vue";
 import AdminUserEdit from "@/views/AdminUserEdit.vue";
 import SearchResults from "@/views/SearchResults.vue";
+import Infographic from "@/views/Infographic.vue";
 
 Vue.use(VueRouter);
 
@@ -72,6 +72,11 @@ const routes = [
     props: true
   },
   {
+    path: "/infographic",
+    name: "Infographic",
+    component: Infographic
+  },
+  {
     path: "/:country",
     async beforeEnter(to, from, next) {
       const country = to.params.country;
@@ -119,12 +124,6 @@ const routes = [
         path: "browse",
         name: "Browse",
         component: Browse
-      },
-      {
-        path: "browse/category/:name",
-        name: "BrowseCategory",
-        component: BrowseCategory,
-        props: true
       },
       {
         path: "about",

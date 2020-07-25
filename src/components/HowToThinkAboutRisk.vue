@@ -39,6 +39,17 @@
         <v-card-title>{{ popupTitle }}</v-card-title>
         <v-card-text>
           <Markdown :source="popupMarkdown" />
+          <div class="learnMoreContainer">
+            <router-link
+              class="router learnMore"
+              :to="{
+                name: 'Infographic',
+                params: { country: currentCountry, region: currentRegion }
+              }"
+            >
+              Learn More
+            </router-link>
+          </div>
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -94,6 +105,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.learnMoreContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.router.learnMore {
+  background-color: $selectorgray !important;
+  color: white !important;
+  border: 1px solid $selectorgray;
+  border-radius: 30px;
+  padding: 9px;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin: 0 auto;
+}
+.router.learnMore:hover {
+  background-color: white !important;
+  color: black !important;
+  border: 1px solid black;
+}
 .componentIcon {
   width: 75px;
   height: 75px;
