@@ -185,6 +185,6 @@ export default {
 <style lang="scss">
 /* The input box was being put on a separate line, making weird whitespace on the dropdown */
 .vs__selected-options {
-  flex-wrap: nowrap;
+  flex-wrap: nowrap !important;
 }
 </style>
