@@ -49,31 +49,31 @@
           <v-flex xs12 md3>
             <v-text-field
               type="number"
-              label="Trending Bad Risk Score"
+              label="Trending Poor Risk Score"
               min="1"
               max="5"
-              :value="activity.TrendBadRiskScore"
-              @input="saveValue('TrendBadRiskScore', $event)"
+              :value="activity.riskScore.poor"
+              @input="saveValue('riskScore/poor', $event)"
             ></v-text-field>
           </v-flex>
           <v-flex xs12 md3>
             <v-text-field
               type="number"
-              label="Trending Medium Risk Score"
+              label="Trending Caution Risk Score"
               min="1"
               max="5"
-              :value="activity.TrendMediumRiskScore"
-              @input="saveValue('TrendMediumRiskScore', $event)"
+              :value="activity.riskScore.caution"
+              @input="saveValue('riskScore/caution', $event)"
             ></v-text-field>
           </v-flex>
           <v-flex xs12 md3>
             <v-text-field
               type="number"
-              label="Trending Good Risk Score"
+              label="Trending Better Risk Score"
               min="1"
               max="5"
-              :value="activity.TrendGoodRiskScore"
-              @input="saveValue('TrendGoodRiskScore', $event)"
+              :value="activity.riskScore.better"
+              @input="saveValue('riskScore/better', $event)"
             ></v-text-field>
           </v-flex>
         </v-layout>
@@ -99,11 +99,9 @@
             <v-col lg12>
               <v-switch
                 label="Inside?"
-                input-value="activity.inside"
-                @change="saveValue('inside', !activity.inside)"
+                input-value="activity.isInside"
+                @change="saveValue('isInside', !activity.isInside)"
               ></v-switch>
-              <!--<v-checkbox label="Inside?" input-value="activity.inside" @click='saveValue("inside",!activity.inside,$event)'></v-checkbox>-->
-              <!-- uncommment line above if we want to use a checkbox instead of a switch -->
             </v-col>
           </v-row>
         </v-layout>
@@ -113,10 +111,7 @@
             <v-text-field
               label="Add a keyword"
               v-model="newKeyword"
-              @keydown.enter="
-                saveValue('activityKeywords', existingKeywords + newKeyword);
-                clearValue($event);
-              "
+              @keydown.enter="addKeyword(newKeyword)"
             ></v-text-field>
           </v-flex>
           <v-flex col lg4></v-flex>
@@ -164,21 +159,20 @@
               <v-card flat tile>
                 <v-card-text>
                   <v-text-field
-                    type="number"
                     label="Crowding score"
-                    min="1"
-                    max="3"
-                    :value="activity.crowding"
-                    @input="saveValue('crowding', $event)"
+                    :value="activity.characteristics.crowding.score"
+                    @input="saveValue('crowding/score', $event)"
                   />
                   <v-textarea
                     label="Crowding Notes"
-                    :value="activity.crowdingNotes"
-                    @input="saveValue('crowdingNotes', $event)"
+                    :value="activity.characteristics.crowding.notes"
+                    @input="saveValue('characteristics/crowding/notes', $event)"
                   ></v-textarea>
                   <v-label>Crowding Notes Preview</v-label>
                   <v-card outlined>
-                    <Markdown :source="activity.crowdingNotes" />
+                    <Markdown
+                      :source="activity.characteristics.crowding.notes"
+                    />
                   </v-card>
                   <v-text-field label="Crowding Reference Slugs" />
                 </v-card-text>
@@ -188,21 +182,20 @@
               <v-card flat tile>
                 <v-card-text>
                   <v-text-field
-                    type="number"
                     label="Droplets score"
-                    min="1"
-                    max="3"
-                    :value="activity.droplets"
-                    @input="saveValue('droplets', $event)"
+                    :value="activity.characteristics.droplets.score"
+                    @input="saveValue('characteristics/droplets/score', $event)"
                   />
                   <v-textarea
                     label="Droplets Notes"
-                    :value="activity.dropletsNotes"
-                    @input="saveValue('dropletsNotes', $event)"
+                    :value="activity.characteristics.droplets.notes"
+                    @input="saveValue('characteristics/droplets/notes', $event)"
                   ></v-textarea>
                   <v-label>Droplets Notes Preview</v-label>
                   <v-card outlined>
-                    <Markdown :source="activity.dropletsNotes" />
+                    <Markdown
+                      :source="activity.characteristics.droplets.notes"
+                    />
                   </v-card>
                   <v-text-field label="Droplets Reference Slugs" />
                 </v-card-text>
@@ -212,21 +205,24 @@
               <v-card flat tile>
                 <v-card-text>
                   <v-text-field
-                    type="number"
                     label="Exposure Time score"
-                    min="1"
-                    max="3"
-                    :value="activity.exposureTime"
-                    @input="saveValue('exposureTime', $event)"
+                    :value="activity.characteristics.exposureTime.score"
+                    @input="
+                      saveValue('characteristics/exposureTime/score', $event)
+                    "
                   />
                   <v-textarea
                     label="Exposure Time Notes"
-                    :value="activity.exposureTimeNotes"
-                    @input="saveValue('exposureTimeNotes', $event)"
+                    :value="activity.characteristics.exposureTime.notes"
+                    @input="
+                      saveValue('characteristics/exposureTime/notes', $event)
+                    "
                   ></v-textarea>
                   <v-label>Exposure Time Notes Preview</v-label>
                   <v-card outlined>
-                    <Markdown :source="activity.exposureTimeNotes" />
+                    <Markdown
+                      :source="activity.characteristics.exposureTime.notes"
+                    />
                   </v-card>
                   <v-text-field label="Exposure Time Reference Slugs" />
                 </v-card-text>
@@ -236,21 +232,24 @@
               <v-card flat tile>
                 <v-card-text>
                   <v-text-field
-                    type="number"
                     label="Ventilation score"
-                    min="1"
-                    max="3"
-                    :value="activity.ventilation"
-                    @input="saveValue('ventilation', $event)"
+                    :value="activity.characteristics.ventilation.score"
+                    @input="
+                      saveValue('characteristics/ventilation/score', $event)
+                    "
                   />
                   <v-textarea
                     label="Ventilation Notes"
-                    :value="activity.ventilationNotes"
-                    @input="saveValue('ventilationNotes', $event)"
+                    :value="activity.characteristics.ventilation.notes"
+                    @input="
+                      saveValue('characteristics/ventilation/notes', $event)
+                    "
                   ></v-textarea>
                   <v-label>Ventilation Notes Preview</v-label>
                   <v-card outlined>
-                    <Markdown :source="activity.ventilationNotes" />
+                    <Markdown
+                      :source="activity.characteristics.ventilation.notes"
+                    />
                   </v-card>
                   <v-text-field label="Ventilation Reference Slugs" />
                 </v-card-text>
@@ -265,24 +264,6 @@
     Current key: {{ currentKey }}
     <div class="edit-form">
       <div class="form-group">
-        <label>activitykeywords</label>
-        <input
-          class="form-control"
-          type="text"
-          @input="saveField('activitykeywords', $event)"
-          :value="this.activity.activitykeywords"
-        />
-      </div>
-      <div class="form-group">
-        <label>category</label>
-        <input
-          class="form-control"
-          type="text"
-          @input="saveField('category', $event)"
-          :value="this.activity.category"
-        />
-      </div>
-      <div class="form-group">
         <label>showLocation</label>
         <select
           class="form-control"
@@ -293,77 +274,6 @@
           <option>TRUE</option>
         </select>
       </div>
-      <div class="form-group">
-        <label>extraRiskDescription</label>
-        <textarea
-          class="form-control"
-          @input="saveField('extraRiskDescription', $event)"
-          :value="this.activity.extraRiskDescription"
-        />
-      </div>
-      <div class="form-group">
-        <label>generalRiskScore</label>
-        <input
-          class="form-control"
-          type="text"
-          @input="saveField('generalRiskScore', $event)"
-          :value="this.activity.generalRiskScore"
-        />
-      </div>
-      <div class="form-group">
-        <label>risk50To69</label>
-        <input
-          class="form-control"
-          type="text"
-          @input="saveField('risk50To69', $event)"
-          :value="this.activity.risk50To69"
-        />
-      </div>
-      <div class="form-group">
-        <label>riskOver70</label>
-        <input
-          class="form-control"
-          type="text"
-          @input="saveField('riskOver70', $event)"
-          :value="this.activity.riskOver70"
-        />
-      </div>
-      <div class="form-group">
-        <label>reference1</label>
-        <input
-          class="form-control"
-          type="text"
-          @input="saveField('reference1', $event)"
-          :value="this.activity.reference1"
-        />
-      </div>
-      <div class="form-group">
-        <label>reference2</label>
-        <input
-          class="form-control"
-          type="text"
-          @input="saveField('reference2', $event)"
-          :value="this.activity.reference2"
-        />
-      </div>
-      <div class="form-group">
-        <label>reference3</label>
-        <input
-          class="form-control"
-          type="text"
-          @input="saveField('reference3', $event)"
-          :value="this.activity.reference3"
-        />
-      </div>
-      <div class="form-group">
-        <label>reference4</label>
-        <input
-          class="form-control"
-          type="text"
-          @input="saveField('reference4', $event)"
-          :value="this.activity.reference4"
-        />
-      </div>
     </div>
   </div>
 </template>
@@ -372,6 +282,7 @@
 import { db } from "@/db.js";
 import { mapGetters } from "vuex";
 import Markdown from "vue-markdown";
+import { union } from "lodash";
 
 export default {
   components: { Markdown },
@@ -398,18 +309,7 @@ export default {
       return this.activities[this.currentKey];
     },
     keywords() {
-      return this.activity.activityKeywords
-        ? this.activity.activityKeywords.split(",")
-        : [];
-    },
-    existingKeywords() {
-      if (!this.activity.activityKeywords) return "";
-      return this.activity.activityKeywords.length > 0
-        ? this.activity.activityKeywords + ","
-        : "";
-    },
-    hasBetaAccess() {
-      return !!this.currentUserSettings?.hasBetaAccess;
+      return this.activity.keywords;
     },
     categoryNames() {
       return Object.keys(this.categories);
@@ -461,10 +361,10 @@ export default {
       this.currentKey = this.slug;
     },
     removeKeyword(deleteKeyword) {
-      this.activity.activityKeywords = this.keywords
-        .filter(keyword => keyword !== deleteKeyword)
-        .join(",");
-      this.saveValue("activityKeywords", this.activity.activityKeywords);
+      this.activity.keywords = this.keywords.filter(
+        keyword => keyword !== deleteKeyword
+      );
+      this.saveValue("keywords", this.activity.keywords);
     },
     readableTimestamp(milliseconds) {
       return new Date(milliseconds).toLocaleString();
@@ -473,8 +373,9 @@ export default {
       const email = this.users[uid]?.email || "unknown";
       return email;
     },
-    clearValue(event) {
-      event.target.value = "";
+    addKeyword(newKeyword) {
+      this.saveValue("keywords", union(this.keywords, [newKeyword]));
+      this.newKeyword = "";
     }
   }
 };
