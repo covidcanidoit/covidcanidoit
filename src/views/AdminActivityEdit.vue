@@ -2,9 +2,11 @@
   <div>
     <router-link :to="{ name: 'Admin' }">Back</router-link>
     <h1 class="display-2">Editing {{ this.activity.name }}</h1>
+
     <h6>
       <small class="lastEdited">{{ lastEdited }}</small>
     </h6>
+
     <v-form>
       <v-container fluid>
         <v-layout>
@@ -262,33 +264,6 @@
     <h1>Edit Activity</h1>
     Current key: {{ currentKey }}
     <div class="edit-form">
-      <div class="form-group">
-        <label>slug</label>
-        <input
-          @input="saveField('slug', $event)"
-          class="form-control"
-          type="text"
-          :value="this.activity.slug"
-        />
-      </div>
-      <div class="form-group">
-        <label>name</label>
-        <input
-          class="form-control"
-          type="text"
-          @input="saveField('name', $event)"
-          :value="this.activity.name"
-        />
-      </div>
-      <div class="form-group">
-        <label>searchName</label>
-        <input
-          class="form-control"
-          type="text"
-          @input="saveField('searchName', $event)"
-          :value="this.activity.searchName"
-        />
-      </div>
       <div class="form-group">
         <label>activitykeywords</label>
         <input

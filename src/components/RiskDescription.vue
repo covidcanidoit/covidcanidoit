@@ -21,22 +21,6 @@
         <div class="score-title">{{ riskLevel.riskName }}</div>
         <ScoreScale :score="riskScore" />
         <RegionSelector parent="SearchResults" />
-        <v-dialog v-model="shouldForceRegionSelect" max-width="400">
-          <v-card class="modalRegionSelector">
-            <v-card-title class="headline">Select a region/state</v-card-title>
-            <v-card-text>
-              Different regions and states have different levels of disease
-              control. This impacts your risk.
-            </v-card-text>
-            <v-card-text>
-              <RegionSelector parent="modal" />
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="green darken-1" text>Ok</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
         <v-spacer></v-spacer>
 
         <RiskComponents :activity="activity"></RiskComponents>
@@ -68,9 +52,6 @@ export default {
       default: "5"
     },
     activity: Object
-  },
-  mounted() {
-    this.getCurrentRegionFromList();
   },
   data() {
     return {
@@ -125,11 +106,6 @@ export default {
       } else {
         return "searchbarContainerOnSmaller";
       }
-    },
-    shouldForceRegionSelect() {
-      return (
-        Object.keys(this.regions).length > 1 && this.currentRegion === "all"
-      );
     }
   },
   methods: {

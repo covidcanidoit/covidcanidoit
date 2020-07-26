@@ -13,6 +13,7 @@
         <v-icon v-if="inHome">mdi-magnify</v-icon>
         <input class="vs__search" v-bind="attributes" v-on="events" />
       </template>
+
       <template #no-options="{ search, searching}">
         <template v-if="searching">
           <v-btn @click="onSearch">

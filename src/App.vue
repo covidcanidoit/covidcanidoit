@@ -233,8 +233,8 @@ export default {
     setCurrentCountry(country) {
       this.$store.dispatch("changeCountry", country);
     },
-    setCurrentRegion(region) {
-      this.$store.dispatch("changeRegion", region);
+    setCurrentRegion(regionSlug) {
+      this.$store.dispatch("changeRegion", regionSlug);
     }
   },
   watch: {

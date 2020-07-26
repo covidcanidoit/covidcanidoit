@@ -36,9 +36,8 @@ export default {
     }
   },
   methods: {
-    setCurrentRegion(newRegion) {
-      this.$emit("regionSelected");
-      this.$store.dispatch("changeRegion", newRegion.slug);
+    async setCurrentRegion(newRegion) {
+      await this.$store.dispatch("changeRegion", newRegion.slug);
     }
   }
 };

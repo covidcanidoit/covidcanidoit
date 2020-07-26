@@ -9,6 +9,8 @@ import { db } from "@/db.js";
 // Persist vuex into localStorage between page loads
 import VuexPersistence from "vuex-persist";
 
+import router from "@/router";
+
 // This helper makes for much shorter action-bindings
 function bindFirebase(key) {
   return firebaseAction(({ bindFirebaseRef }) => {
@@ -150,18 +152,36 @@ export default new Vuex.Store({
     // Other app actions
     // -----------------
     changeCountry({ commit, getters }, newCountry) {
+      let oldCountry = getters.currentCountry;
       if (getters.countrySlugs.includes(newCountry)) {
         commit("setCurrentCountry", newCountry);
       } else {
         commit("setCurrentCountry", "US");
       }
+
+      // When the country changes, force the change into the URL
+      if (oldCountry != newCountry) {
+        let newRoute = Object.assign({}, router.currentRoute);
+        newRoute.params.country = getters.currentCountry;
+        newRoute.params.region = "all"; // back to default
+        router.push(newRoute);
+      }
     },
-    changeRegion({ commit, getters }, newRegion) {
+    async changeRegion({ commit, getters }, newRegion) {
+      let oldRegion = getters.currentRegion;
       commit("setCurrentRegion", newRegion);
       if (getters.regionSlugs.includes(newRegion)) {
         commit("setCurrentRegion", newRegion);
       } else {
         commit("setCurrentRegion", "all");
+      }
+
+      // When the region changes, force the change into the URL
+      if (oldRegion != newRegion) {
+        console.log("Updating navigatin from", oldRegion, newRegion);
+        let newRoute = Object.assign({}, router.currentRoute);
+        newRoute.params.region = getters.currentRegion;
+        await router.push(newRoute);
       }
     }
   }
