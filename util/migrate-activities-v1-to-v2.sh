@@ -18,7 +18,9 @@ cat $INFILE | jq '
 
     # Move the general risk score into trendScore
     | .riskScore = {
-        general: .generalRiskScore
+        poor: .generalRiskScore,
+        caution: .generalRiskScore,
+        better: .generalRiskScore
       }
     | del( .generalRiskScore )
 

@@ -150,12 +150,22 @@ export default {
           width: string*/
         },
         {
-          text: "General",
-          value: "generalRiskScore",
+          text: "riskScore Poor",
+          value: "riskScore.poor",
           align: "left",
           sortable: "true"
-          /*class: string[] | string,
-          width: string*/
+        },
+        {
+          text: "riskScore Caution",
+          value: "riskScore.caution",
+          align: "left",
+          sortable: "true"
+        },
+        {
+          text: "riskScore Better",
+          value: "riskScore.better",
+          align: "left",
+          sortable: "true"
         },
         {
           text: "Location?",

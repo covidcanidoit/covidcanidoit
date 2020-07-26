@@ -78,7 +78,7 @@ export default {
 
         score = scoreLookup[regionLevel];
       }
-      return score || this.activity.riskScore.general;
+      return score || this.activity.riskScore.poor || "5";
     }
   }
 };
