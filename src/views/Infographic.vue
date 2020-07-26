@@ -1,23 +1,24 @@
 <template>
-  <!-- <Infographic class="infographic" /> -->
-  <div class="infographicContainer">
-    <!-- <Infographic /> -->
-    <img
-      :src="
-        `${publicPath}images/riskcomponents/CCIDI_infographic_formatted.svg`
-      "
-      alt="Infographic"
-      class="infographic"
-    />
-  </div>
+  <v-container>
+    <v-layout row align-center justify-center>
+      <v-flex>
+        <div class="infographicContainer">
+          <img
+            :src="
+              `${publicPath}images/riskcomponents/CCIDI_infographic_formatted.svg`
+            "
+            alt="Infographic"
+            class="infographic"
+          />
+        </div>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
-// import Infographic from "@/assets/CCIDI_infographic_formatted.svg";
 export default {
-  components: {
-    // Infographic
-  },
+  components: {},
   data() {
     return {
       publicPath: process.env.BASE_URL
@@ -28,6 +29,7 @@ export default {
 <style lang="scss" scoped>
 .infographic {
   margin: 0 auto;
+  max-width: 100%;
 }
 .infographicContainer {
   text-align: center;
