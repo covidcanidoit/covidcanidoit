@@ -21,7 +21,9 @@ export default {
   computed: {
     ...mapGetters(["currentRegion", "regions"]),
     regionsList() {
-      return Object.values(this.regions).filter(region => region.slug != "all");
+      return Object.values(this.regions)
+        .filter(region => region.slug != "all")
+        .sort((a, b) => (a.longName > b.longName ? 1 : -1));
     },
     regionSelectClass() {
       if (this.$vuetify.breakpoint.mdAndUp && this.parent === "SearchResults") {
