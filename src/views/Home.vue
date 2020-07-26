@@ -26,7 +26,6 @@ import HomeBanner from "@/components/HomeBanner.vue";
 import HowItWorks from "@/components/HowItWorks.vue";
 import HowToThinkAboutRisk from "@/components/HowToThinkAboutRisk.vue";
 import { mapGetters } from "vuex";
-import VueScrollTo from "vue-scrollto";
 
 export default {
   props: ["search", "slug"],
@@ -75,7 +74,6 @@ export default {
             this.selectedActivitySlug = activity.slug;
             this.goToResults();
           }
-          VueScrollTo.scrollTo("#search-results");
         }
       });
     },

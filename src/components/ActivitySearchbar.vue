@@ -8,6 +8,7 @@
       v-model="activity"
       v-on:input="onSearch"
       placeholder="Type your activity here"
+      @search:focus="$emit('search:focus')"
     >
       <template #search="{ attributes, events }">
         <v-icon v-if="inHome">mdi-magnify</v-icon>
