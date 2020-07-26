@@ -90,7 +90,7 @@ export default {
     ...mapGetters(["components"]),
     hasRiskData() {
       for (const risk of this.riskTypes) {
-        if (!this.activity.characteristics[risk].notes) return false;
+        if (!this.activity.characteristics?.[risk]?.notes) return false;
       }
       return true;
     },
