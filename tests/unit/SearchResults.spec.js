@@ -9,20 +9,20 @@ describe("SearchResults", () => {
   describe("riskScore calculation", () => {
     const regions = () => ({
       all: {
-        trending: "bad",
+        trending: "poor",
         slug: "all"
       },
-      regionGood: {
-        trending: "good",
-        slug: "regionGood"
+      regionBetter: {
+        trending: "better",
+        slug: "regionBetter"
       },
-      regionBad: {
-        trending: "bad",
-        slug: "regionBad"
+      regionPoor: {
+        trending: "poor",
+        slug: "regionPoor"
       },
-      regionMedium: {
-        trending: "medium",
-        slug: "regionMedium"
+      regionCaution: {
+        trending: "caution",
+        slug: "regionCaution"
       },
       regionNoTrending: {
         slug: "regionNoTrending"
@@ -67,47 +67,37 @@ describe("SearchResults", () => {
     });
 
     test.each([
-      ["all", true, "1"],
-      ["regionGood", true, "2"],
-      ["regionMedium", true, "3"],
-      ["regionBad", true, "4"],
-      ["regionNoTrending", true, "1"],
-      ["regionInvalidTrending", true, "1"],
-      ["all", false, "1"],
-      ["regionGood", false, "1"],
-      ["regionMedium", false, "1"],
-      ["regionBad", false, "1"],
-      ["regionNoTrending", false, "1"],
-      ["regionInvalidTrending", false, "1"]
-    ])(
-      "when region is %p, activity has trending scores: %p, riskScore is %p",
-      (region, activityHasTrending, expected) => {
-        const activity = {
-          activityName: "Test activity",
-          generalRiskScore: "1",
-          slug: "test-activity",
-          ...(activityHasTrending && {
-            TrendBadRiskScore: "4",
-            TrendGoodRiskScore: "2",
-            TrendMediumRiskScore: "3"
-          })
-        };
+      ["all", "4"],
+      ["regionBetter", "2"],
+      ["regionCaution", "3"],
+      ["regionPoor", "4"],
+      ["regionNoTrending", "4"],
+      ["regionInvalidTrending", "4"]
+    ])("when region is %p, activity has riskScore %p", (region, expected) => {
+      const activity = {
+        name: "Test activity",
+        slug: "test-activity",
+        riskScore: {
+          poor: "4",
+          caution: "3",
+          better: "2"
+        }
+      };
 
-        const getters = {
-          currentRegion: () => region,
-          regions,
-          riskLevels,
-          riskFactors: () => {}
-        };
-        const store = new Vuex.Store({ getters });
+      const getters = {
+        currentRegion: () => region,
+        regions,
+        riskLevels,
+        riskFactors: () => {}
+      };
+      const store = new Vuex.Store({ getters });
 
-        const wrapper = shallowMount(SearchResults, {
-          localVue,
-          store,
-          propsData: { activity: activity }
-        });
-        expect(wrapper.vm.riskScore).toBe(expected);
-      }
-    );
+      const wrapper = shallowMount(SearchResults, {
+        localVue,
+        store,
+        propsData: { activity: activity }
+      });
+      expect(wrapper.vm.riskScore).toBe(expected);
+    });
   });
 });
