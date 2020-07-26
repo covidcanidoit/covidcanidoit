@@ -79,7 +79,7 @@ const routes = [
     path: "/:country",
     async beforeEnter(to, from, next) {
       const country = to.params.country;
-      await store.dispatch("changeCountry", country);
+      await store.dispatch("setCountry", country);
       return next(
         store.getters.currentCountry + "/" + store.getters.currentRegion
       );
@@ -91,8 +91,8 @@ const routes = [
     async beforeEnter(to, from, next) {
       const country = to.params.country;
       const region = to.params.region;
-      await store.dispatch("changeCountry", country);
-      await store.dispatch("changeRegion", region);
+      await store.dispatch("setCountry", country);
+      await store.dispatch("setRegion", region);
       if (
         country !== store.getters.currentCountry ||
         region !== store.getters.currentRegion

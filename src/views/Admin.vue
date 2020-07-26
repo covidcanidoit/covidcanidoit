@@ -362,7 +362,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["setRegion", "deleteRegion"]),
+    ...mapActions(["updateRegion", "deleteRegion"]),
     login() {
       const provider = new firebase.auth.GoogleAuthProvider();
       firebase.auth().signInWithRedirect(provider);
@@ -399,7 +399,7 @@ export default {
     },
     addNewRegion() {
       if (this.newRegionSlug) {
-        this.setRegion({
+        this.updateRegion({
           slug: this.newRegionSlug,
           shortName: this.newRegionSlug,
           longName: this.newRegionSlug,

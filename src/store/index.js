@@ -130,7 +130,7 @@ export default new Vuex.Store({
 
     // Firebase modifications
     // ----------------------
-    setRegion: firebaseAction(({ state }, region) => {
+    updateRegion: firebaseAction(({ state }, region) => {
       return db
         .ref("content")
         .child(state.currentCountry)
@@ -149,6 +149,13 @@ export default new Vuex.Store({
 
     // Other app actions
     // -----------------
+    async setCountry({ commit, getters }, newCountry) {
+      if (getters.countrySlugs.includes(newCountry)) {
+        commit("setCurrentCountry", newCountry);
+      } else {
+        commit("setCurrentCountry", "US");
+      }
+    },
     async changeCountry({ commit, getters }, newCountry) {
       let oldCountry = getters.currentCountry;
       if (getters.countrySlugs.includes(newCountry)) {
@@ -164,6 +171,14 @@ export default new Vuex.Store({
         newRoute.params.region = "all"; // back to default
         commit("setCurrentRegion", "all");
         await router.push(newRoute);
+      }
+    },
+    async setRegion({ commit, getters }, newRegion) {
+      commit("setCurrentRegion", newRegion);
+      if (getters.regionSlugs.includes(newRegion)) {
+        commit("setCurrentRegion", newRegion);
+      } else {
+        commit("setCurrentRegion", "all");
       }
     },
     async changeRegion({ commit, getters }, newRegion) {
