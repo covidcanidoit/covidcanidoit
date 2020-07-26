@@ -23,7 +23,6 @@ const routes = [
     name: "root",
 
     beforeEnter(to, from, next) {
-      console.log(`Router / -> next(${store.getters.currentCountry})`);
       return next(
         store.getters.currentCountry + "/" + store.getters.currentRegion
       );
@@ -80,7 +79,6 @@ const routes = [
     path: "/:country",
     async beforeEnter(to, from, next) {
       const country = to.params.country;
-      console.log("Router /:country", { country });
       await store.dispatch("changeCountry", country);
       return next(
         store.getters.currentCountry + "/" + store.getters.currentRegion
@@ -93,7 +91,6 @@ const routes = [
     async beforeEnter(to, from, next) {
       const country = to.params.country;
       const region = to.params.region;
-      console.log("Router /:country/:region", { country, region });
       await store.dispatch("changeCountry", country);
       await store.dispatch("changeRegion", region);
       if (

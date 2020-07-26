@@ -21,7 +21,6 @@ export default {
   computed: {
     ...mapGetters(["currentRegion", "regions"]),
     regionsList() {
-      console.log(Object.values(this.regions));
       return Object.values(this.regions).filter(region => region.slug != "all");
     },
     regionSelectClass() {

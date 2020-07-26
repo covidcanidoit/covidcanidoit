@@ -29,7 +29,6 @@ export default {
     saveInner(snapshot) {
       if (!snapshot) return;
       let count = snapshot.val();
-      console.log(this.suggested, " : ", count);
 
       db.ref("suggestions")
         .child(this.currentCountry)

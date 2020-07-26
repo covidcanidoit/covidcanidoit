@@ -14,7 +14,7 @@ import router from "@/router";
 // This helper makes for much shorter action-bindings
 function bindFirebase(key) {
   return firebaseAction(({ bindFirebaseRef }) => {
-    console.log("Binding:", key);
+    // console.log("Binding:", key);
     return bindFirebaseRef(key, db.ref(key));
   });
 }
@@ -131,8 +131,6 @@ export default new Vuex.Store({
     // Firebase modifications
     // ----------------------
     setRegion: firebaseAction(({ state }, region) => {
-      console.log("Setting region", { region });
-      console.log(`At: content/${state.currentCountry}/${region.slug}`);
       return db
         .ref("content")
         .child(state.currentCountry)
@@ -151,7 +149,7 @@ export default new Vuex.Store({
 
     // Other app actions
     // -----------------
-    changeCountry({ commit, getters }, newCountry) {
+    async changeCountry({ commit, getters }, newCountry) {
       let oldCountry = getters.currentCountry;
       if (getters.countrySlugs.includes(newCountry)) {
         commit("setCurrentCountry", newCountry);
@@ -164,7 +162,7 @@ export default new Vuex.Store({
         let newRoute = Object.assign({}, router.currentRoute);
         newRoute.params.country = getters.currentCountry;
         newRoute.params.region = "all"; // back to default
-        router.push(newRoute);
+        await router.push(newRoute);
       }
     },
     async changeRegion({ commit, getters }, newRegion) {
@@ -178,7 +176,6 @@ export default new Vuex.Store({
 
       // When the region changes, force the change into the URL
       if (oldRegion != newRegion) {
-        console.log("Updating navigatin from", oldRegion, newRegion);
         let newRoute = Object.assign({}, router.currentRoute);
         newRoute.params.region = getters.currentRegion;
         await router.push(newRoute);

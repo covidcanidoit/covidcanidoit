@@ -68,9 +68,7 @@ export default {
   },
   methods: {
     onSearch() {
-      console.log("onSearch", this.activity);
       if (this.activity === null && this.suggested) {
-        console.log("suggestion triggered:", this.suggested);
         this.suggestionTriggered = true;
         this.saveSuggestion();
       }
@@ -88,13 +86,6 @@ export default {
       return search;
     },
     saveSuggestion() {
-      console.log(
-        "this.currentCountry",
-        this.currentCountry,
-        "this.suggested",
-        this.suggested
-      );
-      //let count = 0;
       db.ref("suggestions")
         .child(this.currentCountry)
         .child("activitySuggestions")
@@ -106,7 +97,6 @@ export default {
     saveInner(snapshot) {
       if (!snapshot) return;
       let count = snapshot.val();
-      console.log(this.suggested, " : ", count);
 
       db.ref("suggestions")
         .child(this.currentCountry)
@@ -154,13 +144,11 @@ export default {
     }
   },
   mounted() {
-    console.log("initialSearch", this.initialSearch);
     if (this.initialSearch) {
       this.activity = this.initialSearch;
       this.onSearch();
     }
     if (!this.activity.slug) {
-      console.log("clearing out activity name");
       this.activity = null;
     }
   }

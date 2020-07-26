@@ -60,7 +60,6 @@ export default {
   },
   created() {
     if (this.slug) {
-      console.log("Using slug", this.slug);
       this.onSearch(this.activities[this.slug].name);
     }
   },
