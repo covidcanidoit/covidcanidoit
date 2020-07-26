@@ -162,6 +162,7 @@ export default new Vuex.Store({
         let newRoute = Object.assign({}, router.currentRoute);
         newRoute.params.country = getters.currentCountry;
         newRoute.params.region = "all"; // back to default
+        commit("setCurrentRegion", "all");
         await router.push(newRoute);
       }
     },
