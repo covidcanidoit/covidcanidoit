@@ -26,22 +26,22 @@ cat base.json|jq '
          crowding: {
            score: .crowdingScore,
            notes: .crowdingNotes,
-           referenceSlug: .crowdingReferenceSlug
+           referenceSlug: (.crowdingReferenceSlug | ascii_downcase)
          },
          droplets: {
            score: .dropletsScore,
            notes: .dropletsNotes,
-           referenceSlug: .dropletsReferenceSlug
+           referenceSlug: (.dropletsReferenceSlug | ascii_downcase)
          },
          exposureTime: {
            score: .exposureTimeScore,
            notes: .exposureTimeNotes,
-           referenceSlug: .exposureTimeReferenceSlug
+           referenceSlug: (.exposureTimeReferenceSlug | ascii_downcase)
          },
          ventilation: {
            score: .ventilationScore,
            notes: .ventilationNotes,
-           referenceSlug: .ventilationReferenceSlug
+           referenceSlug: (.ventilationReferenceSlug | ascii_downcase)
          }
        }
     | del(
@@ -84,6 +84,9 @@ cat base.json|jq '
         .reference3,
         .reference4
       )
+
+    # Force ower-case slug
+    | .slug = (.slug | ascii_downcase)
 
     # Pull this out into the slug as the key
     | [.]
