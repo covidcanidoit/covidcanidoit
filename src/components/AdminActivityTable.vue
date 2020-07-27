@@ -25,7 +25,7 @@
             </v-card-title>
             <v-text-field
               class="promptInput"
-              v-model="newActivityName"
+              v-model="newName"
               :counter="50"
               label="Enter activity name"
               clearable
@@ -67,7 +67,7 @@
             :to="{
               name: 'AdminActivityEdit',
               params: {
-                activityName: item.activityName,
+                name: item.name,
                 slug: item.slug,
                 currentUserSettings: currentUserSettings
               }
@@ -119,9 +119,9 @@ import { db } from "@/db.js";
 import { mapState, mapGetters } from "vuex";
 
 export default {
-  props: ["incomingNewActivityName", "currentUserSettings"],
+  props: ["incomingNewName", "currentUserSettings"],
   watch: {
-    incomingNewActivityName: "newActivity"
+    incomingNewName: "newActivity"
   },
   data() {
     return {
@@ -135,7 +135,7 @@ export default {
         },
         {
           text: "Name",
-          value: "activityName",
+          value: "name",
           align: "left",
           sortable: "true"
           /*class: string[] | string,
@@ -150,12 +150,22 @@ export default {
           width: string*/
         },
         {
-          text: "General",
-          value: "generalRiskScore",
+          text: "riskScore Poor",
+          value: "riskScore.poor",
           align: "left",
           sortable: "true"
-          /*class: string[] | string,
-          width: string*/
+        },
+        {
+          text: "riskScore Caution",
+          value: "riskScore.caution",
+          align: "left",
+          sortable: "true"
+        },
+        {
+          text: "riskScore Better",
+          value: "riskScore.better",
+          align: "left",
+          sortable: "true"
         },
         {
           text: "Location?",
@@ -175,7 +185,7 @@ export default {
         }
       ],
       showNewActivityPrompt: false,
-      newActivityName: "",
+      newName: "",
       activityAlreadyExistsError: false,
       activitySlugToDelete: "",
       confirmActivityDelete: false,
@@ -183,7 +193,11 @@ export default {
     };
   },
   created() {},
-  mounted() {},
+  mounted() {
+    if (this.incomingNewName) {
+      this.newActivity(this.incomingNewName);
+    }
+  },
   computed: {
     ...mapState(["content"]),
     ...mapGetters(["activities", "currentCountry", "currentUserUid", "users"]),
@@ -192,23 +206,24 @@ export default {
     }
   },
   methods: {
-    newActivity() {
-      this.showNewActivityPrompt = true;
-      if (this.incomingNewActivityName)
-        this.newActivityName = this.incomingNewActivityName;
+    newActivity(newVal) {
+      if (newVal !== "") {
+        this.newName = newVal;
+        this.showNewActivityPrompt = true;
+        this.$emit("newActivityPopupShown");
+      }
     },
     newActivityOk() {
       let currentKey = Object.keys(this.activities).find(
         key =>
-          this.activities[key].activityName.toLowerCase() ===
-          this.newActivityName.toLowerCase()
+          this.activities[key].name.toLowerCase() === this.newName.toLowerCase()
       );
       console.log("New Activity?", currentKey);
       if (currentKey) {
         this.activityAlreadyExistsError = true;
       } else {
-        let activityName = this.newActivityName;
-        let activitySlug = this.slugify(activityName);
+        let name = this.newName;
+        let activitySlug = this.slugify(name);
         this.showNewActivityPrompt = false;
         db.ref("content")
           .child(this.currentCountry)
@@ -220,8 +235,8 @@ export default {
           .child(this.currentCountry)
           .child("activities")
           .child(activitySlug)
-          .child("activityName")
-          .set(activityName);
+          .child("name")
+          .set(name);
         db.ref("content")
           .child(this.currentCountry)
           .child("activities")
@@ -230,12 +245,12 @@ export default {
           .set(true);
         this.$router.push({
           name: "AdminActivityEdit",
-          params: { activityName: activityName, slug: activitySlug }
+          params: { name: name, slug: activitySlug }
         });
       }
     },
     activityAlreadyExistsErrorOk() {
-      this.newActivityName = "";
+      this.newName = "";
     },
     activityIsActive(disabled) {
       if (disabled) return "mdi-eye-off";

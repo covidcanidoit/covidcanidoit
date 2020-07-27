@@ -80,8 +80,9 @@
         <v-tab>Activities</v-tab>
         <v-tab-item>
           <AdminActivityTable
-            :incomingNewActivityName="newActivityName"
+            :incomingNewName="newName"
             :currentUserSettings="currentUserSettings"
+            @newActivityPopupShown="onNewActivityPopupShown"
           />
         </v-tab-item>
 
@@ -297,7 +298,7 @@ export default {
   },
   data() {
     return {
-      newActivityName: "",
+      newName: "",
       currentUser: undefined,
       currentUserSettings: undefined,
       tab: undefined,
@@ -362,7 +363,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["setRegion", "deleteRegion"]),
+    ...mapActions(["updateRegion", "deleteRegion"]),
     login() {
       const provider = new firebase.auth.GoogleAuthProvider();
       firebase.auth().signInWithRedirect(provider);
@@ -380,8 +381,12 @@ export default {
           console.log("Error signing out!", { error });
         });
     },
-    newActivity(activityName) {
-      this.newActivityName = activityName;
+    newActivity(name) {
+      this.tab = 1;
+      this.newName = name;
+    },
+    onNewActivityPopupShown() {
+      this.newName = "";
     },
     deleteUser(userId) {
       db.ref("userSettings")
@@ -399,7 +404,7 @@ export default {
     },
     addNewRegion() {
       if (this.newRegionSlug) {
-        this.setRegion({
+        this.updateRegion({
           slug: this.newRegionSlug,
           shortName: this.newRegionSlug,
           longName: this.newRegionSlug,

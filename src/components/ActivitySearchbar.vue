@@ -1,18 +1,20 @@
 <template>
   <div>
     <VueSelect
-      label="activityName"
+      label="name"
       :options="filteredActivities"
       :getOptionKey="option => option.slug"
       class="searchbar"
       v-model="activity"
       v-on:input="onSearch"
       placeholder="Type your activity here"
+      @search:focus="$emit('search:focus')"
     >
       <template #search="{ attributes, events }">
         <v-icon v-if="inHome">mdi-magnify</v-icon>
         <input class="vs__search" v-bind="attributes" v-on="events" />
       </template>
+
       <template #no-options="{ search, searching}">
         <template v-if="searching">
           <v-btn @click="onSearch">
@@ -67,9 +69,7 @@ export default {
   },
   methods: {
     onSearch() {
-      console.log("onSearch", this.activity);
       if (this.activity === null && this.suggested) {
-        console.log("suggestion triggered:", this.suggested);
         this.suggestionTriggered = true;
         this.saveSuggestion();
       }
@@ -87,13 +87,6 @@ export default {
       return search;
     },
     saveSuggestion() {
-      console.log(
-        "this.currentCountry",
-        this.currentCountry,
-        "this.suggested",
-        this.suggested
-      );
-      //let count = 0;
       db.ref("suggestions")
         .child(this.currentCountry)
         .child("activitySuggestions")
@@ -105,7 +98,6 @@ export default {
     saveInner(snapshot) {
       if (!snapshot) return;
       let count = snapshot.val();
-      console.log(this.suggested, " : ", count);
 
       db.ref("suggestions")
         .child(this.currentCountry)
@@ -129,14 +121,14 @@ export default {
         includeScore: true,
         includeMatches: true,
         threshold: 0.3
-        //keys: ["activityName"] // include synonyms in the future
+        //keys: ["name"] // include synonyms in the future
       };
 
-      //const fuse = new Fuse(this.fullActivityList, options); // uncomment when ready to search both activityName and synonyms
+      //const fuse = new Fuse(this.fullActivityList, options); // uncomment when ready to search both name and synonyms
       const fuse = new Fuse(this.activityList, options);
       const result = fuse.search(this.searchTerm);
 
-      return result.map(result => result.item.activityName);
+      return result.map(result => result.item.name);
     },
     maxIndex() {
       return Math.ceil(this.activityListComplete.length / this.perPage);
@@ -153,13 +145,11 @@ export default {
     }
   },
   mounted() {
-    console.log("initialSearch", this.initialSearch);
     if (this.initialSearch) {
       this.activity = this.initialSearch;
       this.onSearch();
     }
     if (!this.activity.slug) {
-      console.log("clearing out activity name");
       this.activity = null;
     }
   }
@@ -189,5 +179,12 @@ export default {
 
 .modalCard {
   z-index: 1;
+}
+</style>
+
+<style lang="scss">
+/* The input box was being put on a separate line, making weird whitespace on the dropdown */
+.vs__selected-options {
+  flex-wrap: nowrap !important;
 }
 </style>

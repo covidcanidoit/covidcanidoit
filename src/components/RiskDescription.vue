@@ -2,26 +2,7 @@
   <div>
     <div class="risk-description d-flex flex-column">
       <div class="score-panel">
-        <div v-if="isAgeScore">
-          <!--<b>{{ activity.activityName }}</b>-->
-          <div :class="searchbarContainerClass">
-            <ActivitySearchbar
-              :activityList="Object.values(activities)"
-              :initialSearch="activity"
-              :inHome="false"
-            ></ActivitySearchbar>
-          </div>
-          <span class="riskDeclare" style="white-space: nowrap">
-            &nbsp;is&nbsp;
-            <span :class="riskTokenClass">
-              <span>{{ activityRiskToken }}</span>
-              &nbsp;Risk
-            </span>
-          </span>
-          <!--has an Age-Specific risk level of-->
-        </div>
-        <div v-else>
-          <!--<b>{{ activity.activityName }}</b>-->
+        <div>
           <div :class="searchbarContainerClass">
             <ActivitySearchbar
               :activityList="Object.values(activities)"
@@ -29,27 +10,17 @@
             ></ActivitySearchbar>
           </div>
           <span class="riskDeclare" style="white-space: nowrap">
-            &nbsp;is&nbsp;
+            is&nbsp;
             <span :class="riskTokenClass">
               <span>{{ activityRiskToken }}</span>
               &nbsp;Risk
             </span>
           </span>
-          <!--<div style="white-space: nowrap">has a risk level of</div>-->
         </div>
         <div class="score">{{ riskLevel.riskScore }}</div>
         <div class="score-title">{{ riskLevel.riskName }}</div>
         <ScoreScale :score="riskScore" />
-        <v-select
-          outlined
-          return-object
-          item-text="longName"
-          :items="regionsList"
-          @change="setCurrentRegion($event)"
-          :class="regionSelectClass"
-          v-model="selectedRegion"
-          v-if="regionsList.length > 1"
-        ></v-select>
+        <RegionSelector parent="SearchResults" />
         <v-spacer></v-spacer>
 
         <RiskComponents :activity="activity"></RiskComponents>
@@ -65,26 +36,22 @@ import ScoreScale from "@/components/ScoreScale.vue";
 import RiskComponents from "@/components/RiskComponents.vue";
 import LocationComponent from "@/components/LocationComponent.vue";
 import ActivitySearchbar from "@/components/ActivitySearchbar.vue";
+import RegionSelector from "@/components/RegionSelector.vue";
 
 export default {
   components: {
     ScoreScale,
     RiskComponents,
     LocationComponent,
-    ActivitySearchbar
+    ActivitySearchbar,
+    RegionSelector
   },
   props: {
     riskScore: {
       type: String,
       default: "5"
     },
-    activity: Object,
-    isAgeScore: {
-      default: false
-    }
-  },
-  mounted() {
-    this.getCurrentRegionFromList();
+    activity: Object
   },
   data() {
     return {
@@ -120,9 +87,6 @@ export default {
       }
       return referencesArray;
     },
-    regionsList: function() {
-      return Object.values(this.regions);
-    },
     activityRiskToken: function() {
       const riskTokenMap = {
         "1": "Low",
@@ -136,13 +100,6 @@ export default {
     riskTokenClass: function() {
       return `risk${this.riskScore}`;
     },
-    regionSelectClass: function() {
-      if (this.$vuetify.breakpoint.mdAndUp) {
-        return "selectRegion regionSelectOnMediumAndUp";
-      } else {
-        return "selectRegion regionSelectOnSmaller";
-      }
-    },
     searchbarContainerClass: function() {
       if (this.$vuetify.breakpoint.mdAndUp) {
         return "searchbarContainerOnMediumAndUp";
@@ -154,17 +111,6 @@ export default {
   methods: {
     toggleMoreInfo() {
       this.hideMoreInfo = !this.hideMoreInfo;
-    },
-    setCurrentRegion() {
-      this.$store.dispatch("changeRegion", this.selectedRegion.slug);
-    },
-    getCurrentRegionFromList() {
-      this.selectedRegion = this.regions[this.currentRegion];
-    }
-  },
-  watch: {
-    currentRegion() {
-      this.getCurrentRegionFromList();
     }
   }
 };
@@ -226,19 +172,6 @@ export default {
   .searchbarContainerOnMediumAndUp {
     width: 30%;
     margin: 0 auto;
-  }
-
-  .selectRegion {
-    width: 30%;
-    min-width: 10%;
-    margin: 0 auto;
-    margin-top: 2em;
-  }
-  .regionSelectOnSmaller {
-    width: 100%;
-  }
-  .regionSelectOnMediumAndUp {
-    width: 30%;
   }
   .riskDeclare {
     font-size: 2em;

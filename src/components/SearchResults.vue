@@ -1,6 +1,6 @@
 <template>
   <div class="introduction" id="search-results">
-    <div v-show="activity.activityName">
+    <div v-show="activity.name">
       <RiskDescription :riskScore="riskScore" :activity="activity" />
 
       <v-container class="more-info">
@@ -38,6 +38,11 @@
           <v-col cols="12" md="6" order="first" order-md="last">
             <div class="things-to-consider">
               <h5>Things to consider</h5>
+              <Markdown
+                class="risk-details"
+                :source="activity.additionalNotes"
+                v-if="activity.additionalNotes.length > 0"
+              />
               <Markdown class="risk-details" :source="risk.longDescription" />
             </div>
           </v-col>
@@ -70,16 +75,17 @@ export default {
       let score;
       if (this.currentRegion !== "all") {
         const scoreLookup = {
-          bad: this.activity?.TrendBadRiskScore,
-          medium: this.activity?.TrendMediumRiskScore,
-          good: this.activity?.TrendGoodRiskScore
+          poor: this.activity.riskScore.poor,
+          caution: this.activity.riskScore.caution,
+          better: this.activity.riskScore.better
         };
-        score = scoreLookup?.[this.regions[this.currentRegion]?.trending];
+        const regionLevel = this.regions[this.currentRegion].trending;
+
+        score = scoreLookup[regionLevel];
       }
-      return score || this.activity.generalRiskScore;
+      return score || this.activity.riskScore.poor || "5";
     }
-  },
-  methods: {}
+  }
 };
 </script>
 

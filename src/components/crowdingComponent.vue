@@ -49,12 +49,6 @@ export default {
   methods: {
     searchLocation() {
       this.selectedLocation = document.getElementById("location").value;
-      console.log(
-        "searched: ",
-        this.selectedLocation,
-        " at ",
-        this.times[this.selectedTime]
-      );
       this.haveSearched = true;
     }
   }

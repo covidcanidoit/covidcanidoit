@@ -73,10 +73,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["setRegion"]),
+    ...mapActions(["updateRegion"]),
     saveValue(name, value) {
       console.log("saveValue", { name, value });
-      this.setRegion(Object.assign(this.region, { [name]: value }));
+      this.updateRegion(Object.assign(this.region, { [name]: value }));
     }
   }
 };

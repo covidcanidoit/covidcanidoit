@@ -27,7 +27,7 @@ export default {
   },
   created() {
     this.searches = sampleSize(this.activities, 6).map(
-      activity => activity.activityName
+      activity => activity.name
     );
   },
   computed: {

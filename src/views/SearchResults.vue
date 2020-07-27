@@ -1,23 +1,41 @@
 <template>
   <div class="home">
-    <ThanksForSuggesting v-if="noResults" :suggested="suggested" />
-    <SearchResults :activity="result" :searched="searched" />
-    <SuggestedSearches @searched="onSearch" />
+    <v-dialog persistent v-model="shouldForceRegionSelect" max-width="400">
+      <v-card class="modalRegionSelector">
+        <v-card-title class="headline">Select a region/state</v-card-title>
+        <v-card-text>
+          Different regions and states have different levels of disease control.
+          This impacts your risk.
+        </v-card-text>
+        <v-card-text>
+          <RegionSelector parent="modal" />
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
+    <div v-if="!shouldForceRegionSelect">
+      <ThanksForSuggesting v-if="noResults" :suggested="suggested" />
+      <SearchResults :activity="result" :searched="searched" />
+      <SuggestedSearches @searched="onSearch" />
+    </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 import SearchResults from "@/components/SearchResults.vue";
 import ThanksForSuggesting from "@/components/ThanksForSuggesting.vue";
 import SuggestedSearches from "@/components/SuggestedSearches.vue";
-import { mapGetters } from "vuex";
+import RegionSelector from "@/components/RegionSelector.vue";
 
 export default {
   props: ["search", "slug"],
   components: {
     SearchResults,
     ThanksForSuggesting,
-    SuggestedSearches
+    SuggestedSearches,
+    RegionSelector
   },
   data: function() {
     return {
@@ -28,17 +46,21 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["activities", "currentCountry"]),
+    ...mapGetters(["activities", "currentCountry", "currentRegion", "regions"]),
     activityList() {
       return Object.values(this.activities || {})
         .filter(activity => !activity.disabled)
-        .map(activity => activity.activityName);
+        .map(activity => activity.name);
+    },
+    shouldForceRegionSelect() {
+      return (
+        Object.keys(this.regions).length > 1 && this.currentRegion === "all"
+      );
     }
   },
   created() {
     if (this.slug) {
-      console.log("Using slug", this.slug);
-      this.onSearch(this.activities[this.slug].activityName);
+      this.onSearch(this.activities[this.slug].name);
     }
   },
   methods: {
@@ -55,9 +77,7 @@ export default {
 
       this.searched = true;
       Object.values(this.activities).map(activity => {
-        if (
-          activity["activityName"].toLowerCase() == searchValue.toLowerCase()
-        ) {
+        if (activity["name"].toLowerCase() == searchValue.toLowerCase()) {
           this.result = activity;
           if (this.$route.params.slug != activity.slug) {
             this.$router.push({

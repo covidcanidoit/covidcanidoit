@@ -13,7 +13,6 @@ import Chart from "chart.js";
 export default {
   watch: {
     crowdingData(oldVal, newVal) {
-      console.log("crowdingData changed!");
       this.updatePlot();
     }
   },
@@ -113,12 +112,9 @@ export default {
       });
     },
     createPlot(plotData) {
-      // console.log("creating plot");
-
       this.clearPlot();
       if (this.crowdingData == "error") {
         //if no crowding data, display "No data available"
-        console.log("no data");
         this.displayChart = false;
       } else {
         this.displayChart = true;
@@ -187,7 +183,6 @@ export default {
               }
             },
             onClick: (evt, item) => {
-              //console.log(evt, item);
               if (!this.daily) {
                 this.drillDown(item[0]["_index"]);
               } else {
@@ -222,8 +217,8 @@ export default {
         bars.backgroundColor = [];
         bars.borderColor = [];
         bars.hoverBackgroundColor = [];
-        console.log("bars");
-        console.log(bars);
+        // console.log("bars");
+        // console.log(bars);
         for (var i = 0; i < bars.data.length; i++) {
           const x = bars.data[i];
           //there's probably a better way to get our colors for risk 1-5 here but I'm no sure where they're saved

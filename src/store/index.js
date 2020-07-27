@@ -9,10 +9,12 @@ import { db } from "@/db.js";
 // Persist vuex into localStorage between page loads
 import VuexPersistence from "vuex-persist";
 
+import router from "@/router";
+
 // This helper makes for much shorter action-bindings
 function bindFirebase(key) {
   return firebaseAction(({ bindFirebaseRef }) => {
-    console.log("Binding:", key);
+    // console.log("Binding:", key);
     return bindFirebaseRef(key, db.ref(key));
   });
 }
@@ -128,9 +130,7 @@ export default new Vuex.Store({
 
     // Firebase modifications
     // ----------------------
-    setRegion: firebaseAction(({ state }, region) => {
-      console.log("Setting region", { region });
-      console.log(`At: content/${state.currentCountry}/${region.slug}`);
+    updateRegion: firebaseAction(({ state }, region) => {
       return db
         .ref("content")
         .child(state.currentCountry)
@@ -149,19 +149,52 @@ export default new Vuex.Store({
 
     // Other app actions
     // -----------------
-    changeCountry({ commit, getters }, newCountry) {
+    async setCountry({ commit, getters }, newCountry) {
       if (getters.countrySlugs.includes(newCountry)) {
         commit("setCurrentCountry", newCountry);
       } else {
         commit("setCurrentCountry", "US");
       }
     },
-    changeRegion({ commit, getters }, newRegion) {
+    async changeCountry({ commit, getters }, newCountry) {
+      let oldCountry = getters.currentCountry;
+      if (getters.countrySlugs.includes(newCountry)) {
+        commit("setCurrentCountry", newCountry);
+      } else {
+        commit("setCurrentCountry", "US");
+      }
+
+      // When the country changes, force the change into the URL
+      if (oldCountry != newCountry) {
+        let newRoute = Object.assign({}, router.currentRoute);
+        newRoute.params.country = getters.currentCountry;
+        newRoute.params.region = "all"; // back to default
+        commit("setCurrentRegion", "all");
+        await router.push(newRoute);
+      }
+    },
+    async setRegion({ commit, getters }, newRegion) {
       commit("setCurrentRegion", newRegion);
       if (getters.regionSlugs.includes(newRegion)) {
         commit("setCurrentRegion", newRegion);
       } else {
         commit("setCurrentRegion", "all");
+      }
+    },
+    async changeRegion({ commit, getters }, newRegion) {
+      let oldRegion = getters.currentRegion;
+      commit("setCurrentRegion", newRegion);
+      if (getters.regionSlugs.includes(newRegion)) {
+        commit("setCurrentRegion", newRegion);
+      } else {
+        commit("setCurrentRegion", "all");
+      }
+
+      // When the region changes, force the change into the URL
+      if (oldRegion != newRegion) {
+        let newRoute = Object.assign({}, router.currentRoute);
+        newRoute.params.region = getters.currentRegion;
+        await router.push(newRoute);
       }
     }
   }

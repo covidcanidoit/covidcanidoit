@@ -130,6 +130,7 @@
         </router-link>
         <router-link
           class="router mx-3"
+          :class="{ 'router-link-exact-active': isActivitiesLinkActive }"
           :to="{
             name: 'Browse',
             params: { country: currentCountry, region: currentRegion }
@@ -227,14 +228,17 @@ export default {
     },
     mobileView() {
       return this.$vuetify.breakpoint.smAndDown;
+    },
+    isActivitiesLinkActive() {
+      return this.$route.path.includes("activity");
     }
   },
   methods: {
     setCurrentCountry(country) {
       this.$store.dispatch("changeCountry", country);
     },
-    setCurrentRegion(region) {
-      this.$store.dispatch("changeRegion", region);
+    setCurrentRegion(regionSlug) {
+      this.$store.dispatch("changeRegion", regionSlug);
     }
   },
   watch: {

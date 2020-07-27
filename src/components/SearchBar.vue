@@ -5,7 +5,10 @@
       <v-container :class="containerRowClass">
         <v-row :class="containerRowClass" justify="center" align="center">
           <v-col cols="12" md="8" :class="searchbarClass">
-            <ActivitySearchbar :inHome="true"></ActivitySearchbar>
+            <ActivitySearchbar
+              :inHome="true"
+              @search:focus="showMostlySearch"
+            />
           </v-col>
           <v-col cols="12" md="2" :class="searchbarClass">
             <button class="run-search" @click="onSearch">
@@ -22,6 +25,7 @@
 import Fuse from "fuse.js";
 //import VueSelect from "vue-select";
 import ActivitySearchbar from "@/components/ActivitySearchbar.vue";
+import VueScrollTo from "vue-scrollto";
 
 export default {
   components: {
@@ -49,6 +53,12 @@ export default {
     dropdownClick(value) {
       this.searchTerm = value;
       this.onSearch();
+    },
+    showMostlySearch() {
+      if (this.$vuetify.breakpoint.smAndDown) {
+        // The search bar is now focused, let's scroll it to the top
+        VueScrollTo.scrollTo(".search-bar", { offset: -56, cancelable: false });
+      }
     }
   },
   computed: {
@@ -72,14 +82,14 @@ export default {
         includeScore: true,
         includeMatches: true,
         threshold: 0.3
-        //keys: ["activityName"] // include synonyms in the future
+        //keys: ["name"] // include synonyms in the future
       };
 
-      //const fuse = new Fuse(this.fullActivityList, options); // uncomment when ready to search both activityName and synonyms
+      //const fuse = new Fuse(this.fullActivityList, options); // uncomment when ready to search both name and synonyms
       const fuse = new Fuse(this.activityList, options);
       const result = fuse.search(this.searchTerm);
 
-      return result.map(result => result.item.activityName);
+      return result.map(result => result.item.name);
     },
     maxIndex() {
       return Math.ceil(this.activityListComplete.length / this.perPage);
