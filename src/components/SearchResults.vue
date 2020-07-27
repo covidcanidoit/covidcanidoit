@@ -38,6 +38,11 @@
           <v-col cols="12" md="6" order="first" order-md="last">
             <div class="things-to-consider">
               <h5>Things to consider</h5>
+              <Markdown
+                class="risk-details"
+                :source="activity.additionalNotes"
+                v-if="activity.additionalNotes.length > 0"
+              />
               <Markdown class="risk-details" :source="risk.longDescription" />
             </div>
           </v-col>
