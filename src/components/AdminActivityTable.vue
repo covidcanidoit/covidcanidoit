@@ -75,7 +75,7 @@
           >
             <v-icon title="Edit this activity">mdi-lead-pencil</v-icon>
           </router-link>
-          <v-icon
+          <!--<v-icon
             :title="EnableDisableActivityTooltip(item.disabled)"
             @click="toggleActivityIsDisabled(item.slug, item.disabled)"
           >
@@ -86,7 +86,7 @@
             @click="showConfirmActivityDelete(item.slug)"
           >
             mdi-trash-can
-          </v-icon>
+          </v-icon>-->
         </template>
       </v-data-table>
     </v-card>
