@@ -193,7 +193,11 @@ export default {
     };
   },
   created() {},
-  mounted() {},
+  mounted() {
+    if (this.incomingNewName) {
+      this.newActivity(this.incomingNewName);
+    }
+  },
   computed: {
     ...mapState(["content"]),
     ...mapGetters(["activities", "currentCountry", "currentUserUid", "users"]),
@@ -202,9 +206,12 @@ export default {
     }
   },
   methods: {
-    newActivity() {
-      this.showNewActivityPrompt = true;
-      if (this.incomingNewName) this.newName = this.incomingNewName;
+    newActivity(newVal) {
+      if (newVal !== "") {
+        this.newName = newVal;
+        this.showNewActivityPrompt = true;
+        this.$emit("newActivityPopupShown");
+      }
     },
     newActivityOk() {
       let currentKey = Object.keys(this.activities).find(

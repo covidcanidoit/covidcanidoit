@@ -82,6 +82,7 @@
           <AdminActivityTable
             :incomingNewName="newName"
             :currentUserSettings="currentUserSettings"
+            @newActivityPopupShown="onNewActivityPopupShown"
           />
         </v-tab-item>
 
@@ -381,7 +382,11 @@ export default {
         });
     },
     newActivity(name) {
+      this.tab = 1;
       this.newName = name;
+    },
+    onNewActivityPopupShown() {
+      this.newName = "";
     },
     deleteUser(userId) {
       db.ref("userSettings")
