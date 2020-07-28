@@ -163,10 +163,11 @@
             <v-tab-item>
               <v-card flat tile>
                 <v-card-text>
-                  <v-text-field
+                  <v-combobox
                     label="Crowding score"
                     :value="activity.characteristics.crowding.score"
-                    @input="saveValue('crowding/score', $event)"
+                    @input="saveValue('characteristics/crowding/score', $event)"
+                    :items="LowMediumHigh"
                   />
                   <v-textarea
                     label="Crowding Notes"
@@ -186,10 +187,11 @@
             <v-tab-item>
               <v-card flat tile>
                 <v-card-text>
-                  <v-text-field
+                  <v-combobox
                     label="Droplets score"
                     :value="activity.characteristics.droplets.score"
                     @input="saveValue('characteristics/droplets/score', $event)"
+                    :items="LowMediumHigh"
                   />
                   <v-textarea
                     label="Droplets Notes"
@@ -209,12 +211,13 @@
             <v-tab-item>
               <v-card flat tile>
                 <v-card-text>
-                  <v-text-field
+                  <v-combobox
                     label="Exposure Time score"
                     :value="activity.characteristics.exposureTime.score"
                     @input="
                       saveValue('characteristics/exposureTime/score', $event)
                     "
+                    :items="LowMediumHigh"
                   />
                   <v-textarea
                     label="Exposure Time Notes"
@@ -236,12 +239,13 @@
             <v-tab-item>
               <v-card flat tile>
                 <v-card-text>
-                  <v-text-field
+                  <v-combobox
                     label="Ventilation score"
                     :value="activity.characteristics.ventilation.score"
                     @input="
                       saveValue('characteristics/ventilation/score', $event)
                     "
+                    :items="LowMediumHigh"
                   />
                   <v-textarea
                     label="Ventilation Notes"
@@ -315,6 +319,9 @@ export default {
     },
     isInsideToggled() {
       return this.activity.isInside === "TRUE" ? "FALSE" : "TRUE";
+    },
+    LowMediumHigh() {
+      return ["Low", "Medium", "High"];
     }
   },
   methods: {
