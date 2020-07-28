@@ -99,7 +99,7 @@
             <v-col lg12>
               <v-switch
                 label="Inside?"
-                input-value="activity.isInside"
+                :input-value="activity.isInside"
                 @change="saveValue('isInside', !activity.isInside)"
               ></v-switch>
             </v-col>
