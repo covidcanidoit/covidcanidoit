@@ -53,22 +53,7 @@ export default {
     width: 2.5em;
     height: 2.5em;
     color: white;
-
-    &.score-1 {
-      background-color: $gogreen;
-    }
-    &.score-2 {
-      background-color: $pausegreen;
-    }
-    &.score-3 {
-      background-color: $cautionyellow;
-    }
-    &.score-4 {
-      background-color: $warningorange;
-    }
-    &.score-5 {
-      background-color: $stopred;
-    }
+    @include risk-colors("&.score-", "background-color");
   }
 }
 

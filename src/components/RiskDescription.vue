@@ -98,7 +98,7 @@ export default {
       return riskTokenMap?.[this.riskScore] || "Uncertain";
     },
     riskTokenClass: function() {
-      return `risk${this.riskScore}`;
+      return `risk-${this.riskScore}`;
     },
     searchbarContainerClass: function() {
       if (this.$vuetify.breakpoint.mdAndUp) {
@@ -176,20 +176,6 @@ export default {
   .riskDeclare {
     font-size: 2em;
   }
-  .risk1 {
-    color: $gogreen;
-  }
-  .risk2 {
-    color: $pausegreen;
-  }
-  .risk3 {
-    color: $cautionyellow;
-  }
-  .risk4 {
-    color: $warningorange;
-  }
-  .risk5 {
-    color: $stopred;
-  }
+  @include risk-colors(".risk-", "color", $risk-colors);
 }
 </style>

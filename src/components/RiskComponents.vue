@@ -10,11 +10,7 @@
       >
         <RiskComponent v-bind="risk" :class="risk.type">
           <template #icon>
-            <component
-              :is="icons[risk.type]"
-              class="component-icon"
-              :class="`${risk.riskClass}`"
-            />
+            <component :is="icons[risk.type]" class="component-icon" :class="`${risk.riskClass}`" />
           </template>
           <template #notes>
             <Markdown :source="risk.notes" class="notes desktop-notes" />
@@ -113,16 +109,12 @@ export default {
 <style scoped lang="scss">
 .component-icon {
   width: 75px;
-  &.riskLow > path {
-    fill: $gogreen;
+  $colors: (Low $gogreen, Medium $cautionyellow, High $stopred);
+  @each $risk, $color in $colors {
+    &.risk#{$risk} > path {
+      fill: $color;
+    }
   }
-  &.riskMedium > path {
-    fill: $cautionyellow;
-  }
-  &.riskHigh > path {
-    fill: $stopred;
-  }
-
   &.dropdown-icon {
     width: 48px;
   }
