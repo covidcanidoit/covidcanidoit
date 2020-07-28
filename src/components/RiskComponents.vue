@@ -10,7 +10,11 @@
       >
         <RiskComponent v-bind="risk" :class="risk.type">
           <template #icon>
-            <component :is="icons[risk.type]" class="component-icon" :class="`${risk.riskClass}`" />
+            <component
+              :is="icons[risk.type]"
+              class="component-icon"
+              :class="`${risk.riskClass}`"
+            />
           </template>
           <template #notes>
             <Markdown :source="risk.notes" class="notes desktop-notes" />
