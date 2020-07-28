@@ -224,30 +224,44 @@ export default {
       } else {
         let name = this.newName;
         let activitySlug = this.slugify(name);
-        this.showNewActivityPrompt = false;
-        db.ref("content")
-          .child(this.currentCountry)
-          .child("activities")
-          .child(activitySlug)
-          .child("slug")
-          .set(activitySlug);
-        db.ref("content")
-          .child(this.currentCountry)
-          .child("activities")
-          .child(activitySlug)
-          .child("name")
-          .set(name);
-        db.ref("content")
-          .child(this.currentCountry)
-          .child("activities")
-          .child(activitySlug)
-          .child("disabled")
-          .set(true);
+        this.populateNewActivity(name, activitySlug);
         this.$router.push({
           name: "AdminActivityEdit",
           params: { name: name, slug: activitySlug }
         });
       }
+    },
+    setActivityNode(activitySlug, nodeName, nodeValue) {
+      db.ref("content")
+        .child(this.currentCountry)
+        .child("activities")
+        .child(activitySlug)
+        .child(nodeName)
+        .set(nodeValue);
+    },
+    populateNewActivity(activityName, activitySlug) {
+      this.showNewActivityPrompt = false;
+      this.setActivityNode(activitySlug, "slug", activitySlug);
+      this.setActivityNode(activitySlug, "name", activityName);
+      this.setActivityNode(activitySlug, "disabled", true);
+
+      // set initial values to allow activity to show up in admin edit
+      const initialData = [
+        "characteristics/crowding/score",
+        "characteristics/crowding/notes",
+        "characteristics/droplets/score",
+        "characteristics/droplets/notes",
+        "characteristics/exposureTime/score",
+        "characteristics/exposureTime/notes",
+        "characteristics/ventilation/score",
+        "characteristics/ventilation/notes",
+        "riskScore/poor",
+        "riskScore/caution",
+        "riskScore/better"
+      ];
+      initialData.forEach(property => {
+        this.setActivityNode(activitySlug, property, "");
+      });
     },
     activityAlreadyExistsErrorOk() {
       this.newName = "";
