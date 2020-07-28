@@ -37,6 +37,13 @@ describe("Browsing Categories", () => {
   it("Click Activity in Category", () => {
     cy.contains("Errand");
     cy.contains(".activity-name", "Dog Walking").click();
+  });
+  it("Select region", () => {
+    cy.contains("Select a region/state");
+    cy.get(".v-select").type("a");
+  });
+
+  it("View risk page", () => {
     cy.contains("Dog");
     cy.contains("risk");
   });
