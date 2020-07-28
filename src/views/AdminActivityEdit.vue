@@ -86,7 +86,7 @@
 
         <v-layout>
           <v-row>
-            <v-col lg12>
+            <v-col>
               <v-select
                 :items="categoryNames"
                 label="Activity Category"
@@ -94,13 +94,18 @@
                 @input="saveValue('category', $event)"
               ></v-select>
             </v-col>
-          </v-row>
-          <v-row>
-            <v-col lg12>
+            <v-col>
               <v-switch
                 label="Inside?"
-                :input-value="activity.isInside"
-                @change="saveValue('isInside', !activity.isInside)"
+                :input-value="activity.isInside === 'TRUE'"
+                @change="saveValue('isInside', isInsideToggled)"
+              ></v-switch>
+            </v-col>
+            <v-col>
+              <v-switch
+                label="Show Location?"
+                :input-value="activity.showLocation === 'TRUE'"
+                @change="saveValue('showLocation', showLocationToggled)"
               ></v-switch>
             </v-col>
           </v-row>
@@ -259,22 +264,6 @@
         </v-layout>
       </v-container>
     </v-form>
-
-    <h1>Edit Activity</h1>
-    Current key: {{ currentKey }}
-    <div class="edit-form">
-      <div class="form-group">
-        <label>showLocation</label>
-        <select
-          class="form-control"
-          @input="saveField('showLocation', $event)"
-          :value="this.activity.showLocation"
-        >
-          <option>FALSE</option>
-          <option>TRUE</option>
-        </select>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -320,6 +309,12 @@ export default {
       return `Last edited by ${this.readableUser(
         this.activity.lastEditedBy
       )} on ${this.readableTimestamp(this.activity.lastEditedOn)}`;
+    },
+    showLocationToggled() {
+      return this.activity.showLocation === "TRUE" ? "FALSE" : "TRUE";
+    },
+    isInsideToggled() {
+      return this.activity.isInside === "TRUE" ? "FALSE" : "TRUE";
     }
   },
   methods: {
