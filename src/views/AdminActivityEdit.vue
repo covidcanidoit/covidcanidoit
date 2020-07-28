@@ -47,34 +47,28 @@
 
         <v-layout justify-space-around>
           <v-flex xs12 md3>
-            <v-text-field
-              type="number"
+            <v-combobox
               label="Trending Poor Risk Score"
-              min="1"
-              max="5"
               :value="activity.riskScore.poor"
               @input="saveValue('riskScore/poor', $event)"
-            ></v-text-field>
+              :items="OneTwoThreeFourFive"
+            />
           </v-flex>
           <v-flex xs12 md3>
-            <v-text-field
-              type="number"
+            <v-combobox
               label="Trending Caution Risk Score"
-              min="1"
-              max="5"
               :value="activity.riskScore.caution"
               @input="saveValue('riskScore/caution', $event)"
-            ></v-text-field>
+              :items="OneTwoThreeFourFive"
+            />
           </v-flex>
           <v-flex xs12 md3>
-            <v-text-field
-              type="number"
+            <v-combobox
               label="Trending Better Risk Score"
-              min="1"
-              max="5"
               :value="activity.riskScore.better"
               @input="saveValue('riskScore/better', $event)"
-            ></v-text-field>
+              :items="OneTwoThreeFourFive"
+            />
           </v-flex>
         </v-layout>
         <v-divider></v-divider>
@@ -333,6 +327,9 @@ export default {
     },
     LowMediumHigh() {
       return ["Low", "Medium", "High"];
+    },
+    OneTwoThreeFourFive() {
+      return ["1", "2", "3", "4", "5"];
     }
   },
   methods: {
