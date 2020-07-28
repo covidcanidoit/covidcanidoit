@@ -133,6 +133,17 @@
               </v-chip>
             </v-layout>
           </v-flex>
+          <v-flex>
+            <v-textarea
+              label="Additional Notes"
+              :value="activity.additionalNotes"
+              @input="saveValue('activity.additionalNotes', $event)"
+            ></v-textarea>
+            <v-label>Additional Notes Preview</v-label>
+            <v-card outlined>
+              <Markdown :source="activity.additionalNotes" />
+            </v-card>
+          </v-flex>
           <v-flex lg1></v-flex>
         </v-layout>
         <v-divider></v-divider>
