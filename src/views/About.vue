@@ -198,15 +198,18 @@
           <tr>
             <th class="peopleBigHeader">Who We Are</th>
           </tr>
+          <!--
           <tr>
             <td class="peopleGroupHeader">Public Health</td>
             <td class="peopleGroupHeader">Software Development</td>
             <td class="peopleGroupHeader">Communications</td>
             <td class="peopleGroupHeader">Design</td>
           </tr>
+          -->
           <tr>
             <td class="peopleGroup">
               <ul style="list-style-type: none; padding: 0px;">
+                <li class="peopleGroupHeader">Public Health</li>
                 <li>
                   <a href="https://www.linkedin.com/in/jarjiehfang/">
                     Jarjieh Fang, MPH
@@ -247,6 +250,7 @@
             </td>
             <td class="peopleGroup">
               <ul style="list-style-type: none; padding: 0px;">
+                <li class="peopleGroupHeader">Software Development</li>
                 <li>
                   <a href="https://www.linkedin.com/in/brockwilcox/">
                     Brock Wilcox, MS
@@ -272,6 +276,7 @@
             </td>
             <td class="peopleGroup">
               <ul style="list-style-type: none; padding: 0px;">
+                <li class="peopleGroupHeader">Communications</li>
                 <li>
                   Morgan Singer
                 </li>
@@ -282,6 +287,7 @@
             </td>
             <td class="peopleGroup">
               <ul style="list-style-type: none; padding: 0px;">
+                <li class="peopleGroupHeader">Design</li>
                 <li>
                   <a href="https://www.linkedin.com/in/megangreendesign/">
                     Megan Green
@@ -308,12 +314,15 @@
           </tr>
 
           <tr>
+            <!--
             <td class="peopleGroupHeader">Expert Reviewer</td>
             <td class="peopleGroupHeader">Clinicians</td>
+            -->
           </tr>
           <tr style="vertical-align: top;">
             <td class="peopleGroup">
               <ul style="list-style-type: none; padding: 0px;">
+                <li class="peopleGroupHeader">Expert Reviewer</li>
                 <li>
                   <a href="https://www.linkedin.com/in/yen-pottinger-8b82a992/">
                     Yen Pottinger, PhD
@@ -323,6 +332,7 @@
             </td>
             <td class="peopleGroup">
               <ul style="list-style-type: none; padding: 0px;">
+                <li class="peopleGroupHeader">Clinicians</li>
                 <li>
                   <a href="https://profiles.ucsf.edu/jayant.rajan">
                     Jayant Rajan, M.D., P.h.D
@@ -636,7 +646,7 @@ a {
   color: $selectorgray;
 }
 .about {
-  margin: 0 2em;
+  margin: 0.2em;
   background-color: #ffffff;
   .infoHeader {
     overflow-x: auto;
@@ -660,8 +670,9 @@ h5.mb-0 {
   color: $selectorgray;
 }
 .peopleGroup {
-  padding: 3px;
+  padding: 3%;
   vertical-align: top;
+  float: left;
 }
 
 .peopleGroupHeader {
