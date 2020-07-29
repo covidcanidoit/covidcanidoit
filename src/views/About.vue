@@ -198,14 +198,6 @@
           <tr>
             <th class="peopleBigHeader">Who We Are</th>
           </tr>
-          <!--
-          <tr>
-            <td class="peopleGroupHeader">Public Health</td>
-            <td class="peopleGroupHeader">Software Development</td>
-            <td class="peopleGroupHeader">Communications</td>
-            <td class="peopleGroupHeader">Design</td>
-          </tr>
-          -->
           <tr>
             <td class="peopleGroup">
               <ul style="list-style-type: none; padding: 0px;">
@@ -313,12 +305,6 @@
             <th class="peopleBigHeader">Who Our Advisors Are</th>
           </tr>
 
-          <tr>
-            <!--
-            <td class="peopleGroupHeader">Expert Reviewer</td>
-            <td class="peopleGroupHeader">Clinicians</td>
-            -->
-          </tr>
           <tr style="vertical-align: top;">
             <td class="peopleGroup">
               <ul style="list-style-type: none; padding: 0px;">
