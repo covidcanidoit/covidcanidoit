@@ -75,13 +75,13 @@
           >
             <v-icon title="Edit this activity">mdi-lead-pencil</v-icon>
           </router-link>
-          <!--<v-icon
+          <v-icon
             :title="EnableDisableActivityTooltip(item.disabled)"
             @click="toggleActivityIsDisabled(item.slug, item.disabled)"
           >
             {{ activityIsActive(item.disabled) }}
           </v-icon>
-          <v-icon
+          <!--<v-icon
             title="Delete this activity"
             @click="showConfirmActivityDelete(item.slug)"
           >
