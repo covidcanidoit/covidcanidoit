@@ -5,7 +5,7 @@
         <div class="infographicContainer">
           <img
             :src="
-              `${publicPath}images/riskcomponents/CCIDI_infographic_formatted.svg`
+              `${publicPath}images/riskcomponents/CCIDI_infographic_desktop_compressed.svg`
             "
             alt="Infographic"
             class="infographic"
@@ -34,4 +34,5 @@ export default {
 .infographicContainer {
   text-align: center;
 }
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&display=swap");
 </style>
