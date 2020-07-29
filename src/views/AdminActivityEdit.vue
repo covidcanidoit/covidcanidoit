@@ -47,34 +47,28 @@
 
         <v-layout justify-space-around>
           <v-flex xs12 md3>
-            <v-text-field
-              type="number"
+            <v-combobox
               label="Trending Poor Risk Score"
-              min="1"
-              max="5"
               :value="activity.riskScore.poor"
               @input="saveValue('riskScore/poor', $event)"
-            ></v-text-field>
+              :items="OneTwoThreeFourFive"
+            />
           </v-flex>
           <v-flex xs12 md3>
-            <v-text-field
-              type="number"
+            <v-combobox
               label="Trending Caution Risk Score"
-              min="1"
-              max="5"
               :value="activity.riskScore.caution"
               @input="saveValue('riskScore/caution', $event)"
-            ></v-text-field>
+              :items="OneTwoThreeFourFive"
+            />
           </v-flex>
           <v-flex xs12 md3>
-            <v-text-field
-              type="number"
+            <v-combobox
               label="Trending Better Risk Score"
-              min="1"
-              max="5"
               :value="activity.riskScore.better"
               @input="saveValue('riskScore/better', $event)"
-            ></v-text-field>
+              :items="OneTwoThreeFourFive"
+            />
           </v-flex>
         </v-layout>
         <v-divider></v-divider>
@@ -86,7 +80,7 @@
 
         <v-layout>
           <v-row>
-            <v-col lg12>
+            <v-col>
               <v-select
                 :items="categoryNames"
                 label="Activity Category"
@@ -94,13 +88,18 @@
                 @input="saveValue('category', $event)"
               ></v-select>
             </v-col>
-          </v-row>
-          <v-row>
-            <v-col lg12>
+            <v-col>
               <v-switch
                 label="Inside?"
-                input-value="activity.isInside"
-                @change="saveValue('isInside', !activity.isInside)"
+                :input-value="activity.isInside === 'TRUE'"
+                @change="saveValue('isInside', isInsideToggled)"
+              ></v-switch>
+            </v-col>
+            <v-col>
+              <v-switch
+                label="Show Location?"
+                :input-value="activity.showLocation === 'TRUE'"
+                @change="saveValue('showLocation', showLocationToggled)"
               ></v-switch>
             </v-col>
           </v-row>
@@ -127,6 +126,17 @@
                 {{ keyword }}
               </v-chip>
             </v-layout>
+          </v-flex>
+          <v-flex>
+            <v-textarea
+              label="Additional Notes"
+              :value="activity.additionalNotes"
+              @input="saveValue('activity.additionalNotes', $event)"
+            ></v-textarea>
+            <v-label>Additional Notes Preview</v-label>
+            <v-card outlined>
+              <Markdown :source="activity.additionalNotes" />
+            </v-card>
           </v-flex>
           <v-flex lg1></v-flex>
         </v-layout>
@@ -158,10 +168,11 @@
             <v-tab-item>
               <v-card flat tile>
                 <v-card-text>
-                  <v-text-field
+                  <v-combobox
                     label="Crowding score"
                     :value="activity.characteristics.crowding.score"
-                    @input="saveValue('crowding/score', $event)"
+                    @input="saveValue('characteristics/crowding/score', $event)"
+                    :items="LowMediumHigh"
                   />
                   <v-textarea
                     label="Crowding Notes"
@@ -181,10 +192,11 @@
             <v-tab-item>
               <v-card flat tile>
                 <v-card-text>
-                  <v-text-field
+                  <v-combobox
                     label="Droplets score"
                     :value="activity.characteristics.droplets.score"
                     @input="saveValue('characteristics/droplets/score', $event)"
+                    :items="LowMediumHigh"
                   />
                   <v-textarea
                     label="Droplets Notes"
@@ -204,12 +216,13 @@
             <v-tab-item>
               <v-card flat tile>
                 <v-card-text>
-                  <v-text-field
+                  <v-combobox
                     label="Exposure Time score"
                     :value="activity.characteristics.exposureTime.score"
                     @input="
                       saveValue('characteristics/exposureTime/score', $event)
                     "
+                    :items="LowMediumHigh"
                   />
                   <v-textarea
                     label="Exposure Time Notes"
@@ -231,12 +244,13 @@
             <v-tab-item>
               <v-card flat tile>
                 <v-card-text>
-                  <v-text-field
+                  <v-combobox
                     label="Ventilation score"
                     :value="activity.characteristics.ventilation.score"
                     @input="
                       saveValue('characteristics/ventilation/score', $event)
                     "
+                    :items="LowMediumHigh"
                   />
                   <v-textarea
                     label="Ventilation Notes"
@@ -259,22 +273,6 @@
         </v-layout>
       </v-container>
     </v-form>
-
-    <h1>Edit Activity</h1>
-    Current key: {{ currentKey }}
-    <div class="edit-form">
-      <div class="form-group">
-        <label>showLocation</label>
-        <select
-          class="form-control"
-          @input="saveField('showLocation', $event)"
-          :value="this.activity.showLocation"
-        >
-          <option>FALSE</option>
-          <option>TRUE</option>
-        </select>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -320,6 +318,18 @@ export default {
       return `Last edited by ${this.readableUser(
         this.activity.lastEditedBy
       )} on ${this.readableTimestamp(this.activity.lastEditedOn)}`;
+    },
+    showLocationToggled() {
+      return this.activity.showLocation === "TRUE" ? "FALSE" : "TRUE";
+    },
+    isInsideToggled() {
+      return this.activity.isInside === "TRUE" ? "FALSE" : "TRUE";
+    },
+    LowMediumHigh() {
+      return ["Low", "Medium", "High"];
+    },
+    OneTwoThreeFourFive() {
+      return ["1", "2", "3", "4", "5"];
     }
   },
   methods: {
