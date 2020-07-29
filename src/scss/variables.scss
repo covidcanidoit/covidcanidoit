@@ -7,14 +7,29 @@ $color-darkgrey: #333;
 $color-medgrey: #888;
 $color-lightgrey: #ccc;
 
-$primary: #B7DAD8;
-$secondary: #6DC8BF;
+$primary: #b7dad8;
+$secondary: #6dc8bf;
 $selectorgray: #003334;
 $logodark: #009898;
-$logolight: #71C8F0;
-$gogreen: #37B34A;
-$pausegreen: #98CA3C;
-$cautionyellow: #FAAF40;
-$warningorange: #C14432;
-$stopred: #A10C11;
+$logolight: #71c8f0;
+$gogreen: #37b34a;
+$pausegreen: #98ca3c;
+$cautionyellow: #faaf40;
+$warningorange: #c14432;
+$stopred: #a10c11;
 
+$risk-colors: (
+  1: $gogreen,
+  2: $pausegreen,
+  3: $cautionyellow,
+  4: $warningorange,
+  5: $stopred,
+);
+
+@mixin risk-colors($name, $prop, $args: $risk-colors) {
+  @each $ext, $color in $args {
+    #{$name}#{($ext)} {
+      #{$prop}: $color;
+    }
+  }
+}

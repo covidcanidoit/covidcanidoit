@@ -4,7 +4,6 @@ import CrowdingComponent from "@/components/crowdingComponent.vue";
 describe("CrowdingComponent", () => {
   describe("Methods", () => {
     const documentSpy = jest.spyOn(document, "getElementById");
-    const consoleSpy = jest.spyOn(console, "log");
 
     test("searchLocation should return the search location and set haveSearched to true", () => {
       const data = {
@@ -20,29 +19,8 @@ describe("CrowdingComponent", () => {
 
       documentSpy.mockReturnValueOnce({ value: "someValueForLocation" });
       wrapper.vm.searchLocation();
-      expect(data.selectedLocation).toMatchInlineSnapshot(
-        `"391 Amsterdam Ave"`
-      );
-      expect(consoleSpy).toBeCalled();
-      expect(consoleSpy).toMatchInlineSnapshot(`
-        [MockFunction] {
-          "calls": Array [
-            Array [
-              "searched: ",
-              "someValueForLocation",
-              " at ",
-              "1:00 AM",
-            ],
-          ],
-          "results": Array [
-            Object {
-              "type": "return",
-              "value": undefined,
-            },
-          ],
-        }
-      `);
-      expect(wrapper.vm.$data.haveSearched).toBe(true);
+      expect(data.selectedLocation).toBe("391 Amsterdam Ave");
+      expect(wrapper.vm.$data.haveSearched).toBeTruthy();
     });
   });
 
