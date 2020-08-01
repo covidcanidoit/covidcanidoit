@@ -193,7 +193,98 @@
         <br />
         <hr style="border: 1px solid; color: #009898;" />
         <br />
+        <v-container>
+          <v-row>
+            <v-col cols="12" md="4">
+              <v-card class="pa-0" outlined tile>
+                <b>Public Health</b>
+              </v-card>
+              <v-card
+                v-for="c in publicHealth"
+                :key="c.name"
+                class="pa-1"
+                outlined
+                tile
+              >
+                {{ c.name }}
+              </v-card>
+            </v-col>
+            <v-col cols="12" md="4">
+              <v-card class="pa-0" outlined tile>
+                <b>Software Development</b>
+              </v-card>
+              <v-card
+                v-for="c in softwareDevs"
+                :key="c.name"
+                class="pa-1"
+                outlined
+                tile
+              >
+                {{ c.name }}
+              </v-card>
+            </v-col>
+            <v-col cols="12" md="4">
+              <v-card class="pa-0" outlined tile>
+                <b>Communications</b>
+              </v-card>
+              <v-card
+                v-for="c in communications"
+                :key="c.name"
+                class="pa-1"
+                outlined
+                tile
+              >
+                {{ c.name }}
+              </v-card>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="12" md="4">
+              <v-card class="pa-0" outlined tile>
+                <b>Design</b>
+              </v-card>
+              <v-card
+                v-for="c in design"
+                :key="c.name"
+                class="pa-1"
+                outlined
+                tile
+              >
+                {{ c.name }}
+              </v-card>
+            </v-col>
+            <v-col cols="12" md="4">
+              <v-card class="pa-0" outlined tile>
+                <b>Expert Reviewer</b>
+              </v-card>
+              <v-card
+                v-for="c in expertReviewer"
+                :key="c.name"
+                class="pa-1"
+                outlined
+                tile
+              >
+                {{ c.name }}
+              </v-card>
+            </v-col>
+            <v-col cols="12" md="4">
+              <v-card class="pa-0" outlined tile>
+                <b>Clinicians</b>
+              </v-card>
+              <v-card
+                v-for="c in clinicians"
+                :key="c.name"
+                class="pa-1"
+                outlined
+                tile
+              >
+                {{ c.name }}
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-container>
         <!--<h1>Who We Are</h1>-->
+        <!---
         <table class="weTable">
           <tr>
             <th class="peopleBigHeader">Who We Are</th>
@@ -349,6 +440,7 @@ ent-residents/"
             </td>
           </tr>
         </table>
+        -->
       </div>
       <br />
       <p align="left">
@@ -623,6 +715,90 @@ ent-residents/"
 export default {
   components: {
     // HowItWorks
+  },
+  data() {
+    return {
+      publicHealth: [
+        {
+          name: "Jarjieh Fang, MPH",
+          site: "https://www.linkedin.com/in/jarjiehfang"
+        },
+        {
+          name: "Gayatri Sanku, MPH",
+          site: "https://www.linkedin.com/in/gayatri-sanku-16212a4/"
+        },
+        { name: "Andrew Zapfel, MPH", site: "" },
+        { name: "Ariel Trocino, MPH", site: "" },
+        { name: "Ashley Holub, MPH, PhD", site: "" },
+        { name: "Christina Rawetzki, MPH", site: "" },
+        { name: "Micquel Hart, MPH", site: "" },
+        {
+          name: "Katelyn Donnelly, MPH",
+          site: "https://www.linkedin.com/in/kstermer/"
+        },
+        { name: "Jessica Saddler, MPH(c)", site: "" },
+        { name: "Swathi Nuli, MPH(c)", site: "" }
+      ],
+      softwareDevs: [
+        {
+          name: "Brock Wilcox, MS",
+          site: "https://www.linkedin.com/in/brockwilcox/"
+        },
+        {
+          name: "Johnny Li",
+          site: "https://www.linkedin.com/in/johnny-li-031b949/"
+        },
+        {
+          name: "Jennifer Tran",
+          site: "https://www.linkedin.com/in/tranjnnfr/"
+        },
+        { name: "Srilekha Nuli", site: "" },
+        { name: "Alexa Stefankiewicz", site: "" }
+      ],
+      communications: [
+        { name: "Morgan Singer", site: "" },
+        { name: "Kasia Kujawski", site: "" }
+      ],
+      design: [
+        {
+          name: "Megan Green",
+          site: "https://www.linkedin.com/in/megangreendesign/"
+        },
+        {
+          name: "Claire Mercer",
+          site: "https://www.linkedin.com/in/clairemercer/"
+        },
+        { name: "Elizabeth Hunt", site: "" },
+        { name: "Tommy Scheurich, MS", site: "" }
+      ],
+      expertReviewer: [
+        {
+          name: "Yen Pottinger, PhD",
+          site: "https://www.linkedin.com/in/yen-pottinger-8b82a992/"
+        }
+      ],
+      clinicians: [
+        {
+          name: "Jayant Rajan, M.D., P.h.D",
+          site: "https://profiles.ucsf.edu/jayant.rajan"
+        },
+        {
+          name: "Andrew Wisneski, M.D.",
+          site:
+            "https://surgeryresidentresearch.ucsf.edu/research-fellows/general-surgery/andrew-wisneski,-md.aspx"
+        },
+        { name: "Heide Kuang, M.D.", site: "" },
+        {
+          name: "Roger Chang, M.D., P.h.D.",
+          site:
+            "https://depts.washington.edu/neurolog/education/residency/current-residents/"
+        },
+        {
+          name: "Ernest Maningding, M,D.",
+          site: "https://www.uclahealth.org/rheumatology/fellows"
+        }
+      ]
+    };
   }
 };
 </script>
@@ -678,5 +854,9 @@ h5.mb-0 {
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0px;
+}
+
+.v-card.v-sheet.theme--light {
+  border: 0px;
 }
 </style>
