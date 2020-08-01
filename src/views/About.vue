@@ -206,7 +206,7 @@
                 outlined
                 tile
               >
-                {{ c.name }}
+                <a :href="c.site">{{ c.name }}</a>
               </v-card>
             </v-col>
             <v-col cols="12" md="4">
@@ -220,7 +220,7 @@
                 outlined
                 tile
               >
-                {{ c.name }}
+                <a :href="c.site">{{ c.name }}</a>
               </v-card>
             </v-col>
             <v-col cols="12" md="4">
@@ -234,7 +234,7 @@
                 outlined
                 tile
               >
-                {{ c.name }}
+                <a :href="c.site">{{ c.name }}</a>
               </v-card>
             </v-col>
           </v-row>
@@ -250,7 +250,7 @@
                 outlined
                 tile
               >
-                {{ c.name }}
+                <a :href="c.site">{{ c.name }}</a>
               </v-card>
             </v-col>
             <v-col cols="12" md="4">
@@ -264,7 +264,7 @@
                 outlined
                 tile
               >
-                {{ c.name }}
+                <a :href="c.site">{{ c.name }}</a>
               </v-card>
             </v-col>
             <v-col cols="12" md="4">
@@ -278,169 +278,11 @@
                 outlined
                 tile
               >
-                {{ c.name }}
+                <a :href="c.site">{{ c.name }}</a>
               </v-card>
             </v-col>
           </v-row>
         </v-container>
-        <!--<h1>Who We Are</h1>-->
-        <!---
-        <table class="weTable">
-          <tr>
-            <th class="peopleBigHeader">Who We Are</th>
-          </tr>
-          <tr>
-            <td class="peopleGroup">
-              <ul style="list-style-type: none; padding: 0px;">
-                <li class="peopleGroupHeader">Public Health</li>
-                <li>
-                  <a href="https://www.linkedin.com/in/jarjiehfang/">
-                    Jarjieh Fang, MPH
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.linkedin.com/in/gayatri-sanku-16212a4/">
-                    Gayatri Sanku, MPH
-                  </a>
-                </li>
-                <li>
-                  Andrew Zapfel, MPH
-                </li>
-                <li>
-                  Ariel Trocino, MPH
-                </li>
-                <li>
-                  Ashley Holub, MPH, PhD
-                </li>
-                <li>
-                  Christina Rawetzki, MPH
-                </li>
-                <li>
-                  Micquel Hart, MPH
-                </li>
-                <li>
-                  <a href="https://www.linkedin.com/in/kstermer/">
-                    Katelyn Donnelly, MPH
-                  </a>
-                </li>
-                <li>
-                  Jessica Saddler, MPH(c)
-                </li>
-                <li>
-                  Swathi Nuli, MPH(c)
-                </li>
-              </ul>
-            </td>
-            <td class="peopleGroup">
-              <ul style="list-style-type: none; padding: 0px;">
-                <li class="peopleGroupHeader">Software Development</li>
-                <li>
-                  <a href="https://www.linkedin.com/in/brockwilcox/">
-                    Brock Wilcox, MS
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.linkedin.com/in/johnny-li-031b949/">
-                    Johnny Li
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.linkedin.com/in/tranjnnfr/">
-                    Jennifer Tran
-                  </a>
-                </li>
-                <li>
-                  Srilekha Nuli
-                </li>
-                <li>
-                  Alexa Stefankiewicz
-                </li>
-              </ul>
-            </td>
-            <td class="peopleGroup">
-              <ul style="list-style-type: none; padding: 0px;">
-                <li class="peopleGroupHeader">Communications</li>
-                <li>
-                  Morgan Singer
-                </li>
-                <li>
-                  Kasia Kujawski
-                </li>
-              </ul>
-            </td>
-            <td class="peopleGroup">
-              <ul style="list-style-type: none; padding: 0px;">
-                <li class="peopleGroupHeader">Design</li>
-                <li>
-                  <a href="https://www.linkedin.com/in/megangreendesign/">
-                    Megan Green
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.linkedin.com/in/clairemercer/">
-                    Claire Mercer
-                  </a>
-                </li>
-                <li>
-                  Elizabeth Hunt
-                </li>
-                <li>
-                  Tommy Scheurich, MS
-                </li>
-              </ul>
-            </td>
-          </tr>
-          <br />
-          <br />
-          <tr>
-            <th class="peopleBigHeader">Who Our Advisors Are</th>
-          </tr>
-
-          <tr style="vertical-align: top;">
-            <td class="peopleGroup">
-              <ul style="list-style-type: none; padding: 0px;">
-                <li class="peopleGroupHeader">Expert Reviewer</li>
-                <li>
-                  <a href="https://www.linkedin.com/in/yen-pottinger-8b82a992/">
-                    Yen Pottinger, PhD
-                  </a>
-                </li>
-              </ul>
-            </td>
-            <td class="peopleGroup">
-              <ul style="list-style-type: none; padding: 0px;">
-                <li class="peopleGroupHeader">Clinicians</li>
-                <li>
-                  <a href="https://profiles.ucsf.edu/jayant.rajan">
-                    Jayant Rajan, M.D., P.h.D
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://surgeryresidentresearch.ucsf.edu/research-fellows/general-surg
-ery/andrew-wisneski,-md.aspx"
-                  ></a>
-                  Andrew Wisneski, M.D.
-                </li>
-                <li>Heide Kuang, M.D.</li>
-                <li>
-                  <a
-                    href="https://depts.washington.edu/neurolog/education/residency/curr
-ent-residents/"
-                  >
-                    Roger Chang, M.D., P.h.D.
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.uclahealth.org/rheumatology/fellows">
-                    Ernest Maningding, M,D.
-                  </a>
-                </li>
-              </ul>
-            </td>
-          </tr>
-        </table>
-        -->
       </div>
       <br />
       <p align="left">
@@ -831,31 +673,6 @@ div.card-body {
 h5.mb-0 {
   color: $selectorgray;
 }
-.peopleGroup {
-  padding: 3%;
-  vertical-align: top;
-  float: left;
-}
-
-.peopleGroupHeader {
-  font-weight: bold;
-  padding-bottom: 0px;
-}
-.peopleBigHeader {
-  font-size: 1.7em;
-  padding-bottom: 0.5rem;
-  padding-top: 1rem;
-  font-weight: 300;
-  line-height: 1.2;
-  color: $logodark;
-}
-
-.weTable {
-  width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0px;
-}
-
 .v-card.v-sheet.theme--light {
   border: 0px;
 }
