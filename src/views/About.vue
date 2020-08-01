@@ -573,16 +573,31 @@ export default {
           name: "Andrew Zapfel, MPH",
           site: "https://www.linkedin.com/in/andrewzapfel/"
         },
-        { name: "Ariel Trocino, MPH", site: "" },
+        {
+          name: "Ariel Trocino, MPH",
+          site: "https://www.linkedin.com/in/arielmtrocino/"
+        },
         { name: "Ashley Holub, MPH, PhD", site: "" },
-        { name: "Christina Rawetzki, MPH", site: "" },
-        { name: "Micquel Hart, MPH", site: "" },
+        {
+          name: "Christina Rawetzki, MPH",
+          site: "https://www.linkedin.com/in/christinarawetzki/"
+        },
+        {
+          name: "Micquel Hart, MPH",
+          site: "https://www.linkedin.com/in/micqueldhart/"
+        },
         {
           name: "Katelyn Donnelly, MPH",
           site: "https://www.linkedin.com/in/kstermer/"
         },
-        { name: "Jessica Saddler, MPH(c)", site: "" },
-        { name: "Swathi Nuli, MPH(c)", site: "" }
+        {
+          name: "Jessica Saddler, MPH(c)",
+          site: "https://www.linkedin.com/in/jessicalsaddler/"
+        },
+        {
+          name: "Swathi Nuli, MPH(c)",
+          site: "https://www.linkedin.com/in/swathinuli/"
+        }
       ],
       softwareDevs: [
         {
@@ -597,12 +612,24 @@ export default {
           name: "Jennifer Tran",
           site: "https://www.linkedin.com/in/tranjnnfr/"
         },
-        { name: "Srilekha Nuli", site: "" },
-        { name: "Alexa Stefankiewicz", site: "" }
+        {
+          name: "Srilekha Nuli",
+          site: "https://www.linkedin.com/in/srilekha-nuli/"
+        },
+        {
+          name: "Alexa Stefankiewicz",
+          site: "https://www.linkedin.com/in/alexastef/"
+        }
       ],
       communications: [
-        { name: "Morgan Singer", site: "" },
-        { name: "Kasia Kujawski", site: "" }
+        {
+          name: "Morgan Singer",
+          site: "https://www.linkedin.com/in/morgan-singer-36a94485/"
+        },
+        {
+          name: "Kasia Kujawski",
+          site: "https://www.linkedin.com/in/kasiakujawski/"
+        }
       ],
       design: [
         {
@@ -614,7 +641,10 @@ export default {
           site: "https://www.linkedin.com/in/clairemercer/"
         },
         { name: "Elizabeth Hunt", site: "" },
-        { name: "Tommy Scheurich, MS", site: "" }
+        {
+          name: "Tommy Scheurich, MS",
+          site: "https://www.linkedin.com/in/thomas-scheurich-798b6b47/"
+        }
       ],
       expertReviewer: [
         {
@@ -632,7 +662,10 @@ export default {
           site:
             "https://surgeryresidentresearch.ucsf.edu/research-fellows/general-surgery/andrew-wisneski,-md.aspx"
         },
-        { name: "Heide Kuang, M.D.", site: "" },
+        {
+          name: "Heide Kuang, M.D.",
+          site: "https://www.linkedin.com/in/heide-kuang-a8698854/"
+        },
         {
           name: "Roger Chang, M.D., P.h.D.",
           site:
