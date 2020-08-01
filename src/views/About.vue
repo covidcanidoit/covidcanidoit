@@ -569,7 +569,10 @@ export default {
           name: "Gayatri Sanku, MPH",
           site: "https://www.linkedin.com/in/gayatri-sanku-16212a4/"
         },
-        { name: "Andrew Zapfel, MPH", site: "" },
+        {
+          name: "Andrew Zapfel, MPH",
+          site: "https://www.linkedin.com/in/andrewzapfel/"
+        },
         { name: "Ariel Trocino, MPH", site: "" },
         { name: "Ashley Holub, MPH, PhD", site: "" },
         { name: "Christina Rawetzki, MPH", site: "" },
