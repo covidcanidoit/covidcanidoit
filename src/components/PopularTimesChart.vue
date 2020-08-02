@@ -183,7 +183,7 @@ export default {
               }
             },
             onClick: (evt, item) => {
-              if (!this.daily) {
+              if (!this.daily && item[0]) {
                 this.drillDown(item[0]["_index"]);
               } else {
                 this.createPlot({
