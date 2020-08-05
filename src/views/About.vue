@@ -193,7 +193,7 @@
         <br />
         <hr style="border: 1px solid; color: #009898;" />
         <br />
-        <v-container style="align:left">
+        <v-container fluid class="pa-2 ma-0">
           <v-row>
             <v-col cols="12" md="4">
               <v-card class="pa-0" outlined tile>
