@@ -29,7 +29,6 @@ export default {
     this.searches = sampleSize(this.availableActivities, 6).map(
       activity => activity.name
     );
-    console.log(this.searches);
   },
   computed: {
     ...mapGetters(["activities"]),
