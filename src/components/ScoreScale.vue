@@ -1,38 +1,12 @@
-<template>
+<template functional>
   <div class="score-scale">
-    <div
-      class="score-scale-entry"
-      :class="[score == 1 ? 'selected selected-1' : '']"
-    >
-      1
-    </div>
-    <div class="connector"></div>
-    <div
-      class="score-scale-entry"
-      :class="[score == 2 ? 'selected selected-2' : '']"
-    >
-      2
-    </div>
-    <div class="connector"></div>
-    <div
-      class="score-scale-entry"
-      :class="[score == 3 ? 'selected selected-3' : '']"
-    >
-      3
-    </div>
-    <div class="connector"></div>
-    <div
-      class="score-scale-entry"
-      :class="[score == 4 ? 'selected selected-4' : '']"
-    >
-      4
-    </div>
-    <div class="connector"></div>
-    <div
-      class="score-scale-entry"
-      :class="[score == 5 ? 'selected selected-5' : '']"
-    >
-      5
+    <div v-for="n in 5" :key="n" class="score-scale__entry-wrapper">
+      <div
+        class="score-scale__entry"
+        :class="`score-${n} ${props.score == n ? 'selected' : ''}`"
+      >
+        <span>{{ n }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -46,53 +20,46 @@ export default {
 <style lang="scss">
 .score-scale {
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
   margin-top: 1em;
-  vertical-align: middle;
+  text-align: center;
+  font-size: 1.5em;
 
-  .score-scale-entry {
-    // background-color: $color-medgrey;
-    color: black;
-    border: 2px solid $color-darkgrey;
-    border-radius: 16px;
-    width: 32px;
-    height: 32px;
-    line-height: 30px;
-    text-align: center;
+  .score-scale__entry-wrapper {
+    display: flex;
+    align-items: center;
+    &:not(:last-child):after {
+      content: "";
+      height: 2px;
+      background-color: $color-medgrey;
+      width: 0.75em;
+    }
   }
 
-  .connector {
-    height: 2px;
-    line-height: 2px;
-    background-color: $color-darkgrey;
-    width: 10px;
+  .score-scale__entry {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-medgrey;
+    border: 2px solid $color-medgrey;
+    border-radius: 100%;
+    width: 1.5em;
+    height: 1.5em;
   }
 
   .selected {
-    border-radius: 30px;
-    width: 60px;
-    height: 60px;
-    line-height: 58px;
-    font-size: 2em;
+    border: none;
+    width: 2.5em;
+    height: 2.5em;
     color: white;
+    @include risk-colors("&.score-", "background-color");
   }
+}
 
-  .selected-1 {
-    background-color: $gogreen;
-  }
-  .selected-2 {
-    background-color: $pausegreen;
-  }
-  .selected-3 {
-    background-color: $cautionyellow;
-  }
-  .selected-4 {
-    background-color: $warningorange;
-  }
-  .selected-5 {
-    background-color: $stopred;
+@media #{map-get($display-breakpoints, 'md-and-up')} {
+  .score-scale {
+    font-size: 3em;
   }
 }
 </style>

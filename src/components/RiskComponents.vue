@@ -113,16 +113,12 @@ export default {
 <style scoped lang="scss">
 .component-icon {
   width: 75px;
-  &.riskLow > path {
-    fill: $gogreen;
+  $colors: (Low $gogreen, Medium $cautionyellow, High $stopred);
+  @each $risk, $color in $colors {
+    &.risk#{$risk} > path {
+      fill: $color;
+    }
   }
-  &.riskMedium > path {
-    fill: $cautionyellow;
-  }
-  &.riskHigh > path {
-    fill: $stopred;
-  }
-
   &.dropdown-icon {
     width: 48px;
   }
@@ -154,7 +150,7 @@ export default {
     margin: 0 1em;
   }
   .desktop-notes {
-    font-size: 0.75em;
+    font-size: 0.85em;
     margin: 1em;
   }
 }

@@ -41,7 +41,7 @@
               <Markdown
                 class="risk-details"
                 :source="activity.additionalNotes"
-                v-if="activity.additionalNotes.length > 0"
+                v-if="activity.additionalNotes"
               />
               <Markdown class="risk-details" :source="risk.longDescription" />
             </div>
@@ -104,7 +104,7 @@ export default {
   }
 }
 
-.riskFactorDropdown:nth-child(n + 2) {
+.riskFactorDropdown:not(:first-child) {
   border-top: 1px solid $color-lightgrey;
 }
 .risk-factor-description {

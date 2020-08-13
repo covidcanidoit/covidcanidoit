@@ -183,7 +183,7 @@ export default {
               }
             },
             onClick: (evt, item) => {
-              if (!this.daily) {
+              if (!this.daily && item[0]) {
                 this.drillDown(item[0]["_index"]);
               } else {
                 this.createPlot({
@@ -309,10 +309,17 @@ a {
 .chartCaption {
   float: left;
   font-weight: italic;
+  @media #{map-get($display-breakpoints, 'sm-and-down')} {
+    font-size: 0.6em;
+  }
 }
 
 #canvasContainer {
   width: 35vw;
   height: 20vw;
+  @media #{map-get($display-breakpoints, 'sm-and-down')} {
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>

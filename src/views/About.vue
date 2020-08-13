@@ -308,19 +308,12 @@
           </tr>
 
           <tr>
-            <td class="peopleGroupHeader">Expert Reviewers</td>
+            <td class="peopleGroupHeader">Expert Reviewer</td>
             <td class="peopleGroupHeader">Clinicians</td>
           </tr>
           <tr style="vertical-align: top;">
             <td class="peopleGroup">
               <ul style="list-style-type: none; padding: 0px;">
-                <li>
-                  <a
-                    href="https://www.linkedin.com/in/saskia-popescu-phd-mph-ma-cic-4ba9a334/"
-                  >
-                    Saskia Popescu, PhD, MPH, MA, CIC
-                  </a>
-                </li>
                 <li>
                   <a href="https://www.linkedin.com/in/yen-pottinger-8b82a992/">
                     Yen Pottinger, PhD
