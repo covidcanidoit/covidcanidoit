@@ -150,7 +150,7 @@ export default {
     margin: 0 1em;
   }
   .desktop-notes {
-    font-size: 0.75em;
+    font-size: 0.85em;
     margin: 1em;
   }
 }
