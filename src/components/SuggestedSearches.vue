@@ -26,12 +26,17 @@ export default {
     };
   },
   created() {
-    this.searches = sampleSize(this.activities, 6).map(
+    this.searches = sampleSize(this.availableActivities, 6).map(
       activity => activity.name
     );
   },
   computed: {
-    ...mapGetters(["activities"])
+    ...mapGetters(["activities"]),
+    availableActivities() {
+      return Object.values(this.activities).filter(
+        activity => !activity.disabled
+      );
+    }
   },
   methods: {
     quickSearch(search) {
