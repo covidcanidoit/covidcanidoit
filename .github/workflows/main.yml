@@ -9,22 +9,22 @@ jobs:
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
-        - uses: cypress-io/github-action@v2
-          with:
-            start: yarn serve
-            wait-on: 'http://localhost:8080'
-          env:
-            CYPRESS_baseUrl: http://localhost:8080/
+        uses: cypress-io/github-action@v2
+        with:
+          start: yarn serve
+          wait-on: 'http://localhost:8080'
+        env:
+          CYPRESS_baseUrl: http://localhost:8080/
       - name: Screenshot Artifact Upload
-        - uses: actions/upload-artifact@v1
-          if: failure()
-          with:
-            name: cypress-screenshots
-            path: cypress/screenshots
+        uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
         # Test run video was always captured, so this action uses "always()" condition
       - name: Video Artifact Upload
-        - uses: actions/upload-artifact@v1
-          if: always()
-          with:
-            name: cypress-videos
-            path: cypress/videos
+        uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: cypress-videos
+          path: cypress/videos
