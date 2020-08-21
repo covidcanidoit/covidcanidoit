@@ -92,7 +92,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app>
+    <v-app-bar app style="position: absolute;">
       <div class="nav-logo">
         <router-link
           class="router mx-3"
