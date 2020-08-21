@@ -44,7 +44,7 @@ describe("Browsing Categories", () => {
   });
 
   it("View risk page", () => {
-    cy.contains("Dog");
+    cy.contains("Dog", { timeout: 10000 });
     cy.contains("risk");
   });
 });
