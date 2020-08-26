@@ -370,7 +370,6 @@ export default {
           };
         })
         .sort((a, b) => b.count - a.count);
-      console.log(array);
       return array;
     }
   },
