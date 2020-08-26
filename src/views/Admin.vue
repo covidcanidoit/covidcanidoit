@@ -264,11 +264,11 @@
             </thead>
             <tbody>
               <tr
-                v-for="(topic, topicName) in activitySuggestions"
-                :key="topic.key"
+                v-for="(topic, index) in suggestedActivitesSorted"
+                :key="index"
               >
                 <td>
-                  {{ topicName }}
+                  {{ topic.name }}
                 </td>
                 <td>
                   {{ topic.count }}
@@ -360,6 +360,18 @@ export default {
     },
     userIds() {
       return Object.keys(this.users);
+    },
+    suggestedActivitesSorted() {
+      const array = Object.keys(this.activitySuggestions)
+        .map(suggestion => {
+          return {
+            name: suggestion,
+            count: this.activitySuggestions[suggestion].count
+          };
+        })
+        .sort((a, b) => b.count - a.count);
+      console.log(array);
+      return array;
     }
   },
   methods: {
