@@ -1,8 +1,12 @@
 <template>
   <div>
-    <a href="/Protest_V2.pdf" target="_blank">
+    <a
+      href="https://blog.covidcanidoit.com/2020/08/27/hurricane-resource-guide/"
+      target="_blank"
+    >
       <v-alert class="banner" color="$secondary">
-        Going to a protest? Here are some tips &gt;&gt;&gt;
+        Looking for hurricane or evacuation resources? We’ve gathered a fews
+        &gt;&gt;&gt;
       </v-alert>
     </a>
   </div>
