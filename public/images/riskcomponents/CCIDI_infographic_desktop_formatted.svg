@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1411.25" height="4065.01" viewBox="0 0 1411.25 4065.01">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1411.25 4065.01">
     <defs>
       <style>
         .cls-1, .cls-27 {
@@ -518,6 +518,12 @@
   
         .cls-139 {
           letter-spacing: -0.12em;
+        }
+
+        @media (max-width: 400px) {
+          .cls-119 {
+          font-size: 24px;
+        }
         }
       </style>
       <clipPath id="clip-path" transform="translate(0 -42.32)">
