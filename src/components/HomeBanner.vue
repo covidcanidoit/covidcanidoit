@@ -5,7 +5,7 @@
       target="_blank"
     >
       <v-alert class="banner" color="$secondary">
-        Looking for hurricane or evacuation resources? We’ve gathered a few >>>
+        Looking for hurricane or evacuation resources? We’ve gathered a few
         &gt;&gt;&gt;
       </v-alert>
     </a>
