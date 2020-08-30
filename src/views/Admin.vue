@@ -282,6 +282,41 @@
             </tbody>
           </table>
         </v-tab-item>
+
+        <v-tab>Banner</v-tab>
+        <v-tab-item>
+          <table
+            class="table table-striped"
+            cellspacing="0"
+            cellpadding="2px"
+            border="1"
+          >
+            <thead class="thead-dark">
+              <tr>
+                <th>Edit</th>
+                <th>Banner Text</th>
+                <th>Banner Link</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <router-link
+                    :to="{
+                      name: 'AdminBannerEdit'
+                    }"
+                  >
+                    <v-icon title="Edit banner">
+                      mdi-lead-pencil
+                    </v-icon>
+                  </router-link>
+                </td>
+                <td>{{ banner.text }}</td>
+                <td>{{ banner.link }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </v-tab-item>
       </v-tabs>
     </div>
   </div>
@@ -353,7 +388,8 @@ export default {
       "categories",
       "currentCountry",
       "activitySuggestions",
-      "regions"
+      "regions",
+      "banner"
     ]),
     isAdmin() {
       return !!this.currentUserSettings?.isAdmin;
