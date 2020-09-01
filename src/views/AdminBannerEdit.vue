@@ -30,7 +30,6 @@ import { db } from "@/db.js";
 import { mapGetters } from "vuex";
 
 export default {
-  props: ["banner"],
   computed: {
     ...mapGetters(["banner"]),
     bannerContent() {
