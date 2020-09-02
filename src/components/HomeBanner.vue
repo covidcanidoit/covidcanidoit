@@ -13,20 +13,7 @@
 </template>
 
 <script>
-import { db } from "@/db.js";
-export default {
-  methods: {
-    saveField(name, event) {
-      db.ref("content")
-        .child(this.currentCountry)
-        .child("banner")
-        .child(this.name)
-        .child(name)
-        .set(event.target.value);
-      this.updateTimestamp();
-    }
-  }
-};
+export default {};
 </script>
 
 <style scoped lang="scss">
