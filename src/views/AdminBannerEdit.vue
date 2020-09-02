@@ -31,7 +31,7 @@ import { mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters(["banner"]),
+    ...mapGetters(["banner", "currentCountry"]),
     bannerContent() {
       return this.banner[this.text];
     }
@@ -41,7 +41,6 @@ export default {
       db.ref("content")
         .child(this.currentCountry)
         .child("banner")
-        .child(this.name)
         .child(name)
         .set(event.target.value);
     }
