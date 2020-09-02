@@ -1,19 +1,24 @@
 <template>
   <div>
-    <a
-      href="https://blog.covidcanidoit.com/2020/08/27/hurricane-resource-guide/"
-      target="_blank"
-    >
+    <a :href="this.banner.link" target="_blank">
       <v-alert class="banner" color="$secondary">
-        Looking for hurricane or evacuation resources? We’ve gathered a few
-        &gt;&gt;&gt;
+        {{ this.banner.text }} &gt;&gt;&gt;
       </v-alert>
     </a>
   </div>
 </template>
 
 <script>
-export default {};
+import { mapGetters } from "vuex";
+
+export default {
+  computed: {
+    ...mapGetters(["banner"]),
+    bannerContent() {
+      return this.banner[this.text];
+    }
+  }
+};
 </script>
 
 <style scoped lang="scss">
