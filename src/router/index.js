@@ -12,6 +12,7 @@ import AdminRiskLevelEdit from "@/views/AdminRiskLevelEdit.vue";
 import AdminRiskFactorEdit from "@/views/AdminRiskFactorEdit.vue";
 import AdminCategoryEdit from "@/views/AdminCategoryEdit.vue";
 import AdminUserEdit from "@/views/AdminUserEdit.vue";
+import AdminBannerEdit from "@/views/AdminBannerEdit.vue";
 import SearchResults from "@/views/SearchResults.vue";
 import Infographic from "@/views/Infographic.vue";
 
@@ -68,6 +69,12 @@ const routes = [
     path: "/admin/user/:userId",
     name: "AdminUserEdit",
     component: AdminUserEdit,
+    props: true
+  },
+  {
+    path: "/admin/banner",
+    name: "AdminBannerEdit",
+    component: AdminBannerEdit,
     props: true
   },
   {

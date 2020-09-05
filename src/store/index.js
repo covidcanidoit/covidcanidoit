@@ -119,6 +119,10 @@ export default new Vuex.Store({
       } else {
         return {};
       }
+    },
+    banner(_state, getters) {
+      console.log(getters.currentContent);
+      return getters.currentContent.banner || {};
     }
   },
   actions: {
