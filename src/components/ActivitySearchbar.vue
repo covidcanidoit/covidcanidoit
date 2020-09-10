@@ -16,7 +16,7 @@
         <input class="vs__search" v-bind="attributes" v-on="events" />
       </template>
 
-      <template #list-footer="{ search, searching}">
+      <template #list-footer="{ search, searching }">
         <template v-if="searching">
           <li>
             <v-btn @click="onSearch">
