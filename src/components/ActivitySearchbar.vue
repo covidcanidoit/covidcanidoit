@@ -16,13 +16,15 @@
         <input class="vs__search" v-bind="attributes" v-on="events" />
       </template>
 
-      <template #no-options="{ search, searching}">
+      <template #list-footer="{ search, searching}">
         <template v-if="searching">
-          <v-btn @click="onSearch">
-            Request a risk score
-            <br />
-            for {{ computedSearch(search) }}
-          </v-btn>
+          <li>
+            <v-btn @click="onSearch">
+              Request a risk score
+              <br />
+              for {{ computedSearch(search) }}
+            </v-btn>
+          </li>
         </template>
       </template>
     </VueSelect>
