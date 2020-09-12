@@ -22,22 +22,25 @@
           <router-link
             class="router"
             :to="{
-              name: 'About',
-              params: { country: currentCountry, region: currentRegion }
-            }"
-          >
-            About
-          </router-link>
-        </v-list-item>
-        <v-list-item link>
-          <router-link
-            class="router"
-            :to="{
               name: 'Browse',
               params: { country: currentCountry, region: currentRegion }
             }"
           >
             Activities
+          </router-link>
+        </v-list-item>
+        <v-list-item link>
+          <a href="//blog.covidcanidoit.com/">Blog</a>
+        </v-list-item>
+        <v-list-item link>
+          <router-link
+            class="router"
+            :to="{
+              name: 'About',
+              params: { country: currentCountry, region: currentRegion }
+            }"
+          >
+            About
           </router-link>
         </v-list-item>
         <v-list-item link>
@@ -121,15 +124,6 @@
         </router-link>
         <router-link
           class="router mx-3"
-          :to="{
-            name: 'About',
-            params: { country: currentCountry, region: currentRegion }
-          }"
-        >
-          About
-        </router-link>
-        <router-link
-          class="router mx-3"
           :class="{ 'router-link-exact-active': isActivitiesLinkActive }"
           :to="{
             name: 'Browse',
@@ -137,6 +131,16 @@
           }"
         >
           Activities
+        </router-link>
+        <a href="//blog.covidcanidoit.com/">Blog</a>
+        <router-link
+          class="router mx-3"
+          :to="{
+            name: 'About',
+            params: { country: currentCountry, region: currentRegion }
+          }"
+        >
+          About
         </router-link>
         <router-link
           class="router mx-3"
