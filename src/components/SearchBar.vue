@@ -137,6 +137,7 @@ button.run-search {
   background-color: $selectorgray;
   color: white;
   font-size: 1.25em;
+  min-width: 10em;
 }
 
 .header {
