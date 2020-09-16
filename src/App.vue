@@ -311,4 +311,7 @@ body {
     color: $logodark;
   }
 }
+.v-menu__content {
+  max-height: 70%;
+}
 </style>
