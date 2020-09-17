@@ -18,6 +18,8 @@ Work is coordinated via Github Issues, on our Slack
 generally Monday and Thursday nights EDT). Email an introduction to
 info@covidcanidoit.com and we can get you set up with the slack and meetings.
 
+Check out [CONTRIBUTING.md](./CONTRIBUTING.md) for more details!
+
 ## Technology overview
 
 - [VueJS](https://vuejs.org/)
