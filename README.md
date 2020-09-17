@@ -13,10 +13,6 @@ about that risk-score. Some activities also alow you to use Google Maps
 data is used to possibly modify the score (for age), but to generally provide
 other information.
 
-We are currently (June 2020) working on "Phase 2" of our data, which will be
-much more region-aware, offering different scores and recommendations based on
-the current status of your region (State).
-
 Work is coordinated via Github Issues, on our Slack
 (covid-19risktool.slack.com), and on synchronous video meetings (Zoom,
 generally Monday and Thursday nights EDT). Email an introduction to
