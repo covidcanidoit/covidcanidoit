@@ -32,7 +32,10 @@ export default new Vuex.Store({
     // Phase2
     currentRegion: "all",
 
-    suggestions: {}
+    suggestions: {},
+    navigation: {
+      show: true
+    }
   },
   mutations: {
     ...vuexfireMutations,
@@ -45,6 +48,12 @@ export default new Vuex.Store({
     },
     setCurrentRegion(state, currentRegion) {
       state.currentRegion = currentRegion;
+    },
+    showNav(state) {
+      state.navigation.show = true;
+    },
+    hideNav(state) {
+      state.navigation.show = false;
     }
   },
   getters: {

@@ -95,7 +95,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app style="position: absolute;">
+    <v-app-bar app style="position: absolute;" v-show="show">
       <div class="nav-logo">
         <router-link
           class="router mx-3"
@@ -235,6 +235,12 @@ export default {
     },
     isActivitiesLinkActive() {
       return this.$route.path.includes("activity");
+    },
+    isEmbedTrue() {
+      return this.$route.path.includes("embed=true");
+    },
+    show() {
+      return this.$store.state.navigation.show;
     }
   },
   methods: {
@@ -250,6 +256,17 @@ export default {
       this.$router
         .replace({ params: { country: this.currentCountry } })
         .catch(() => {});
+    },
+    $route: function() {
+      // Check if given route is true, if it is then hide Nav.
+      if (this.$route.query.embed) {
+        // if (this.$route.path.includes("embed=true")) {
+        this.$store.commit("hideNav");
+      } else {
+        console.log(this.$route.path);
+        console.log(this.$route.query.embed);
+        this.$store.commit("showNav");
+      }
     }
   }
 };
