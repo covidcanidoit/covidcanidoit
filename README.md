@@ -84,6 +84,16 @@ npm install -g yarn
 yarn install
 ```
 
+#### Full Windows Example
+This is a from-scratch installation. Hopefully you can copy/paste bits of this
+one at a time into a terminal. If you have brew, asdf, nodejs, or yarn, then you
+can skip those parts.
+
+##### Prerequisites
+* [VSCode](https://code.visualstudio.com/docs/setup/setup-overview)
+* [Git](https://git-scm.com/downloads) (and add ssh keys)
+* [Yarn](https://classic.yarnpkg.com/en/docs/install/#windows-stable)
+
 ### Run locally
 
 ```sh
