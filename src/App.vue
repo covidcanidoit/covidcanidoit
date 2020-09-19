@@ -95,7 +95,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app style="position: absolute;" v-show="show">
+    <v-app-bar app style="position: absolute;" v-show="showNav">
       <div class="nav-logo">
         <router-link
           class="router mx-3"
@@ -239,7 +239,7 @@ export default {
     isEmbedTrue() {
       return this.$route.path.includes("embed=true");
     },
-    show() {
+    showNav() {
       return this.$store.state.navigation.show;
     }
   },
@@ -259,12 +259,13 @@ export default {
     },
     $route: function() {
       // Check if given route is true, if it is then hide Nav.
-      if (this.$route.query.embed) {
-        // if (this.$route.path.includes("embed=true")) {
+      if (this.$route.query.embed.includes(true)) {
         this.$store.commit("hideNav");
+      }
+      if (this.$route.query.regionlock.includes(true)) {
+        this.$store.commit("hideRegionSelect");
       } else {
-        console.log(this.$route.path);
-        console.log(this.$route.query.embed);
+        this.$store.commit("showRegionSelect");
         this.$store.commit("showNav");
       }
     }

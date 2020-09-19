@@ -35,6 +35,9 @@ export default new Vuex.Store({
     suggestions: {},
     navigation: {
       show: true
+    },
+    regionlock: {
+      lock: true
     }
   },
   mutations: {
@@ -54,6 +57,12 @@ export default new Vuex.Store({
     },
     hideNav(state) {
       state.navigation.show = false;
+    },
+    showRegionSelect(state) {
+      state.regionlock.lock = false;
+    },
+    hideRegionSelect(state) {
+      state.regionlock.lock = true;
     }
   },
   getters: {
