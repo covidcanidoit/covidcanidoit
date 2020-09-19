@@ -236,9 +236,6 @@ export default {
     isActivitiesLinkActive() {
       return this.$route.path.includes("activity");
     },
-    isEmbedTrue() {
-      return this.$route.path.includes("embed=true");
-    },
     showNav() {
       return this.$store.state.navigation.show;
     }
@@ -259,14 +256,18 @@ export default {
     },
     $route: function() {
       // Check if given route is true, if it is then hide Nav.
-      if (this.$route.query.embed.includes(true)) {
-        this.$store.commit("hideNav");
-      }
-      if (this.$route.query.regionlock.includes(true)) {
-        this.$store.commit("hideRegionSelect");
-      } else {
+      if (
+        !this.$route.path.includes("embed=true") &&
+        !this.$route.path.includes("regionlock=true")
+      ) {
         this.$store.commit("showRegionSelect");
         this.$store.commit("showNav");
+      }
+      if (!!this.$route.query && this.$route.query.embed.includes(true)) {
+        this.$store.commit("hideNav");
+      }
+      if (!!this.$route.query && this.$route.query.regionlock.includes(true)) {
+        this.$store.commit("hideRegionSelect");
       }
     }
   }
