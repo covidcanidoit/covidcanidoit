@@ -37,7 +37,7 @@ export default new Vuex.Store({
       show: true
     },
     regionlock: {
-      lock: true
+      lock: false
     }
   },
   mutations: {
@@ -52,17 +52,11 @@ export default new Vuex.Store({
     setCurrentRegion(state, currentRegion) {
       state.currentRegion = currentRegion;
     },
-    showNav(state) {
-      state.navigation.show = true;
+    setNav(state, value) {
+      state.navigation.show = value;
     },
-    hideNav(state) {
-      state.navigation.show = false;
-    },
-    showRegionSelect(state) {
-      state.regionlock.lock = false;
-    },
-    hideRegionSelect(state) {
-      state.regionlock.lock = true;
+    setRegionSelectLock(state, value) {
+      state.regionlock.lock = value;
     }
   },
   getters: {
@@ -139,8 +133,13 @@ export default new Vuex.Store({
       }
     },
     banner(_state, getters) {
-      console.log(getters.currentContent);
       return getters.currentContent.banner || {};
+    },
+    navigation(state) {
+      return state.navigation;
+    },
+    regionlock(state) {
+      return state.regionlock;
     }
   },
   actions: {

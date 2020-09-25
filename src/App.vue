@@ -225,7 +225,9 @@ export default {
       "currentCountry",
       "currentRegion",
       "regionSlugs",
-      "regions"
+      "regions",
+      "navigation",
+      "regionlock"
     ]),
     isHome() {
       return this.$route.name == "Home";
@@ -240,6 +242,16 @@ export default {
       return this.$store.state.navigation.show;
     }
   },
+  /*
+  created() {
+    if (this.navigation) {
+      this.$store.dispatch("setNav", true)
+    }
+    if (this.regionlock) {
+      this.$store.dispatch("setRegionSelect", true)
+    }
+  },
+  */
   methods: {
     setCurrentCountry(country) {
       this.$store.dispatch("changeCountry", country);
@@ -256,18 +268,29 @@ export default {
     },
     $route: function() {
       // Check if given route is true, if it is then hide Nav.
+      console.log(this.$store);
+
       if (
-        !this.$route.path.includes("embed=true") &&
-        !this.$route.path.includes("regionlock=true")
+        !this.$store.state.navigation.show ||
+        (!!this.$route.query && this.$route.query.embed.includes(true))
       ) {
-        this.$store.commit("showRegionSelect");
-        this.$store.commit("showNav");
+        this.$store.commit("setNav", false);
       }
-      if (!!this.$route.query && this.$route.query.embed.includes(true)) {
-        this.$store.commit("hideNav");
+      if (
+        this.$store.state.regionlock.lock ||
+        (!!this.$route.query && this.$route.query.regionlock.includes(true))
+      ) {
+        this.$store.commit("setRegionSelectLock", true);
       }
-      if (!!this.$route.query && this.$route.query.regionlock.includes(true)) {
-        this.$store.commit("hideRegionSelect");
+      if (
+        this.$store.state.navigation.show &&
+        !this.$store.state.regionlock(
+          !this.$route.path.includes("embed=true") &&
+            !this.$route.path.includes("regionlock=false")
+        )
+      ) {
+        this.$store.commit("setNav", true);
+        this.$store.commit("setRegionSelectLock", false);
       }
     }
   }
