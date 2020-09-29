@@ -242,16 +242,6 @@ export default {
       return this.$store.state.navigation.show;
     }
   },
-  /*
-  created() {
-    if (this.navigation) {
-      this.$store.dispatch("setNav", true)
-    }
-    if (this.regionlock) {
-      this.$store.dispatch("setRegionSelect", true)
-    }
-  },
-  */
   methods: {
     setCurrentCountry(country) {
       this.$store.dispatch("changeCountry", country);
@@ -267,9 +257,6 @@ export default {
         .catch(() => {});
     },
     $route: function() {
-      // Check if given route is true, if it is then hide Nav.
-      console.log(this.$store);
-
       if (
         !this.$store.state.navigation.show ||
         (!!this.$route.query && this.$route.query.embed.includes(true))
