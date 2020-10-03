@@ -4,32 +4,40 @@
     <h5>Click to learn more</h5>
     <v-container>
       <v-row>
-        <v-col cols="6" md="3">
-          <CrowdingIcon
-            class="componentIcon"
-            @click="onComponentIconClick('crowding')"
-          ></CrowdingIcon>
+        <v-col
+          cols="6"
+          md="3"
+          class="howToThinkAboutRisk__icon-container"
+          @click="onComponentIconClick('crowding')"
+        >
+          <CrowdingIcon class="componentIcon"></CrowdingIcon>
           <div class="componentLabel">Crowding</div>
         </v-col>
-        <v-col cols="6" md="3">
-          <DropletsIcon
-            class="componentIcon"
-            @click="onComponentIconClick('droplets')"
-          ></DropletsIcon>
+        <v-col
+          cols="6"
+          md="3"
+          class="howToThinkAboutRisk__icon-container"
+          @click="onComponentIconClick('droplets')"
+        >
+          <DropletsIcon class="componentIcon"></DropletsIcon>
           <div class="componentLabel">Droplets</div>
         </v-col>
-        <v-col cols="6" md="3">
-          <TimeIcon
-            class="componentIcon"
-            @click="onComponentIconClick('exposureTime')"
-          ></TimeIcon>
+        <v-col
+          cols="6"
+          md="3"
+          class="howToThinkAboutRisk__icon-container"
+          @click="onComponentIconClick('exposureTime')"
+        >
+          <TimeIcon class="componentIcon"></TimeIcon>
           <div class="componentLabel">Time</div>
         </v-col>
-        <v-col cols="6" md="3">
-          <VentIcon
-            class="componentIcon"
-            @click="onComponentIconClick('ventilation')"
-          ></VentIcon>
+        <v-col
+          cols="6"
+          md="3"
+          class="howToThinkAboutRisk__icon-container"
+          @click="onComponentIconClick('ventilation')"
+        >
+          <VentIcon class="componentIcon"></VentIcon>
           <div class="componentLabel">Ventilation</div>
         </v-col>
       </v-row>
@@ -142,8 +150,17 @@ export default {
     fill: black;
   }
 }
+.howToThinkAboutRisk__icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+}
 .componentLabel {
   margin-top: 1em;
+  display: inline;
+  padding: 10px;
 }
 div .cls-2 {
   fill: black;
