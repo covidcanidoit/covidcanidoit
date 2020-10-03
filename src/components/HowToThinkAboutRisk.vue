@@ -4,35 +4,32 @@
     <h5>Click to learn more</h5>
     <v-container>
       <v-row>
-        <v-col cols="6" md="3" class="howToThinkAboutRisk__icon-container">
-          <CrowdingIcon
-            class="componentIcon"
-            @click="onComponentIconClick('crowding')"
-          ></CrowdingIcon>
-          <div @click="onComponentIconClick('crowding')" class="componentLabel">
-            Crowding
-          </div>
+        <v-col
+          cols="6"
+          md="3"
+          class="howToThinkAboutRisk__icon-container"
+          @click="onComponentIconClick('crowding')"
+        >
+          <CrowdingIcon class="componentIcon"></CrowdingIcon>
+          <div class="componentLabel">Crowding</div>
         </v-col>
-        <v-col cols="6" md="3" class="howToThinkAboutRisk__icon-container">
-          <DropletsIcon
-            class="componentIcon"
-            @click="onComponentIconClick('droplets')"
-          ></DropletsIcon>
-          <div class="componentLabel" @click="onComponentIconClick('droplets')">
-            Droplets
-          </div>
+        <v-col
+          cols="6"
+          md="3"
+          class="howToThinkAboutRisk__icon-container"
+          @click="onComponentIconClick('droplets')"
+        >
+          <DropletsIcon class="componentIcon"></DropletsIcon>
+          <div class="componentLabel">Droplets</div>
         </v-col>
-        <v-col cols="6" md="3" class="howToThinkAboutRisk__icon-container">
-          <TimeIcon
-            class="componentIcon"
-            @click="onComponentIconClick('exposureTime')"
-          ></TimeIcon>
-          <div
-            class="componentLabel"
-            @click="onComponentIconClick('exposureTime')"
-          >
-            Time
-          </div>
+        <v-col
+          cols="6"
+          md="3"
+          class="howToThinkAboutRisk__icon-container"
+          @click="onComponentIconClick('exposureTime')"
+        >
+          <TimeIcon class="componentIcon"></TimeIcon>
+          <div class="componentLabel">Time</div>
         </v-col>
         <v-col
           cols="6"
@@ -40,10 +37,7 @@
           class="howToThinkAboutRisk__icon-container"
           @click="onComponentIconClick('ventilation')"
         >
-          <VentIcon
-            class="componentIcon"
-            @click="onComponentIconClick('ventilation')"
-          ></VentIcon>
+          <VentIcon class="componentIcon"></VentIcon>
           <div class="componentLabel">Ventilation</div>
         </v-col>
       </v-row>
@@ -145,7 +139,6 @@ export default {
   fill: rgba(0, 0, 0, 0);
   border: 2px solid black;
   border-radius: 50%;
-  cursor: pointer;
 }
 .componentIcon:hover {
   cursor: pointer;
@@ -162,12 +155,12 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  cursor: pointer;
 }
 .componentLabel {
   margin-top: 1em;
   display: inline;
   padding: 10px;
-  cursor: pointer;
 }
 div .cls-2 {
   fill: black;
