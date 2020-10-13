@@ -5,6 +5,7 @@
       app
       right
       :disable-resize-watcher="true"
+      v-if="showNav"
     >
       <v-list dense>
         <v-list-item link>
@@ -95,7 +96,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app style="position: absolute;" v-show="showNav">
+    <v-app-bar app style="position: absolute;" v-if="showNav">
       <div class="nav-logo">
         <router-link
           class="router mx-3"
@@ -198,7 +199,7 @@
       <router-view :key="$route.fullPath" />
     </v-main>
 
-    <Footer />
+    <Footer v-if="showNav" />
   </v-app>
 </template>
 
