@@ -7,6 +7,52 @@
       :disable-resize-watcher="true"
     >
       <v-list dense>
+        <v-list-item>
+          <router-link
+            class="router"
+            :to="{
+              name: 'Home',
+              params: { country: currentCountry, region: currentRegion }
+            }"
+          >
+            <v-icon>mdi-magnify</v-icon>
+          </router-link>
+          <v-spacer></v-spacer>
+          <v-menu>
+            <template v-slot:activator="{ on }">
+              <v-btn text v-on="on" aria-label="Select country">
+                <img :src="`${publicPath}images/flag/${currentCountry}.png`" />
+                {{ currentCountry }}
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item
+                v-for="country in countrySlugs"
+                :key="country"
+                @click="setCurrentCountry(country)"
+              >
+                <img :src="`${publicPath}images/flag/${country}.png`" />
+                {{ country }}
+              </v-list-item>
+            </v-list>
+          </v-menu>
+          <v-menu v-if="regionSlugs.length > 1">
+            <template v-slot:activator="{ on }">
+              <v-btn text v-on="on" aria-label="Select region">
+                {{ currentRegion }}
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item
+                v-for="region in regionSlugs"
+                :key="region"
+                @click="setCurrentRegion(region)"
+              >
+                {{ region }}
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-list-item>
         <v-list-item link>
           <router-link
             class="router"
@@ -42,55 +88,6 @@
           >
             About
           </router-link>
-        </v-list-item>
-        <v-list-item link>
-          <router-link
-            class="router"
-            :to="{
-              name: 'Home',
-              params: { country: currentCountry, region: currentRegion }
-            }"
-          >
-            <v-icon>mdi-magnify</v-icon>
-          </router-link>
-        </v-list-item>
-        <v-list-item>
-          <v-menu>
-            <template v-slot:activator="{ on }">
-              <v-btn text v-on="on" aria-label="Select country">
-                <img :src="`${publicPath}images/flag/${currentCountry}.png`" />
-                {{ currentCountry }}
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item
-                v-for="country in countrySlugs"
-                :key="country"
-                @click="setCurrentCountry(country)"
-              >
-                <img :src="`${publicPath}images/flag/${country}.png`" />
-                {{ country }}
-              </v-list-item>
-            </v-list>
-          </v-menu>
-        </v-list-item>
-        <v-list-item>
-          <v-menu v-if="regionSlugs.length > 1">
-            <template v-slot:activator="{ on }">
-              <v-btn text v-on="on" aria-label="Select region">
-                {{ currentRegion }}
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item
-                v-for="region in regionSlugs"
-                :key="region"
-                @click="setCurrentRegion(region)"
-              >
-                {{ region }}
-              </v-list-item>
-            </v-list>
-          </v-menu>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
