@@ -58,9 +58,13 @@ export default {
       return this.activityList.map(activity => activity.name);
     },
     shouldForceRegionSelect() {
-      return (
-        Object.keys(this.regions).length > 1 && this.currentRegion === "all"
-      );
+      if (this.$store.state.regionlock.lock === true) {
+        return false;
+      } else {
+        return (
+          Object.keys(this.regions).length > 1 && this.currentRegion === "all"
+        );
+      }
     }
   },
   created() {

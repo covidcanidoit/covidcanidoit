@@ -5,6 +5,7 @@
       app
       right
       :disable-resize-watcher="true"
+      v-if="showNav"
     >
       <v-list dense>
         <v-list-item>
@@ -92,7 +93,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app style="position: absolute;">
+    <v-app-bar app style="position: absolute;" v-if="showNav">
       <div class="nav-logo">
         <router-link
           class="router mx-3"
@@ -195,7 +196,7 @@
       <router-view :key="$route.fullPath" />
     </v-main>
 
-    <Footer />
+    <Footer v-if="showNav" />
   </v-app>
 </template>
 
@@ -222,7 +223,9 @@ export default {
       "currentCountry",
       "currentRegion",
       "regionSlugs",
-      "regions"
+      "regions",
+      "navigation",
+      "regionlock"
     ]),
     isHome() {
       return this.$route.name == "Home";
@@ -232,6 +235,9 @@ export default {
     },
     isActivitiesLinkActive() {
       return this.$route.path.includes("activity");
+    },
+    showNav() {
+      return this.$store.state.navigation.show;
     }
   },
   methods: {
@@ -247,6 +253,30 @@ export default {
       this.$router
         .replace({ params: { country: this.currentCountry } })
         .catch(() => {});
+    },
+    $route: function() {
+      if (
+        !this.$store.state.navigation.show ||
+        (!!this.$route.query && this.$route.query.embed.includes(true))
+      ) {
+        this.$store.commit("setNav", false);
+      }
+      if (
+        this.$store.state.regionlock.lock ||
+        (!!this.$route.query && this.$route.query.regionlock.includes(true))
+      ) {
+        this.$store.commit("setRegionSelectLock", true);
+      }
+      if (
+        this.$store.state.navigation.show &&
+        !this.$store.state.regionlock(
+          !this.$route.path.includes("embed=true") &&
+            !this.$route.path.includes("regionlock=false")
+        )
+      ) {
+        this.$store.commit("setNav", true);
+        this.$store.commit("setRegionSelectLock", false);
+      }
     }
   }
 };

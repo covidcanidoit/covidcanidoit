@@ -6,9 +6,6 @@ Vue.use(Vuex);
 import { vuexfireMutations, firebaseAction } from "vuexfire";
 import { db } from "@/db.js";
 
-// Persist vuex into localStorage between page loads
-import VuexPersistence from "vuex-persist";
-
 import router from "@/router";
 
 // This helper makes for much shorter action-bindings
@@ -20,7 +17,6 @@ function bindFirebase(key) {
 }
 
 export default new Vuex.Store({
-  plugins: [new VuexPersistence().plugin],
   state: {
     submitted: false,
     content: {},
@@ -32,7 +28,13 @@ export default new Vuex.Store({
     // Phase2
     currentRegion: "all",
 
-    suggestions: {}
+    suggestions: {},
+    navigation: {
+      show: true
+    },
+    regionlock: {
+      lock: false
+    }
   },
   mutations: {
     ...vuexfireMutations,
@@ -45,6 +47,12 @@ export default new Vuex.Store({
     },
     setCurrentRegion(state, currentRegion) {
       state.currentRegion = currentRegion;
+    },
+    setNav(state, value) {
+      state.navigation.show = value;
+    },
+    setRegionSelectLock(state, value) {
+      state.regionlock.lock = value;
     }
   },
   getters: {
@@ -121,8 +129,13 @@ export default new Vuex.Store({
       }
     },
     banner(_state, getters) {
-      console.log(getters.currentContent);
       return getters.currentContent.banner || {};
+    },
+    navigation(state) {
+      return state.navigation;
+    },
+    regionlock(state) {
+      return state.regionlock;
     }
   },
   actions: {
