@@ -6,9 +6,6 @@ Vue.use(Vuex);
 import { vuexfireMutations, firebaseAction } from "vuexfire";
 import { db } from "@/db.js";
 
-// Persist vuex into localStorage between page loads
-// import VuexPersistence from "vuex-persist";
-
 import router from "@/router";
 
 // This helper makes for much shorter action-bindings
@@ -20,7 +17,6 @@ function bindFirebase(key) {
 }
 
 export default new Vuex.Store({
-  // plugins: [new VuexPersistence().plugin],
   state: {
     submitted: false,
     content: {},
