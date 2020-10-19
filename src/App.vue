@@ -54,42 +54,44 @@
             </v-list>
           </v-menu>
         </v-list-item>
-        <v-list-item link>
-          <router-link
-            class="router"
-            :to="{
-              name: 'Home',
-              params: { country: currentCountry, region: currentRegion }
-            }"
-          >
-            Home
-          </router-link>
-        </v-list-item>
-        <v-list-item link>
-          <router-link
-            class="router"
-            :to="{
-              name: 'Browse',
-              params: { country: currentCountry, region: currentRegion }
-            }"
-          >
-            Activities
-          </router-link>
-        </v-list-item>
-        <v-list-item link>
-          <a href="//blog.covidcanidoit.com/">Blog</a>
-        </v-list-item>
-        <v-list-item link>
-          <router-link
-            class="router"
-            :to="{
-              name: 'About',
-              params: { country: currentCountry, region: currentRegion }
-            }"
-          >
-            About
-          </router-link>
-        </v-list-item>
+        <div class="nav-buttons">
+            <v-list-item link>
+            <router-link
+                class="router"
+                :to="{
+                name: 'Home',
+                params: { country: currentCountry, region: currentRegion }
+                }"
+            >
+                Home
+            </router-link>
+            </v-list-item>
+            <v-list-item link>
+            <router-link
+                class="router"
+                :to="{
+                name: 'Browse',
+                params: { country: currentCountry, region: currentRegion }
+                }"
+            >
+                Activities
+            </router-link>
+            </v-list-item>
+            <v-list-item link>
+            <a href="//blog.covidcanidoit.com/">Blog</a>
+            </v-list-item>
+            <v-list-item link>
+            <router-link
+                class="router"
+                :to="{
+                name: 'About',
+                params: { country: currentCountry, region: currentRegion }
+                }"
+            >
+                About
+            </router-link>
+            </v-list-item>
+        </div>
       </v-list>
     </v-navigation-drawer>
 
@@ -307,7 +309,7 @@ body {
     color: $secondary;
   }
 
-  header {
+  .nav-buttons {
     a,
     a:visited,
     a:hover {
@@ -317,9 +319,9 @@ body {
       text-decoration: none;
     }
 
-    .nav-buttons a.router-link-exact-active,
-    .nav-buttons a.router-link-exact-active:visited,
-    .nav-buttons a.router-link-exact-active:hover {
+    a.router-link-exact-active,
+    a.router-link-exact-active:visited,
+    a.router-link-exact-active:hover {
       white-space: nowrap;
       border-radius: 30px;
       padding: 2px 7px;
