@@ -5,7 +5,7 @@
         <div class="infographicContainer">
           <img
             :src="
-              `${publicPath}images/riskcomponents/CCIDI_infographic_formatted.svg`
+              `${publicPath}images/riskcomponents/CCIDI_infographic_mobile_NEW_comp.svg`
             "
             alt="Infographic"
             class="infographic"
@@ -35,3 +35,5 @@ export default {
   text-align: center;
 }
 </style>
+
+// `${publicPath}images/riskcomponents/CCIDI_infographic_formatted.svg`
