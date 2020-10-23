@@ -13,29 +13,27 @@ about that risk-score. Some activities also alow you to use Google Maps
 data is used to possibly modify the score (for age), but to generally provide
 other information.
 
-We are currently (June 2020) working on "Phase 2" of our data, which will be
-much more region-aware, offering different scores and recommendations based on
-the current status of your region (State).
-
 Work is coordinated via Github Issues, on our Slack
 (covid-19risktool.slack.com), and on synchronous video meetings (Zoom,
 generally Monday and Thursday nights EDT). Email an introduction to
 info@covidcanidoit.com and we can get you set up with the slack and meetings.
 
+Check out [CONTRIBUTING.md](./CONTRIBUTING.md) for more details!
+
 ## Technology overview
 
-* [VueJS](https://vuejs.org/)
-* [Vuetify](https://vuetifyjs.com/)
-* [Firebase Hosting](https://firebase.google.com/docs/hosting)
-* [Firebase Database](https://firebase.google.com/docs/database)
+- [VueJS](https://vuejs.org/)
+- [Vuetify](https://vuetifyjs.com/)
+- [Firebase Hosting](https://firebase.google.com/docs/hosting)
+- [Firebase Database](https://firebase.google.com/docs/database)
 
 ## Dev workflow
 
-* Initial project setup
-* Create/update branch and develop locally
-* Open a PR, automatically runs tests
-* Optional: Deploy to staging
-* Merges to master automatically deploy to production
+- Initial project setup
+- Create/update branch and develop locally
+- Open a PR, automatically runs tests
+- Optional: Deploy to staging
+- Merges to master automatically deploy to production
 
 ### Initial Project Setup
 
@@ -43,13 +41,14 @@ Git, github, and technical fork/branch management is a little out of scope here,
 
 This project uses `nodejs`, `yarn`, and `vue-cli`, so to get started you should have nodejs and yarn installed. We recommend `asdf` as your version manager:
 
-* Install [asdf](https://asdf-vm.com/#/core-manage-asdf-vm) (possibly using [brew](https://brew.sh/))
-* Install [asdf-nodejs](https://github.com/asdf-vm/asdf-nodejs)
-* Install nodejs itself
-* Install yarn
-* Install project dependencies
+- Install [asdf](https://asdf-vm.com/#/core-manage-asdf-vm) (possibly using [brew](https://brew.sh/))
+- Install [asdf-nodejs](https://github.com/asdf-vm/asdf-nodejs)
+- Install nodejs itself
+- Install yarn
+- Install project dependencies
 
 #### Full MacOS Example
+
 This is a from-scratch installation. Hopefully you can copy/paste bits of ths
 at a time into a terminal. If you have brew, asdf, nodejs, or yarn, then you
 can skip those parts.
@@ -103,7 +102,7 @@ yarn deploy-staging
 yarn deploy-db-rules
 
 # Run your tests
-yarn test:unit # ... we don't have any of these yet
+yarn test:unit # html test coverage report is viewable at ./coverage/lcov-report/index.html
 yarn test:e2e  # uses cypress / headless-chrome
 
 # Lint (and fix) cruft
@@ -116,11 +115,11 @@ This project is hosted on Firebase, using both Firebase Hosting (for
 compiled/static content) and the Firebase Realtime Database (for the activities
 database and other dynamic content).
 
-* `yarn build` compiles vue components and assets into .js files
-* These assets and compiled js files are uploaded to Firebase Hosting, and are directly served to browsers
-* The browsers are then running the VueJS app
-* The app uses Firebase Database API to get (realitime) data from the Firebase Database. This is how the app gets the actual COVID activities and risk scores
-* There is an admin section in the app that also uses the Database API to update activities
-* Based on project needs, sometimes we do a bulk-data-import using tools in the `utils/` directory
-* We have a separate firebase project named `ccidi-staging` that does all of the same things, which is nice for testing infrastructure and major database changes
-* The Google Places API doesn't provide busyness data directly, so there is also an API service that uses the [populartimes](https://github.com/m-wrzr/populartimes) python library to scrape this data. Right now this is hosted on @awwaiid's server, but we'll move it into a Google Cloud function at some point
+- `yarn build` compiles vue components and assets into .js files
+- These assets and compiled js files are uploaded to Firebase Hosting, and are directly served to browsers
+- The browsers are then running the VueJS app
+- The app uses Firebase Database API to get (realitime) data from the Firebase Database. This is how the app gets the actual COVID activities and risk scores
+- There is an admin section in the app that also uses the Database API to update activities
+- Based on project needs, sometimes we do a bulk-data-import using tools in the `utils/` directory
+- We have a separate firebase project named `ccidi-staging` that does all of the same things, which is nice for testing infrastructure and major database changes
+- The Google Places API doesn't provide busyness data directly, so there is also an API service that uses the [populartimes](https://github.com/m-wrzr/populartimes) python library to scrape this data. Right now this is hosted on @awwaiid's server, but we'll move it into a Google Cloud function at some point

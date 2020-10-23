@@ -9,19 +9,22 @@
       v-on:input="onSearch"
       placeholder="Type your activity here"
       @search:focus="$emit('search:focus')"
+      :filter="fuseSearch"
     >
       <template #search="{ attributes, events }">
         <v-icon v-if="inHome">mdi-magnify</v-icon>
         <input class="vs__search" v-bind="attributes" v-on="events" />
       </template>
 
-      <template #no-options="{ search, searching}">
+      <template #list-footer="{ search, searching }">
         <template v-if="searching">
-          <v-btn @click="onSearch">
-            Request a risk score
-            <br />
-            for {{ computedSearch(search) }}
-          </v-btn>
+          <li>
+            <v-btn @click="onSearch">
+              Request a risk score
+              <br />
+              for {{ computedSearch(search) }}
+            </v-btn>
+          </li>
         </template>
       </template>
     </VueSelect>
@@ -106,6 +109,14 @@ export default {
         .child("count")
         .set(count + 1);
       this.suggested = "";
+    },
+    fuseSearch(options, search) {
+      const fuse = new Fuse(options, {
+        keys: ["name", "searchName", "keywords"]
+      });
+      return search.length
+        ? fuse.search(search).map(({ item }) => item)
+        : fuse.list;
     }
   },
   computed: {
@@ -114,27 +125,6 @@ export default {
       return Object.values(this.activities).filter(
         value => value.disabled !== true
       );
-    },
-    activityListComplete() {
-      const options = {
-        minMatchCharLength: 2,
-        includeScore: true,
-        includeMatches: true,
-        threshold: 0.3
-        //keys: ["name"] // include synonyms in the future
-      };
-
-      //const fuse = new Fuse(this.fullActivityList, options); // uncomment when ready to search both name and synonyms
-      const fuse = new Fuse(this.activityList, options);
-      const result = fuse.search(this.searchTerm);
-
-      return result.map(result => result.item.name);
-    },
-    maxIndex() {
-      return Math.ceil(this.activityListComplete.length / this.perPage);
-    },
-    activityListDynamic() {
-      return this.activityListComplete;
     },
     searchbarClass() {
       if (this.$vuetify.breakpoint.mdAndUp) {

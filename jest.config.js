@@ -2,8 +2,9 @@ module.exports = {
   preset: "@vue/cli-plugin-unit-jest",
   verbose: true,
   moduleFileExtensions: ["js", "json", "vue"],
+  collectCoverage: true,
   collectCoverageFrom: [
-    "src/components/*.spec.{js,vue}",
+    "src/{components,views}/*.{js,vue}",
     "!**/node_modules/**"
   ],
   transformIgnorePatterns: ["/node_modules/(?!(vue-google-autocomplete)/)"],

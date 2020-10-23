@@ -1,15 +1,24 @@
 <template>
   <div>
-    <a href="/Protest_V2.pdf" target="_blank">
+    <a :href="this.banner.link" target="_blank">
       <v-alert class="banner" color="$secondary">
-        Going to a protest? Here are some tips &gt;&gt;&gt;
+        {{ this.banner.text }} &gt;&gt;&gt;
       </v-alert>
     </a>
   </div>
 </template>
 
 <script>
-export default {};
+import { mapGetters } from "vuex";
+
+export default {
+  computed: {
+    ...mapGetters(["banner"]),
+    bannerContent() {
+      return this.banner[this.text];
+    }
+  }
+};
 </script>
 
 <style scoped lang="scss">

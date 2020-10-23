@@ -20,7 +20,12 @@
         <div class="score">{{ riskLevel.riskScore }}</div>
         <div class="score-title">{{ riskLevel.riskName }}</div>
         <ScoreScale :score="riskScore" />
-        <RegionSelector parent="SearchResults" />
+        <div v-if="regionlock.lock">
+          {{ selectedRegion.longName }}
+        </div>
+        <div v-else>
+          <RegionSelector parent="SearchResults" />
+        </div>
         <v-spacer></v-spacer>
 
         <RiskComponents :activity="activity"></RiskComponents>
@@ -56,8 +61,7 @@ export default {
   data() {
     return {
       hideMoreInfo: true,
-      hasSearched: false,
-      selectedRegion: Object
+      hasSearched: false
     };
   },
   computed: {
@@ -66,7 +70,8 @@ export default {
       "currentUserSettings",
       "currentRegion",
       "regions",
-      "activities"
+      "activities",
+      "regionlock"
     ]),
     riskLevel() {
       return this.riskLevels[`riskLevel${this.riskScore}`];
@@ -106,6 +111,9 @@ export default {
       } else {
         return "searchbarContainerOnSmaller";
       }
+    },
+    selectedRegion() {
+      return this.regions[this.currentRegion];
     }
   },
   methods: {

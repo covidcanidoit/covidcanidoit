@@ -14,8 +14,11 @@
     </v-dialog>
 
     <div v-if="!shouldForceRegionSelect">
-      <ThanksForSuggesting v-if="noResults" :suggested="suggested" />
-      <SearchResults :activity="result" :searched="searched" />
+      <SearchResults
+        v-if="activityHasBeenSet"
+        :activity="result"
+        :searched="searched"
+      />
       <SuggestedSearches @searched="onSearch" />
     </div>
   </div>
@@ -25,7 +28,6 @@
 import { mapGetters } from "vuex";
 
 import SearchResults from "@/components/SearchResults.vue";
-import ThanksForSuggesting from "@/components/ThanksForSuggesting.vue";
 import SuggestedSearches from "@/components/SuggestedSearches.vue";
 import RegionSelector from "@/components/RegionSelector.vue";
 
@@ -33,7 +35,6 @@ export default {
   props: ["search", "slug"],
   components: {
     SearchResults,
-    ThanksForSuggesting,
     SuggestedSearches,
     RegionSelector
   },
@@ -42,26 +43,38 @@ export default {
       searched: false,
       result: {},
       noResults: false,
-      suggested: ""
+      suggested: "",
+      activityHasBeenSet: false
     };
   },
   computed: {
     ...mapGetters(["activities", "currentCountry", "currentRegion", "regions"]),
     activityList() {
-      return Object.values(this.activities || {})
-        .filter(activity => !activity.disabled)
-        .map(activity => activity.name);
+      return Object.values(this.activities || {}).filter(
+        activity => !activity.disabled
+      );
+    },
+    activityNamesList() {
+      return this.activityList.map(activity => activity.name);
     },
     shouldForceRegionSelect() {
-      return (
-        Object.keys(this.regions).length > 1 && this.currentRegion === "all"
-      );
+      if (this.$store.state.regionlock.lock === true) {
+        return false;
+      } else {
+        return (
+          Object.keys(this.regions).length > 1 && this.currentRegion === "all"
+        );
+      }
     }
   },
   created() {
     if (this.slug) {
       this.onSearch(this.activities[this.slug].name);
     }
+  },
+  mounted() {
+    this.result = this.activities[this.slug];
+    this.activityHasBeenSet = true;
   },
   methods: {
     onSearch(searchValue) {
@@ -76,7 +89,9 @@ export default {
       }
 
       this.searched = true;
-      Object.values(this.activities).map(activity => {
+      for (let i = 0; i < this.activityList.length; i++) {
+        const activity = this.activityList[i];
+        if (!activity["name"]) continue;
         if (activity["name"].toLowerCase() == searchValue.toLowerCase()) {
           this.result = activity;
           if (this.$route.params.slug != activity.slug) {
@@ -86,7 +101,7 @@ export default {
             });
           }
         }
-      });
+      }
     },
 
     onSuggest(suggestValue) {

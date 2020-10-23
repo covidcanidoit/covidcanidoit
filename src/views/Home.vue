@@ -9,7 +9,7 @@
     <SearchBar
       :initialSearchTerm="search"
       @searched="onSearch"
-      :activityList="activityList"
+      :activityList="activityNamesList"
       :perPage="5"
     />
     <SuggestedSearches @searched="onSearch" />
@@ -46,10 +46,13 @@ export default {
   },
   computed: {
     ...mapGetters(["activities", "currentCountry"]),
+    activityNamesList() {
+      return this.activityList.map(activity => activity.name);
+    },
     activityList() {
-      return Object.values(this.activities || {})
-        .filter(activity => !activity.disabled)
-        .map(activity => activity.name);
+      return Object.values(this.activities || {}).filter(
+        activity => !activity.disabled
+      );
     }
   },
   created() {
@@ -67,15 +70,19 @@ export default {
       }
 
       this.searched = true;
-      Object.values(this.activities).map(activity => {
+      for (let i = 0; i < this.activityList.length; i++) {
+        const activity = this.activityList[i];
+        if (!activity["name"]) continue;
         if (activity["name"].toLowerCase() == searchValue.toLowerCase()) {
           this.result = activity;
           if (this.$route.params.slug != activity.slug) {
-            this.selectedActivitySlug = activity.slug;
-            this.goToResults();
+            this.$router.push({
+              name: "ActivitySearch",
+              params: { slug: activity.slug }
+            });
           }
         }
-      });
+      }
     },
     goToResults() {
       this.$router.push({

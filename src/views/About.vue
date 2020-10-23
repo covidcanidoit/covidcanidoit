@@ -23,8 +23,7 @@
               aria-controls="collapseOne1"
             >
               <h5 class="mb-0">
-                How does adding the location and time of my activities change
-                the risk?
+                What is COVID Can I Do It?
                 <i class="fas fa-angle-down rotate-icon"></i>
               </h5>
             </a>
@@ -36,6 +35,247 @@
             class="collapse show"
             role="tabpanel"
             aria-labelledby="headingOne1"
+            data-parent="#accordionEx"
+          >
+            <div class="card-body">
+              <p>
+                COVID Can I Do It? or CCIDI is a digital, mobile-friendly tool
+                that aims to help anyone, anywhere assess their risks for
+                COVID-19 transmission and be empowered to make informed choices
+                to prevent further spread. The tool is undergoing extensive
+                updates to emphasize a mobile-first experience, return risk
+                ratings based on key COVID-19 control measures, and focus on
+                helping users understand why activities are risky and how to
+                reduce risk.
+              </p>
+
+              <p>
+                <strong>CCIDI aims to:</strong>
+              </p>
+              <ol>
+                <li>Make risk relatable</li>
+                <li>Equip people with the skills to mitigate risk</li>
+                <li>Point people to more information</li>
+                <li>Help people understand the scientific context</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <!-- Card header -->
+          <div class="card-header" role="tab" id="headingTwo2">
+            <a
+              data-toggle="collapse"
+              data-parent="#accordionEx"
+              href="#collapseTwo2"
+              aria-expanded="false"
+              aria-controls="collapseTwo2"
+            >
+              <h5 class="mb-0">
+                How does it work?
+                <i class="fas fa-angle-down rotate-icon"></i>
+              </h5>
+            </a>
+          </div>
+
+          <!-- Card body -->
+          <div
+            id="collapseTwo2"
+            class="collapse"
+            role="tabpanel"
+            aria-labelledby="headingTwo2"
+            data-parent="#accordionEx"
+          >
+            <div class="card-body">
+              <p>
+                CCIDI relies on epidemiological data from CovidExitStrategy.org,
+                scientific literature and crowding information from Google Maps.
+                The tool doesn’t store any personal user data or information.
+                CCIDI leaders develop educational tools, screen news sources,
+                provide UX testing and evaluate newly requested activities based
+                on evidence.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <!-- Card header -->
+          <div class="card-header" role="tab" id="headingThree3">
+            <a
+              data-toggle="collapse"
+              data-parent="#accordionEx"
+              href="#collapseThree3"
+              aria-expanded="false"
+              aria-controls="collapseThree3"
+            >
+              <h5 class="mb-0">
+                Who is COVID Can I Do It?
+                <i class="fas fa-angle-down rotate-icon"></i>
+              </h5>
+            </a>
+          </div>
+
+          <!-- Card body -->
+          <div
+            id="collapseThree3"
+            class="collapse"
+            role="tabpanel"
+            aria-labelledby="headingThree3"
+            data-parent="#accordionEx"
+          >
+            <div class="card-body">
+              <p>
+                CCIDI comprises a team of public health practitioners, web
+                developers, public relations and graphic design professionals.
+                The tool is reviewed by a panel of expert reviewers and
+                clinicians. Any funding for the tool is supplied through grants.
+                Our co-leads are Jarjieh Fang, MPH, Gayatri Sanku, MPH, and
+                Andrew Zapfel, MPH.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <!-- Card header -->
+          <div class="card-header" role="tab" id="headingFour4">
+            <a
+              data-toggle="collapse"
+              data-parent="#accordionEx"
+              href="#collapseFour4"
+              aria-expanded="false"
+              aria-controls="collapseFour4"
+            >
+              <h5 class="mb-0">
+                Where is COVID Can I Do It?
+                <i class="fas fa-angle-down rotate-icon"></i>
+              </h5>
+            </a>
+          </div>
+
+          <!-- Card body -->
+          <div
+            id="collapseFour4"
+            class="collapse"
+            role="tabpanel"
+            aria-labelledby="headingFour4"
+            data-parent="#accordionEx"
+          >
+            <div class="card-body">
+              <p>
+                The COVID Can I Do It? Team has deployed the tool in the U.S.,
+                Uganda, and the Philippines, with plans to expand to other
+                countries and regions. If you are interested in bringing the
+                tool to your city or country, contact us at
+                info@covidcanidoit.com.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <!-- Card header -->
+          <div class="card-header" role="tab" id="headingFive5">
+            <a
+              data-toggle="collapse"
+              data-parent="#accordionEx"
+              href="#collapseFive5"
+              aria-expanded="false"
+              aria-controls="collapseFive5"
+            >
+              <h5 class="mb-0">
+                Why COVID Can I Do It?
+                <i class="fas fa-angle-down rotate-icon"></i>
+              </h5>
+            </a>
+          </div>
+
+          <!-- Card body -->
+          <div
+            id="collapseFive5"
+            class="collapse"
+            role="tabpanel"
+            aria-labelledby="headingFive5"
+            data-parent="#accordionEx"
+          >
+            <div class="card-body">
+              <p>
+                The novel coronavirus pandemic has unveiled many gaps in our
+                healthcare system and infrastructure, and the public can help
+                end the pandemic. With the U.S. and other countries reopening
+                amid limited practical guidance and geographical differences,
+                there needs to be a tool to support people’s decision-making on
+                daily activities that equips people with the skills needed to
+                reduce and/or avoid risk.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <!-- Card header -->
+          <div class="card-header" role="tab" id="headingSix6">
+            <a
+              data-toggle="collapse"
+              data-parent="#accordionEx"
+              href="#collapseSix6"
+              aria-expanded="false"
+              aria-controls="collapseSix6"
+            >
+              <h5 class="mb-0">
+                How can I partner with COVID Can I Do It?
+                <i class="fas fa-angle-down rotate-icon"></i>
+              </h5>
+            </a>
+          </div>
+
+          <!-- Card body -->
+          <div
+            id="collapseSix6"
+            class="collapse"
+            role="tabpanel"
+            aria-labelledby="headingSix6"
+            data-parent="#accordionEx"
+          >
+            <div class="card-body">
+              <p>
+                As we continue to empower citizens to mitigate risk, we welcome
+                public health teams from other countries and regions to deploy
+                the tool for their local community. We are also looking for help
+                with expert guidance and review, expansion of user awareness and
+                access, and support for grants management. If you’re interested
+                in joining as an advisor, partner or country team, please reach
+                out to info@covidcanidoit.com.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <!-- Card header -->
+          <div class="card-header" role="tab" id="headingSeven7">
+            <a
+              data-toggle="collapse"
+              data-parent="#accordionEx"
+              href="#collapseSeven7"
+              aria-expanded="false"
+              aria-controls="collapseSeven7"
+            >
+              <h5 class="mb-0">
+                How does adding the location and time of my activities change
+                the risk?
+                <i class="fas fa-angle-down rotate-icon"></i>
+              </h5>
+            </a>
+          </div>
+
+          <!-- Card body -->
+          <div
+            id="collapseSeven7"
+            class="collapse"
+            role="tabpanel"
+            aria-labelledby="headingSeven7"
             data-parent="#accordionEx"
           >
             <div class="card-body">
@@ -55,14 +295,14 @@
         </div>
         <div class="card">
           <!-- Card header -->
-          <div class="card-header" role="tab" id="headingTwo2">
+          <div class="card-header" role="tab" id="headingEight8">
             <a
               class="collapsed"
               data-toggle="collapse"
               data-parent="#accordionEx"
-              href="#collapseTwo2"
+              href="#collapseEight8"
               aria-expanded="false"
-              aria-controls="collapseTwo2"
+              aria-controls="collapseEight8"
             >
               <h5 class="mb-0">
                 If I am diagnosed with one of the additional disease and
@@ -74,10 +314,10 @@
 
           <!-- Card body -->
           <div
-            id="collapseTwo2"
+            id="collapseEight8"
             class="collapse"
             role="tabpanel"
-            aria-labelledby="headingTwo2"
+            aria-labelledby="headingEight8"
             data-parent="#accordionEx"
           >
             <div class="card-body">
@@ -99,14 +339,14 @@
         </div>
         <div class="card">
           <!-- Card header -->
-          <div class="card-header" role="tab" id="headingThree3">
+          <div class="card-header" role="tab" id="headingNine9">
             <a
               class="collapsed"
               data-toggle="collapse"
               data-parent="#accordionEx"
-              href="#collapseThree3"
+              href="#collapseNine9"
               aria-expanded="false"
-              aria-controls="collapseThree3"
+              aria-controls="collapseNine9"
             >
               <h5 class="mb-0">
                 What does CovidCanIDoIt do with the information I provide?
@@ -117,10 +357,10 @@
 
           <!-- Card body -->
           <div
-            id="collapseThree3"
+            id="collapseNine9"
             class="collapse"
             role="tabpanel"
-            aria-labelledby="headingThree3"
+            aria-labelledby="headingNine9"
             data-parent="#accordionEx"
           >
             <div class="card-body">
@@ -140,15 +380,18 @@
               </p>
             </div>
           </div>
+        </div>
 
-          <div class="card-header" role="tab" id="headingFour4">
+        <div class="card">
+          <!-- Card header -->
+          <div class="card-header" role="tab" id="headingTen10">
             <a
               class="collapsed"
               data-toggle="collapse"
               data-parent="#accordionEx"
-              href="#collapseFour4"
+              href="#collapseTen10"
               aria-expanded="false"
-              aria-controls="collapseFour4"
+              aria-controls="collapseTen10"
             >
               <h5 class="mb-0">
                 Can I rely on CovidCanIDoIt for medical advice?
@@ -159,10 +402,10 @@
 
           <!-- Card body -->
           <div
-            id="collapseFour4"
+            id="collapseTen10"
             class="collapse"
             role="tabpanel"
-            aria-labelledby="headingFour4"
+            aria-labelledby="headingTen10"
             data-parent="#accordionEx"
           >
             <div class="card-body">
@@ -193,166 +436,96 @@
         <br />
         <hr style="border: 1px solid; color: #009898;" />
         <br />
-        <!--<h1>Who We Are</h1>-->
-        <table class="weTable">
-          <tr>
-            <th class="peopleBigHeader">Who We Are</th>
-          </tr>
-          <tr>
-            <td class="peopleGroupHeader">Public Health</td>
-            <td class="peopleGroupHeader">Software Development</td>
-            <td class="peopleGroupHeader">Communications</td>
-            <td class="peopleGroupHeader">Design</td>
-          </tr>
-          <tr>
-            <td class="peopleGroup">
-              <ul style="list-style-type: none; padding: 0px;">
-                <li>
-                  <a href="https://www.linkedin.com/in/jarjiehfang/">
-                    Jarjieh Fang, MPH
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.linkedin.com/in/gayatri-sanku-16212a4/">
-                    Gayatri Sanku, MPH
-                  </a>
-                </li>
-                <li>
-                  Andrew Zapfel, MPH
-                </li>
-                <li>
-                  Ariel Trocino, MPH
-                </li>
-                <li>
-                  Ashley Holub, MPH, PhD
-                </li>
-                <li>
-                  Christina Rawetzki, MPH
-                </li>
-                <li>
-                  Micquel Hart, MPH
-                </li>
-                <li>
-                  <a href="https://www.linkedin.com/in/kstermer/">
-                    Katelyn Donnelly, MPH
-                  </a>
-                </li>
-                <li>
-                  Jessica Saddler, MPH(c)
-                </li>
-                <li>
-                  Swathi Nuli, MPH(c)
-                </li>
-              </ul>
-            </td>
-            <td class="peopleGroup">
-              <ul style="list-style-type: none; padding: 0px;">
-                <li>
-                  <a href="https://www.linkedin.com/in/brockwilcox/">
-                    Brock Wilcox, MS
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.linkedin.com/in/johnny-li-031b949/">
-                    Johnny Li
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.linkedin.com/in/tranjnnfr/">
-                    Jennifer Tran
-                  </a>
-                </li>
-                <li>
-                  Srilekha Nuli
-                </li>
-                <li>
-                  Alexa Stefankiewicz
-                </li>
-              </ul>
-            </td>
-            <td class="peopleGroup">
-              <ul style="list-style-type: none; padding: 0px;">
-                <li>
-                  Morgan Singer
-                </li>
-                <li>
-                  Kasia Kujawski
-                </li>
-              </ul>
-            </td>
-            <td class="peopleGroup">
-              <ul style="list-style-type: none; padding: 0px;">
-                <li>
-                  <a href="https://www.linkedin.com/in/megangreendesign/">
-                    Megan Green
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.linkedin.com/in/clairemercer/">
-                    Claire Mercer
-                  </a>
-                </li>
-                <li>
-                  Elizabeth Hunt
-                </li>
-                <li>
-                  Tommy Scheurich, MS
-                </li>
-              </ul>
-            </td>
-          </tr>
-          <br />
-          <br />
-          <tr>
-            <th class="peopleBigHeader">Who Our Advisors Are</th>
-          </tr>
-
-          <tr>
-            <td class="peopleGroupHeader">Expert Reviewer</td>
-            <td class="peopleGroupHeader">Clinicians</td>
-          </tr>
-          <tr style="vertical-align: top;">
-            <td class="peopleGroup">
-              <ul style="list-style-type: none; padding: 0px;">
-                <li>
-                  <a href="https://www.linkedin.com/in/yen-pottinger-8b82a992/">
-                    Yen Pottinger, PhD
-                  </a>
-                </li>
-              </ul>
-            </td>
-            <td class="peopleGroup">
-              <ul style="list-style-type: none; padding: 0px;">
-                <li>
-                  <a href="https://profiles.ucsf.edu/jayant.rajan">
-                    Jayant Rajan, M.D., P.h.D
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://surgeryresidentresearch.ucsf.edu/research-fellows/general-surg
-ery/andrew-wisneski,-md.aspx"
-                  ></a>
-                  Andrew Wisneski, M.D.
-                </li>
-                <li>Heide Kuang, M.D.</li>
-                <li>
-                  <a
-                    href="https://depts.washington.edu/neurolog/education/residency/curr
-ent-residents/"
-                  >
-                    Roger Chang, M.D., P.h.D.
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.uclahealth.org/rheumatology/fellows">
-                    Ernest Maningding, M,D.
-                  </a>
-                </li>
-              </ul>
-            </td>
-          </tr>
-        </table>
+        <v-container fluid class="pa-2 ma-0">
+          <v-row>
+            <v-col cols="12" md="4">
+              <v-card class="pa-0" outlined tile>
+                <b>Public Health</b>
+              </v-card>
+              <v-card
+                v-for="c in publicHealth"
+                :key="c.name"
+                class="pa-1"
+                outlined
+                tile
+              >
+                <a :href="c.site">{{ c.name }}</a>
+              </v-card>
+            </v-col>
+            <v-col cols="12" md="4">
+              <v-card class="pa-0" outlined tile>
+                <b>Software Development</b>
+              </v-card>
+              <v-card
+                v-for="c in softwareDevs"
+                :key="c.name"
+                class="pa-1"
+                outlined
+                tile
+              >
+                <a :href="c.site">{{ c.name }}</a>
+              </v-card>
+            </v-col>
+            <v-col cols="12" md="4">
+              <v-card class="pa-0" outlined tile>
+                <b>Communications</b>
+              </v-card>
+              <v-card
+                v-for="c in communications"
+                :key="c.name"
+                class="pa-1"
+                outlined
+                tile
+              >
+                <a :href="c.site">{{ c.name }}</a>
+              </v-card>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="12" md="4">
+              <v-card class="pa-0" outlined tile>
+                <b>Design</b>
+              </v-card>
+              <v-card
+                v-for="c in design"
+                :key="c.name"
+                class="pa-1"
+                outlined
+                tile
+              >
+                <a :href="c.site">{{ c.name }}</a>
+              </v-card>
+            </v-col>
+            <v-col cols="12" md="4">
+              <v-card class="pa-0" outlined tile>
+                <b>Expert Reviewer</b>
+              </v-card>
+              <v-card
+                v-for="c in expertReviewer"
+                :key="c.name"
+                class="pa-1"
+                outlined
+                tile
+              >
+                <a :href="c.site">{{ c.name }}</a>
+              </v-card>
+            </v-col>
+            <v-col cols="12" md="4">
+              <v-card class="pa-0" outlined tile>
+                <b>Clinicians</b>
+              </v-card>
+              <v-card
+                v-for="c in clinicians"
+                :key="c.name"
+                class="pa-1"
+                outlined
+                tile
+              >
+                <a :href="c.site">{{ c.name }}</a>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-container>
       </div>
       <br />
       <p align="left">
@@ -627,6 +800,126 @@ ent-residents/"
 export default {
   components: {
     // HowItWorks
+  },
+  data() {
+    return {
+      publicHealth: [
+        {
+          name: "Jarjieh Fang, MPH",
+          site: "https://www.linkedin.com/in/jarjiehfang"
+        },
+        {
+          name: "Gayatri Sanku, MPH",
+          site: "https://www.linkedin.com/in/gayatri-sanku-16212a4/"
+        },
+        {
+          name: "Andrew Zapfel, MPH",
+          site: "https://www.linkedin.com/in/andrewzapfel/"
+        },
+        {
+          name: "Ariel Trocino, MPH",
+          site: "https://www.linkedin.com/in/arielmtrocino/"
+        },
+        { name: "Ashley Holub, MPH, PhD", site: "" },
+        {
+          name: "Christina Rawetzki, MPH",
+          site: "https://www.linkedin.com/in/christinarawetzki/"
+        },
+        {
+          name: "Micquel Hart, MPH",
+          site: "https://www.linkedin.com/in/micqueldhart/"
+        },
+        {
+          name: "Katelyn Donnelly, MPH",
+          site: "https://www.linkedin.com/in/kstermer/"
+        },
+        {
+          name: "Jessica Saddler, MPH(c)",
+          site: "https://www.linkedin.com/in/jessicalsaddler/"
+        },
+        {
+          name: "Swathi Nuli, MPH(c)",
+          site: "https://www.linkedin.com/in/swathinuli/"
+        }
+      ],
+      softwareDevs: [
+        {
+          name: "Brock Wilcox, MS",
+          site: "https://www.linkedin.com/in/brockwilcox/"
+        },
+        {
+          name: "Johnny Li",
+          site: "https://www.linkedin.com/in/johnny-li-031b949/"
+        },
+        {
+          name: "Jennifer Tran",
+          site: "https://www.linkedin.com/in/tranjnnfr/"
+        },
+        {
+          name: "Srilekha Nuli",
+          site: "https://www.linkedin.com/in/srilekha-nuli/"
+        },
+        {
+          name: "Alexa Stefankiewicz",
+          site: "https://www.linkedin.com/in/alexastef/"
+        }
+      ],
+      communications: [
+        {
+          name: "Morgan Singer",
+          site: "https://www.linkedin.com/in/morgan-singer-36a94485/"
+        },
+        {
+          name: "Kasia Kujawski",
+          site: "https://www.linkedin.com/in/kasiakujawski/"
+        }
+      ],
+      design: [
+        {
+          name: "Megan Green",
+          site: "https://www.linkedin.com/in/megangreendesign/"
+        },
+        {
+          name: "Claire Mercer",
+          site: "https://www.linkedin.com/in/clairemercer/"
+        },
+        { name: "Elizabeth Hunt", site: "" },
+        {
+          name: "Tommy Scheurich, MS",
+          site: "https://www.linkedin.com/in/thomas-scheurich-798b6b47/"
+        }
+      ],
+      expertReviewer: [
+        {
+          name: "Yen Pottinger, PhD",
+          site: "https://www.linkedin.com/in/yen-pottinger-8b82a992/"
+        }
+      ],
+      clinicians: [
+        {
+          name: "Jayant Rajan, M.D., P.h.D",
+          site: "https://profiles.ucsf.edu/jayant.rajan"
+        },
+        {
+          name: "Andrew Wisneski, M.D.",
+          site:
+            "https://surgeryresidentresearch.ucsf.edu/research-fellows/general-surgery/andrew-wisneski,-md.aspx"
+        },
+        {
+          name: "Heide Kuang, M.D.",
+          site: "https://www.linkedin.com/in/heide-kuang-a8698854/"
+        },
+        {
+          name: "Roger Chang, M.D., P.h.D.",
+          site:
+            "https://depts.washington.edu/neurolog/education/residency/current-residents/"
+        },
+        {
+          name: "Ernest Maningding, M,D.",
+          site: "https://www.uclahealth.org/rheumatology/fellows"
+        }
+      ]
+    };
   }
 };
 </script>
@@ -636,7 +929,7 @@ a {
   color: $selectorgray;
 }
 .about {
-  margin: 0 2em;
+  margin: 0.2em;
   background-color: #ffffff;
   .infoHeader {
     overflow-x: auto;
@@ -659,27 +952,7 @@ div.card-body {
 h5.mb-0 {
   color: $selectorgray;
 }
-.peopleGroup {
-  padding: 3px;
-  vertical-align: top;
-}
-
-.peopleGroupHeader {
-  font-weight: bold;
-  padding-bottom: 0px;
-}
-.peopleBigHeader {
-  font-size: 1.7em;
-  padding-bottom: 0.5rem;
-  padding-top: 1rem;
-  font-weight: 300;
-  line-height: 1.2;
-  color: $logodark;
-}
-
-.weTable {
-  width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0px;
+.v-card.v-sheet.theme--light {
+  border: 0px;
 }
 </style>

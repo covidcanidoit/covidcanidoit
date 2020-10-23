@@ -312,11 +312,17 @@ a {
   @media #{map-get($display-breakpoints, 'sm-and-down')} {
     font-size: 0.6em;
   }
+
+  @media #{map-get($display-breakpoints, 'md-only')} {
+    font-size: 0.75em;
+  }
+
+  padding-left: 0.5em;
 }
 
 #canvasContainer {
   width: 35vw;
-  height: 20vw;
+  height: 20.5vw;
   @media #{map-get($display-breakpoints, 'sm-and-down')} {
     width: 100%;
     height: 100%;
