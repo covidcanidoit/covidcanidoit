@@ -2,6 +2,7 @@ const firebase = require("firebase");
 const functions = require("firebase-functions");
 const auth = require("firebase/auth");
 const axios = require("axios");
+const { firebaseConfig } = require("firebase-functions");
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
