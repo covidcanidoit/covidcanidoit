@@ -1,25 +1,45 @@
 <template>
-  <div class="suggested-searches">
-    <div class="suggestions-title">
-      Example Activities
-    </div>
-    <div class="or-others d-flex flex-wrap justify-center">
-      <button
-        v-for="search in searches"
-        :key="search"
-        @click="quickSearch(search)"
-      >
-        {{ search }}
-      </button>
-    </div>
+  <div class="d-flex flex-column align-stretch suggested-searches">
+    <v-container fluid>
+      <v-row>
+        <v-col class="suggestions-title">
+          Example Activities
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col md="2" v-if="getHoliday">
+          <SeasonalImage index="3" />
+        </v-col>
+        <v-col
+          md="suggestionsSpan"
+          class="or-others d-flex flex-wrap justify-center"
+        >
+          <button
+            v-for="search in searches"
+            :key="search"
+            @click="quickSearch(search)"
+          >
+            {{ search }}
+          </button>
+        </v-col>
+        <v-col md="2" v-if="getHoliday">
+          <SeasonalImage index="4" />
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import { sampleSize } from "lodash";
+import getSeasonalEvent from "../utils/seasonalCheck";
+import SeasonalImage from "@/components/SeasonalImage";
 
 export default {
+  components: {
+    SeasonalImage
+  },
   data() {
     return {
       searches: []
@@ -36,6 +56,16 @@ export default {
       return Object.values(this.activities).filter(
         activity => !activity.disabled
       );
+    },
+    getHoliday() {
+      return getSeasonalEvent();
+    },
+    suggestionsSpan() {
+      if (this.getHoliday) {
+        return 8;
+      } else {
+        return 12;
+      }
     }
   },
   methods: {
