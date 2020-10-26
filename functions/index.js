@@ -1,6 +1,7 @@
+const firebase = require("firebase");
 const functions = require("firebase-functions");
+const auth = require("firebase/auth");
 const axios = require("axios");
-const { firebaseConfig } = require("firebase-functions");
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
@@ -64,15 +65,9 @@ Wyoming,Wyoming,N/A,Bruised Red,Red,3,Increasing,48% ^Increasing^,48%,#REF!,52,3
 Puerto Rico,Puerto Rico,N/A,Bruised Red,Red,3,Decreasing,-29% ^Decreasing^,-29%,#REF!,42,27,27%,F,39,F,362384,10%,56412,370,443,557,637,675,632,625,711,746,631,638,707,839,871,746,692,709,624,555,467,430,461,449,427,428,418,400,535,542,503,758,Improve COVID case information being reported on state website.  Consider a more restrictive stay home policy.  Require a statewide six-feet physical distancing policy.  Consider a more restrictive gatherings policy.  Close non-essential businesses.  Increase your state's testing throughput.  Require masks to be worn in public spaces.  Provide insurance coverage for COVID-19 treatment.,Minimal ^Level 1^,N/A,N/A,N/A,Green,503,709,624,555,467,430,461,449,427,428,418,400,535,542,503,10%,Bruised Red,1%,3%,16594,Bruised Red,100.0%,100.0% ^Flat^,75,100.00%,100.00%,100.00%,100.00%,100.00%,100.00%,100.00%,100.00%,100.00%,100.00%,100.00%,100.00%,100.00%,100.00%,100.00%,Bruised Red,62,62% ^Normal^,Normal,54% ^Normal^,Normal,0.8 ^0.7 - 0.9^,75,5.57,6.00,6.71,6.00,6.29,7.14,6.71,6.71,6.29,5.71,6.00,5.29,4.00,5.43,157,Bruised Red,107,109,100,101,101,102,99,111,109,101,98,95,107,111,107,-2% ^Decreasing^,Green,1.34%,Yellow,Unlikely ^Positivity high^,Deep Red,100.0% ^Flat^
 United States,United States,N/A,Bruised Red,Red,3,Increasing,28% ^Increasing^,28%,,,,,,,,122567620,209%,8002743,39159,39523,40019,40279,41081,43079,42872,42903,44052,44376,44257,43835,42050,42887,43158,42295,42796,43225,43453,43697,44578,45958,47035,47911,49124,49831,51215,52097,53211,54783,210131,N/A ^Not Available^,N/A ^Not Available^,N/A,N/A,N/A,Green,1045189,972631,990354,964444,964697,972468,993020,987792,1009566,1009291,1019262,1037263,1049062,1041305,1045189,209%,Green,26%,58%,1807848,Red,5.2%,5.2% ^Increasing^,,4.40%,4.36%,4.51%,4.53%,4.58%,4.63%,4.76%,4.75%,4.87%,4.89%,4.94%,4.97%,5.11%,5.24%,5.24%,Yellow,N/A ^Not Available^,N/A ^Not Available^,N/A ^Not Available^,N/A ^Not Available^,N/A ^Not Available^,N/A ^Not Available^,N/A,683.14,691.00,700.86,686.14,665.43,684.57,693.00,682.14,696.86,691.71,699.57,684.86,679.86,677.29,165,Bruised Red,112,91,90,91,94,97,103,105,104,104,106,109,112,112,112,24% ^Increasing^,Red,2.63%,Yellow,Extremely Difficult ^Resource intensive^,Red,5.2% ^Increasing^`
 
-const firebase_config = {
-  apiKey: functions.config().ccidi_staging.key,
-  authDomain: functions.config().ccidi_staging.auth_domain,
-  databaseURL: functions.config().ccidi_staging.databaseURL,
-  storageBucket: ""
-}
-
 exports.pullCovidExitStrategyData = functions.https.onRequest((request, response) => {
   const covidExitStrategyData = "https://docs.google.com/spreadsheets/d/e/2PACX-1vStD_EMR9El7agVp-Oi6d1c5EMAOYgoYOsSc2xhwzht1ae4Fku7F6zSmF4PB9J_aHA1DAb2PpAelomO/pub?output=csv&gid=237779988";
+  // FETCH DATA FROM COVID EXIT STRATEGY
   // axios.get(covidExitStrategyData).then((response) => {
   //   console.log("response",response);
   //   console.log("response.body", response.body);
@@ -83,16 +78,64 @@ exports.pullCovidExitStrategyData = functions.https.onRequest((request, response
   
   //response.send("processing");
   
-  if (functions.config()) {
-    console.log("config is ", functions.config());
-    if (functions.config().ccidi_staging) {
-      console.log("functions.config().ccidi-staging", functions.config().ccidi_staging);
-      if (functions.config().ccidi_staging.key) {
-        console.log("functions.config().ccidi_staging.key", functions.config().ccidi_staging.key);
-      }
-    }
+  // DEBUG CHECK CONFIG VARS
+  // if (functions.config()) {
+  //   console.log("config is ", functions.config());
+  //   if (functions.config().ccidi_staging) {
+  //     console.log("functions.config().ccidi-staging", functions.config().ccidi_staging);
+  //     if (functions.config().ccidi_staging.key) {
+  //       console.log("functions.config().ccidi_staging.key", functions.config().ccidi_staging.key);
+  //     }
+  //   }
+  // }
 
+  // Authenticate
+  var admin = require("firebase-admin");
+  var serviceAccount = require("./service-accounts/ccidi-staging-96314ee91674.json");
+
+  // admin.initializeApp({
+  //   credential: admin.credential.cert(serviceAccount),
+  //   databaseURL: "https://ccidi-staging.firebaseio.com"
+  // });
+
+  // COMM W/ DB
+  const firebase_config = {
+    apiKey: functions.config().ccidi_staging.key,
+    projectId: functions.config().ccidi_staging.project_id,
+    authDomain: functions.config().ccidi_staging.auth_domain,
+    databaseURL: functions.config().ccidi_staging.database_url,
+    appId: functions.config().ccidi_staging.app_id,
+    storageBucket: functions.config().ccidi_staging.storage_bucket,
+    messagingSenderId: functions.config().ccidi_staging.messaging_sender_id,
+    credential: admin.credential.cert(serviceAccount)
   }
-  response.send("Hello World");
+  console.log("firebase_config", firebase_config);
+  firebase.initializeApp(firebase_config);
+  const database = firebase.database();
+
+  try {
+    database.ref('faketest').set({
+      name: "Fake Activity",
+      risk: "Fake Risk"
+    });
+  }
+  catch (err) {
+    console.error("error creating fakeset", err);
+  }
+  
+  try {
+    database.ref('suggestions/US/activitySuggestions/Airlines').once('value').then(snapshot => {
+      console.log("print suggesitons",snapshot.val());
+      return snapshot.val();
+    }).catch(err => {
+      console.error("error accessing count", err);
+    });
+  }
+  catch (err) {
+    console.error("error accessing suggestions node", err);
+  }
+  
+
+  response.send("w/ service account creds w/ correct paths");
   //response.send(`${JSON.stringify(functions.config().ccidi_staging)}\n\n\n${JSON.stringify(firebase_config)}`);
 });
