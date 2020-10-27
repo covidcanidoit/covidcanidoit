@@ -12,7 +12,7 @@ import getSeasonalEvent from "../utils/seasonalCheck";
 import halloween1 from "@/assets/seasonal/halloween/seasonal1.svg";
 import halloween2 from "@/assets/seasonal/halloween/seasonal2.svg";
 import halloween3 from "@/assets/seasonal/halloween/seasonal3.svg";
-import halloween4 from "@/assets/seasonal/halloween/seasonal4.svg";
+import halloween4 from "@/assets/seasonal/halloween/seasonal4g.svg";
 
 export default {
   props: {
