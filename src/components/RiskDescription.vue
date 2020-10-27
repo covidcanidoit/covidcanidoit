@@ -20,9 +20,9 @@
         <div class="score">{{ riskLevel.riskScore }}</div>
         <div class="score-title">{{ riskLevel.riskName }}</div>
         <div class="d-flex flex-row justify-center">
-          <SeasonalImage index="1" class="flex-grow-1 align-center" />
+          <SeasonalImage index="1" class="flex-grow-1 align-center seasonalEventImage1" />
           <ScoreScale :score="riskScore" class="flex-grow-1" />
-          <SeasonalImage index="2" class="flex-grow-1 align-center" />
+          <SeasonalImage index="2" class="flex-grow-1 align-center seasonalEventImage2" />
         </div>
         <div v-if="regionlock.lock">
           {{ selectedRegion.longName }}
@@ -189,6 +189,18 @@ export default {
   }
   .riskDeclare {
     font-size: 2em;
+  }
+  .seasonalEventImage1 {
+    @media #{map-get($display-breakpoints, 'sm-and-down')} {
+      display: none;
+    }
+  }
+  .seasonalEventImage2 {
+    @media #{map-get($display-breakpoints, 'sm-and-down')} {
+      opacity: 0.25;
+      position: absolute;
+      right: 0;
+    }
   }
   @include risk-colors(".risk-", "color", $risk-colors);
 }

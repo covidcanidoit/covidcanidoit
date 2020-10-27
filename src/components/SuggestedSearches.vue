@@ -7,7 +7,7 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col md="2" v-if="getHoliday">
+        <v-col md="2" v-if="getHoliday" class="seasonalEventImage3">
           <SeasonalImage index="3" />
         </v-col>
         <v-col
@@ -22,7 +22,7 @@
             {{ search }}
           </button>
         </v-col>
-        <v-col md="2" v-if="getHoliday">
+        <v-col md="2" v-if="getHoliday" class="seasonalEventImage4">
           <SeasonalImage index="4" />
         </v-col>
       </v-row>
@@ -102,6 +102,17 @@ export default {
 @media #{map-get($display-breakpoints, 'md-and-down')} {
   .or-others button {
     font-size: 0.75em;
+  }
+}
+.seasonalEventImage3 {
+  @media #{map-get($display-breakpoints, 'sm-and-down')} {
+    display: none;
+  }
+}
+.seasonalEventImage4 {
+  @media #{map-get($display-breakpoints, 'sm-and-down')} {
+    opacity: 0.15;
+    position: absolute;
   }
 }
 </style>
