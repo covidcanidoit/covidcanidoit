@@ -20,9 +20,9 @@
         <div class="score">{{ riskLevel.riskScore }}</div>
         <div class="score-title">{{ riskLevel.riskName }}</div>
         <div class="d-flex flex-row justify-center">
-          <SeasonalImage index="1" class="flex-shrink-1 align-center" />
+          <SeasonalImage index="1" class="flex-grow-1 align-center" />
           <ScoreScale :score="riskScore" class="flex-grow-1" />
-          <SeasonalImage index="2" class="flex-shrink-1 align-center" />
+          <SeasonalImage index="2" class="flex-grow-1 align-center" />
         </div>
         <div v-if="regionlock.lock">
           {{ selectedRegion.longName }}
