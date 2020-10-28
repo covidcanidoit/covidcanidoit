@@ -113,6 +113,7 @@ export default {
   @media #{map-get($display-breakpoints, 'sm-and-down')} {
     opacity: 0.15;
     position: absolute;
+    pointer-events: none;
   }
 }
 </style>
