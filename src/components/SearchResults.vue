@@ -13,7 +13,7 @@
             class="otherRisksSeparator"
           >
             <h5>You are at more risk than others if</h5>
-            <v-expansion-panels focusable flat popout>
+            <v-expansion-panels focusable flat popout class="risk-factor">
               <v-expansion-panel
                 v-for="riskFactor in riskFactors"
                 :key="riskFactor.name"
@@ -134,5 +134,10 @@ i.risk-factor-icon {
 
 .introduction h5 {
   margin-bottom: 1.5em;
+  margin-left: 8px;
+}
+
+.risk-factor {
+  margin-left: -8px;
 }
 </style>

@@ -19,7 +19,11 @@
         </div>
         <div class="score">{{ riskLevel.riskScore }}</div>
         <div class="score-title">{{ riskLevel.riskName }}</div>
-        <ScoreScale :score="riskScore" />
+        <div class="d-flex flex-row justify-center">
+          <SeasonalImage index="1" class="flex-grow-1 align-center seasonalEventImage1" />
+          <ScoreScale :score="riskScore" class="flex-grow-1" />
+          <SeasonalImage index="2" class="flex-grow-1 align-center seasonalEventImage2" />
+        </div>
         <div v-if="regionlock.lock">
           {{ selectedRegion.longName }}
         </div>
@@ -42,6 +46,7 @@ import RiskComponents from "@/components/RiskComponents.vue";
 import LocationComponent from "@/components/LocationComponent.vue";
 import ActivitySearchbar from "@/components/ActivitySearchbar.vue";
 import RegionSelector from "@/components/RegionSelector.vue";
+import SeasonalImage from "@/components/SeasonalImage.vue";
 
 export default {
   components: {
@@ -49,7 +54,8 @@ export default {
     RiskComponents,
     LocationComponent,
     ActivitySearchbar,
-    RegionSelector
+    RegionSelector,
+    SeasonalImage
   },
   props: {
     riskScore: {
@@ -183,6 +189,18 @@ export default {
   }
   .riskDeclare {
     font-size: 2em;
+  }
+  .seasonalEventImage1 {
+    @media #{map-get($display-breakpoints, 'sm-and-down')} {
+      display: none;
+    }
+  }
+  .seasonalEventImage2 {
+    @media #{map-get($display-breakpoints, 'sm-and-down')} {
+      opacity: 0.25;
+      position: absolute;
+      right: 0;
+    }
   }
   @include risk-colors(".risk-", "color", $risk-colors);
 }
