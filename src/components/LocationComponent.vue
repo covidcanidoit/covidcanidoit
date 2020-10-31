@@ -91,7 +91,6 @@ export default {
           }
         );
         this.busyResults = locationResults.data;
-        console.log(this.busyResults);
       } catch (e) {
         console.log("error fetching location data");
         console.error(e);
@@ -102,7 +101,6 @@ export default {
       }
     },
     getAddressData(something, rawSomething) {
-      // console.log("Got some address data", something, rawSomething);
       this.placeId = rawSomething.reference;
       this.getBusyInfo();
     }
