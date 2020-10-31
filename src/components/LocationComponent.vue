@@ -32,7 +32,17 @@
           <div v-else>
             <div v-if="busyResults" class="d-flex justify-center">
               <div v-if="busyResults == 'error'">Data not available</div>
-              <Chart v-else :crowdingData="busyResults" class="busyChart" />
+              <Chart
+                v-else-if="busyResults.populartimes"
+                :crowdingData="busyResults"
+                class="busyChart"
+              />
+              <div v-else>
+                <p>
+                  No popular times were found. Please check another activity
+                  location.
+                </p>
+              </div>
             </div>
           </div>
         </v-col>
@@ -81,6 +91,7 @@ export default {
           }
         );
         this.busyResults = locationResults.data;
+        console.log(this.busyResults);
       } catch (e) {
         console.log("error fetching location data");
         console.error(e);
