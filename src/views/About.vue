@@ -891,6 +891,7 @@ export default {
   },
   data() {
     return {
+      dialogInfoCollectStatement: false,
       publicHealth: [
         {
           name: "Jarjieh Fang, MPH",
