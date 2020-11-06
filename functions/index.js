@@ -91,8 +91,8 @@ exports.pullCovidExitStrategyData = functions.https.onRequest((request, response
   // }
 
   // Authenticate
-  var admin = require("firebase-admin");
-  var serviceAccount = require("./service-accounts/ccidi-staging-96314ee91674.json");
+  // var admin = require("firebase-admin");
+  // var serviceAccount = require("./service-accounts/ccidi-staging-96314ee91674.json");
 
   // admin.initializeApp({
   //   credential: admin.credential.cert(serviceAccount),
@@ -100,19 +100,26 @@ exports.pullCovidExitStrategyData = functions.https.onRequest((request, response
   // });
 
   // COMM W/ DB
-  const firebase_config = {
-    apiKey: functions.config().ccidi_staging.key,
-    projectId: functions.config().ccidi_staging.project_id,
-    authDomain: functions.config().ccidi_staging.auth_domain,
-    databaseURL: functions.config().ccidi_staging.database_url,
-    appId: functions.config().ccidi_staging.app_id,
-    storageBucket: functions.config().ccidi_staging.storage_bucket,
-    messagingSenderId: functions.config().ccidi_staging.messaging_sender_id,
-    credential: admin.credential.cert(serviceAccount)
-  }
-  console.log("firebase_config", firebase_config);
-  firebase.initializeApp(firebase_config);
-  const database = firebase.database();
+  var admin = require("firebase-admin");
+  var functions = require("firebase-functions");
+  
+
+  // const firebase_config = {
+  //   apiKey: functions.config().ccidi_staging.key,
+  //   projectId: functions.config().ccidi_staging.project_id,
+  //   authDomain: functions.config().ccidi_staging.auth_domain,
+  //   databaseURL: functions.config().ccidi_staging.database_url,
+  //   appId: functions.config().ccidi_staging.app_id,
+  //   storageBucket: functions.config().ccidi_staging.storage_bucket,
+  //   messagingSenderId: functions.config().ccidi_staging.messaging_sender_id,
+  //   credential: admin.credential.cert(serviceAccount)
+  // }
+
+  admin.initializeApp();
+  const database = admin.database();
+  // console.log("firebase_config", firebase_config);
+  // firebase.initializeApp(firebase_config);
+  // const database = firebase.database();
 
   try {
     database.ref('faketest').set({
