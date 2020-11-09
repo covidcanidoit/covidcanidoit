@@ -3,13 +3,13 @@ const functions = require("firebase-functions");
 const auth = require("firebase/auth");
 const axios = require("axios");
 const { firebaseConfig } = require("firebase-functions");
-const csv = require('csvtojson');
+const csv = require("csvtojson");
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
 exports.helloWorld = functions.https.onRequest((request, response) => {
- response.send("Hello from Firebase!");
+  response.send("Hello from Firebase!");
 });
 
 const mockData = `STATE,STATE NAME,STATE OF REOPENING,NEW GATING SCORE,GATING SCORE COLOR,GATING SCORE,14-DAY TREND FOR COVID+,14-DAY TREND OF COVID+,14-DAY CHANGE IN COVID+,Rt**,SCORE,NORMALIZED,PROGRESS ON INTERVENTIONS,GRADE,CURVE,CURVED GRADE,TOTAL TESTS,% OF TESTING TARGET*,TOTAL COVID+,CASES-T-29,CASES-T-28,CASES-T-27,CASES-T-26,CASES-T-25,CASES-T-24,CASES-T-23,CASES-T-22,CASES-T-21,CASES-T-20,CASES-T-19,CASES-T-18,CASES-T-17,CASES-T-16,CASES-T-15,CASES-T-14,CASES-T-13,CASES-T-12,CASES-T-11,CASES-T-10,CASES-T-9,CASES-T-8,CASES-T-7,CASES-T-6,CASES-T-5,CASES-T-4,CASES-T-3,CASES-T-2,CASES-T-1,CASES-T-0,TOTAL DEATHS,MISSING ACTIONS,INFLUENZA-LIKE ILLNESS,COVID-LIKE SYMPTOMS (95% CI),% WHO KNOW SOMEONE WHO IS SICK,% WEARING MASKS,GATING-CRITERIA-ILI,TESTS CONDUCTED (7-DAY AVG),TESTS-T-13,TESTS-T-12,TESTS-T-11,TESTS-T-10,TESTS-T-09,TESTS-T-08,TESTS-T-07,TESTS-T-06,TESTS-T-05,TESTS-T-04,TESTS-T-03,TESTS-T-02,TESTS-T-01,TESTS-T-0,% OF TEST TARGET (US: 500K/DAY),TEST TARGET - 500K - COLOR,% OF TARGET (US: 4M/DAY),% OF TEST TARGET (INCIDENCE ADJUSTED),TEST TARGET (INCIDENT ADJUSTED),GATING CRITERIA TESTS,% POSITIVE (7-DAY AVG),POSITIVITY IS,CASE-DOUBLING-DAYS,POSITIVITY-13,POSITIVITY-12,POSITIVITY-11,POSITIVITY-10,POSITIVITY-09,POSITIVITY-08,POSITIVITY-07,POSITIVITY-06,POSITIVITY-05,POSITIVITY-04,POSITIVITY-03,POSITIVITY-02,POSITIVITY-01,POSITIVITY-00,POSITIVITY,POSITIVITY-GRADE,% OF ICU,ICU OCCUPIED,ICU COLOR,BEDS OCCUPIED,BED COLOR,RT RANGE (90% CI),DOUBLING TIME (DAYS),DEATHS-13,DEATHS-12,DEATHS-11,DEATHS-10,DEATHS-09,DEATHS-08,DEATHS-07,DEATHS-06,DEATHS-05,DEATHS-04,DEATHS-03,DEATHS-02,DEATHS-01,DEATHS-00,NEW CASES PER MILLION PER DAY,DAILY INCIDENTS PER MILLION COLOR,CURRENTLY HOSPITALIZED PER MILLION,HOSPITALIZED-13,HOSPITALIZED-12,HOSPITALIZED-11,HOSPITALIZED-10,HOSPITALIZED-09,HOSPITALIZED-08,HOSPITALIZED-07,HOSPITALIZED-06,HOSPITALIZED-05,HOSPITALIZED-04,HOSPITALIZED-03,HOSPITALIZED-02,HOSPITALIZED-01,HOSPITALIZED-00,CURRENTLY HOSPITALIZED TREND,HOSPITALIZED TREND COLOR,CASE FATALITY RATE,CASE FATALITY RATE COLOR,CONTACT TRACING POSSIBLE?,CONTACT TRACING COLOR,COVID+ RATE IS
@@ -65,126 +65,137 @@ West Virginia,West Virginia,N/A,Red,Red,2,Increasing,43% ^Increasing^,43%,#REF!,
 Wisconsin,Wisconsin,N/A,Bruised Red,Red,3,Increasing,27% ^Increasing^,27%,#REF!,97,63,63%,D,89,B,1765796,154%,175227,1485,1647,1786,1802,1870,1913,1969,2018,2025,2096,2169,2233,2334,2414,2489,2517,2539,2493,2491,2438,2439,2478,2526,2514,2627,2668,2861,2984,3094,3228,1588,Improve COVID case information being reported on state website.  Restrict or quarantine travelers from locations with community transmission.  Require masks to be worn in public spaces.  Provide insurance coverage for COVID-19 treatment.,Minimal ^Level 1^,0.9% ^0.7% - 1.1%^,33.9%,87.2%,Green,13500,11589,11992,12091,12201,12447,12779,12968,13020,12936,13113,13552,13711,13524,13500,154%,Green,19%,13%,106524,Bruised Red,23.9%,23.9% ^Increasing^,35,21.91%,20.79%,20.60%,19.98%,19.59%,19.39%,19.48%,19.31%,20.31%,20.35%,21.11%,21.77%,22.87%,23.91%,23.91%,Bruised Red,61,61% ^Normal^,Normal,66% ^Normal^,Normal,1.1 ^1.0 - 1.2^,35,13.14,13.86,14.14,14.29,12.71,11.00,12.57,12.14,12.43,13.14,15.43,17.29,18.57,19.57,554,Bruised Red,189,119,123,134,147,150,156,150,149,150,163,165,175,179,189,59% ^Increasing^,Red,0.91%,Green,Unlikely ^Positivity high^,Deep Red,23.9% ^Increasing^
 Wyoming,Wyoming,N/A,Bruised Red,Red,3,Increasing,48% ^Increasing^,48%,#REF!,52,34,34%,F,48,F,117419,159%,8665,65,69,69,75,79,83,86,93,96,98,109,116,115,111,111,113,129,124,125,136,136,144,160,156,158,168,171,183,183,190,57,Improve COVID case information being reported on state website.  Consider a more restrictive stay home policy.  Require a statewide six-feet physical distancing policy.  Consider a more restrictive gatherings policy.  Close non-essential businesses.  Require masks to be worn in public spaces.  Provide insurance coverage for COVID-19 treatment.,Minimal ^Level 1^,1.1% ^0.4% - 1.7%^,29.7%,59.9%,Green,1389,794,790,864,877,955,1092,1033,1029,1031,688,1023,857,1466,1389,159%,Green,20%,22%,6270,Bruised Red,13.7%,13.7% ^Decreasing^,29,16.19%,15.75%,14.47%,15.46%,14.23%,13.19%,15.50%,15.13%,15.33%,24.36%,16.67%,21.31%,12.50%,13.68%,13.68%,Bruised Red,32,32% ^Normal^,Normal,44% ^Normal^,Normal,1.2 ^1.0 - 1.3^,29,0.43,0.43,0.43,0.43,0.43,0.14,0.14,0.14,0.14,0.14,0.57,0.57,0.43,0.43,328,Bruised Red,88,55,55,62,76,81,97,93,93,93,88,79,78,88,88,59% ^Increasing^,Red,0.66%,Green,Unlikely ^Positivity high^,Deep Red,13.7% ^Decreasing^
 Puerto Rico,Puerto Rico,N/A,Bruised Red,Red,3,Decreasing,-29% ^Decreasing^,-29%,#REF!,42,27,27%,F,39,F,362384,10%,56412,370,443,557,637,675,632,625,711,746,631,638,707,839,871,746,692,709,624,555,467,430,461,449,427,428,418,400,535,542,503,758,Improve COVID case information being reported on state website.  Consider a more restrictive stay home policy.  Require a statewide six-feet physical distancing policy.  Consider a more restrictive gatherings policy.  Close non-essential businesses.  Increase your state's testing throughput.  Require masks to be worn in public spaces.  Provide insurance coverage for COVID-19 treatment.,Minimal ^Level 1^,N/A,N/A,N/A,Green,503,709,624,555,467,430,461,449,427,428,418,400,535,542,503,10%,Bruised Red,1%,3%,16594,Bruised Red,100.0%,100.0% ^Flat^,75,100.00%,100.00%,100.00%,100.00%,100.00%,100.00%,100.00%,100.00%,100.00%,100.00%,100.00%,100.00%,100.00%,100.00%,100.00%,Bruised Red,62,62% ^Normal^,Normal,54% ^Normal^,Normal,0.8 ^0.7 - 0.9^,75,5.57,6.00,6.71,6.00,6.29,7.14,6.71,6.71,6.29,5.71,6.00,5.29,4.00,5.43,157,Bruised Red,107,109,100,101,101,102,99,111,109,101,98,95,107,111,107,-2% ^Decreasing^,Green,1.34%,Yellow,Unlikely ^Positivity high^,Deep Red,100.0% ^Flat^
-United States,United States,N/A,Bruised Red,Red,3,Increasing,28% ^Increasing^,28%,,,,,,,,122567620,209%,8002743,39159,39523,40019,40279,41081,43079,42872,42903,44052,44376,44257,43835,42050,42887,43158,42295,42796,43225,43453,43697,44578,45958,47035,47911,49124,49831,51215,52097,53211,54783,210131,N/A ^Not Available^,N/A ^Not Available^,N/A,N/A,N/A,Green,1045189,972631,990354,964444,964697,972468,993020,987792,1009566,1009291,1019262,1037263,1049062,1041305,1045189,209%,Green,26%,58%,1807848,Red,5.2%,5.2% ^Increasing^,,4.40%,4.36%,4.51%,4.53%,4.58%,4.63%,4.76%,4.75%,4.87%,4.89%,4.94%,4.97%,5.11%,5.24%,5.24%,Yellow,N/A ^Not Available^,N/A ^Not Available^,N/A ^Not Available^,N/A ^Not Available^,N/A ^Not Available^,N/A ^Not Available^,N/A,683.14,691.00,700.86,686.14,665.43,684.57,693.00,682.14,696.86,691.71,699.57,684.86,679.86,677.29,165,Bruised Red,112,91,90,91,94,97,103,105,104,104,106,109,112,112,112,24% ^Increasing^,Red,2.63%,Yellow,Extremely Difficult ^Resource intensive^,Red,5.2% ^Increasing^`
+United States,United States,N/A,Bruised Red,Red,3,Increasing,28% ^Increasing^,28%,,,,,,,,122567620,209%,8002743,39159,39523,40019,40279,41081,43079,42872,42903,44052,44376,44257,43835,42050,42887,43158,42295,42796,43225,43453,43697,44578,45958,47035,47911,49124,49831,51215,52097,53211,54783,210131,N/A ^Not Available^,N/A ^Not Available^,N/A,N/A,N/A,Green,1045189,972631,990354,964444,964697,972468,993020,987792,1009566,1009291,1019262,1037263,1049062,1041305,1045189,209%,Green,26%,58%,1807848,Red,5.2%,5.2% ^Increasing^,,4.40%,4.36%,4.51%,4.53%,4.58%,4.63%,4.76%,4.75%,4.87%,4.89%,4.94%,4.97%,5.11%,5.24%,5.24%,Yellow,N/A ^Not Available^,N/A ^Not Available^,N/A ^Not Available^,N/A ^Not Available^,N/A ^Not Available^,N/A ^Not Available^,N/A,683.14,691.00,700.86,686.14,665.43,684.57,693.00,682.14,696.86,691.71,699.57,684.86,679.86,677.29,165,Bruised Red,112,91,90,91,94,97,103,105,104,104,106,109,112,112,112,24% ^Increasing^,Red,2.63%,Yellow,Extremely Difficult ^Resource intensive^,Red,5.2% ^Increasing^`;
 
-const abbrv = 
-{
-  "Arizona": "AZ",
-  "Alabama": "AL",
-  "Alaska":"AK",
-  "Arkansas": "AR",
-  "California": "CA",
-  "Colorado": "CO",
-  "Connecticut": "CT",
-  "Delaware": "DE",
-  "District of Columbia": "DC",
-  "Florida": "FL",
-  "Georgia": "GA",
-  "Hawaii": "HI",
-  "Idaho": "ID",
-  "Illinois": "IL",
-  "Indiana": "IN",
-  "Iowa": "IA",
-  "Kansas": "KS",
-  "Kentucky": "KY",
-  "Louisiana": "LA",
-  "Maine": "ME",
-  "Maryland": "MD",
-  "Massachusetts": "MA",
-  "Michigan": "MI",
-  "Minnesota": "MN",
-  "Mississippi": "MS",
-  "Missouri": "MO",
-  "Montana": "MT",
-  "Nebraska": "NE",
-  "Nevada": "NV",
-  "New Hampshire": "NH",
-  "New Jersey": "NJ",
-  "New Mexico": "NM",
-  "New York": "NY",
-  "North Carolina": "NC",
-  "North Dakota": "ND",
-  "Ohio": "OH",
-  "Oklahoma": "OK",
-  "Oregon": "OR",
-  "Pennsylvania": "PA",
-  "Rhode Island": "RI",
-  "South Carolina": "SC",
-  "South Dakota": "SD",
-  "Tennessee": "TN",
-  "Texas": "TX",
-  "Utah": "UT",
-  "Vermont": "VT",
-  "Virginia": "VA",
-  "Washington": "WA",
-  "West Virginia": "WV",
-  "Wisconsin": "WI",
-  "Wyoming": "WY",
-  "Puerto Rico": "PR"
-}
+const abbrv = {
+  Arizona: "AZ",
+  Alabama: "AL",
+  Alaska:"AK",
+  Arkansas: "AR",
+  California: "CA",
+  Colorado: "CO",
+  Connecticut: "CT",
+  Delaware: "DE",
+  'District of Columbia': "DC",
+  Florida: "FL",
+  Georgia: "GA",
+  Hawaii: "HI",
+  Idaho: "ID",
+  Illinois: "IL",
+  Indiana: "IN",
+  Iowa: "IA",
+  Kansas: "KS",
+  Kentucky: "KY",
+  Louisiana: "LA",
+  Maine: "ME",
+  Maryland: "MD",
+  Massachusetts: "MA",
+  Michigan: "MI",
+  Minnesota: "MN",
+  Mississippi: "MS",
+  Missouri: "MO",
+  Montana: "MT",
+  Nebraska: "NE",
+  Nevada: "NV",
+  'New Hampshire': "NH",
+  'New Jersey': "NJ",
+  'New Mexico': "NM",
+  'New York': "NY",
+  'North Carolina': "NC",
+  'North Dakota': "ND",
+  Ohio: "OH",
+  Oklahoma: "OK",
+  Oregon: "OR",
+  Pennsylvania: "PA",
+  'Rhode Island': "RI",
+  'South Carolina': "SC",
+  'South Dakota': "SD",
+  Tennessee: "TN",
+  Texas: "TX",
+  Utah: "UT",
+  Vermont: "VT",
+  Virginia: "VA",
+  Washington: "WA",
+  'West Virginia': "WV",
+  Wisconsin: "WI",
+  Wyoming: "WY",
+  'Puerto Rico': "PR"
+};
 
-const trendNames =
-{
+const trendNames = {
   "0": "better",
   "1": "caution",
   "2": "poor",
   "3": "poor"
-}
+};
 
-exports.pullCovidExitStrategyData = functions.https.onRequest((request, response) => {
-  const covidExitStrategyData = "https://docs.google.com/spreadsheets/d/e/2PACX-1vStD_EMR9El7agVp-Oi6d1c5EMAOYgoYOsSc2xhwzht1ae4Fku7F6zSmF4PB9J_aHA1DAb2PpAelomO/pub?output=csv&gid=237779988";
-  // COMM W/ DB
-  var admin = require("firebase-admin");
-  //var functions = require("firebase-functions");
+exports.autoPullCovidExitStrategyData = functions.pubsub
+  .schedule("every day 00:00")
+  .onRun(context => {
+    const covidExitStrategyData = 
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vStD_EMR9El7agVp-Oi6d1c5EMAOYgoYOsSc2xhwzht1ae4Fku7F6zSmF4PB9J_aHA1DAb2PpAelomO/pub?output=csv&gid=237779988";
+    // COMM W/ DB
+    var admin = require("firebase-admin");
+    //var functions = require("firebase-functions");
 
-  console.log(`admin.name: ${admin.name}`);
-  if (!admin.name) {
-    admin.initializeApp();
-  }
-  
-  const database = admin.database();
-
-  // FETCH DATA FROM COVID EXIT STRATEGY
-  axios.get(covidExitStrategyData).then((response) => {
-
-    csv().fromString(response.data).then(regionsArray => {
-
-      regionsArray.forEach((region) => {
-        const longName = region["STATE"];
-        const shortName = abbrv[region["STATE"]];
-        if (longName && shortName) {
-          const slug = shortName.toLowerCase();
-          const trending = trendNames[region["GATING SCORE"]];
-
-          try {
-            database.ref(`content/US/regions/${slug}`).set({
-              longName,
-              shortName,
-              slug,
-              trending,
-              updated: new Date().toString()
-            });
-          }
-          catch (err) {
-            console.error("error accessing content", err);
-          }
-        }
-        else {
-          console.error(`row has no region name: `,longName, shortName, region);
-        }
-        
-      });
-
-      return null;
-      
-    }).catch((err) => {
-      console.error('csv error',err);
-    });
+    console.log(`admin.name: ${admin.name}`);
+    if (!admin.name) {
+      admin.initializeApp();
+    }
     
-    return response;
-  }).catch((err) => {
-    console.log(err);
-  });
+    const database = admin.database();
 
-  response.send("checking for nonexistent region?");
+    // FETCH DATA FROM COVID EXIT STRATEGY
+    axios
+      .get(covidExitStrategyData)
+      .then((response) => {
+
+        csv()
+        .fromString(response.data)
+        .then(regionsArray => {
+          regionsArray.forEach((region) => {
+            const longName = region["STATE"];
+            const shortName = abbrv[region["STATE"]];
+            if (longName && shortName) {
+              const slug = shortName.toLowerCase();
+              const trending = trendNames[region["GATING SCORE"]];
+
+              try {
+                database.ref(`content/US/regions/${slug}`).set({
+                  longName,
+                  shortName,
+                  slug,
+                  trending,
+                  updated: new Date().toString()
+                });
+              }
+              catch (err) {
+                console.error("error accessing content", err);
+              }
+            }
+            else {
+              console.error(
+                `row has no region name: `,
+                longName,
+                shortName, 
+                region
+              );
+            }
+            
+          });
+
+          return null;
+          
+        })
+        .catch((err) => {
+          console.error('csv error',err);
+        });
+        
+        return response;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+  //response.send("checking for nonexistent region?");
 });
