@@ -139,8 +139,11 @@ exports.autoPullCovidExitStrategyData = functions.pubsub
     //var functions = require("firebase-functions");
 
     console.log(`admin.name: ${admin.name}`);
-    if (!admin.name) {
+    try {
       admin.initializeApp();
+    }
+    catch (err) {
+      console.error("firebase likely already exists", err);
     }
     
     const database = admin.database();
@@ -153,6 +156,7 @@ exports.autoPullCovidExitStrategyData = functions.pubsub
         csv()
         .fromString(response.data)
         .then(regionsArray => {
+          console.log(`${regionsArray.length} number of regions to update`)
           regionsArray.forEach((region) => {
             const longName = region["STATE"];
             const shortName = abbrv[region["STATE"]];
@@ -184,6 +188,7 @@ exports.autoPullCovidExitStrategyData = functions.pubsub
             
           });
 
+          console.log('outside array foreach');
           return null;
           
         })
@@ -191,11 +196,14 @@ exports.autoPullCovidExitStrategyData = functions.pubsub
           console.error('csv error',err);
         });
         
+        console.log('outside csv')
         return response;
     })
     .catch((err) => {
-      console.log(err);
+      console.log('axios error',err);
     });
 
+    console.log('outside axios');
+    return true;
   //response.send("checking for nonexistent region?");
 });
