@@ -3,7 +3,7 @@
     <v-col cols="12" md="8" offset-md="2">
       <h1 class="browse-header">Browse activities by category</h1>
     </v-col>
-    <v-col cols="12" md="6" offset-md="3" class="category">
+    <v-col cols="12" md="6" offset-md="3">
       <v-expansion-panels flat class="categories">
         <v-expansion-panel
           v-for="category in categories"
