@@ -26,6 +26,7 @@ Check out [CONTRIBUTING.md](./CONTRIBUTING.md) for more details!
 - [Vuetify](https://vuetifyjs.com/)
 - [Firebase Hosting](https://firebase.google.com/docs/hosting)
 - [Firebase Database](https://firebase.google.com/docs/database)
+- [Firebase Functions](https://firebase.google.com/docs/functions)
 
 ## Dev workflow
 
@@ -123,3 +124,19 @@ database and other dynamic content).
 - Based on project needs, sometimes we do a bulk-data-import using tools in the `utils/` directory
 - We have a separate firebase project named `ccidi-staging` that does all of the same things, which is nice for testing infrastructure and major database changes
 - The Google Places API doesn't provide busyness data directly, so there is also an API service that uses the [populartimes](https://github.com/m-wrzr/populartimes) python library to scrape this data. Right now this is hosted on @awwaiid's server, but we'll move it into a Google Cloud function at some point
+
+## Functions
+
+### Daily Covidexitstrategy Data Import
+
+This is a firebase function that automatically loads each region (in the form of US States including Puerto Rico and D.C.) provided by CovidExitStrategy along with their current risk level.
+
+- The code will run every midnight EST.
+- Each region will have a timestamp node `updated` with the time it was last updated. Viewing this node will let you know if it ran properly.
+![image](https://user-images.githubusercontent.com/61799449/99341945-afa7ea00-283f-11eb-8b40-f3049ae85b1c.png)
+- To run manually, visit the [cloud scheduler dashboard](https://console.cloud.google.com/cloudscheduler?_ga=2.94024345.543360165.1605582414-1181068750.1594143574&project=ccidi-staging&folder=&organizationId=). Click RUN NOW.
+![image](https://user-images.githubusercontent.com/61799449/99342307-7623ae80-2840-11eb-80e3-521eba12d327.png)
+- You can also see information about the run by going to the [Firebase console](https://console.firebase.google.com/u/0/project/ccidi-staging/functions/logs?search=&&severity=DEBUG). Click Functions. Click Logs.
+![image](https://user-images.githubusercontent.com/61799449/99341819-73748980-283f-11eb-9d7f-05ef04df95d8.png)
+
+To deploy changes, run `firebase deploy --only functions`
