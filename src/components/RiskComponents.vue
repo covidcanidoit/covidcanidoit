@@ -5,7 +5,7 @@
       <v-col
         v-for="(risk, index) in riskData"
         :key="risk.type"
-        cols="2"
+        cols="2.75"
         :class="index && 'left-border'"
       >
         <RiskComponent v-bind="risk" :class="risk.type">
