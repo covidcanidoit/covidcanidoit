@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="hasRiskData">
+  <v-container>
     <!-- displays on medium and up breakpoints -->
     <v-row class="hidden-sm-and-down">
       <v-col
@@ -96,14 +96,14 @@ export default {
   }),
   computed: {
     ...mapGetters(["components"]),
-    hasRiskData() {
-      for (const risk of this.riskTypes) {
-        if (!this.activity.characteristics?.[risk]?.notes) return false;
-      }
-      return true;
+    activityRiskTypes() {
+      // Only characteristics that this activity has
+      return this.riskTypes.filter(
+        risk => !!this.activity.characteristics?.[risk]?.notes
+      );
     },
     riskData() {
-      return this.riskTypes.map(risk => {
+      return this.activityRiskTypes.map(risk => {
         const riskText = this.activity.characteristics[risk].score;
         return {
           type: risk,
