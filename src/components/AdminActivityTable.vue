@@ -255,6 +255,8 @@ export default {
         "characteristics/exposureTime/notes",
         "characteristics/ventilation/score",
         "characteristics/ventilation/notes",
+        "characteristics/masking/score",
+        "characteristics/masking/notes",
         "riskScore/poor",
         "riskScore/caution",
         "riskScore/better"

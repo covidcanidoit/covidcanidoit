@@ -3,8 +3,8 @@
     <h1>How to think about risk</h1>
     <h5>Click to learn more</h5>
     <v-container>
-      <v-row>
-        <v-col
+      <v-layout>
+        <v-flex
           cols="6"
           md="3"
           class="howToThinkAboutRisk__icon-container"
@@ -12,8 +12,8 @@
         >
           <CrowdingIcon class="componentIcon"></CrowdingIcon>
           <div class="componentLabel">Crowding</div>
-        </v-col>
-        <v-col
+        </v-flex>
+        <v-flex
           cols="6"
           md="3"
           class="howToThinkAboutRisk__icon-container"
@@ -21,8 +21,8 @@
         >
           <DropletsIcon class="componentIcon"></DropletsIcon>
           <div class="componentLabel">Droplets</div>
-        </v-col>
-        <v-col
+        </v-flex>
+        <v-flex
           cols="6"
           md="3"
           class="howToThinkAboutRisk__icon-container"
@@ -30,8 +30,8 @@
         >
           <TimeIcon class="componentIcon"></TimeIcon>
           <div class="componentLabel">Time</div>
-        </v-col>
-        <v-col
+        </v-flex>
+        <v-flex
           cols="6"
           md="3"
           class="howToThinkAboutRisk__icon-container"
@@ -39,8 +39,17 @@
         >
           <VentIcon class="componentIcon"></VentIcon>
           <div class="componentLabel">Ventilation</div>
-        </v-col>
-      </v-row>
+        </v-flex>
+        <v-flex
+          cols="6"
+          md="3"
+          class="howToThinkAboutRisk__icon-container"
+          @click="onComponentIconClick('masking')"
+        >
+          <MaskIcon class="componentIcon"></MaskIcon>
+          <div class="componentLabel">Masking</div>
+        </v-flex>
+      </v-layout>
     </v-container>
     <v-dialog v-model="showPopup" width="500">
       <v-card>
@@ -69,6 +78,7 @@ import CrowdingIcon from "@/assets/Risk_Crowding-filled.svg";
 import DropletsIcon from "@/assets/Risk_Droplets-filled.svg";
 import TimeIcon from "@/assets/Risk_Time-filled.svg";
 import VentIcon from "@/assets/Risk_Ventilation-filled.svg";
+import MaskIcon from "@/assets/Risk_Mask-filled.svg";
 import Markdown from "vue-markdown";
 import { mapGetters } from "vuex";
 
@@ -78,6 +88,7 @@ export default {
     DropletsIcon,
     TimeIcon,
     VentIcon,
+    MaskIcon,
     Markdown
   },
   data: function() {

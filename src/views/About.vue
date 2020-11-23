@@ -547,21 +547,21 @@
           transition="dialog-bottom-transition"
         >
           <template v-slot:activator="{ on, attrs }">
-            <a v-bind="attrs" v-on="on"
-              >Information Collection Statement
-              <v-icon style="vertical-align:text-bottom;"
-                >mdi-open-in-new</v-icon
-              ></a
-            >
+            <a v-bind="attrs" v-on="on">
+              Information Collection Statement
+              <v-icon style="vertical-align:text-bottom;">
+                mdi-open-in-new
+              </v-icon>
+            </a>
           </template>
           <v-card>
             <v-app-bar fixed>
               <v-btn icon @click="dialogInfoCollectStatement = false">
                 <v-icon>mdi-close</v-icon>
               </v-btn>
-              <v-toolbar-title
-                >Information Collection Statement</v-toolbar-title
-              >
+              <v-toolbar-title>
+                Information Collection Statement
+              </v-toolbar-title>
             </v-app-bar>
             <v-container mt-15>
               <v-row>
@@ -871,8 +871,9 @@
                 flat
                 @click.stop="dialogInfoCollectStatement = false"
               >
-                <v-icon>mdi-close</v-icon> Close</v-btn
-              >
+                <v-icon>mdi-close</v-icon>
+                Close
+              </v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
