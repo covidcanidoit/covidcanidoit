@@ -131,7 +131,7 @@ export default {
     width: 48px;
   }
 
-  > path.cls-2 {
+  path.cls-2 {
     fill: white;
   }
 }
