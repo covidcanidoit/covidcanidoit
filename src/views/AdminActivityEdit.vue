@@ -164,6 +164,10 @@
               Ventilation
               <v-icon>mdi-fan</v-icon>
             </v-tab>
+            <v-tab>
+              Masking
+              <v-icon>mdi-domino-mask</v-icon>
+            </v-tab>
 
             <v-tab-item>
               <v-card flat tile>
@@ -266,6 +270,30 @@
                     />
                   </v-card>
                   <v-text-field label="Ventilation Reference Slugs" />
+                </v-card-text>
+              </v-card>
+            </v-tab-item>
+            <v-tab-item>
+              <v-card flat tile>
+                <v-card-text>
+                  <v-combobox
+                    label="Masking score"
+                    :value="characteristicNode('masking', 'score')"
+                    @input="saveValue('characteristics/masking/score', $event)"
+                    :items="LowMediumHigh"
+                  />
+                  <v-textarea
+                    label="Masking Notes"
+                    :value="characteristicNode('masking', 'notes')"
+                    @input="saveValue('characteristics/masking/notes', $event)"
+                  ></v-textarea>
+                  <v-label>Masking Notes Preview</v-label>
+                  <v-card outlined>
+                    <Markdown
+                      :source="characteristicNode('masking', 'notes')"
+                    />
+                  </v-card>
+                  <v-text-field label="Masking Reference Slugs" />
                 </v-card-text>
               </v-card>
             </v-tab-item>
@@ -386,6 +414,16 @@ export default {
     addKeyword(newKeyword) {
       this.saveValue("keywords", union(this.keywords, [newKeyword]));
       this.newKeyword = "";
+    },
+    characteristicNode(characteristic, node) {
+      if (
+        this.activity.characteristics[characteristic] &&
+        this.activity.characteristics[characteristic][node]
+      ) {
+        return this.activity.characteristics[characteristic][node];
+      } else {
+        return null;
+      }
     }
   }
 };
