@@ -259,24 +259,16 @@ export default {
     $route: function() {
       if (
         !this.$store.state.navigation.show ||
-        (!!this.$route.query && this.$route.query.embed?.includes(true))
+        (!!this.$route.query.embed && this.$route.query.embed.includes(true))
       ) {
         this.$store.commit("setNav", false);
       }
       if (
         this.$store.state.regionlock.lock ||
-        (!!this.$route.query && this.$route.query.regionlock?.includes(true))
+        (!!this.$route.query.regionlock &&
+          this.$route.query.regionlock.includes(true))
       ) {
         this.$store.commit("setRegionSelectLock", true);
-      }
-      if (
-        this.$store.state.navigation.show &&
-        !this.$store.state.regionlock.lock &&
-        !this.$route.path.includes("embed=true") &&
-        !this.$route.path.includes("regionlock=false")
-      ) {
-        this.$store.commit("setNav", true);
-        this.$store.commit("setRegionSelectLock", false);
       }
     }
   }

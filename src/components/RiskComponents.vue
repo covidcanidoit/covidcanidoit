@@ -1,11 +1,11 @@
 <template>
-  <v-container v-if="hasRiskData">
+  <v-container>
     <!-- displays on medium and up breakpoints -->
     <v-row class="hidden-sm-and-down">
       <v-col
         v-for="(risk, index) in riskData"
         :key="risk.type"
-        cols="3"
+        cols="2.75"
         :class="index && 'left-border'"
       >
         <RiskComponent v-bind="risk" :class="risk.type">
@@ -60,6 +60,7 @@ import CrowdingIcon from "@/assets/Risk_Crowding-filled.svg";
 import DropletsIcon from "@/assets/Risk_Droplets-filled.svg";
 import TimeIcon from "@/assets/Risk_Time-filled.svg";
 import VentIcon from "@/assets/Risk_Ventilation-filled.svg";
+import MaskIcon from "@/assets/Risk_Mask-filled.svg";
 // markdown
 import Markdown from "vue-markdown";
 
@@ -73,7 +74,13 @@ export default {
     activity: Object
   },
   data: () => ({
-    riskTypes: ["crowding", "droplets", "exposureTime", "ventilation"],
+    riskTypes: [
+      "crowding",
+      "droplets",
+      "exposureTime",
+      "ventilation",
+      "masking"
+    ],
     riskLabels: {
       "1": "Low",
       "2": "Medium",
@@ -83,19 +90,20 @@ export default {
       crowding: CrowdingIcon,
       droplets: DropletsIcon,
       exposureTime: TimeIcon,
-      ventilation: VentIcon
+      ventilation: VentIcon,
+      masking: MaskIcon
     }
   }),
   computed: {
     ...mapGetters(["components"]),
-    hasRiskData() {
-      for (const risk of this.riskTypes) {
-        if (!this.activity.characteristics?.[risk]?.notes) return false;
-      }
-      return true;
+    activityRiskTypes() {
+      // Only characteristics that this activity has
+      return this.riskTypes.filter(
+        risk => !!this.activity.characteristics?.[risk]?.notes
+      );
     },
     riskData() {
-      return this.riskTypes.map(risk => {
+      return this.activityRiskTypes.map(risk => {
         const riskText = this.activity.characteristics[risk].score;
         return {
           type: risk,
@@ -123,7 +131,7 @@ export default {
     width: 48px;
   }
 
-  > path.cls-2 {
+  path.cls-2 {
     fill: white;
   }
 }
