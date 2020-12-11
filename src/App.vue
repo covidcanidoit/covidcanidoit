@@ -21,6 +21,22 @@
           <v-spacer></v-spacer>
           <v-menu>
             <template v-slot:activator="{ on }">
+              <v-btn text v-on="on" aria-label="Select locale">
+                {{ currentLocale }}
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item
+                v-for="locale in localeList"
+                :key="locale"
+                @click="setLocale(locale)"
+              >
+                {{ locale }}
+              </v-list-item>
+            </v-list>
+          </v-menu>
+          <v-menu>
+            <template v-slot:activator="{ on }">
               <v-btn text v-on="on" aria-label="Select country">
                 <img :src="`${publicPath}images/flag/${currentCountry}.png`" />
                 {{ currentCountry }}
@@ -63,7 +79,7 @@
                 params: { country: currentCountry, region: currentRegion }
               }"
             >
-              Home
+              {{ $t("home") }}
             </router-link>
           </v-list-item>
           <v-list-item link>
@@ -74,11 +90,11 @@
                 params: { country: currentCountry, region: currentRegion }
               }"
             >
-              Activities
+              {{ $t("activities") }}
             </router-link>
           </v-list-item>
           <v-list-item link>
-            <a href="//blog.covidcanidoit.com/">Blog</a>
+            <a href="//blog.covidcanidoit.com/">{{ $t("blog") }}</a>
           </v-list-item>
           <v-list-item link>
             <router-link
@@ -88,7 +104,7 @@
                 params: { country: currentCountry, region: currentRegion }
               }"
             >
-              About
+              {{ $t("about") }}
             </router-link>
           </v-list-item>
         </div>
@@ -120,7 +136,7 @@
             params: { country: currentCountry, region: currentRegion }
           }"
         >
-          Home
+          {{ $t("home") }}
         </router-link>
         <router-link
           class="router mx-3"
@@ -130,9 +146,9 @@
             params: { country: currentCountry, region: currentRegion }
           }"
         >
-          Activities
+          {{ $t("activities") }}
         </router-link>
-        <a href="//blog.covidcanidoit.com/">Blog</a>
+        <a href="//blog.covidcanidoit.com/">{{ $t("blog") }}</a>
         <router-link
           class="router mx-3"
           :to="{
@@ -140,7 +156,7 @@
             params: { country: currentCountry, region: currentRegion }
           }"
         >
-          About
+          {{ $t("about") }}
         </router-link>
         <router-link
           class="router mx-3"
@@ -167,6 +183,22 @@
             >
               <img :src="`${publicPath}images/flag/${country}.png`" />
               {{ country }}
+            </v-list-item>
+          </v-list>
+        </v-menu>
+        <v-menu>
+          <template v-slot:activator="{ on }">
+            <v-btn text v-on="on" aria-label="Select locale">
+              {{ currentLocale }}
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item
+              v-for="locale in localeList"
+              :key="locale"
+              @click="setLocale(locale)"
+            >
+              {{ locale }}
             </v-list-item>
           </v-list>
         </v-menu>
@@ -240,9 +272,18 @@ export default {
     },
     showNav() {
       return this.$store.state.navigation.show;
+    },
+    currentLocale() {
+      return this.$i18n.locale;
+    },
+    localeList() {
+      return ["en", "es"];
     }
   },
   methods: {
+    setLocale(locale) {
+      this.$i18n.locale = locale;
+    },
     setCurrentCountry(country) {
       this.$store.dispatch("changeCountry", country);
     },
