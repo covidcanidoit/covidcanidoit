@@ -11,6 +11,15 @@ import vuetify from "./plugins/vuetify";
 import "roboto-fontface/css/roboto/roboto-fontface.css";
 import "@mdi/font/css/materialdesignicons.css";
 
+import VueI18n from "vue-i18n";
+Vue.use(VueI18n);
+import en from "./locales/en.json";
+import es from "./locales/es.json";
+const i18n = new VueI18n({
+  locale: "en",
+  messages: { en, es }
+});
+
 import { rtdbPlugin } from "vuefire";
 Vue.use(rtdbPlugin);
 
@@ -44,6 +53,7 @@ loadFirebaseContent().then(() => {
     router,
     store,
     vuetify,
+    i18n,
     created() {
       console.log("VUE APP CREATED");
     },
