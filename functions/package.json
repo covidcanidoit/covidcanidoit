@@ -14,7 +14,7 @@
     "node": "8"
   },
   "dependencies": {
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "csvtojson": "^2.0.10",
     "firebase": "^7.24.0",
     "firebase-admin": "^8.6.0",
