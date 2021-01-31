@@ -2,5 +2,9 @@
   "home": "Home",
   "about": "About",
   "activities": "Activities",
-  "blog": "Blog"
+  "blog": "Blog",
+  "request_risk_score": "Request a risk score for {search}",
+  "thanks_for_suggestion": "Thanks for suggesting an activity",
+  "ok": "Ok",
+  "activity_suggestion": "Activity suggestion"
 }

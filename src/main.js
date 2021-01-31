@@ -17,6 +17,7 @@ import en from "./locales/en.json";
 import es from "./locales/es.json";
 const i18n = new VueI18n({
   locale: "en",
+  fallbackLocale: "en",
   messages: { en, es }
 });
 

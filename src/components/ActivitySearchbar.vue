@@ -20,9 +20,7 @@
         <template v-if="searching">
           <li>
             <v-btn @click="onSearch">
-              Request a risk score
-              <br />
-              for {{ computedSearch(search) }}
+              {{ $t("request_risk_score", { search: computedSearch(search) }) }}
             </v-btn>
           </li>
         </template>
@@ -30,8 +28,10 @@
     </VueSelect>
     <v-dialog v-model="suggestionTriggered" max-width="290">
       <v-card class="modalCard">
-        <v-card-title class="headline">Activity Suggestion</v-card-title>
-        <v-card-text>Thanks for suggesting an activity</v-card-text>
+        <v-card-title class="headline">
+          {{ $t("activity_suggestion") }}
+        </v-card-title>
+        <v-card-text>{{ $t("thanks_for_suggestion") }}</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
@@ -39,7 +39,7 @@
             text
             @click="suggestionTriggered = false"
           >
-            Ok
+            {{ $t("ok") }}
           </v-btn>
         </v-card-actions>
       </v-card>
