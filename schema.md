@@ -33,10 +33,10 @@ Here is an expanded single activity:
 "walking-with-friend": {
   slug: "walking-with-friend",
   name: "Walking with a friend",
-  longDescription: "...",
+  searchName: "Walk with a friend",
   
   // Clarifying information
-  indoor: false,
+  isInside: false,
   showLocation: false,
   
   // Discoverability information
@@ -86,3 +86,22 @@ Here is an expanded single activity:
 }
 ```
 
+Regions hold on to the current risk levels there:
+```
+dataset: {
+  US: {
+    regions: {
+      "ak": {
+        longName: "Alaska",
+        shortName: "AK",
+        slug: "ak",
+        population: 2349494,
+        currentDate: "2021-01-31",
+        newCasesToday: 23293,
+        adjustedActiveInfections: 99293,
+        infectedEncounterRate: 0.0234
+      }
+    }
+  }
+}
+```

@@ -36,6 +36,7 @@
     "lodash": "^4.17.19",
     "popper.js": "^1.16.1",
     "roboto-fontface": "*",
+    "underscore": "^1.12.0",
     "vue": "^2.6.11",
     "vue-google-autocomplete": "^1.1.0",
     "vue-gtag": "^1.6.2",
