@@ -17,8 +17,31 @@
             </span>
           </span>
         </div>
+
         <div class="score">{{ riskLevel.riskScore }}</div>
-        <div class="score-title">{{ riskLevel.riskName }}</div>
+        <div class="score-title">
+          {{ riskLevel.riskName }}
+          <v-dialog>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn v-bind="attrs" v-on="on" icon x-small color="#cccccc">
+                <v-icon>mdi-information</v-icon>
+              </v-btn>
+            </template>
+
+            <v-card>
+              <v-card-title class="headline grey lighten-2">
+                Calculation Breakdown
+              </v-card-title>
+
+              <v-card-text>
+                <span>
+                  <pre>{{ riskScoreDetail }}</pre>
+                </span>
+              </v-card-text>
+            </v-card>
+          </v-dialog>
+        </div>
+
         <div class="d-flex flex-row justify-center">
           <SeasonalImage
             index="1"
@@ -64,16 +87,13 @@ export default {
     SeasonalImage
   },
   props: {
-    riskScore: {
-      type: String,
-      default: "5"
-    },
     activity: Object
   },
   data() {
     return {
       hideMoreInfo: true,
-      hasSearched: false
+      hasSearched: false,
+      scoreDetail: {}
     };
   },
   computed: {
@@ -85,6 +105,97 @@ export default {
       "activities",
       "regionlock"
     ]),
+    riskScoreDetail() {
+      // Here is where we calculate the risk
+      const baseline = 0.06;
+      const characteristicWeights = {
+        crowding: [2, 1, 0.5],
+        droplets: [5, 1, 0.2],
+        masking: [4, 4, 1.0],
+        exposureTime: [2, 1, 0.5],
+        ventilation: [20, 4, 1.0]
+      };
+      const characteristics = this.activity.riskProfiles.v1.characteristics;
+      const activityRisk =
+        baseline *
+        (1 /
+          characteristicWeights.crowding[
+            characteristics.crowding.riskScore - 1
+          ] /
+          characteristicWeights.droplets[
+            characteristics.droplets.riskScore - 1
+          ] /
+          characteristicWeights.masking[characteristics.masking.riskScore - 1] /
+          characteristicWeights.exposureTime[
+            characteristics.exposureTime.riskScore - 1
+          ] /
+          characteristicWeights.ventilation[
+            characteristics.ventilation.riskScore - 1
+          ]);
+      const newCasesToday =
+        this.selectedRegion.confirmed -
+        this.selectedRegion.confirmedPreviousDay;
+      const daysSinceBeginning = 372;
+      const positivityRate = 0.067; // From Jay
+      //const prevalenceRatio = (1500 / (daysSinceBeginning + 50)) * ( positivityRate ** 0.5) + 2;
+      const prevalenceRatio =
+        (1500 / daysSinceBeginning) * positivityRate ** 0.5 + 2;
+      // =(1500/(D26))*((0.067)^0.5)+2
+      const trueActiveInfections = newCasesToday * prevalenceRatio;
+      const encounterRisk =
+        trueActiveInfections / this.selectedRegion.population_2019;
+      const activityRiskScore = activityRisk * encounterRisk;
+      let score = 0;
+      if (activityRiskScore < 0.0000001) {
+        score = 1;
+      } else if (activityRiskScore < 0.00001) {
+        score = 2;
+      } else if (activityRiskScore < 0.0001) {
+        score = 3;
+      } else if (activityRiskScore < 0.0009) {
+        score = 4;
+      } else {
+        score = 5;
+      }
+      const riskScoreDetail = {
+        baseline,
+        characteristicWeights,
+        characteristics,
+        activityRisk,
+        newCasesToday,
+        daysSinceBeginning,
+        positivityRate,
+        prevalenceRatio,
+        trueActiveInfections,
+        encounterRisk,
+        activityRiskScore,
+        score,
+        region: this.selectedRegion,
+        modFactorCrowding:
+          characteristicWeights.crowding[
+            characteristics.crowding.riskScore - 1
+          ],
+        modFactorDroplets:
+          characteristicWeights.droplets[
+            characteristics.droplets.riskScore - 1
+          ],
+        modFactorMasking:
+          characteristicWeights.masking[characteristics.masking.riskScore - 1],
+        modFactorExposureTime:
+          characteristicWeights.exposureTime[
+            characteristics.exposureTime.riskScore - 1
+          ],
+        modFactorVentilation:
+          characteristicWeights.ventilation[
+            characteristics.ventilation.riskScore - 1
+          ]
+      };
+      console.log(riskScoreDetail);
+      return riskScoreDetail;
+    },
+    riskScore() {
+      return this.riskScoreDetail.score;
+    },
     riskLevel() {
       return this.riskLevels[`riskLevel${this.riskScore}`];
     },

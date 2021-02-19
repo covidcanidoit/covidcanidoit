@@ -49,7 +49,7 @@ import { mapGetters } from "vuex";
 export default {
   props: ["riskScore"],
   computed: {
-    ...mapGetters(["riskLevels", "currentCountry"]),
+    ...mapGetters(["riskLevels", "currentDataset"]),
     riskLevel() {
       return this.riskLevels["riskLevel" + this.riskScore];
     }
@@ -58,8 +58,8 @@ export default {
     saveField(name, event) {
       console.log("So... you want to save...", { name, event });
       console.log("New value", event.target.value);
-      db.ref("content")
-        .child(this.currentCountry)
+      db.ref("datasets")
+        .child(this.currentDataset)
         .child("riskLevels")
         .child("riskLevel" + this.riskScore)
         .child(name)

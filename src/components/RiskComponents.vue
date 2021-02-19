@@ -1,29 +1,6 @@
 <template>
   <v-container>
-    <!-- displays on medium and up breakpoints -->
-    <v-row class="hidden-sm-and-down">
-      <v-col
-        v-for="(risk, index) in riskData"
-        :key="risk.type"
-        cols="2.75"
-        :class="index && 'left-border'"
-      >
-        <RiskComponent v-bind="risk" :class="risk.type">
-          <template #icon>
-            <component
-              :is="icons[risk.type]"
-              class="component-icon"
-              :class="`${risk.riskClass}`"
-            />
-          </template>
-          <template #notes>
-            <Markdown :source="risk.notes" class="notes desktop-notes" />
-          </template>
-        </RiskComponent>
-      </v-col>
-    </v-row>
-    <!-- displays on small and down breakpoints -->
-    <v-row no-gutters class="hidden-md-and-up">
+    <v-row no-gutters>
       <v-col cols="12">
         <v-expansion-panels flat>
           <RiskComponentDropdown
@@ -40,7 +17,10 @@
               />
             </template>
             <template #notes>
-              <Markdown :source="risk.notes" class="notes dropdown-notes" />
+              <Markdown
+                :source="risk.description"
+                class="notes dropdown-notes"
+              />
             </template>
           </RiskComponentDropdown>
         </v-expansion-panels>
@@ -81,6 +61,13 @@ export default {
       "ventilation",
       "masking"
     ],
+    riskTitles: {
+      crowding: "Crowding",
+      droplets: "Droplets",
+      exposureTime: "Exposure Time",
+      ventilation: "Ventilation",
+      masking: "Masking"
+    },
     riskLabels: {
       "1": "Low",
       "2": "Medium",
@@ -96,21 +83,28 @@ export default {
   }),
   computed: {
     ...mapGetters(["components"]),
+    riskProfile() {
+      return this.activity.riskProfiles.v1;
+    },
     activityRiskTypes() {
       // Only characteristics that this activity has
       return this.riskTypes.filter(
-        risk => !!this.activity.characteristics?.[risk]?.notes
+        risk => !!this.riskProfile.characteristics?.[risk]?.description
       );
     },
     riskData() {
       return this.activityRiskTypes.map(risk => {
-        const riskText = this.activity.characteristics[risk].score;
+        const riskScore = this.riskLabels[
+          this.riskProfile.characteristics[risk].riskScore
+        ];
         return {
           type: risk,
-          riskClass: `risk${riskText}`,
-          riskLabel: `${riskText} Risk`,
-          notes: this.activity.characteristics[risk].notes,
-          title: this.components[risk].title
+          riskClass: `risk${riskScore}`,
+          riskLabel: `${this.riskTitles[risk]} - ${riskScore} Risk`,
+          riskScore: this.riskProfile.characteristics[risk].riskScore,
+          description: this.riskProfile.characteristics[risk].description[
+            this.$i18n.locale
+          ]
         };
       });
     }

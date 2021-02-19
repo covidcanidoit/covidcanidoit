@@ -24,6 +24,11 @@
       ".read": true
     },
 
+    // Anyone may read datasets
+    "datasets": {
+      ".read": true
+    },
+
     // Anyone may add suggestions
     "suggestions":  {
       ".read": true,

@@ -20,15 +20,16 @@ cat activities.json \
       .[]
       | {
           slug: (.slug | ascii_downcase),
-          name,
-          searchName,
-          keywords: (
+          name: { en: .name },
+          searchName: { en: .searchName },
+          keywords: {
+            en: (
             .keywords
             | split(",")
             | map(gsub("^\\s+"; ""))
             | map(gsub("\\s+$"; ""))
             | map(select(length > 0))
-          ),
+          )},
           isInside: (.isInside | test("Yes")),
           ratingLogEntries: [
             {
@@ -42,23 +43,23 @@ cat activities.json \
               status: "published",
               characteristics: {
                 crowding: {
-                  description: .crowdingContext,
+                  description: { en: .crowdingContext },
                   riskScore: (.crowdingScore | tonumber)
                 },
                 droplets: {
-                  description: .dropletContext,
+                  description: { en: .dropletContext },
                   riskScore: (.dropletScore | tonumber)
                 },
                 masking: {
-                  description: .maskContext,
+                  description: { en: .maskContext },
                   riskScore: (.maskScore | tonumber)
                 },
                 exposureTime: {
-                  description: .timeContext,
+                  description: { en: .timeContext },
                   riskScore: (.timeScore | tonumber)
                 },
                 ventilation: {
-                  description: .ventilationContext,
+                  description: { en: .ventilationContext },
                   riskScore: (.ventilationScore | tonumber)
                 }
               }
@@ -89,4 +90,18 @@ cat county-regions.json \
   ' > county-regions_clean.json
 
 # Merge them all together!
-jq -s '{ activities: .[0], riskLevels: .[1], riskFactors: .[2], categories: .[2], regions: .[3] }' activities_clean.json us_risk_levels.json us_risk_factors.json us_categories.json county-regions_clean.json > us_dataset.json
+jq -s '
+  {
+    activities: .[0],
+    riskLevels: .[1],
+    riskFactors: .[2],
+    categories: .[3],
+    regions: .[4]
+  }' \
+    activities_clean.json \
+    us_risk_levels.json \
+    us_risk_factors.json \
+    us_categories.json \
+    county-regions_clean.json \
+    > us_dataset.json
+

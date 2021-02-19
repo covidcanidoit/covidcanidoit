@@ -13,7 +13,7 @@
             class="router"
             :to="{
               name: 'Home',
-              params: { country: currentCountry, region: currentRegion }
+              params: { dataset: currentDataset, region: currentRegion }
             }"
           >
             <v-icon>mdi-magnify</v-icon>
@@ -37,19 +37,19 @@
           </v-menu>
           <v-menu>
             <template v-slot:activator="{ on }">
-              <v-btn text v-on="on" aria-label="Select country">
-                <img :src="`${publicPath}images/flag/${currentCountry}.png`" />
-                {{ currentCountry }}
+              <v-btn text v-on="on" aria-label="Select dataset">
+                <img :src="`${publicPath}images/flag/${currentDataset}.png`" />
+                {{ currentDataset }}
               </v-btn>
             </template>
             <v-list>
               <v-list-item
-                v-for="country in countrySlugs"
-                :key="country"
-                @click="setCurrentCountry(country)"
+                v-for="dataset in datasetSlugs"
+                :key="dataset"
+                @click="setCurrentDataset(dataset)"
               >
-                <img :src="`${publicPath}images/flag/${country}.png`" />
-                {{ country }}
+                <img :src="`${publicPath}images/flag/${dataset}.png`" />
+                {{ dataset }}
               </v-list-item>
             </v-list>
           </v-menu>
@@ -76,7 +76,7 @@
               class="router"
               :to="{
                 name: 'Home',
-                params: { country: currentCountry, region: currentRegion }
+                params: { dataset: currentDataset, region: currentRegion }
               }"
             >
               {{ $t("home") }}
@@ -87,7 +87,7 @@
               class="router"
               :to="{
                 name: 'Browse',
-                params: { country: currentCountry, region: currentRegion }
+                params: { dataset: currentDataset, region: currentRegion }
               }"
             >
               {{ $t("activities") }}
@@ -101,7 +101,7 @@
               class="router"
               :to="{
                 name: 'About',
-                params: { country: currentCountry, region: currentRegion }
+                params: { dataset: currentDataset, region: currentRegion }
               }"
             >
               {{ $t("about") }}
@@ -117,7 +117,7 @@
           class="router mx-3"
           :to="{
             name: 'Home',
-            params: { country: currentCountry, region: currentRegion }
+            params: { dataset: currentDataset, region: currentRegion }
           }"
         >
           <SmallLogo style="height: 2em; width: auto" />
@@ -133,7 +133,7 @@
           class="router mx-3"
           :to="{
             name: 'Home',
-            params: { country: currentCountry, region: currentRegion }
+            params: { dataset: currentDataset, region: currentRegion }
           }"
         >
           {{ $t("home") }}
@@ -143,7 +143,7 @@
           :class="{ 'router-link-exact-active': isActivitiesLinkActive }"
           :to="{
             name: 'Browse',
-            params: { country: currentCountry, region: currentRegion }
+            params: { dataset: currentDataset, region: currentRegion }
           }"
         >
           {{ $t("activities") }}
@@ -153,7 +153,7 @@
           class="router mx-3"
           :to="{
             name: 'About',
-            params: { country: currentCountry, region: currentRegion }
+            params: { dataset: currentDataset, region: currentRegion }
           }"
         >
           {{ $t("about") }}
@@ -163,26 +163,26 @@
           exact-active-class="disable"
           :to="{
             name: 'Home',
-            params: { country: currentCountry, region: currentRegion }
+            params: { dataset: currentDataset, region: currentRegion }
           }"
         >
           <v-icon>mdi-magnify</v-icon>
         </router-link>
         <v-menu>
           <template v-slot:activator="{ on }">
-            <v-btn text v-on="on" aria-label="Select country">
-              <img :src="`${publicPath}images/flag/${currentCountry}.png`" />
-              {{ currentCountry }}
+            <v-btn text v-on="on" aria-label="Select dataset">
+              <img :src="`${publicPath}images/flag/${currentDataset}.png`" />
+              {{ currentDataset }}
             </v-btn>
           </template>
           <v-list>
             <v-list-item
-              v-for="country in countrySlugs"
-              :key="country"
-              @click="setCurrentCountry(country)"
+              v-for="dataset in datasetSlugs"
+              :key="dataset"
+              @click="setCurrentDataset(dataset)"
             >
-              <img :src="`${publicPath}images/flag/${country}.png`" />
-              {{ country }}
+              <img :src="`${publicPath}images/flag/${dataset}.png`" />
+              {{ dataset }}
             </v-list-item>
           </v-list>
         </v-menu>
@@ -252,9 +252,9 @@ export default {
   },
   computed: {
     ...mapGetters([
-      "countrySlugs",
+      "datasetSlugs",
       "activitySuggestions",
-      "currentCountry",
+      "currentDataset",
       "currentRegion",
       "regionSlugs",
       "regions",
@@ -284,17 +284,17 @@ export default {
     setLocale(locale) {
       this.$i18n.locale = locale;
     },
-    setCurrentCountry(country) {
-      this.$store.dispatch("changeCountry", country);
+    setCurrentDataset(dataset) {
+      this.$store.dispatch("changeDataset", dataset);
     },
     setCurrentRegion(regionSlug) {
       this.$store.dispatch("changeRegion", regionSlug);
     }
   },
   watch: {
-    currentCountry() {
+    currentDataset() {
       this.$router
-        .replace({ params: { country: this.currentCountry } })
+        .replace({ params: { dataset: this.currentDataset } })
         .catch(() => {});
     },
     $route: function() {

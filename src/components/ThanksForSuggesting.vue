@@ -13,13 +13,13 @@ import { mapGetters } from "vuex";
 export default {
   props: ["suggested"],
   computed: {
-    ...mapGetters(["currentCountry", "suggestions"])
+    ...mapGetters(["currentDataset", "suggestions"])
   },
   methods: {
     save() {
       //let count = 0;
       db.ref("suggestions")
-        .child(this.currentCountry)
+        .child(this.currentDataset)
         .child("activitySuggestions")
         .child(this.suggested)
         .child("count")
@@ -31,7 +31,7 @@ export default {
       let count = snapshot.val();
 
       db.ref("suggestions")
-        .child(this.currentCountry)
+        .child(this.currentDataset)
         .child("activitySuggestions")
         .child(this.suggested)
         .child("count")

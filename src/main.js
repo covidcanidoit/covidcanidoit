@@ -45,7 +45,7 @@ Vue.use(
 function loadFirebaseContent() {
   return Promise.all([
     store.dispatch("bindSuggestions"),
-    store.dispatch("bindContent")
+    store.dispatch("bindDatasets")
   ]);
 }
 

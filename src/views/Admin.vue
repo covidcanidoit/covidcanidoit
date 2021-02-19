@@ -380,13 +380,13 @@ export default {
     });
   },
   computed: {
-    ...mapState(["content", "users", "userSettings", "currentUserUid"]),
+    ...mapState(["datasets", "users", "userSettings", "currentUserUid"]),
     ...mapGetters([
       "activities",
       "riskLevels",
       "riskFactors",
       "categories",
-      "currentCountry",
+      "currentDataset",
       "activitySuggestions",
       "regions",
       "banner"

@@ -1,6 +1,6 @@
 <template>
   <div class="home d-flex flex-column">
-    <HomeBanner v-if="currentCountry === 'US'" />
+    <HomeBanner v-if="currentDataset === 'us'" />
     <div class="hero">
       <router-link class="router" :to="{ name: 'Home' }">
         <Logo class="logo" />
@@ -45,7 +45,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["activities", "currentCountry"]),
+    ...mapGetters(["activities", "currentDataset"]),
     activityNamesList() {
       return this.activityList.map(activity => activity.name);
     },
@@ -57,7 +57,7 @@ export default {
   },
   created() {
     if (this.slug) {
-      this.onSearch(this.activities[this.slug].name);
+      this.onSearch(this.activities[this.slug].name[this.$i18n.locale]);
     }
   },
   methods: {
@@ -73,7 +73,10 @@ export default {
       for (let i = 0; i < this.activityList.length; i++) {
         const activity = this.activityList[i];
         if (!activity["name"]) continue;
-        if (activity["name"].toLowerCase() == searchValue.toLowerCase()) {
+        if (
+          activity["name"][this.$i18n.locale].toLowerCase() ==
+          searchValue.toLowerCase()
+        ) {
           this.result = activity;
           if (this.$route.params.slug != activity.slug) {
             this.$router.push({

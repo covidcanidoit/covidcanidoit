@@ -199,8 +199,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(["content"]),
-    ...mapGetters(["activities", "currentCountry", "currentUserUid", "users"]),
+    ...mapState(["datasets"]),
+    ...mapGetters(["activities", "currentDataset", "currentUserUid", "users"]),
     activityList() {
       return Object.values(this.activities);
     }
@@ -216,7 +216,8 @@ export default {
     newActivityOk() {
       let currentKey = Object.keys(this.activities).find(
         key =>
-          this.activities[key].name.toLowerCase() === this.newName.toLowerCase()
+          this.activities[key].name[this.$i18n.locale].toLowerCase() ===
+          this.newName.toLowerCase()
       );
       console.log("New Activity?", currentKey);
       if (currentKey) {
@@ -232,8 +233,8 @@ export default {
       }
     },
     setActivityNode(activitySlug, nodeName, nodeValue) {
-      db.ref("content")
-        .child(this.currentCountry)
+      db.ref("datasets")
+        .child(this.currentDataset)
         .child("activities")
         .child(activitySlug)
         .child(nodeName)
@@ -274,16 +275,16 @@ export default {
     },
     toggleActivityIsDisabled(activitySlug, state) {
       state = !state;
-      db.ref("content")
-        .child(this.currentCountry)
+      db.ref("datasets")
+        .child(this.currentDataset)
         .child("activities")
         .child(activitySlug)
         .child("disabled")
         .set(state);
     },
     deleteActivity() {
-      db.ref("content")
-        .child(this.currentCountry)
+      db.ref("datasets")
+        .child(this.currentDataset)
         .child("activities")
         .child(this.activitySlugToDelete)
         .remove();
@@ -322,15 +323,15 @@ export default {
 
       // set verifiedOn
       console.log("verified by ", this.currentUserUid);
-      db.ref("content")
-        .child(this.currentCountry)
+      db.ref("datasets")
+        .child(this.currentDataset)
         .child("activities")
         .child(activitySlug)
         .child("lastVerifiedOn")
         .set(Date.parse(now.toUTCString()));
       // set verifiedBy
-      db.ref("content")
-        .child(this.currentCountry)
+      db.ref("datasets")
+        .child(this.currentDataset)
         .child("activities")
         .child(activitySlug)
         .child("lastVerifiedBy")

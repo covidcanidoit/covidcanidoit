@@ -1,20 +1,25 @@
 <template>
-  <v-select
-    outlined
-    return-object
-    item-text="longName"
-    :items="regionsList"
-    @change="setCurrentRegion"
-    :class="regionSelectClass"
-    :value="selectedRegion"
-    v-if="regionsList.length > 1"
-    placeholder="Select a region/state"
-  ></v-select>
+  <div>
+    <VueSelect
+      :options="regionsList"
+      :getOptionLabel="itemText"
+      class="selectRegion"
+      :value="selectedRegion"
+      @input="setCurrentRegion"
+      placeholder="Select a region/state"
+    />
+  </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import VueSelect from "vue-select";
+import Fuse from "fuse.js";
+
 export default {
+  components: {
+    VueSelect
+  },
   props: {
     parent: String
   },
@@ -23,14 +28,8 @@ export default {
     regionsList() {
       return Object.values(this.regions)
         .filter(region => region.slug != "all")
-        .sort((a, b) => (a.longName > b.longName ? 1 : -1));
-    },
-    regionSelectClass() {
-      if (this.$vuetify.breakpoint.mdAndUp && this.parent === "SearchResults") {
-        return "selectRegion regionSelectOnMediumAndUp";
-      } else {
-        return "selectRegion regionSelectOnSmaller";
-      }
+        .filter(region => region.population_2019)
+        .sort((a, b) => (a.state > b.state ? 1 : -1));
     },
     selectedRegion() {
       return this.regions[this.currentRegion];
@@ -39,6 +38,18 @@ export default {
   methods: {
     async setCurrentRegion(newRegion) {
       await this.$store.dispatch("changeRegion", newRegion.slug);
+    },
+    itemText(item) {
+      return `${item.state} - ${item.county}`;
+    },
+    fuseSearch(options, search) {
+      const fuse = new Fuse(options, {
+        keys: ["state", "county"],
+        ignoreLocation: true
+      });
+      return search.length
+        ? fuse.search(search).map(({ item }) => item)
+        : fuse.list;
     }
   }
 };
@@ -46,15 +57,17 @@ export default {
 
 <style lang="scss" scoped>
 .selectRegion {
-  width: 30%;
-  min-width: 10%;
-  margin: 0 auto;
-  margin-top: 2em;
-}
-.regionSelectOnSmaller {
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid $color-medgrey;
+  border-radius: 4px;
   width: 100%;
-}
-.regionSelectOnMediumAndUp {
-  width: 30%;
+  min-width: 10%;
+  display: inline-block;
+  background-color: white;
+
+  &.vs--open {
+    border-radius: 30px 30px 0px 0px !important;
+  }
 }
 </style>

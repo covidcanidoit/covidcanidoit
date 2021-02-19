@@ -7,7 +7,7 @@ userSettings: {}, // logged-in user settings
 users: {} // list of known users
 ```
 
-Each dataset has a "slug" which is also the top-level region name -- "US", "UK", etc.
+Each dataset has a "slug" which is also the top-level region name -- "us", "uk", etc.
 ```
 dataset: {
   <slug1>: {},
@@ -18,7 +18,7 @@ dataset: {
 Below 
 ```
 dataset: {
-  US: {
+  us: {
     activities: {}, // Individual activity data
     riskComponents: {}, // Info on risk components for this dataset
     riskFactors: {}, // Additional factors, information sharing
@@ -31,6 +31,7 @@ dataset: {
 Here is an expanded single activity:
 ```
 "walking-with-friend": {
+  // Idntifying information
   slug: "walking-with-friend",
   name: "Walking with a friend",
   searchName: "Walk with a friend",

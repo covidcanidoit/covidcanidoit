@@ -31,15 +31,15 @@ import { mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters(["banner", "currentCountry"]),
+    ...mapGetters(["banner", "currentDataset"]),
     bannerContent() {
       return this.banner[this.text];
     }
   },
   methods: {
     saveField(name, event) {
-      db.ref("content")
-        .child(this.currentCountry)
+      db.ref("datasets")
+        .child(this.currentDataset)
         .child("banner")
         .child(name)
         .set(event.target.value);

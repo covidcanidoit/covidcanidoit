@@ -1,9 +1,9 @@
 <template>
   <div>
     <VueSelect
-      label="name"
       :options="filteredActivities"
       :getOptionKey="option => option.slug"
+      :getOptionLabel="option => option.name[$i18n.locale]"
       class="searchbar"
       v-model="activity"
       v-on:input="onSearch"
@@ -91,7 +91,7 @@ export default {
     },
     saveSuggestion() {
       db.ref("suggestions")
-        .child(this.currentCountry)
+        .child(this.currentDataset)
         .child("activitySuggestions")
         .child(this.suggested)
         .child("count")
@@ -103,7 +103,7 @@ export default {
       let count = snapshot.val();
 
       db.ref("suggestions")
-        .child(this.currentCountry)
+        .child(this.currentDataset)
         .child("activitySuggestions")
         .child(this.suggested)
         .child("count")
@@ -112,15 +112,20 @@ export default {
     },
     fuseSearch(options, search) {
       const fuse = new Fuse(options, {
-        keys: ["name", "searchName", "keywords"]
+        keys: [{ name: "name.en", weight: 10 }, "searchName.en", "keywords.en"],
+        // includeScore: true,
+        // includeMatches: true,
+        ignoreLocation: true,
+        useExtendedSearch: true
       });
+      // console.log("result:", fuse.search(search));
       return search.length
         ? fuse.search(search).map(({ item }) => item)
         : fuse.list;
     }
   },
   computed: {
-    ...mapGetters(["currentCountry", "activities"]),
+    ...mapGetters(["currentDataset", "activities"]),
     filteredActivities() {
       return Object.values(this.activities).filter(
         value => value.disabled !== true

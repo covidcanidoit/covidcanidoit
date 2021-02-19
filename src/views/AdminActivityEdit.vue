@@ -325,7 +325,7 @@ export default {
   computed: {
     ...mapGetters([
       "activities",
-      "currentCountry",
+      "currentDataset",
       "categories",
       "currentUserSettings",
       "currentUserUid",
@@ -362,8 +362,8 @@ export default {
   },
   methods: {
     saveField(name, event) {
-      db.ref("content")
-        .child(this.currentCountry)
+      db.ref("datasets")
+        .child(this.currentDataset)
         .child("activities")
         .child(this.currentKey)
         .child(name)
@@ -372,8 +372,8 @@ export default {
     },
     saveValue(name, value) {
       console.log("saveValue value: ", value);
-      db.ref("content")
-        .child(this.currentCountry)
+      db.ref("datasets")
+        .child(this.currentDataset)
         .child("activities")
         .child(this.currentKey)
         .child(name)
@@ -382,14 +382,14 @@ export default {
     },
     updateTimestamp() {
       var now = new Date();
-      db.ref("content")
-        .child(this.currentCountry)
+      db.ref("datasets")
+        .child(this.currentDataset)
         .child("activities")
         .child(this.currentKey)
         .child("lastEditedBy")
         .set(this.currentUserUid);
-      db.ref("content")
-        .child(this.currentCountry)
+      db.ref("datasets")
+        .child(this.currentDataset)
         .child("activities")
         .child(this.currentKey)
         .child("lastEditedOn")

@@ -23,7 +23,7 @@ export default {
     type: String,
     riskClass: String,
     riskLabel: String,
-    notes: String,
+    description: String,
     title: String
   }
 };

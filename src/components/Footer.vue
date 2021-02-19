@@ -13,7 +13,7 @@
           class="router"
           :to="{
             name: 'Home',
-            params: { country: currentCountry, region: currentRegion }
+            params: { dataset: currentDataset, region: currentRegion }
           }"
         >
           Home
@@ -22,7 +22,7 @@
           class="router"
           :to="{
             name: 'About',
-            params: { country: currentCountry, region: currentRegion }
+            params: { dataset: currentDataset, region: currentRegion }
           }"
         >
           About
@@ -31,7 +31,7 @@
           class="router"
           :to="{
             name: 'Browse',
-            params: { country: currentCountry, region: currentRegion }
+            params: { dataset: currentDataset, region: currentRegion }
           }"
         >
           Activities
@@ -65,7 +65,7 @@ export default {
     Logo
   },
   computed: {
-    ...mapGetters(["currentCountry", "currentRegion"])
+    ...mapGetters(["currentDataset", "currentRegion"])
   }
 };
 </script>

@@ -2,18 +2,24 @@
   "activities": {
     "attend-music-lessons": {
       "slug": "attend-music-lessons",
-      "name": "Attend music lessons",
-      "searchName": "Attend music lessons",
-      "keywords": [
-        "instrument",
-        "guitar",
-        "drums",
-        "piano"
-      ],
+      "name": {
+        "en": "Attend music lessons"
+      },
+      "searchName": {
+        "en": "Attend music lessons"
+      },
+      "keywords": {
+        "en": [
+          "instrument",
+          "guitar",
+          "drums",
+          "piano"
+        ]
+      },
       "isInside": true,
       "ratingLogEntries": [
         {
-          "loggedAt": "2021-02-01T01:37:03Z",
+          "loggedAt": "2021-02-15T21:45:25Z",
           "loggedBy": "Importer",
           "message": "Imported from spreadsheet"
         }
