@@ -58,7 +58,10 @@ export default {
   },
   created() {
     if (this.slug) {
-      this.onSearch(this.activities[this.slug].name[this.$i18n.locale]);
+      this.onSearch(
+        this.activities[this.slug].name[this.$i18n.locale] ||
+          this.activities[this.slug].name["en"]
+      );
     }
   },
   mounted() {
@@ -82,8 +85,9 @@ export default {
         const activity = this.activityList[i];
         if (!activity["name"]) continue;
         if (
-          activity["name"][this.$i18n.locale].toLowerCase() ==
-          searchValue.toLowerCase()
+          (
+            activity["name"][this.$i18n.locale] || activity["name"]["en"]
+          ).toLowerCase() == searchValue.toLowerCase()
         ) {
           this.result = activity;
           if (this.$route.params.slug != activity.slug) {

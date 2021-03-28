@@ -102,9 +102,10 @@ export default {
           riskClass: `risk${riskScore}`,
           riskLabel: `${this.riskTitles[risk]} - ${riskScore} Risk`,
           riskScore: this.riskProfile.characteristics[risk].riskScore,
-          description: this.riskProfile.characteristics[risk].description[
-            this.$i18n.locale
-          ]
+          description:
+            this.riskProfile.characteristics[risk].description[
+              this.$i18n.locale
+            ] || this.riskProfile.characteristics[risk].description["en"]
         };
       });
     }

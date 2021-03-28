@@ -216,8 +216,10 @@ export default {
     newActivityOk() {
       let currentKey = Object.keys(this.activities).find(
         key =>
-          this.activities[key].name[this.$i18n.locale].toLowerCase() ===
-          this.newName.toLowerCase()
+          (
+            this.activities[key].name[this.$i18n.locale] ||
+            this.activities[key].name["en"]
+          ).toLowerCase() === this.newName.toLowerCase()
       );
       console.log("New Activity?", currentKey);
       if (currentKey) {

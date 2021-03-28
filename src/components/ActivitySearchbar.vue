@@ -3,7 +3,7 @@
     <VueSelect
       :options="filteredActivities"
       :getOptionKey="option => option.slug"
-      :getOptionLabel="option => option.name[$i18n.locale]"
+      :getOptionLabel="option => option.name[$i18n.locale] || option.name['en']"
       class="searchbar"
       v-model="activity"
       v-on:input="onSearch"

@@ -16,10 +16,10 @@
         >
           <button
             v-for="search in searches"
-            :key="search[$i18n.locale]"
-            @click="quickSearch(search[$i18n.locale])"
+            :key="search[$i18n.locale] || search['en']"
+            @click="quickSearch(search[$i18n.locale] || search['en'])"
           >
-            {{ search[$i18n.locale] }}
+            {{ search[$i18n.locale] || search["en"] }}
           </button>
         </v-col>
         <v-col md="2" v-if="getHoliday" class="seasonalEventImage4">
