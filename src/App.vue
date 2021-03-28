@@ -208,11 +208,16 @@
         </v-menu>
         <v-menu v-if="Object.keys(regions).length > 1">
           <template v-slot:activator="{ on }">
-            <v-btn text v-on="on" aria-label="Select region" @click="clearRegion">
+            <v-btn
+              text
+              v-on="on"
+              aria-label="Select region"
+              @click="clearRegion"
+            >
               {{ currentRegion }}
             </v-btn>
           </template>
-    
+
           <RegionSelector />
 
           <!--
@@ -226,7 +231,6 @@
             </v-list-item>
           </v-list>
           -->
-
         </v-menu>
       </div>
 
