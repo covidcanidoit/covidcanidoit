@@ -305,7 +305,7 @@ export default {
   }
 
   .searchbarContainerOnMediumAndUp {
-    width: 30%;
+    width: 50%;
     margin: 0 auto;
     margin-bottom: 1em;
   }
