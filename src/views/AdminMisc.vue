@@ -71,6 +71,24 @@ export default {
               confirmed: row[todayFormatted],
               confirmedPreviousDay: row[yesterdayFormatted]
             };
+
+            // Roll up state-level
+            if (!cleanedData[row.Province_State]) {
+              cleanedData[row.Province_State] = {
+                CSSEGISUID: row.Province_State,
+                FIPS: row.Province_State,
+                longName: row.Province_State,
+                confirmedOn: todayFormatted,
+                confirmed: 0,
+                confirmedPreviousDay: 0
+              };
+            }
+            cleanedData[row.Province_State].confirmed += parseInt(
+              row[todayFormatted]
+            );
+            cleanedData[row.Province_State].confirmedPreviousDay += parseInt(
+              row[yesterdayFormatted]
+            );
           });
 
           this.timeSeriesData = cleanedData;

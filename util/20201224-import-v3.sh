@@ -72,15 +72,9 @@ cat activities.json \
     | add
     ' > activities_clean.json
 
-# Seed the basic region info
-# cat regions_content.json \
-#   | jq '
-#     [
-#       .[]
-#       | map(del(.trending))
-#       | map({ (.slug): (. | del(.[""])) })[]
-#     ] | add
-#   ' > us_regions.json
+# Get region data from census and region dataset
+# Outputs county-regions.json
+node build-regions.mjs
 
 cat county-regions.json \
   | jq '
@@ -105,3 +99,4 @@ jq -s '
     county-regions_clean.json \
     > us_dataset.json
 
+# yarn firebase database:set /datasets/us util/us_dataset.json

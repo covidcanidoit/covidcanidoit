@@ -1,18 +1,6 @@
 <template>
   <div class="home">
-    <v-dialog persistent v-model="shouldForceRegionSelect">
-      <v-card class="modalRegionSelector">
-        <v-card-title class="headline">Select a region/state</v-card-title>
-        <v-card-text>
-          Different regions and states have different levels of disease control.
-          This impacts your risk.
-        </v-card-text>
-        <v-card-text>
-          <RegionSelector parent="modal" />
-          <v-btn>View Activity (show/activate after state seleciton)</v-btn>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
+    <RegionSelector :showWhen="shouldForceRegionSelect" />
 
     <div v-if="!shouldForceRegionSelect">
       <SearchResults

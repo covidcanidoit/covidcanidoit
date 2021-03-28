@@ -8,7 +8,9 @@
         <div class="componentTitle">{{ title }}</div>
         <div class="componentRiskLabel">
           {{ riskLabel }}
-          <v-switch :label="'Do not measure'" />
+          <!--
+            <v-switch :label="'Do not measure'" />
+          -->
         </div>
       </div>
     </v-expansion-panel-header>

@@ -35,7 +35,8 @@
               </v-list-item>
             </v-list>
           </v-menu>
-          <v-menu>
+          <!--
+            <v-menu>
             <template v-slot:activator="{ on }">
               <v-btn text v-on="on" aria-label="Select dataset">
                 <img :src="`${publicPath}images/flag/${currentDataset}.png`" />
@@ -53,6 +54,7 @@
               </v-list-item>
             </v-list>
           </v-menu>
+          -->
           <v-menu v-if="regionSlugs.length > 1">
             <template v-slot:activator="{ on }">
               <v-btn text v-on="on" aria-label="Select region">
@@ -168,6 +170,7 @@
         >
           <v-icon>mdi-magnify</v-icon>
         </router-link>
+        <!--
         <v-menu>
           <template v-slot:activator="{ on }">
             <v-btn text v-on="on" aria-label="Select dataset">
@@ -186,6 +189,7 @@
             </v-list-item>
           </v-list>
         </v-menu>
+        -->
         <v-menu>
           <template v-slot:activator="{ on }">
             <v-btn text v-on="on" aria-label="Select locale">
@@ -204,19 +208,25 @@
         </v-menu>
         <v-menu v-if="Object.keys(regions).length > 1">
           <template v-slot:activator="{ on }">
-            <v-btn text v-on="on" aria-label="Select region">
+            <v-btn text v-on="on" aria-label="Select region" @click="clearRegion">
               {{ currentRegion }}
             </v-btn>
           </template>
-          <v-list>
+    
+          <RegionSelector />
+
+          <!--
+            <v-list>
             <v-list-item
               v-for="region in Object.values(regions)"
               :key="region.slug"
               @click="setCurrentRegion(region.slug)"
             >
-              {{ region.longName }}
+              {{ region.slug }}
             </v-list-item>
           </v-list>
+          -->
+
         </v-menu>
       </div>
 
@@ -235,14 +245,16 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import Footer from "@/components/Footer.vue";
 import SmallLogo from "@/assets/ccidi-logo-small.svg";
+import RegionSelector from "@/components/RegionSelector.vue";
 
 export default {
   components: {
     SmallLogo,
-    Footer
+    Footer,
+    RegionSelector
   },
   data() {
     return {
@@ -278,9 +290,19 @@ export default {
     },
     localeList() {
       return ["en", "es"];
+    },
+    shouldForceRegionSelect() {
+      if (this.$store.state.regionlock.lock === true) {
+        return false;
+      } else {
+        return (
+          Object.keys(this.regions).length > 1 && this.currentRegion === "all"
+        );
+      }
     }
   },
   methods: {
+    ...mapActions(["setRegion"]),
     setLocale(locale) {
       this.$i18n.locale = locale;
     },
@@ -289,6 +311,9 @@ export default {
     },
     setCurrentRegion(regionSlug) {
       this.$store.dispatch("changeRegion", regionSlug);
+    },
+    clearRegion() {
+      this.setRegion("all");
     }
   },
   watch: {

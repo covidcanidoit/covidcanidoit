@@ -135,7 +135,10 @@ export default {
       const newCasesToday =
         this.selectedRegion.confirmed -
         this.selectedRegion.confirmedPreviousDay;
-      const daysSinceBeginning = 372;
+      // const daysSinceBeginning = 372;
+      const startDate = new Date("2020-02-12");
+      const endDate = new Date();
+      const daysSinceBeginning = (endDate - startDate) / (1000 * 60 * 60 * 24);
       const positivityRate = 0.067; // From Jay
       //const prevalenceRatio = (1500 / (daysSinceBeginning + 50)) * ( positivityRate ** 0.5) + 2;
       const prevalenceRatio =
