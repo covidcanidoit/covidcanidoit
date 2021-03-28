@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <v-dialog persistent fullscreen v-model="shouldForceRegionSelect">
+    <v-dialog persistent v-model="shouldForceRegionSelect">
       <v-card class="modalRegionSelector">
         <v-card-title class="headline">Select a region/state</v-card-title>
         <v-card-text>
@@ -9,6 +9,7 @@
         </v-card-text>
         <v-card-text>
           <RegionSelector parent="modal" />
+          <v-btn>View Activity (show/activate after state seleciton)</v-btn>
         </v-card-text>
       </v-card>
     </v-dialog>

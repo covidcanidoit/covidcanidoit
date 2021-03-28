@@ -1,13 +1,25 @@
 <template>
   <div>
-    <VueSelect
-      :options="regionsList"
-      :getOptionLabel="itemText"
-      class="selectRegion"
-      :value="selectedRegion"
-      @input="setCurrentRegion"
-      placeholder="Select a region/state"
-    />
+    <v-col>
+      <v-row justify="center">
+        <VueSelect
+          :options="regionsListState"
+          :getOptionLabel="itemTextState"
+          class="selectRegion"
+          :value="selectedRegion"
+          @input="setCurrentRegion"
+          placeholder="Select a region/state"
+        />*
+        <VueSelect
+          :options="regionsListCounty"
+          :getOptionLabel="itemTextCounty"
+          class="selectRegion"
+          :value="selectedRegion"
+          @input="setCurrentRegion"
+          placeholder="Select a region/state"
+        />
+      </v-row>
+    </v-col>
   </div>
 </template>
 
@@ -31,6 +43,21 @@ export default {
         .filter(region => region.population_2019)
         .sort((a, b) => (a.state > b.state ? 1 : -1));
     },
+    regionsListState() {
+      return this
+        .regionsList
+        .filter(
+          (region, i, a) =>
+            a.findIndex(r => r.state == region.state) == i
+        );
+    },
+    regionsListCounty() {
+      return this
+        .regionsList
+        .filter(region =>
+          region.state == this.selectedRegion.state
+        );
+    },
     selectedRegion() {
       return this.regions[this.currentRegion];
     }
@@ -41,6 +68,12 @@ export default {
     },
     itemText(item) {
       return `${item.state} - ${item.county}`;
+    },
+    itemTextCounty(item) {
+      return `${item.county}`;
+    },
+    itemTextState(item) {
+      return `${item.state}`;
     },
     fuseSearch(options, search) {
       const fuse = new Fuse(options, {
@@ -61,7 +94,7 @@ export default {
   margin: 5px;
   border: 1px solid $color-medgrey;
   border-radius: 4px;
-  width: 100%;
+  /* width: 100%; */
   min-width: 10%;
   display: inline-block;
   background-color: white;

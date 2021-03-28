@@ -298,11 +298,13 @@ export default {
 
   .searchbarContainerOnSmaller {
     width: 100%;
+    margin-bottom: 1em;
   }
 
   .searchbarContainerOnMediumAndUp {
     width: 30%;
     margin: 0 auto;
+    margin-bottom: 1em;
   }
   .riskDeclare {
     font-size: 2em;
