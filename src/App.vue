@@ -94,6 +94,11 @@
             </router-link>
           </v-list-item>
           <v-list-item link>
+            <a href="//blog.covidcanidoit.com/vaccine-information/">
+              {{ $t("blog-vaccine") }}
+            </a>
+          </v-list-item>
+          <v-list-item link>
             <a href="//blog.covidcanidoit.com/">{{ $t("blog") }}</a>
           </v-list-item>
           <v-list-item link>
