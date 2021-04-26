@@ -153,6 +153,9 @@
         >
           {{ $t("activities") }}
         </router-link>
+        <a href="//blog.covidcanidoit.com/vaccine-information/">
+          {{ $t("blog-vaccine") }}
+        </a>
         <a href="//blog.covidcanidoit.com/">{{ $t("blog") }}</a>
         <router-link
           class="router mx-3"
