@@ -167,7 +167,7 @@
                 The COVID Can I Do It? Team has deployed the tool in the U.S.,
                 Uganda, and the Philippines, with plans to expand to other
                 countries and regions. If you are interested in bringing the
-                tool to your city or country, contact us at
+                tool to your city or dataset, contact us at
                 info@covidcanidoit.com.
               </p>
             </div>
@@ -245,7 +245,7 @@
                 the tool for their local community. We are also looking for help
                 with expert guidance and review, expansion of user awareness and
                 access, and support for grants management. If you’re interested
-                in joining as an advisor, partner or country team, please reach
+                in joining as an advisor, partner or dataset team, please reach
                 out to info@covidcanidoit.com.
               </p>
             </div>

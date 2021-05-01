@@ -19,10 +19,10 @@ function bindFirebase(key) {
 export default new Vuex.Store({
   state: {
     submitted: false,
-    content: {},
+    datasets: {},
     users: {},
     userSettings: {},
-    currentCountry: "US",
+    currentDataset: "us",
     currentUserUid: undefined,
 
     // Phase2
@@ -42,8 +42,8 @@ export default new Vuex.Store({
     setCurrentUserUid(state, currentUserUid) {
       state.currentUserUid = currentUserUid;
     },
-    setCurrentCountry(state, currentCountry) {
-      state.currentCountry = currentCountry;
+    setCurrentDataset(state, currentDataset) {
+      state.currentDataset = currentDataset;
     },
     setCurrentRegion(state, currentRegion) {
       state.currentRegion = currentRegion;
@@ -56,34 +56,34 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    currentCountry(state) {
-      return state.currentCountry;
+    currentDataset(state) {
+      return state.currentDataset;
     },
-    currentContent(state, getters) {
-      return state.content[getters.currentCountry] || {};
+    currentDatasets(state, getters) {
+      return state.datasets[getters.currentDataset] || {};
     },
     currentRegion(state) {
       return state.currentRegion;
     },
 
     activities(_state, getters) {
-      return getters.currentContent.activities || {};
+      return getters.currentDatasets.activities || {};
     },
     categories(_state, getters) {
-      return getters.currentContent.categories || {};
+      return getters.currentDatasets.categories || {};
     },
     components(_state, getters) {
-      return getters.currentContent.components || {};
+      return getters.currentDatasets.components || {};
     },
     riskLevels(_state, getters) {
-      return getters.currentContent.riskLevels || {};
+      return getters.currentDatasets.riskLevels || {};
     },
     riskFactors(_state, getters) {
-      return getters.currentContent.riskFactors || {};
+      return getters.currentDatasets.riskFactors || {};
     },
     regions(_state, getters) {
       return (
-        getters.currentContent.regions || {
+        getters.currentDatasets.regions || {
           all: {
             slug: "all",
             shortName: "all",
@@ -94,8 +94,8 @@ export default new Vuex.Store({
       );
     },
 
-    countrySlugs(state) {
-      return Object.keys(state.content || {});
+    datasetSlugs(state) {
+      return Object.keys(state.datasets || {});
     },
     regionSlugs(_state, getters) {
       return Object.keys(getters.regions) || [];
@@ -119,17 +119,17 @@ export default new Vuex.Store({
       }
     },
     activitySuggestions(state, getters) {
-      if (!getters.currentCountry) {
+      if (!getters.currentDataset) {
         return {};
       }
-      if (state.suggestions && state.suggestions[getters.currentCountry]) {
-        return state.suggestions[getters.currentCountry].activitySuggestions;
+      if (state.suggestions && state.suggestions[getters.currentDataset]) {
+        return state.suggestions[getters.currentDataset].activitySuggestions;
       } else {
         return {};
       }
     },
     banner(_state, getters) {
-      return getters.currentContent.banner || {};
+      return getters.currentDatasets.banner || {};
     },
     navigation(state) {
       return state.navigation;
@@ -140,7 +140,7 @@ export default new Vuex.Store({
   },
   actions: {
     // Bind via websocket for firebase content & updates
-    bindContent: bindFirebase("content"),
+    bindDatasets: bindFirebase("datasets"),
     bindUsers: bindFirebase("users"),
     bindUserSettings: bindFirebase("userSettings"),
     bindSuggestions: bindFirebase("suggestions"),
@@ -149,16 +149,23 @@ export default new Vuex.Store({
     // ----------------------
     updateRegion: firebaseAction(({ state }, region) => {
       return db
-        .ref("content")
-        .child(state.currentCountry)
+        .ref("datasets")
+        .child(state.currentDataset)
         .child("regions")
         .child(region.slug)
         .set(region);
     }),
+    updateAllRegions: firebaseAction(({ state }, regions) => {
+      return db
+        .ref("datasets")
+        .child(state.currentDataset)
+        .child("regions")
+        .set(regions);
+    }),
     deleteRegion: firebaseAction(({ state }, region) => {
       return db
-        .ref("content")
-        .child(state.currentCountry)
+        .ref("datasets")
+        .child(state.currentDataset)
         .child("regions")
         .child(region.slug)
         .remove();
@@ -166,25 +173,25 @@ export default new Vuex.Store({
 
     // Other app actions
     // -----------------
-    async setCountry({ commit, getters }, newCountry) {
-      if (getters.countrySlugs.includes(newCountry)) {
-        commit("setCurrentCountry", newCountry);
+    async setDataset({ commit, getters }, newDataset) {
+      if (getters.datasetSlugs.includes(newDataset)) {
+        commit("setCurrentDataset", newDataset);
       } else {
-        commit("setCurrentCountry", "US");
+        commit("setCurrentDataset", "us");
       }
     },
-    async changeCountry({ commit, getters }, newCountry) {
-      let oldCountry = getters.currentCountry;
-      if (getters.countrySlugs.includes(newCountry)) {
-        commit("setCurrentCountry", newCountry);
+    async changeDataset({ commit, getters }, newDataset) {
+      let oldDataset = getters.currentDataset;
+      if (getters.datasetSlugs.includes(newDataset)) {
+        commit("setCurrentDataset", newDataset);
       } else {
-        commit("setCurrentCountry", "US");
+        commit("setCurrentDataset", "us");
       }
 
-      // When the country changes, force the change into the URL
-      if (oldCountry != newCountry) {
+      // When the dataset changes, force the change into the URL
+      if (oldDataset != newDataset) {
         let newRoute = Object.assign({}, router.currentRoute);
-        newRoute.params.country = getters.currentCountry;
+        newRoute.params.dataset = getters.currentDataset;
         newRoute.params.region = "all"; // back to default
         commit("setCurrentRegion", "all");
         await router.push(newRoute);

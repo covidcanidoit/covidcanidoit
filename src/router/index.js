@@ -15,6 +15,7 @@ import AdminUserEdit from "@/views/AdminUserEdit.vue";
 import AdminBannerEdit from "@/views/AdminBannerEdit.vue";
 import SearchResults from "@/views/SearchResults.vue";
 import Infographic from "@/views/Infographic.vue";
+import AdminMisc from "@/views/AdminMisc.vue";
 
 Vue.use(VueRouter);
 
@@ -25,7 +26,7 @@ const routes = [
 
     beforeEnter(to, from, next) {
       return next(
-        store.getters.currentCountry + "/" + store.getters.currentRegion
+        store.getters.currentDataset + "/" + store.getters.currentRegion
       );
     }
   },
@@ -33,6 +34,12 @@ const routes = [
     path: "/admin",
     name: "Admin",
     component: Admin,
+    props: true
+  },
+  {
+    path: "/admin/misc",
+    name: "AdminMisc",
+    component: AdminMisc,
     props: true
   },
   {
@@ -83,29 +90,29 @@ const routes = [
     component: Infographic
   },
   {
-    path: "/:country",
+    path: "/:dataset",
     async beforeEnter(to, from, next) {
-      const country = to.params.country;
-      await store.dispatch("setCountry", country);
+      const dataset = to.params.dataset;
+      await store.dispatch("setDataset", dataset);
       return next(
-        store.getters.currentCountry + "/" + store.getters.currentRegion
+        store.getters.currentDataset + "/" + store.getters.currentRegion
       );
     }
   },
   {
-    path: "/:country/:region",
+    path: "/:dataset/:region",
     component: AppBody,
     async beforeEnter(to, from, next) {
-      const country = to.params.country;
+      const dataset = to.params.dataset;
       const region = to.params.region;
-      await store.dispatch("setCountry", country);
+      await store.dispatch("setDataset", dataset);
       await store.dispatch("setRegion", region);
       if (
-        country !== store.getters.currentCountry ||
+        dataset !== store.getters.currentDataset ||
         region !== store.getters.currentRegion
       ) {
         return next(
-          store.getters.currentCountry + "/" + store.getters.currentRegion
+          store.getters.currentDataset + "/" + store.getters.currentRegion
         );
       } else {
         return next();

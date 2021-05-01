@@ -22,14 +22,11 @@
 </template>
 
 <script>
-import Fuse from "fuse.js";
-//import VueSelect from "vue-select";
 import ActivitySearchbar from "@/components/ActivitySearchbar.vue";
 import VueScrollTo from "vue-scrollto";
 
 export default {
   components: {
-    //VueSelect
     ActivitySearchbar
   },
   props: {
@@ -75,32 +72,6 @@ export default {
       } else {
         return "containerRowColumnsOnSmaller searchbarOnSmaller";
       }
-    },
-    activityListComplete() {
-      const options = {
-        minMatchCharLength: 2,
-        includeScore: true,
-        includeMatches: true,
-        threshold: 0.3
-        //keys: ["name"] // include synonyms in the future
-      };
-
-      //const fuse = new Fuse(this.fullActivityList, options); // uncomment when ready to search both name and synonyms
-      const fuse = new Fuse(this.activityList, options);
-      const result = fuse.search(this.searchTerm);
-
-      return result.map(result => result.item.name);
-    },
-    maxIndex() {
-      return Math.ceil(this.activityListComplete.length / this.perPage);
-    },
-    activityListDynamic() {
-      return this.activityListComplete;
-    }
-  },
-  watch: {
-    activityListComplete: function() {
-      this.dropdownIndex = 0;
     }
   },
   mounted() {

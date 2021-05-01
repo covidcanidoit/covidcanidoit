@@ -1,17 +1,6 @@
 <template>
   <div class="home">
-    <v-dialog persistent v-model="shouldForceRegionSelect" max-width="400">
-      <v-card class="modalRegionSelector">
-        <v-card-title class="headline">Select a region/state</v-card-title>
-        <v-card-text>
-          Different regions and states have different levels of disease control.
-          This impacts your risk.
-        </v-card-text>
-        <v-card-text>
-          <RegionSelector parent="modal" />
-        </v-card-text>
-      </v-card>
-    </v-dialog>
+    <RegionSelector :showWhen="shouldForceRegionSelect" />
 
     <div v-if="!shouldForceRegionSelect">
       <SearchResults
@@ -48,7 +37,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["activities", "currentCountry", "currentRegion", "regions"]),
+    ...mapGetters(["activities", "currentDataset", "currentRegion", "regions"]),
     activityList() {
       return Object.values(this.activities || {}).filter(
         activity => !activity.disabled
@@ -69,7 +58,10 @@ export default {
   },
   created() {
     if (this.slug) {
-      this.onSearch(this.activities[this.slug].name);
+      this.onSearch(
+        this.activities[this.slug].name[this.$i18n.locale] ||
+          this.activities[this.slug].name["en"]
+      );
     }
   },
   mounted() {
@@ -92,7 +84,11 @@ export default {
       for (let i = 0; i < this.activityList.length; i++) {
         const activity = this.activityList[i];
         if (!activity["name"]) continue;
-        if (activity["name"].toLowerCase() == searchValue.toLowerCase()) {
+        if (
+          (
+            activity["name"][this.$i18n.locale] || activity["name"]["en"]
+          ).toLowerCase() == searchValue.toLowerCase()
+        ) {
           this.result = activity;
           if (this.$route.params.slug != activity.slug) {
             this.$router.push({

@@ -49,7 +49,7 @@ import { mapGetters } from "vuex";
 export default {
   props: ["categoryName"],
   computed: {
-    ...mapGetters(["categories", "currentCountry"]),
+    ...mapGetters(["categories", "currentDataset"]),
     category() {
       return this.categories[this.categoryName];
     }
@@ -58,8 +58,8 @@ export default {
     saveField(name, event) {
       console.log("So... you want to save...", { name, event });
       console.log("New value", event.target.value);
-      db.ref("content")
-        .child(this.currentCountry)
+      db.ref("datasets")
+        .child(this.currentDataset)
         .child("categories")
         .child(this.categoryName)
         .child(name)

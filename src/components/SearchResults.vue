@@ -1,13 +1,12 @@
 <template>
   <div class="introduction" id="search-results">
     <div v-show="activity.name">
-      <RiskDescription :riskScore="riskScore" :activity="activity" />
+      <RiskDescription :activity="activity" />
 
       <v-container class="more-info">
         <v-row>
           <v-col
             cols="12"
-            md="6"
             order="last"
             order-md="first"
             class="otherRisksSeparator"
@@ -35,17 +34,6 @@
               </v-expansion-panel>
             </v-expansion-panels>
           </v-col>
-          <v-col cols="12" md="6" order="first" order-md="last">
-            <div class="things-to-consider">
-              <h5>Things to consider</h5>
-              <Markdown
-                class="risk-details"
-                :source="activity.additionalNotes"
-                v-if="activity.additionalNotes"
-              />
-              <Markdown class="risk-details" :source="risk.longDescription" />
-            </div>
-          </v-col>
         </v-row>
       </v-container>
     </div>
@@ -67,24 +55,7 @@ export default {
     return {};
   },
   computed: {
-    ...mapGetters(["riskFactors", "riskLevels", "currentRegion", "regions"]),
-    risk() {
-      return this.riskLevels[`riskLevel${this.riskScore}`];
-    },
-    riskScore() {
-      let score;
-      if (this.currentRegion !== "all") {
-        const scoreLookup = {
-          poor: this.activity.riskScore.poor,
-          caution: this.activity.riskScore.caution,
-          better: this.activity.riskScore.better
-        };
-        const regionLevel = this.regions[this.currentRegion].trending;
-
-        score = scoreLookup[regionLevel];
-      }
-      return score || this.activity.riskScore.poor || "5";
-    }
+    ...mapGetters(["riskFactors", "riskLevels", "currentRegion", "regions"])
   }
 };
 </script>

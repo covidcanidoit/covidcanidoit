@@ -13,7 +13,7 @@
             class="router"
             :to="{
               name: 'Home',
-              params: { country: currentCountry, region: currentRegion }
+              params: { dataset: currentDataset, region: currentRegion }
             }"
           >
             <v-icon>mdi-magnify</v-icon>
@@ -35,24 +35,26 @@
               </v-list-item>
             </v-list>
           </v-menu>
-          <v-menu>
+          <!--
+            <v-menu>
             <template v-slot:activator="{ on }">
-              <v-btn text v-on="on" aria-label="Select country">
-                <img :src="`${publicPath}images/flag/${currentCountry}.png`" />
-                {{ currentCountry }}
+              <v-btn text v-on="on" aria-label="Select dataset">
+                <img :src="`${publicPath}images/flag/${currentDataset}.png`" />
+                {{ currentDataset }}
               </v-btn>
             </template>
             <v-list>
               <v-list-item
-                v-for="country in countrySlugs"
-                :key="country"
-                @click="setCurrentCountry(country)"
+                v-for="dataset in datasetSlugs"
+                :key="dataset"
+                @click="setCurrentDataset(dataset)"
               >
-                <img :src="`${publicPath}images/flag/${country}.png`" />
-                {{ country }}
+                <img :src="`${publicPath}images/flag/${dataset}.png`" />
+                {{ dataset }}
               </v-list-item>
             </v-list>
           </v-menu>
+          -->
           <v-menu v-if="regionSlugs.length > 1">
             <template v-slot:activator="{ on }">
               <v-btn text v-on="on" aria-label="Select region">
@@ -76,7 +78,7 @@
               class="router"
               :to="{
                 name: 'Home',
-                params: { country: currentCountry, region: currentRegion }
+                params: { dataset: currentDataset, region: currentRegion }
               }"
             >
               {{ $t("home") }}
@@ -87,7 +89,7 @@
               class="router"
               :to="{
                 name: 'Browse',
-                params: { country: currentCountry, region: currentRegion }
+                params: { dataset: currentDataset, region: currentRegion }
               }"
             >
               {{ $t("activities") }}
@@ -106,7 +108,7 @@
               class="router"
               :to="{
                 name: 'About',
-                params: { country: currentCountry, region: currentRegion }
+                params: { dataset: currentDataset, region: currentRegion }
               }"
             >
               {{ $t("about") }}
@@ -122,7 +124,7 @@
           class="router mx-3"
           :to="{
             name: 'Home',
-            params: { country: currentCountry, region: currentRegion }
+            params: { dataset: currentDataset, region: currentRegion }
           }"
         >
           <SmallLogo style="height: 2em; width: auto" />
@@ -138,7 +140,7 @@
           class="router mx-3"
           :to="{
             name: 'Home',
-            params: { country: currentCountry, region: currentRegion }
+            params: { dataset: currentDataset, region: currentRegion }
           }"
         >
           {{ $t("home") }}
@@ -148,7 +150,7 @@
           :class="{ 'router-link-exact-active': isActivitiesLinkActive }"
           :to="{
             name: 'Browse',
-            params: { country: currentCountry, region: currentRegion }
+            params: { dataset: currentDataset, region: currentRegion }
           }"
         >
           {{ $t("activities") }}
@@ -161,7 +163,7 @@
           class="router mx-3"
           :to="{
             name: 'About',
-            params: { country: currentCountry, region: currentRegion }
+            params: { dataset: currentDataset, region: currentRegion }
           }"
         >
           {{ $t("about") }}
@@ -171,29 +173,31 @@
           exact-active-class="disable"
           :to="{
             name: 'Home',
-            params: { country: currentCountry, region: currentRegion }
+            params: { dataset: currentDataset, region: currentRegion }
           }"
         >
           <v-icon>mdi-magnify</v-icon>
         </router-link>
+        <!--
         <v-menu>
           <template v-slot:activator="{ on }">
-            <v-btn text v-on="on" aria-label="Select country">
-              <img :src="`${publicPath}images/flag/${currentCountry}.png`" />
-              {{ currentCountry }}
+            <v-btn text v-on="on" aria-label="Select dataset">
+              <img :src="`${publicPath}images/flag/${currentDataset}.png`" />
+              {{ currentDataset }}
             </v-btn>
           </template>
           <v-list>
             <v-list-item
-              v-for="country in countrySlugs"
-              :key="country"
-              @click="setCurrentCountry(country)"
+              v-for="dataset in datasetSlugs"
+              :key="dataset"
+              @click="setCurrentDataset(dataset)"
             >
-              <img :src="`${publicPath}images/flag/${country}.png`" />
-              {{ country }}
+              <img :src="`${publicPath}images/flag/${dataset}.png`" />
+              {{ dataset }}
             </v-list-item>
           </v-list>
         </v-menu>
+        -->
         <v-menu>
           <template v-slot:activator="{ on }">
             <v-btn text v-on="on" aria-label="Select locale">
@@ -212,19 +216,29 @@
         </v-menu>
         <v-menu v-if="Object.keys(regions).length > 1">
           <template v-slot:activator="{ on }">
-            <v-btn text v-on="on" aria-label="Select region">
+            <v-btn
+              text
+              v-on="on"
+              aria-label="Select region"
+              @click="clearRegion"
+            >
               {{ currentRegion }}
             </v-btn>
           </template>
-          <v-list>
+
+          <RegionSelector />
+
+          <!--
+            <v-list>
             <v-list-item
               v-for="region in Object.values(regions)"
               :key="region.slug"
               @click="setCurrentRegion(region.slug)"
             >
-              {{ region.longName }}
+              {{ region.slug }}
             </v-list-item>
           </v-list>
+          -->
         </v-menu>
       </div>
 
@@ -243,14 +257,16 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import Footer from "@/components/Footer.vue";
 import SmallLogo from "@/assets/ccidi-logo-small.svg";
+import RegionSelector from "@/components/RegionSelector.vue";
 
 export default {
   components: {
     SmallLogo,
-    Footer
+    Footer,
+    RegionSelector
   },
   data() {
     return {
@@ -260,9 +276,9 @@ export default {
   },
   computed: {
     ...mapGetters([
-      "countrySlugs",
+      "datasetSlugs",
       "activitySuggestions",
-      "currentCountry",
+      "currentDataset",
       "currentRegion",
       "regionSlugs",
       "regions",
@@ -286,23 +302,36 @@ export default {
     },
     localeList() {
       return ["en", "es"];
+    },
+    shouldForceRegionSelect() {
+      if (this.$store.state.regionlock.lock === true) {
+        return false;
+      } else {
+        return (
+          Object.keys(this.regions).length > 1 && this.currentRegion === "all"
+        );
+      }
     }
   },
   methods: {
+    ...mapActions(["setRegion"]),
     setLocale(locale) {
       this.$i18n.locale = locale;
     },
-    setCurrentCountry(country) {
-      this.$store.dispatch("changeCountry", country);
+    setCurrentDataset(dataset) {
+      this.$store.dispatch("changeDataset", dataset);
     },
     setCurrentRegion(regionSlug) {
       this.$store.dispatch("changeRegion", regionSlug);
+    },
+    clearRegion() {
+      this.setRegion("all");
     }
   },
   watch: {
-    currentCountry() {
+    currentDataset() {
       this.$router
-        .replace({ params: { country: this.currentCountry } })
+        .replace({ params: { dataset: this.currentDataset } })
         .catch(() => {});
     },
     $route: function() {

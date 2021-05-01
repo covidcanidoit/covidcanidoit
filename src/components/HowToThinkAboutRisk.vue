@@ -61,7 +61,7 @@
               class="router learnMore"
               :to="{
                 name: 'Infographic',
-                params: { country: currentCountry, region: currentRegion }
+                params: { dataset: currentDataset, region: currentRegion }
               }"
             >
               Learn More
@@ -98,7 +98,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["components", "currentCountry", "currentRegion"]),
+    ...mapGetters(["components", "currentDataset", "currentRegion"]),
     popupTitle() {
       if (this.component) {
         return this.components[this.component].title;
