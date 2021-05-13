@@ -3,7 +3,7 @@
     <h1>How to think about risk</h1>
     <h5>Click to learn more</h5>
     <v-container>
-      <v-layout>
+      <v-layout wrap>
         <v-flex
           cols="6"
           md="3"
@@ -167,6 +167,8 @@ export default {
   align-items: center;
   flex-direction: column;
   cursor: pointer;
+  margin: 0 0.25rem 1rem 0.25rem;
+  flex: 1;
 }
 .componentLabel {
   margin-top: 1em;
