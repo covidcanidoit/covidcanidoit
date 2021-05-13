@@ -124,6 +124,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.howToThinkAboutRisk {
+  h1,
+  .h1 {
+    @media screen and (max-width: 500px) {
+      font-size: 1.5rem;
+    }
+  }
+}
 .learnMoreContainer {
   display: flex;
   flex-direction: column;
