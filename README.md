@@ -1,5 +1,10 @@
 # COVID Can I Do It?
 
+> [!CAUTION] 
+> This project is no longer active or maintained! It is here for reference only!
+> 
+> Go get a vaccine!!!!
+
 This project is for helping folks learn about the risks created by various
 activities in the context of the COVID-19 pandemic.
 
